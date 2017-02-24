@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +11,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit() {
+  }
+
+  onSubmit(f: NgForm) {
+    this.loginService.login(f.value.email, f.value.email).subscribe((result) => {
+      if (result) {
+        this.router.navigate(['']);
+      }
+    });
   }
 
 }

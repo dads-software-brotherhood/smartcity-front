@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -15,19 +15,10 @@ import { RestorePasswordComponent } from './components/restore-password/restore-
 import { PruebaComponent } from './components/prueba/prueba.component';
 import { SignupComponent } from './components/signup/signup.component';
 
-const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'login',      component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'forgotPassword',      component: ForgotPasswordComponent },
-  { path: 'restorePassword', component: RestorePasswordComponent },
-  { path: 'prueba',      component: PruebaComponent },
-  { path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
-  { path: '**', component: PageNotFoundComponent }
-];
+import { LoginService } from './services/login/login.service';
+import { LoggedInGuard } from './services/login/logged-in.guard';
+
+import { appRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -44,10 +35,14 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    JsonpModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    LoginService,
+    LoggedInGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
