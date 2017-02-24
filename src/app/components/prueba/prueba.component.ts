@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+declare var $:any;
+
 @Component({
   selector: 'app-prueba',
   templateUrl: './prueba.component.html',
@@ -12,6 +14,7 @@ export class PruebaComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log($);
   }
 
 }
