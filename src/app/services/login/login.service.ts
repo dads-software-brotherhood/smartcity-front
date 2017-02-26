@@ -1,41 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 
-//import { Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-class Role {
-  id: string;
-  name: string;
-}
-
-class Domain {
-  id: string;
-  name: string;
-}
-
-class User {
-  id: string;
-  name: string;
-  domain: Domain;
-}
-
-class UserToken {
-  user : User;
-  auditIds: string;
-  issuedAt: string;
-  expiresAt: string;
-  roles: Array<Role>;
-}
+export const tokenName : string = 'x-subject-token';
+const tokenInfoName : string = 'token-info';
 
 @Injectable()
 export class LoginService {
 
-  private loggedIn : boolean = false;
-
   constructor(private http: Http) {
-    this.loggedIn = !!localStorage.getItem('auth_token');
   }
 
   login(email: string, password: string) {
@@ -60,33 +35,42 @@ export class LoginService {
 
     return this.http
       .post(
-        'http://192.168.56.11/v3/token',
+        'http://192.168.56.11:5000/v3/auth/tokens',
         JSON.stringify(query),
         { headers }
       )
-      .map(res => res.json())
-      .map((res) => {
-        if (res.success) {
-          localStorage.setItem('auth_token', res.auth_token);
-          this.loggedIn = true;
+      .map((res: Response) => {
+        let responseHeaders = res.headers;
+        let body = res.json();
+        let token = responseHeaders.get(tokenName);
+
+        if (token) {
+          localStorage.setItem(tokenName, token);
+          localStorage.setItem(tokenInfoName, JSON.stringify(body));
+        } else {
+          this.logout();
         }
 
-        return res.success;
+        return body;
       })
-      .catch(this.handleError);
-  }
-
-  private handleError (error: Response | any) {
-    console.log('Error at connect');
-    return null;
+      .catch((error: Response | any) => {
+        this.logout();
+        return error;
+    });
   }
 
   logout() {
-    localStorage.removeItem('auth_token');
-    this.loggedIn = false;
+    localStorage.removeItem(tokenName);
+    localStorage.removeItem(tokenInfoName);
   }
 
   isLoggedIn() {
-    return this.loggedIn;
+    let toeknInfo = JSON.parse(localStorage.getItem(tokenInfoName));
+
+    console.log(toeknInfo);
+
+    //TODO: Revisar el token
+
+    return !!localStorage.getItem(tokenName);
   }
 }
