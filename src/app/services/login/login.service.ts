@@ -62,6 +62,8 @@ export class LoginService {
   logout() {
     localStorage.removeItem(tokenName);
     localStorage.removeItem(tokenInfoName);
+
+    //TODO: Eliminar el token del servidor IDM
   }
 
   isLoggedIn() {

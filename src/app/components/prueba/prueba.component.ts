@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+import { LoginService } from '../../services/login/login.service';
+
 declare var $:any;
 
 @Component({
@@ -12,7 +14,7 @@ export class PruebaComponent implements OnInit {
 
   model = 1;
 
-  constructor() { }
+  constructor(private loginService: LoginService ) { }
 
   ngOnInit() {
     console.log($);
@@ -21,5 +23,9 @@ export class PruebaComponent implements OnInit {
   onSubmit(f: NgForm) {
     console.log(f.value);  // { first: '', last: '' }
     console.log(f.valid);  // false
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 }

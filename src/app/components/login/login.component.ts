@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   onSubmit(f: NgForm) {
     this.loginService.login(f.value.email, f.value.email).subscribe((result) => {
       if (result) {
-        this.router.navigate(['']);
+        this.router.navigate(['prueba']);
       }
     });
   }
