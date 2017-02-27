@@ -17,7 +17,7 @@ export class LoginService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    let query = {
+    const query = {
       "auth": {
         "identity": {
           "methods": ["password"],
@@ -54,8 +54,10 @@ export class LoginService {
         return body;
       })
       .catch((error: Response | any) => {
+        console.log('Error at login');
+        console.log(error);
         this.logout();
-        return error;
+        return [{"code": "503"}];
     });
   }
 

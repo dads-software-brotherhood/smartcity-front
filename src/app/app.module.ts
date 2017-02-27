@@ -33,7 +33,7 @@ import { MainMenuComponent } from './template/main-menu/main-menu.component';
     RestorePasswordComponent,
     SignupComponent,
     TopMenuComponent,
-    MainMenuComponent,
+    MainMenuComponent
   ],
   imports: [
     BrowserModule,
