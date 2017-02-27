@@ -1,0 +1,9 @@
+{
+  "/keyrock/*": {
+  "target": "http://192.168.56.11:5000",
+  "secure": false,
+  "changeOrigin": true,
+  "logLevel": "debug",
+  "pathRewrite": {"^/keyrock" : ""}
+  }
+}

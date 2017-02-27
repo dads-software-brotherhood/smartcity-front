@@ -35,7 +35,7 @@ export class LoginService {
 
     return this.http
       .post(
-        'http://192.168.56.11:5000/v3/auth/tokens',
+        '/keyrock/v3/auth/tokens',
         JSON.stringify(query),
         { headers }
       )
@@ -67,8 +67,9 @@ export class LoginService {
   isLoggedIn() {
     let toeknInfo = JSON.parse(localStorage.getItem(tokenInfoName));
 
-    console.log(toeknInfo);
-
+    if (toeknInfo) {
+      console.log(toeknInfo);
+    }
     //TODO: Revisar el token
 
     return !!localStorage.getItem(tokenName);
