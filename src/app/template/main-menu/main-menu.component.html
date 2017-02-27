@@ -1,0 +1,51 @@
+<button class="btn btn-default" id="toggle-sidebar" type="button" (click)="eventCalled()">
+    &#9776;
+</button>
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+
+    <ul class="list-group userMainMenu">
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('sMenu1')">
+                <span><i class="fa fa-user" aria-hidden="true"></i> infotec <span class="fa fa-chevron-down pull-right"></span></span>
+            </a>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'sMenu1' }">
+                <ul class="submenu">
+                    <li>
+                        <a href><span>Profile</span></a>
+                    </li>
+                    <li>
+                        <a href><span>Log Out</span></a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <a routerLink="/home" routerLinkActive="active" class="list-group-item">
+          <i class="fa fa-bell" aria-hidden="true"></i> Alert
+        </a>
+
+    </ul>
+    <ul class="list-group">
+
+        <a routerLink="/home" routerLinkActive="active" class="list-group-item">
+          <i class="fa fa-home" aria-hidden="true"></i> Home
+        </a>
+
+        <a routerLink="/login" routerLinkActive="active" class="list-group-item">
+          <i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+
+        <a routerLink="/singup" routerLinkActive="active" class="list-group-item">
+          <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Singup</a>
+
+        <a routerLink="/forgotPassword" routerLinkActive="active" class="list-group-item">
+          <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Forgot password</a>
+
+        <a routerLink="/restorePassword" routerLinkActive="active" class="list-group-item">
+          <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Restore password</a>
+
+        <a routerLink="/prueba" routerLinkActive="active" class="list-group-item">
+          <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Prueba</a>
+
+        
+    </ul>
+</nav>
