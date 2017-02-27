@@ -14,11 +14,13 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
 import { PruebaComponent } from './components/prueba/prueba.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { TopMenuComponent } from './template/top-menu/top-menu.component';
 
 import { LoginService } from './services/login/login.service';
 import { LoggedInGuard } from './services/login/logged-in.guard';
 
 import { appRoutes } from './app.routes';
+import { MainMenuComponent } from './template/main-menu/main-menu.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { appRoutes } from './app.routes';
     ForgotPasswordComponent,
     RestorePasswordComponent,
     SignupComponent,
+    TopMenuComponent,
+    MainMenuComponent,
   ],
   imports: [
     BrowserModule,
