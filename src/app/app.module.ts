@@ -27,14 +27,12 @@ import { LoggedInGuard } from './services/login/logged-in.guard';
 
 // Rutas
 import { appRoutes } from './app.routes';
-import { FooterComponent } from './template/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PruebaComponent,
-    PageNotFoundComponent,
-    FooterComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
