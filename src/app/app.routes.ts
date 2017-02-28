@@ -2,14 +2,12 @@ import { Routes } from '@angular/router';
 
 import { PageNotFoundComponent } from './template/page-not-found/page-not-found.component';
 
-import { PruebaComponent } from './components/prueba/prueba.component';
-import { SignupComponent } from './components/signup/signup.component';
-
 // From modules
 import { LoginRoutes } from './modules/login/index';
 import { SignupRoutes } from './modules/signup/index';
 import { ForgotPasswordRoutes } from './modules/forgot-password/index';
 import { RestorePasswordRoutes } from './modules/restore-password/index';
+import { SmartCitiesRoutes } from './modules/smart-cities/index';
 import { DashRoutes } from './modules/dash/index';
 
 // Security
@@ -21,8 +19,9 @@ export const appRoutes: Routes = [
   ... SignupRoutes,
   ... ForgotPasswordRoutes,
   ... RestorePasswordRoutes,
+  ... SmartCitiesRoutes,
   ... DashRoutes,
-  { path: 'prueba', component: PruebaComponent, canActivate: [LoggedInGuard]},
+//  { path: 'prueba', component: PruebaComponent, canActivate: [LoggedInGuard]},
   { path: '',
     redirectTo: '/login',
     pathMatch: 'full'

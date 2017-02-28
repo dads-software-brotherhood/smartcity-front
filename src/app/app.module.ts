@@ -13,13 +13,13 @@ import { LoginModule } from './modules/login/login.module';
 import { SignupModule } from './modules/signup/signup.module';
 import { ForgotPasswordModule } from './modules/forgot-password/forgot-password.module';
 import { RestorePasswordModule } from './modules/restore-password/restore-password.module';
+import { SmartCitiesModule } from './modules/smart-cities/smart-cities.module';
 
 import { DashModule } from './modules/dash/dash.module'; // Se va a borrar
 
 // Componentes de la aplicación
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
-import { PruebaComponent } from './components/prueba/prueba.component';
 
 // Servicios de la aplicación
 import { LoginService } from './services/login/login.service';
@@ -31,7 +31,6 @@ import { appRoutes } from './app.routes';
 @NgModule({
   declarations: [
     AppComponent,
-    PruebaComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -45,6 +44,7 @@ import { appRoutes } from './app.routes';
     SignupModule,
     ForgotPasswordModule,
     RestorePasswordModule,
+    SmartCitiesModule,
     DashModule
   ],
   providers: [
