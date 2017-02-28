@@ -6,11 +6,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './template/page-not-found/page-not-found.component';
 
 // Módulos de la aplicación
 import { LoginModule } from './modules/login/login.module';
 import { SignupModule } from './modules/signup/signup.module';
+import { ForgotPasswordModule } from './modules/forgot-password/forgot-password.module';
+import { RestorePasswordModule } from './modules/restore-password/restore-password.module';
 
 import { DashModule } from './modules/dash/dash.module'; //Se va a borrar
 
@@ -30,9 +32,7 @@ import { appRoutes } from './app.routes';
   declarations: [
     AppComponent,
     PruebaComponent,
-    PageNotFoundComponent,
-    ForgotPasswordComponent,
-    RestorePasswordComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +43,8 @@ import { appRoutes } from './app.routes';
     RouterModule.forRoot(appRoutes),
     LoginModule,
     SignupModule,
+    ForgotPasswordModule,
+    RestorePasswordModule,
     DashModule
   ],
   providers: [
