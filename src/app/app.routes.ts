@@ -2,24 +2,29 @@ import { Routes } from '@angular/router';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
 import { PruebaComponent } from './components/prueba/prueba.component';
 import { SignupComponent } from './components/signup/signup.component';
 
+// From modules
+import { LoginRoutes } from './modules/login/index';
+import { SignupRoutes } from './modules/signup/index';
+import { DashRoutes } from './modules/dash/index';
+
+// Security
 import { LoggedInGuard } from './services/login/logged-in.guard';
 
+
 export const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent},
-  { path: 'login',      component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'forgotPassword',      component: ForgotPasswordComponent },
+  ... LoginRoutes,
+  ... SignupRoutes,
+  ... DashRoutes,
+  { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'restorePassword', component: RestorePasswordComponent },
-  { path: 'prueba',      component: PruebaComponent, canActivate: [LoggedInGuard]},
+  { path: 'prueba', component: PruebaComponent, canActivate: [LoggedInGuard]},
   { path: '',
-    redirectTo: '/home',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   { path: '**', component: PageNotFoundComponent }
