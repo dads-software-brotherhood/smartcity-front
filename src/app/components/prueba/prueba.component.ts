@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { LoginService } from '../../services/login/login.service';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-prueba',
