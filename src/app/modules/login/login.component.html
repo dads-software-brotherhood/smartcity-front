@@ -1,11 +1,46 @@
-<h2>Login</h2>
+<div class="login-page">
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-4">
+			<div class="row">
+				<div class="col-md-12">
+					<h1> SIGN IN </h1>
+				</div>
+			</div>
+			<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="col-lg-12">
+							<h2 class="text-center">Smart Cities</h2>
+							<div class="form-content">
+								<div class="form-group">
+									<label class="sr-only" for="inlineFormInputGroup">Useemailname</label>
+									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										<div class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></div>
+                    <input name="email" ngModel class="form-control" placeholder="email">
+									</div>
+								</div>
 
-<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-  <label for="email">Email</label>
-  <input name="email" ngModel>
-
-  <label for="password">Email</label>
-  <input name="password" ngModel>
-
-  <button>Submit</button>
-</form>
+								<div class="form-group">
+									<label class="sr-only" for="inlineFormInputGroup">Password</label>
+									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										<div class="input-group-addon"><i class="fa fa-fw fa-lock"></i></div>
+                    <input name="password" ngModel class="form-control" placeholder="Password">
+									</div>
+								</div>
+								<div class="form-group">
+									<a class="btn btn-smart btn-block" routerLink="/dash"> sing in </a>				
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<a type="submit" class="btn btn-link" routerLink="/forgot-password">Forgot password?</a>
+						</div>
+						<div class="col-md-6">
+							<a type="submit" class="btn btn-link" routerLink="/signup">Sign Up Here</a>
+						</div>
+					</div>
+				</div>
+			</form>				
+		</div>	
+	</div>
+</div>  

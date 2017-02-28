@@ -7,6 +7,7 @@ import { MainMenuComponent } from '../../template/main-menu/main-menu.component'
 
 import { DashComponent } from './dash.component';
 
+import { FooterComponent } from '../../template/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { DashComponent } from './dash.component';
   declarations: [
     TopMenuComponent,
     MainMenuComponent,
-    DashComponent
+    DashComponent,
+    FooterComponent
   ],
   exports: [
     DashComponent
