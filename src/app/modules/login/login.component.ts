@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
         console.log(result);
 
         if (this.loginService.isLoggedIn()) {
-          this.router.navigate(['prueba']);
+          this.router.navigate(['smart-cities']);
         }
       }
     });
