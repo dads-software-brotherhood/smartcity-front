@@ -5,11 +5,15 @@ import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login.component';
 
+// Elementos del template
+import { TemplateModule } from '../../template/template.module';
+
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    TemplateModule
   ],
   declarations: [LoginComponent],
   exports: [LoginComponent]
