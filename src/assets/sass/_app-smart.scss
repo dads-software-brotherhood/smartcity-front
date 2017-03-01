@@ -462,6 +462,12 @@ a:hover{
 .head-btn{
     width: 12%;
 }
+.form-group{
+    .alert{
+        padding: 5px !important;
+        margin: 10px 0 !important;
+    }
+}
 footer{
     border-top: solid 2px $brand-sidebar;
     padding-top: 20px;
