@@ -16,6 +16,7 @@ import { TemplateModule } from '../../template/template.module';
 
 // Submodulos
 import { UserAccountModule } from './modules/user-account/user-account.module';
+import { NotificationTrayModule } from './modules/notification-tray/notification-tray.module';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { UserAccountModule } from './modules/user-account/user-account.module';
     NgbModule.forRoot(),
     FormsModule, // Eliminar cuando ya no se tenga el componente de prueba
     UserAccountModule,
+    NotificationTrayModule,
     TemplateModule
   ],
   declarations: [
