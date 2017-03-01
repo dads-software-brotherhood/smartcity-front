@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { SmartCitiesComponent } from './index';
-import { UserAccountRoutes } from './modules/user-account/index'
+import { UserAccountRoutes } from './modules/user-account/index';
 
 import { PruebaComponent } from './components/prueba/prueba.component';
 import { TelefonoComponent } from './components/telefono/telefono.component';

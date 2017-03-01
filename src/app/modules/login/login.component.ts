@@ -12,7 +12,7 @@ import { LoginService } from '../../services/login/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  complexForm : FormGroup;
+  complexForm: FormGroup;
 
   loginError = false;
 
