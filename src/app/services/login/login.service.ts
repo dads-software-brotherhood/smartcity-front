@@ -54,8 +54,8 @@ export class LoginService {
       return body;
     })
     .catch((error: Response | any) => {
-      console.log('Error at login');
-      console.log(error);
+      // console.log('Error at login');
+      // console.log(error);
       this.logout();
       return [{'code': '503'}];
     });
@@ -71,9 +71,9 @@ export class LoginService {
   isLoggedIn() {
     const toeknInfo = JSON.parse(localStorage.getItem(tokenInfoName));
 
-    if (toeknInfo) {
-      console.log(toeknInfo);
-    }
+    // if (toeknInfo) {
+    //   console.log(toeknInfo);
+    // }
     // TODO: Revisar el token
 
     return !!localStorage.getItem(tokenName);
