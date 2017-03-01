@@ -1,3 +1,151 @@
-<p>
-  profile works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <h4>User Data</h4>
+    <hr class="subTitle-hr">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="inlineFormInputGroup">Name</label>
+          <input type="text" ng-model="name" class="form-control" id="" placeholder="Name">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="inlineFormInputGroup">Family Name</label>
+          <input type="text" ng-model="famyiName" class="form-control" id="" placeholder="Family Name">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="inlineFormInputGroup">Birth Date</label>
+          <input class="form-control" ng-model="name" type="date" id="">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group radioCustom">
+          <label for="inlineFormInputGroup">Gender</label>
+            <label class="radio-inline">
+              <input type="radio" name="genderOptions" id="" value=""> M
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="genderOptions" id="" value=""> F
+            </label>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+        <div class="col-md-12">     
+          <h4>Home/Work  Address </h4>
+          <hr class="subTitle-hr">
+          <div class="row">
+            <div class="col-md-6 col-lg-3">
+              <div class="form-group">                     
+                <label>Country</label>
+                <select class="form-control">
+                  <option>selected</option>
+                  <option></option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="form-group">
+                <label for="inlineFormInputGroup">Region</label>
+                <select class="form-control">
+                  <option>selected</option>
+                  <option></option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+            </div>                   
+            <div class="col-md-6 col-lg-3">
+              <div class="form-group">
+                <label for="inlineFormInputGroup">Location</label>
+                <select class="form-control">
+                  <option>selected</option>
+                  <option></option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+            </div>                   
+            <div class="col-md-6 col-lg-3">
+              <div class="form-group">
+                <label for="inlineFormInputGroup">Postal Code</label>
+                <input class="form-control" ng-model="postalCode" type="text" id="" placeholder="Postal Code">
+              </div>
+            </div>                   
+            <div class="col-md-12 col-lg-6">
+              <div class="form-group">
+                <label for="inlineFormInputGroup">Street</label>
+                <input class="form-control" ng-model="street" type="text" id="" placeholder="Street">
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="form-group radioCustom">
+                <label for="inlineFormInputGroup">Type</label>
+                  <label class="radio-inline">
+                    <input type="radio" name="tyoeOptions" id="" value=""> Home
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="tyoeOptions" id="" value=""> Work
+                  </label>
+              </div>
+            </div>                   
+            <div class="col-md-6 col-lg-3">
+              <div class="form-group">
+                <span class="labelHidden"></span>
+                <a class="btn btn-smart btn-block" routerLink="/dashboard/home"> Add </a>				
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="thead-default">
+                    <tr>
+                      <th>Address</th>
+                      <th class="head-btn"></th>
+                      <th class="head-btn"></th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <a class="btn btn-smart" routerLink="/dashboard/home" placement="top" ngbTooltip="Edit"> 
+                          <i class="fa fa-pencil" aria-hidden="true"></i> 
+                        </a>
+                      </td>
+                      <td>
+                        <a class="btn btn-danger" routerLink="/dashboard/home" placement="top" ngbTooltip="Delete"> 
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-lg-3 col-lg-offset-6">
+              <a type="submit" class="btn btn-danger btn-block" routerLink="/"> cancel </a>&nbsp;
+            </div>
+            <div class="col-lg-3">
+              <a type="submit" class="btn btn-smart btn-block" routerLink="/"> save </a>
+            </div>
+          </div>
+
+          </div>
+        </div>
+
+  </div>
+</div>
+
+

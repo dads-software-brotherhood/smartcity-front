@@ -4,10 +4,14 @@ import { RouterModule } from '@angular/router';
 
 import { RestorePasswordComponent } from './restore-password.component';
 
+// Elementos del template
+import { TemplateModule } from '../../template/template.module';
+
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    TemplateModule
   ],
   declarations: [RestorePasswordComponent],
   exports: [RestorePasswordComponent]

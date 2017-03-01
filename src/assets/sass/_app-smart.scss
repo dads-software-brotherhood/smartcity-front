@@ -443,7 +443,6 @@ a:hover{
     }
     .radio-inline{
         display: inline-block !important;
-        padding: 8px 24px;
     }
 }
 .labelCustomMoreInput, .formGroupCustomMoreInput{
@@ -453,8 +452,18 @@ a:hover{
     display: block;
     height: 34px;
 }
+.title-hr, .subTitle-hr{
+    margin-top: 0px; 
+    margin-bottom: 40px;
+}
+.subTitle-hr{
+     border-top: $hr-border-width solid $brand-sidebar;
+}
+.head-btn{
+    width: 12%;
+}
 footer{
-    border-top: solid 2px #040e2a;
+    border-top: solid 2px $brand-sidebar;
     padding-top: 20px;
     margin-top: 50px;
     img{
@@ -470,8 +479,17 @@ footer{
         display: none;
     }
 }
-@include media-breakpoint-down(xs) {
+@include media-breakpoint-down(sm) {
     .hidden-sm{
         display: block !important;
     }
+}
+.footerLogin{
+    footer{
+        border-top: solid 2px #d8d8d8 !important; 
+    }
+    .europe-text{
+        text-align: left !important;
+    }
+
 }

@@ -122,7 +122,7 @@
 .thead-inverse {
   th {
     color: #fff;
-    background-color: $gray-dark;
+    background-color: $brand-sidebar !important;
   }
 }
 .thead-default {
@@ -134,7 +134,7 @@
 
 .table-inverse {
   color: $gray-lighter;
-  background-color: $gray-dark;
+  background-color: $brand-sidebar !important;
 
   &.table-bordered {
     border: 0;
