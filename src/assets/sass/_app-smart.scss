@@ -453,3 +453,25 @@ a:hover{
     display: block;
     height: 34px;
 }
+footer{
+    border-top: solid 2px #040e2a;
+    padding-top: 20px;
+    margin-top: 50px;
+    img{
+        padding: 5px;
+        margin: 10px;
+        max-height: 60px;
+    }
+    .europe-text{
+        font-size: 10px;
+        padding: 15px;
+    }
+    .hidden-sm{
+        display: none;
+    }
+}
+@include media-breakpoint-down(xs) {
+    .hidden-sm{
+        display: block !important;
+    }
+}
