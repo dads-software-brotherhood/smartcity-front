@@ -361,6 +361,35 @@ a:hover{
         }
     }
 }
+@include media-breakpoint-down(sm) {
+    .login-page {
+        padding: 2em 1em;
+    }
+}
+@include media-breakpoint-down(xs) {
+    .login-page {
+        padding: 2em .5em;
+        .panel{
+            padding: 25px 5px;
+        }
+    }
+}
+.page-no-found {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    background-image: url('../img/bg_404.png');
+    text-align: center;
+    color: #fff;
+    padding: 3em;
+    border-top: 1px solid #002d67;
+    img{
+        max-height: 400px;
+    }
+}
 .nested-menu {
     .list-group-item {
         cursor: pointer;
