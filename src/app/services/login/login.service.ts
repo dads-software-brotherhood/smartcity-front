@@ -16,7 +16,6 @@ export class LoginService {
   login(email: string, password: string) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('Access-Control-Allow-Origin', '*');
 
     const query = {
       'auth': {
