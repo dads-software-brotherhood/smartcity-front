@@ -12,6 +12,12 @@ import { SmartCitiesComponent } from './smart-cities.component';
 import { PruebaComponent } from './components/prueba/prueba.component';
 import { TelefonoComponent } from './components/telefono/telefono.component';
 
+
+import { TopMenuComponent } from '../../template/top-menu/top-menu.component';
+import { MainMenuComponent } from '../../template/main-menu/main-menu.component';
+import { FooterComponent } from '../../template/footer/footer.component';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -21,6 +27,9 @@ import { TelefonoComponent } from './components/telefono/telefono.component';
     UserAccountModule
   ],
   declarations: [
+    TopMenuComponent,
+    MainMenuComponent,
+    FooterComponent,
     SmartCitiesComponent,
     PruebaComponent, // Se va a borrar
     TelefonoComponent // Se va a borrar
