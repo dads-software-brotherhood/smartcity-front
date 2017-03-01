@@ -17,10 +17,6 @@ import { SmartCitiesModule } from './modules/smart-cities/smart-cities.module';
 
 import { DashModule } from './modules/dash/dash.module'; // Se va a borrar
 
-// Componentes de la aplicación
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
-
 // Servicios de la aplicación
 import { LoginService } from './services/login/login.service';
 import { LoggedInGuard } from './services/login/logged-in.guard';
