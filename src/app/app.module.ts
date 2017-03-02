@@ -24,11 +24,13 @@ import { LoggedInGuard } from './services/login/logged-in.guard';
 
 // Rutas
 import { appRoutes } from './app.routes';
+import { EqualValidator } from './directives/equal-validator.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    EqualValidator
   ],
   imports: [
     BrowserModule,
