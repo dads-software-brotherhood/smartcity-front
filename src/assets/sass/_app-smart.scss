@@ -396,13 +396,12 @@ a:hover{
     }
     .nested {
         list-style-type: none;
-        -webkit-transition: all 0.2s ease-in-out;
-        -moz-transition: all 0.2s ease-in-out;
-        -ms-transition: all 0.2s ease-in-out;
-        -o-transition: all 0.2s ease-in-out;
-            transition: all 0.2s ease-in-out;
     }
     ul.submenu {
+        height: 0;
+        display: none;
+    }
+    ul.submenu1 {
         height: 0;
         display: none;
     }
@@ -411,6 +410,7 @@ a:hover{
             list-style-type: none;
             height: auto;
             display: block;
+            border-left: 2px solid #00d3de;
             li {
                 a {
                     color: #FFF;
@@ -419,6 +419,17 @@ a:hover{
                 }
             }
         }
+    }
+    & .expand1 {
+        ul.submenu1 {
+            list-style-type: none;
+            display: block;
+            height: auto;
+            margin-left: -40px; 
+        }
+    }
+    .lgiCustom{
+        padding: 10px 20px 10px 10px;
     }
 }
 
@@ -533,3 +544,27 @@ footer{
     }
 
 }
+.dropdown-submenu{position:relative;}
+.dropdown-submenu>.dropdown-menu{
+    top:0 !important;
+    right:100% !important;
+    margin-top: -5px;
+    margin-left:-1px;
+    -webkit-border-radius:6px 0px 6px 6px;
+    -moz-border-radius:6px 0px 6px 6px;
+    border-radius:6px 0px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu{display:block;}
+.dropup .dropdown-submenu>.dropdown-menu{top:auto;bottom:0;margin-top:0;margin-bottom:-2px;-webkit-border-radius:5px 5px 5px 0;-moz-border-radius:5px 5px 5px 0;border-radius:5px 5px 5px 0;}
+.dropdown-submenu>a:after{
+    display:block;
+    content:" ";
+    float:right;
+    width:0;
+    height:0;
+    border-color:transparent;
+    border-style:solid;
+    border-width:5px 0 5px 5px;
+    border-left-color: $brand-sidebar;
+    margin-top:7px;
+    margin-right:-10px;}
