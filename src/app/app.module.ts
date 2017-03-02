@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './template/page-not-found/page-not-found.component';
@@ -44,6 +45,7 @@ import { appRoutes } from './app.routes';
     DashModule
   ],
   providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     LoginService,
     LoggedInGuard
   ],
