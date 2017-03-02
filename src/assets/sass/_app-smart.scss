@@ -497,6 +497,11 @@ a:hover{
         margin: 10px 0 !important;
     }
 }
+.iBlock{
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+}
 footer{
     border-top: solid 2px $brand-sidebar;
     padding-top: 20px;
