@@ -16,7 +16,7 @@ export const SmartCitiesRoutes: Routes = [
     component: SmartCitiesComponent,
     canActivate: [ LoggedInGuard ],
     children: [
-      { path: 'prueba', component: PruebaComponent,  canActivate: [ LoggedInGuard ]},
+      { path: 'prueba', component: PruebaComponent, canActivate: [ LoggedInGuard ]},
       { path: 'telefono', component: TelefonoComponent, canActivate: [ LoggedInGuard ]},
       { path: '', component: HomeSmartCitiesComponent, canActivate: [ LoggedInGuard ]},
       ... UserAccountRoutes,
