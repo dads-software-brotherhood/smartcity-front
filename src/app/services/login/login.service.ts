@@ -56,8 +56,8 @@ export class LoginService {
       return body;
     })
     .catch((error: Response | any) => {
-      // console.log('Error at login');
-      // console.log(error);
+       console.log('Error at login');
+       console.log(error);
       this.logout();
       return [{'code': '503'}];
     });
