@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { LoginService } from '../../services/login/login.service';
+
 @Component({
   selector: 'app-main-menu',
   templateUrl: './main-menu.component.html',
@@ -10,9 +12,7 @@ export class MainMenuComponent implements OnInit {
   isActive = false;
   showMenu = '';
 
-  constructor() {
-
-  }
+  constructor(private loginService: LoginService) { }
 
   eventCalled() {
     this.isActive = !this.isActive;
@@ -26,8 +26,10 @@ export class MainMenuComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit() { }
 
+  logout() {
+    this.loginService.logout();
   }
 
 }
