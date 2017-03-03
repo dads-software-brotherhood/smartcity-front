@@ -387,7 +387,32 @@ a:hover{
     padding: 3em;
     border-top: 1px solid #002d67;
     img{
-        max-height: 400px;
+        max-height: 150px;
+        margin-top: 10%;
+    }
+    h2{
+        font-size: 3.5rem;
+        font-weight: bold;
+        margin-top: 25px;
+    }
+    h3{
+        color: #474747;
+    }
+    .back-btn{
+        color: #fff;
+        border: 1px solid #fff;
+        padding: 15px 30px;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 20px;
+        margin-top: 50px;
+        &:hover{
+            background: #fff;
+            color: $brand-bluelight;
+            border-color: #fff;
+        }
     }
 }
 .nested-menu {
@@ -568,3 +593,21 @@ footer{
     border-left-color: $brand-sidebar;
     margin-top:7px;
     margin-right:-10px;}
+
+.list-group-item .label-pill {
+    right: 16px !important;
+    top: 16px !important;
+    padding: 2px 5px !important;
+}
+.info-number .label-pill, .list-group-item .label-pill {
+    background: #ff6c60;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 13px;
+    padding: 1px 3px;
+    position: absolute;
+    right: 12px;
+    top: 5px;
+}
