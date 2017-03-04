@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LoginService } from '../../services/login/login.service';
+import { LoginService, UserInfo } from '../../services/login/login.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -11,6 +11,8 @@ export class MainMenuComponent implements OnInit {
 
   isActive = false;
   showMenu = '';
+
+  userInfo: UserInfo;
 
   constructor(private loginService: LoginService) { }
 
@@ -26,7 +28,9 @@ export class MainMenuComponent implements OnInit {
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.userInfo = this.loginService.getUserInfo();
+  }
 
   logout() {
     this.loginService.logout();

@@ -6,7 +6,7 @@
     <ul class="list-group userMainMenu">
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('sMenu1')">
-                <span class="iBlock"><i class="fa fa-user" aria-hidden="true"></i></span> infotec <span class="fa fa-chevron-down pull-right"></span>
+                <span class="iBlock"><i class="fa fa-user" aria-hidden="true"></i></span> {{ userInfo.name }} {{ userInfo.familyName }} <span class="fa fa-chevron-down pull-right"></span>
             </a>
             <li class="nested" [ngClass]="{'expand' : showMenu === 'sMenu1' }">
                 <ul class="submenu">
