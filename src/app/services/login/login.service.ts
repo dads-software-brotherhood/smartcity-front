@@ -9,49 +9,88 @@ import 'rxjs/add/operator/map';
 export const tokenName = 'x-subject-token';
 const tokenInfoName = 'token-info';
 
-@Injectable()
-export class LoginService {
+export class Address {
+  country_id: number;
+  region_id: number;
+  location_id: number;
+  postcode: string;
+  street: string;
+  typeAddress: number;
+}
 
-  constructor(private http: Http) {
+export class UserInfo {
+  usr: string;
+
+  name: string;
+  familyName: string;
+
+  birthDate: string;
+  gender: number;
+  email: string;
+
+  addresses: Array<Address>;
+}
+
+const user1 = 'karen.najera';
+const user2 = 'blanca.vazquez';
+const user3 = 'hugo.estrada';
+
+const users: UserInfo[] = [
+  {
+    'usr': user1,
+    'name': 'Karen',
+    'familyName': 'Najera',
+    'birthDate': '1990-01-01',
+    'gender': 2,
+    'email': 'karen.najera@infotec.mx',
+    'addresses': [
+      {
+        'country_id': 1,
+        'region_id': 1,
+        'location_id': 1,
+        'postcode': '12345',
+        'street': 'Insurgentes 223',
+        'typeAddress': 1
+      }
+    ]
+  },
+  {
+    'usr': user2,
+    'name': 'Blanca',
+    'familyName': 'Vazquez',
+    'birthDate': '1990-01-01',
+    'gender': 2,
+    'email': 'blanca.vazquez@infotec.mx',
+    'addresses': [
+      {
+        'country_id': 1,
+        'region_id': 1,
+        'location_id': 2,
+        'postcode': '12345',
+        'street': 'Tlalpan 101',
+        'typeAddress': 1
+      }
+    ]
+  },
+  {
+    'usr': user3,
+    'name': 'Hugo',
+    'familyName': 'Estrada Esquivel',
+    'birthDate': '1971-04-14',
+    'gender': 1,
+    'email': 'hugo.estrada@infotec.mx',
+    'addresses': [
+      {
+        'country_id': 1,
+        'region_id': 1,
+        'location_id': 3,
+        'postcode': '14050',
+        'street': 'San Fernando 37',
+        'typeAddress': 2
+      }
+    ]
   }
-
-  login(email: string, password: string) {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    const query = {
-      'auth': {
-        'identity': {
-          'methods': ['password'],
-          'password': {
-            'user': {
-              'name': email,
-              'domain': { 'id': 'default' },
-              'password': password
-            }
-          }
-        }
-      }
-    };
-
-
-    return this.http
-    .post(
-      environment.idm_server + '/v3/auth/tokens',
-      JSON.stringify(query),
-      { headers }
-    )
-    .map((res: Response) => {
-      const responseHeaders = res.headers;
-      const body = res.json();
-      const token = responseHeaders.get(tokenName);
-
-      if (token) {
-        localStorage.setItem(tokenName, token);
-        localStorage.setItem(tokenInfoName, JSON.stringify(body));
-      } else {
-        this.logout();
-      }
+];
 
       return body;
     })
@@ -59,8 +98,8 @@ export class LoginService {
        console.log('Error at login');
        console.log(error);
       this.logout();
-      return [{'code': '503'}];
-    });
+      return false;
+    }
   }
 
   logout() {
@@ -70,14 +109,25 @@ export class LoginService {
     // TODO: Eliminar el token del servidor IDM
   }
 
-  isLoggedIn() {
-    const toeknInfo = JSON.parse(localStorage.getItem(tokenInfoName));
-
-    // if (toeknInfo) {
-    //   console.log(toeknInfo);
-    // }
-    // TODO: Revisar el token
-
+  isLoggedIn(): boolean {
     return !!localStorage.getItem(tokenName);
+  }
+
+  getUserInfo(): UserInfo {
+    const usr = localStorage.getItem(tokenInfoName);
+
+    if (usr) {
+      if (usr == user1) {
+        return users[0];
+      } else if (usr == user2) {
+        return users[1];
+      } else if (usr == user3) {
+        return users[2];
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
   }
 }

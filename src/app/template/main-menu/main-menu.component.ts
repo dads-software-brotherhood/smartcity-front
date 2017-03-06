@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { LoginService, UserInfo } from '../../services/login/login.service';
+
 @Component({
   selector: 'app-main-menu',
   templateUrl: './main-menu.component.html',
@@ -11,9 +13,9 @@ export class MainMenuComponent implements OnInit {
   showMenu = '';
   showSetting = '';
 
-  constructor() {
+  userInfo: UserInfo;
 
-  }
+  constructor(private loginService: LoginService) { }
 
   eventCalled() {
     this.isActive = !this.isActive;
@@ -37,7 +39,11 @@ export class MainMenuComponent implements OnInit {
   
 
   ngOnInit() {
+    this.userInfo = this.loginService.getUserInfo();
+  }
 
+  logout() {
+    this.loginService.logout();
   }
 
 }
