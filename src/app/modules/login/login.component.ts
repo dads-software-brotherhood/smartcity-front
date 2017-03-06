@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LoginService } from '../../services/login/login.service';
+import { LoginOauthService } from '../../services/login/login-oauth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   loginError = false;
 
-  constructor(private loginService: LoginService, private router: Router, fb: FormBuilder) {
+  constructor(private loginService: LoginOauthService, private router: Router, fb: FormBuilder) {
     this.complexForm = fb.group({
       'email': [null, Validators.required],
       'password': [null, Validators.required]
