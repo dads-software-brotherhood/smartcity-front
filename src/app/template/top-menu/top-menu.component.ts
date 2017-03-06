@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LoginService, UserInfo } from '../../services/login/login.service';
+import { LoginService } from '../../services/login/login.service';
+import { UserInfo } from '../../services/login/users';
 
 @Component({
   selector: 'app-top-menu',

@@ -9,6 +9,8 @@ import 'rxjs/add/operator/map';
 export const tokenName = 'x-subject-token';
 const tokenInfoName = 'token-info';
 
+import { users, UserInfo } from './users';
+
 @Injectable()
 export class LoginOauthService {
 
@@ -74,5 +76,9 @@ export class LoginOauthService {
     // TODO: Revisar el token
 
     return !!localStorage.getItem(tokenName);
+  }
+
+  getUserInfo(): UserInfo {
+    return users[0];
   }
 }
