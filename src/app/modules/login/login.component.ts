@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   loginError = false;
 
-  constructor(private loginService: LoginOauthService, private router: Router, fb: FormBuilder) {
+  constructor(private loginService: LoginService, private router: Router, fb: FormBuilder) {
     this.complexForm = fb.group({
       'email': [null, Validators.required],
       'password': [null, Validators.required]
