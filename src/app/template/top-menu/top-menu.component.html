@@ -6,20 +6,22 @@
             <li class="dropdown nav-item" ngbDropdown>
                 <!-- <div class="dropdown"> -->
                     <a href="javascript:;" id="name2" class="nav-link dropdown-toggle info-number" ngbDropdownToggle>
-                        <i class="fa fa-bell"></i><span class="label-pill">9+</span>
+                        <i class="fa fa-bell"></i><span class="label-pill">9+</span> <b class="caret"></b><span class="sr-only">(current)</span>
                     </a>
                     <ul class="dropdown-menu alert-dropdown" aria-labelledby="name2">
                         <li >
-                            <a href="http://207.249.127.180:8080/#/notifications" target="_new" class="dropdown-item">VERY LOW <span class="label-pill label-success pull-right">3</span></a>
+                            <a href="javascript:;" class="dropdown-item">Traffic alerts 
+                            <span class="label-pill label-danger pull-right">2</span></a>
                         </li>
                         <li >
-                            <a href="http://207.249.127.180:8080/#/notifications" target="_new" class="dropdown-item">LOW <span class="label-pill label-primary pull-right">5</span></a>
+                            <a href="javascript:;" class="dropdown-item">Health alerts
+                            <span class="label-pill label-success pull-right">2</span>
+                            </a>
                         </li>
                         <li >
-                            <a href="http://207.249.127.180:8080/#/notifications" target="_new" class="dropdown-item">HIGH <span class="label-pill label-warning pull-right">1</span></a>
-                        </li>
-                        <li >
-                            <a href="http://207.249.127.180:8080/#/notifications" target="_new" class="dropdown-item">DANGER <span class="label-pill label-danger pull-right">2</span></a>
+                            <a href="javascript:;" class="dropdown-item">Pollutation alerts
+                            <span class="label-pill label-warning pull-right">2</span>
+                            </a>
                         </li>
                         <li class="dropdown-divider"></li>
                         <li>
@@ -34,11 +36,23 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="single-button">
                     <li>
-                        <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-account/profile"> Profile</a>
+                        <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-account/profile">User Profile</a>
                     </li>
-                    <li class="divider"></li>
                     <li>
-                        <a class="dropdown-item" href="javascript:;" (click)="logout()" [routerLink]="['/']">
+                        <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-account/profile">Health Profile</a>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a tabindex="-1" class="dropdown-item">Settings</a>
+                        
+                            <ul class="dropdown-menu pull-left">
+                                <li><a class="dropdown-item">Change Your Password</a></li>
+                                <li><a class="dropdown-item">Cancel Account</a></li>
+                            </ul>
+                        
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" href="javascript:;" [routerLink]="['/']">
                              Log Out
                         </a>
                     </li>
