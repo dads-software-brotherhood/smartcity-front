@@ -5,7 +5,9 @@
 
 export const environment = {
   production: false,
-  idm_server: "/horizon",
-  client_id: "d7d7a947a2744fa78f50ba33cb6f5885",
-  client_secret: "0135e79e67b3483d93f31cd13387b4bb"
+  idm_server: "/keyrock",
+//  client_id: "d7d7a947a2744fa78f50ba33cb6f5885",
+//  client_secret: "0135e79e67b3483d93f31cd13387b4bb"
+  client_id: "cff4d3e54065485390fbd60ec54dbb83",
+  client_secret: "a44a184a9154443f98ca4dd055e6d7a4"
 };

@@ -28,9 +28,21 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="single-button">
                     <li>
-                        <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-account/profile"> Profile</a>
+                        <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-account/profile">User Profile</a>
                     </li>
-                    <li class="divider"></li>
+                    <li>
+                        <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-account/profile">Health Profile</a>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a tabindex="-1" class="dropdown-item">Settings</a>
+                        
+                            <ul class="dropdown-menu pull-left">
+                                <li><a class="dropdown-item">Change Your Password</a></li>
+                                <li><a class="dropdown-item">Cancel Account</a></li>
+                            </ul>
+                        
+                    </li>
+                    <li class="dropdown-divider"></li>
                     <li>
                         <a class="dropdown-item" href="javascript:;" [routerLink]="['/']">
                              Log Out

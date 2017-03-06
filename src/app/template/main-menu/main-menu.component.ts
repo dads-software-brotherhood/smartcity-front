@@ -9,6 +9,7 @@ export class MainMenuComponent implements OnInit {
 
   isActive = false;
   showMenu = '';
+  showSetting = '';
 
   constructor() {
 
@@ -25,6 +26,15 @@ export class MainMenuComponent implements OnInit {
       this.showMenu = element;
     }
   }
+  addExpandSubClass(element: any) {
+    if (element === this.showSetting) {
+      this.showSetting = '0';
+    } else {
+      this.showSetting = element;
+    }
+  }
+  
+  
 
   ngOnInit() {
 

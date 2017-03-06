@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LoginService } from '../../services/login/login.service';
+import { LoginOauthService } from '../../services/login/login-oauth.service';
 
 @Component({
   selector: 'app-login',
@@ -27,32 +28,21 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(form: any) {
-    const user1 = 'karen.najera';
-    const user2 = 'blanca.vazquez';
+    this.loginService.login(form.email, form.email).subscribe((result) => {
+      if (result) {
+        console.log(result);
 
-    if ((form.email == user1 && form.email == user1) || (form.email == user2 && form.email == user2) ) {
-      this.loginError = false;
-      this.router.navigate(['smart-cities']);
-    } else {
-      this.loginError = true;
+        if (this.loginService.isLoggedIn()) {
+          this.loginError = false;
+          this.router.navigate(['smart-cities']);
+        } else {
+          this.loginError = true;
 
-    }
-    
-    // this.loginService.login(form.email, form.email).subscribe((result) => {
-    //   if (result) {
-    //     console.log(result);
-    //
-    //     if (this.loginService.isLoggedIn()) {
-    //       this.loginError = false;
-    //       this.router.navigate(['smart-cities']);
-    //     } else {
-    //       this.loginError = true;
-    //
-    //     }
-    //   } else {
-    //     this.loginError = true;
-    //   }
-    // });
+        }
+      } else {
+        this.loginError = true;
+      }
+    });
   }
 
 }

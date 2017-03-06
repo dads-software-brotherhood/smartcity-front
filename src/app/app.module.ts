@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './template/page-not-found/page-not-found.component';
@@ -19,15 +20,18 @@ import { DashModule } from './modules/dash/dash.module'; // Se va a borrar
 
 // Servicios de la aplicación
 import { LoginService } from './services/login/login.service';
+import { LoginOauthService } from './services/login/login-oauth.service';
 import { LoggedInGuard } from './services/login/logged-in.guard';
 
 // Rutas
 import { appRoutes } from './app.routes';
+import { EqualValidator } from './directives/equal-validator.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    EqualValidator
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,9 @@ import { appRoutes } from './app.routes';
     DashModule
   ],
   providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     LoginService,
+    LoginOauthService,
     LoggedInGuard
   ],
   bootstrap: [AppComponent]
