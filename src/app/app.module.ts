@@ -20,6 +20,7 @@ import { SmartCitiesModule } from './modules/smart-cities/smart-cities.module';
 import { LoginService } from './core/services/login/login.service';
 import { LoginOauthService } from './core/services/login/login-oauth.service';
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
+import { CustomerService } from './core/services/customer/customer.service';
 
 // Rutas
 import { appRoutes } from './app.routes';
@@ -46,7 +47,8 @@ import { appRoutes } from './app.routes';
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     LoginService,
     LoginOauthService,
-    LoggedInGuard
+    LoggedInGuard,
+    CustomerService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,26 @@
+<h1>
+  Customers
+</h1>
+
+
+<table class="table">
+  <caption>Customer's list</caption>
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td>Total:</td>
+      <td>{{ count }}</td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr *ngFor="let customer of customers">
+      <td>{{ customer.firstName }}</td>
+      <td>{{ customer.lastName }}</td>
+    </tr>
+  </tbody>
+</table>

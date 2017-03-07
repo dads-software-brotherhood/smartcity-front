@@ -6,7 +6,7 @@ import { NotificationTrayRoutes } from './modules/notification-tray/index';
 
 import { HomeSmartCitiesComponent } from './components/home-smart-cities/home-smart-cities.component';
 import { PruebaComponent } from './components/prueba/prueba.component';
-import { TelefonoComponent } from './components/telefono/telefono.component';
+import { CustomerComponent } from './components/customer/customer.component';
 
 import { LoggedInGuard } from '../../core/services/login/logged-in.guard';
 
@@ -17,7 +17,7 @@ export const SmartCitiesRoutes: Routes = [
     canActivate: [ LoggedInGuard ],
     children: [
       { path: 'prueba', component: PruebaComponent, canActivate: [ LoggedInGuard ]},
-      { path: 'telefono', component: TelefonoComponent, canActivate: [ LoggedInGuard ]},
+      { path: 'customers', component: CustomerComponent, canActivate: [ LoggedInGuard ]},
       { path: '', component: HomeSmartCitiesComponent, canActivate: [ LoggedInGuard ]},
       ... UserAccountRoutes,
       ... NotificationTrayRoutes
