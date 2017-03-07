@@ -12,6 +12,7 @@ export class MainMenuComponent implements OnInit {
 
   isActive = false;
   showMenu = '';
+  showSetting = '';
 
   userInfo: UserInfo;
 
@@ -26,6 +27,14 @@ export class MainMenuComponent implements OnInit {
       this.showMenu = '0';
     } else {
       this.showMenu = element;
+    }
+  }
+
+  addExpandSubClass(element: any) {
+    if (element === this.showSetting) {
+      this.showSetting = '0';
+    } else {
+      this.showSetting = element;
     }
   }
 
