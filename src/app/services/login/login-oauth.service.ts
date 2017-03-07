@@ -11,6 +11,14 @@ const tokenInfoName = 'token-info';
 
 import { users, UserInfo } from './users';
 
+class TokenInfo {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  refresh_token: string;
+  start_date?: Date
+}
+
 @Injectable()
 export class LoginOauthService {
 
@@ -42,10 +50,13 @@ export class LoginOauthService {
 //      const token = responseHeaders.get(tokenName);
 
       if (body) {
+        let tokenInfo: TokenInfo = res.json();
+        tokenInfo.start_date = new Date;
+
         localStorage.setItem(tokenName, body.access_token);
         localStorage.setItem(tokenInfoName, JSON.stringify(body));
 
-        console.log(body);
+        console.log(tokenInfo);
       } else {
         this.logout();
       }
