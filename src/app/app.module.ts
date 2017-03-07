@@ -20,6 +20,7 @@ import { DashModule } from './modules/dash/dash.module'; // Se va a borrar
 
 // Servicios de la aplicación
 import { LoginService } from './services/login/login.service';
+import { LoginOauthService } from './services/login/login-oauth.service';
 import { LoggedInGuard } from './services/login/logged-in.guard';
 
 // Rutas
@@ -49,6 +50,7 @@ import { EqualValidator } from './directives/equal-validator.directive';
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     LoginService,
+    LoginOauthService,
     LoggedInGuard
   ],
   bootstrap: [AppComponent]

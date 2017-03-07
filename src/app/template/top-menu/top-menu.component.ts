@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { LoginService } from '../../services/login/login.service';
+import { UserInfo } from '../../services/login/users';
+
 @Component({
   selector: 'app-top-menu',
   templateUrl: './top-menu.component.html',
@@ -7,11 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopMenuComponent implements OnInit {
 
-  constructor() {
+  userInfo: UserInfo;
+
+  constructor(private loginService: LoginService) {
   }
 
   ngOnInit() {
+    this.userInfo = this.loginService.getUserInfo();
+  }
 
+  logout() {
+    this.loginService.logout();
   }
 
 }

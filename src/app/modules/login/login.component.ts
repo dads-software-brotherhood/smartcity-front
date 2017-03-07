@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LoginService } from '../../services/login/login.service';
+import { LoginOauthService } from '../../services/login/login-oauth.service';
 
 @Component({
   selector: 'app-login',

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, URLSearchParams } from '@angular/http';
 
 import { environment } from '../../../environments/environment';
 
@@ -12,45 +12,40 @@ const tokenInfoName = 'token-info';
 import { users, UserInfo } from './users';
 
 @Injectable()
-export class LoginService {
+export class LoginOauthService {
 
   constructor(private http: Http) {
   }
 
   login(email: string, password: string) {
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Authorization', 'Basic ' + btoa(environment.client_id + ':' + environment.client_secret));
 
-    const query = {
-      'auth': {
-        'identity': {
-          'methods': ['password'],
-          'password': {
-            'user': {
-              'name': email,
-              'domain': { 'id': 'default' },
-              'password': password
-            }
-          }
-        }
-      }
-    };
+    let urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('grant_type', 'password');
+    urlSearchParams.append('username', email);
+    urlSearchParams.append('password', password);
+
+    let body = urlSearchParams.toString();
 
 
     return this.http
     .post(
-      environment.idm_server + '/v3/auth/tokens',
-      JSON.stringify(query),
+      environment.idm_server + '/oauth2/token',
+      body,
       { headers }
     )
     .map((res: Response) => {
       const responseHeaders = res.headers;
       const body = res.json();
-      const token = responseHeaders.get(tokenName);
+//      const token = responseHeaders.get(tokenName);
 
-      if (token) {
-        localStorage.setItem(tokenName, token);
+      if (body) {
+        localStorage.setItem(tokenName, body.access_token);
         localStorage.setItem(tokenInfoName, JSON.stringify(body));
+
+        console.log(body);
       } else {
         this.logout();
       }
@@ -58,8 +53,8 @@ export class LoginService {
       return body;
     })
     .catch((error: Response | any) => {
-      // console.log('Error at login');
-      // console.log(error);
+       console.log('Error at login');
+       console.log(error);
       this.logout();
       return [{'code': '503'}];
     });
@@ -84,7 +79,6 @@ export class LoginService {
   }
 
   getUserInfo(): UserInfo {
-    return users[2];
+    return users[0];
   }
-
 }
