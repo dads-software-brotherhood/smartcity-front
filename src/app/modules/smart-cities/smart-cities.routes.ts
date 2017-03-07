@@ -8,7 +8,7 @@ import { HomeSmartCitiesComponent } from './components/home-smart-cities/home-sm
 import { PruebaComponent } from './components/prueba/prueba.component';
 import { TelefonoComponent } from './components/telefono/telefono.component';
 
-import { LoggedInGuard } from '../../services/login/logged-in.guard';
+import { LoggedInGuard } from '../../core/services/login/logged-in.guard';
 
 export const SmartCitiesRoutes: Routes = [
   {

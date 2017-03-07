@@ -8,7 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 
-import { LoginService } from '../services/login/login.service';
+import { LoginService } from '../core/services/login/login.service';
 
 
 @NgModule({

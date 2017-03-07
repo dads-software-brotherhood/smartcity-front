@@ -11,7 +11,7 @@ import { SmartCitiesRoutes } from './modules/smart-cities/index';
 import { DashRoutes } from './modules/dash/index';
 
 // Security
-import { LoggedInGuard } from './services/login/logged-in.guard';
+import { LoggedInGuard } from './core/services/login/logged-in.guard';
 
 
 export const appRoutes: Routes = [

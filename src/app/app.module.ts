@@ -19,9 +19,9 @@ import { SmartCitiesModule } from './modules/smart-cities/smart-cities.module';
 import { DashModule } from './modules/dash/dash.module'; // Se va a borrar
 
 // Servicios de la aplicación
-import { LoginService } from './services/login/login.service';
-import { LoginOauthService } from './services/login/login-oauth.service';
-import { LoggedInGuard } from './services/login/logged-in.guard';
+import { LoginService } from './core/services/login/login.service';
+import { LoginOauthService } from './core/services/login/login-oauth.service';
+import { LoggedInGuard } from './core/services/login/logged-in.guard';
 
 // Rutas
 import { appRoutes } from './app.routes';
