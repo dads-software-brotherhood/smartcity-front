@@ -16,7 +16,7 @@ class TokenInfo {
   token_type: string;
   expires_in: number;
   refresh_token: string;
-  start_date?: Date
+  start_date?: Date;
 }
 
 @Injectable()
@@ -30,18 +30,18 @@ export class LoginOauthService {
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append('Authorization', 'Basic ' + btoa(environment.client_id + ':' + environment.client_secret));
 
-    let urlSearchParams = new URLSearchParams();
+    const urlSearchParams = new URLSearchParams();
     urlSearchParams.append('grant_type', 'password');
     urlSearchParams.append('username', email);
     urlSearchParams.append('password', password);
 
-    let body = urlSearchParams.toString();
+    const bodyReq = urlSearchParams.toString();
 
 
     return this.http
     .post(
       environment.idm_server + '/oauth2/token',
-      body,
+      bodyReq,
       { headers }
     )
     .map((res: Response) => {
@@ -50,7 +50,7 @@ export class LoginOauthService {
 //      const token = responseHeaders.get(tokenName);
 
       if (body) {
-        let tokenInfo: TokenInfo = res.json();
+        const tokenInfo: TokenInfo = res.json();
         tokenInfo.start_date = new Date;
 
         localStorage.setItem(tokenName, body.access_token);
