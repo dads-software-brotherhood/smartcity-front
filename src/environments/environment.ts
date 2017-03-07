@@ -8,6 +8,6 @@ export const environment = {
   idm_server: '/keyrock',
 //  client_id: 'd7d7a947a2744fa78f50ba33cb6f5885',
 //  client_secret: '0135e79e67b3483d93f31cd13387b4bb'
-  client_id: 'cff4d3e54065485390fbd60ec54dbb83',
-  client_secret: 'a44a184a9154443f98ca4dd055e6d7a4'
+  client_id: '71c1a6a1a7f24345946509f826cb445f',
+  client_secret: '11ee4954366940a08e3565b34dea61d6'
 };
