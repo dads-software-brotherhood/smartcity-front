@@ -54,7 +54,7 @@ export class CustomerService {
   update(customer: Customer): Promise<boolean> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
 
-    return this.http.put(customerUrl, JSON.stringify(customer), requestOptions).toPromise()
+    return this.http.put(this.buildByIdUrl(customer.id), JSON.stringify(customer), requestOptions).toPromise()
     .then((res: Response) => {return true;})
     .catch(this.handleError);
   }
