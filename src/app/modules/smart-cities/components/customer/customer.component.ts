@@ -28,22 +28,10 @@ export class CustomerComponent implements OnInit {
       error => this.errorMessage = <any>error
     );
 
-    if (this.errorMessage) {
-      console.log('Error: ' + this.errorMessage);
-    }
-
-    this.errorMessage = null;
-
     this.customerService.getAll().subscribe(
       customers => this.customers = customers,
       error => this.errorMessage = <any>error
     );
-
-    if (this.errorMessage) {
-      console.log('Error: ' + this.errorMessage);
-    } else {
-      console.log('customers: ' + this.customers);
-    }
   }
 
   add() {

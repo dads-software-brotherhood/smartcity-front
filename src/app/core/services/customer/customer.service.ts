@@ -20,55 +20,58 @@ export class CustomerService {
   constructor(private http: Http, private loginService: LoginService) { }
 
   count(): Observable<number> {
-    const headers: Headers = this.buildHeaders();
-    const options = new RequestOptions({ headers: headers });
+    const requestOptions: RequestOptions = this.buildRequestOptions();
 
-    return this.http.get(customersCountUrl, options)
+    return this.http.get(customersCountUrl, requestOptions)
     .map(this.extractNumberBody)
     .catch(this.handleError);
   }
 
   getAll(limit?: number, offset?: number): Observable<Customer[]> {
-    const headers: Headers = this.buildHeaders();
+    const requestOptions: RequestOptions = this.buildRequestOptions();
 
-    return this.http.get(customerUrl, { headers })
+    return this.http.get(customerUrl, requestOptions)
     .map(this.extractDataArray)
     .catch(this.handleError);
   }
 
   loadById(id: string): Promise<Customer> {
-    const headers: Headers = this.buildHeaders();
+    const requestOptions: RequestOptions = this.buildRequestOptions();
 
-    return this.http.get(this.buildByIdUrl(id), { headers }).toPromise()
+    return this.http.get(this.buildByIdUrl(id), requestOptions).toPromise()
     .then(this.extractData)
     .catch(this.handleError);
   }
 
   insert(customer: Customer): Promise<Customer> {
-    const headers: Headers = this.buildHeaders('application/json');
+    const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
 
-    return this.http.post(customerUrl, JSON.stringify(customer), { headers }).toPromise()
+    return this.http.post(customerUrl, JSON.stringify(customer), requestOptions).toPromise()
     .then(this.extractData)
     .catch(this.handleError);
   }
 
   update(customer: Customer): Promise<boolean> {
-    const headers: Headers = this.buildHeaders('application/json');
+    const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
 
-    return this.http.put(customerUrl, JSON.stringify(customer), { headers }).toPromise()
-    .then(this.extractData)
+    return this.http.put(customerUrl, JSON.stringify(customer), requestOptions).toPromise()
+    .then((res: Response) => {return true;})
     .catch(this.handleError);
   }
 
   delete(id: string): Promise<boolean> {
-    return null;
+    const requestOptions: RequestOptions = this.buildRequestOptions();
+
+    return this.http.delete(customerUrl, requestOptions).toPromise()
+    .then((res: Response) => {return true;})
+    .catch(this.handleError);
   }
 
   private buildByIdUrl(id: string) {
     return customerUrl + '/' + id;
   }
 
-  private buildHeaders(contentType?: string): Headers {
+  private buildRequestOptions(contentType?: string): RequestOptions {
     const headers: Headers = new Headers();
 
     if (this.loginService.isLoggedIn()) {
@@ -79,7 +82,7 @@ export class CustomerService {
       headers.append('Content-Type', contentType);
     }
 
-    return headers;
+    return new RequestOptions({ 'headers': headers });
   }
 
   private extractNumberBody(res: Response): number {
@@ -92,13 +95,11 @@ export class CustomerService {
 
   private extractDataArray(res: Response) {
     const body = res.json();
-    console.log('S: ' + body);
     return body || [];
   }
 
   private extractData(res: Response) {
     const body = res.json();
-    console.log('S: ' + body);
     return body || {};
   }
 
