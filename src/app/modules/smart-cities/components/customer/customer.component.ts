@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { Customer } from '../../../../core/models/customer';
 import { CustomerService } from '../../../../core/services/customer/customer.service';
@@ -11,37 +11,43 @@ import { CustomerService } from '../../../../core/services/customer/customer.ser
 export class CustomerComponent implements OnInit {
 
   errorMessage: string;
-  customers: Customer[];
-  count: number;
-
+  customers: Customer[] = [];
   customer: Customer;
 
-  c: number = 1;
+  loadingIndicator: boolean = true;
+
+  columns = [
+    { prop: 'id', name: 'ID' },
+    { prop: 'firstName', name: 'Firts name' },
+    { prop: 'lastName', name: 'Last name' }
+  ];
+
 
   constructor(private customerService: CustomerService ) { }
 
   ngOnInit() {
-    this.errorMessage = null;
-
-    this.customerService.count().subscribe(
-      count => this.count = count,
-      error => this.errorMessage = <any>error
-    );
-
     this.customerService.getAll().subscribe(
-      customers => this.customers = customers,
+      customers => {
+        this.customers = customers;
+        this.loadingIndicator = false;
+      },
       error => this.errorMessage = <any>error
     );
   }
 
   add() {
-    const customer: Customer = new Customer('Juan' + this.c,'Perez' + this.c);
-    this.c++;
+    const names = ['Juan', 'Maria', 'Pedro', 'John', 'Mary', 'Peter'];
+    const lastNames = ['Perez', 'Hernandez', 'Martinez', 'Smith', 'Brown', 'Jones'];
+
+    const customer: Customer = new Customer(names[this.randomNum(0, names.length)], lastNames[this.randomNum(0, lastNames.length)]);
 
     this.customerService.insert(customer).then(
-      customer => {this.customers.push(customer); this.count++},
+      customer => this.customers.push(customer),
       error =>  this.errorMessage = <any>error
     );
   }
 
+  randomNum(start: number, end: number): number {
+    return Math.floor(Math.random() * end) + start;
+  }
 }

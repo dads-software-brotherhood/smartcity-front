@@ -2,30 +2,17 @@
   Customers
 </h1>
 
-
-<table class="table">
-  <caption>Customer's list</caption>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Firstname</th>
-      <th>Lastname</th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <td colspan="2">Total:</td>
-      <td>{{ count }}</td>
-    </tr>
-  </tfoot>
-  <tbody>
-    <tr *ngFor="let customer of customers">
-      <td>{{ customer.id }}</td>
-      <td>{{ customer.firstName }}</td>
-      <td>{{ customer.lastName }}</td>
-    </tr>
-  </tbody>
-</table>
-
+<ngx-datatable
+  class="material"
+  [rows]="customers"
+  [loadingIndicator]="loadingIndicator"
+  [columns]="columns"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [trackByProp]="'updated'"
+  [limit]="10">
+</ngx-datatable>
 
 <a (click)="add()" >Agregar</a>

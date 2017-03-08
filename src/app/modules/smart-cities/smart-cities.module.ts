@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms'; // Eliminar cuando ya no se tenga el componente de prueba
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { SmartCitiesComponent } from './smart-cities.component';
 
@@ -25,6 +26,7 @@ import { NotificationTrayModule } from './modules/notification-tray/notification
     CommonModule,
     RouterModule,
     NgbModule.forRoot(),
+    NgxDatatableModule,
     FormsModule, // Eliminar cuando ya no se tenga el componente de prueba
     UserAccountModule,
     NotificationTrayModule,
