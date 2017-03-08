@@ -92,4 +92,9 @@ export class LoginOauthService {
   getUserInfo(): UserInfo {
     return users[0];
   }
+
+  getToken(): string {
+    return localStorage.getItem(tokenName);
+  }
+
 }

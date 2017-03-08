@@ -87,4 +87,8 @@ export class LoginService {
     return users[2];
   }
 
+  getToken(): string {
+    return localStorage.getItem(tokenName);
+  }
+
 }

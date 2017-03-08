@@ -14,6 +14,10 @@ export class CustomerComponent implements OnInit {
   customers: Customer[];
   count: number;
 
+  customer: Customer;
+
+  c: number = 1;
+
   constructor(private customerService: CustomerService ) { }
 
   ngOnInit() {
@@ -40,6 +44,16 @@ export class CustomerComponent implements OnInit {
     } else {
       console.log('customers: ' + this.customers);
     }
+  }
+
+  add() {
+    const customer: Customer = new Customer('Juan' + this.c,'Perez' + this.c);
+    this.c++;
+
+    this.customerService.insert(customer).then(
+      customer => {this.customers.push(customer); this.count++},
+      error =>  this.errorMessage = <any>error
+    );
   }
 
 }
