@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { LoginService } from '../../services/login/login.service';
-import { LoginOauthService } from '../../services/login/login-oauth.service';
+import { LoginService } from '../../core/services/login/login.service';
+import { LoginOauthService } from '../../core/services/login/login-oauth.service';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(form: any) {
-    this.loginService.login(form.email, form.email).subscribe((result) => {
+    this.loginService.login(form.email, form.password).subscribe((result) => {
       if (result) {
         console.log(result);
 

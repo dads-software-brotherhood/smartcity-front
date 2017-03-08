@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { LoginService } from '../../../../services/login/login.service';
+import { LoginService } from '../../../../core/services/login/login.service';
 
 declare var $: any;
 

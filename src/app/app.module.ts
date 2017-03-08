@@ -16,22 +16,19 @@ import { ForgotPasswordModule } from './modules/forgot-password/forgot-password.
 import { RestorePasswordModule } from './modules/restore-password/restore-password.module';
 import { SmartCitiesModule } from './modules/smart-cities/smart-cities.module';
 
-import { DashModule } from './modules/dash/dash.module'; // Se va a borrar
-
 // Servicios de la aplicación
-import { LoginService } from './services/login/login.service';
-import { LoginOauthService } from './services/login/login-oauth.service';
-import { LoggedInGuard } from './services/login/logged-in.guard';
+import { LoginService } from './core/services/login/login.service';
+import { LoginOauthService } from './core/services/login/login-oauth.service';
+import { LoggedInGuard } from './core/services/login/logged-in.guard';
+import { CustomerService } from './core/services/customer/customer.service';
 
 // Rutas
 import { appRoutes } from './app.routes';
-import { EqualValidator } from './directives/equal-validator.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent,
-    EqualValidator
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -44,14 +41,14 @@ import { EqualValidator } from './directives/equal-validator.directive';
     SignupModule,
     ForgotPasswordModule,
     RestorePasswordModule,
-    SmartCitiesModule,
-    DashModule
+    SmartCitiesModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     LoginService,
     LoginOauthService,
-    LoggedInGuard
+    LoggedInGuard,
+    CustomerService
   ],
   bootstrap: [AppComponent]
 })

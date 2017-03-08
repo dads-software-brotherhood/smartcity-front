@@ -8,11 +8,6 @@ import { SignupRoutes } from './modules/signup/index';
 import { ForgotPasswordRoutes } from './modules/forgot-password/index';
 import { RestorePasswordRoutes } from './modules/restore-password/index';
 import { SmartCitiesRoutes } from './modules/smart-cities/index';
-import { DashRoutes } from './modules/dash/index';
-
-// Security
-import { LoggedInGuard } from './services/login/logged-in.guard';
-
 
 export const appRoutes: Routes = [
   ... LoginRoutes,
@@ -20,8 +15,6 @@ export const appRoutes: Routes = [
   ... ForgotPasswordRoutes,
   ... RestorePasswordRoutes,
   ... SmartCitiesRoutes,
-  ... DashRoutes,
-//  { path: 'prueba', component: PruebaComponent, canActivate: [LoggedInGuard]},
   { path: '',
     redirectTo: '/login',
     pathMatch: 'full'

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 export const tokenName = 'x-subject-token';
 const tokenInfoName = 'token-info';
+
+import { users, UserInfo } from './users';
 
 @Injectable()
 export class LoginService {
@@ -56,8 +58,8 @@ export class LoginService {
       return body;
     })
     .catch((error: Response | any) => {
-       console.log('Error at login');
-       console.log(error);
+      // console.log('Error at login');
+      // console.log(error);
       this.logout();
       return [{'code': '503'}];
     });
@@ -80,4 +82,13 @@ export class LoginService {
 
     return !!localStorage.getItem(tokenName);
   }
+
+  getUserInfo(): UserInfo {
+    return users[2];
+  }
+
+  getToken(): string {
+    return localStorage.getItem(tokenName);
+  }
+
 }

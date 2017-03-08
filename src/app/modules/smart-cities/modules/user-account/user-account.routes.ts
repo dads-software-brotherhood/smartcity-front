@@ -6,14 +6,17 @@ import { CloseAccountComponent } from './components/close-account/close-account.
 import { CredentialsComponent } from './components/credentials/credentials.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
+import { LoggedInGuard } from '../../../../core/services/login/logged-in.guard';
+
 export const UserAccountRoutes: Routes = [
   {
     path: 'user-account',
     component: UserAccountComponent,
+    canActivate: [ LoggedInGuard ],
     children: [
-      { path: 'close-account', component: CloseAccountComponent },
-      { path: 'credentials', component: CredentialsComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'close-account', component: CloseAccountComponent, canActivate: [ LoggedInGuard ]},
+      { path: 'credentials', component: CredentialsComponent, canActivate: [ LoggedInGuard ]},
+      { path: 'profile', component: ProfileComponent, canActivate: [ LoggedInGuard ]}
     ]
   }
 ];

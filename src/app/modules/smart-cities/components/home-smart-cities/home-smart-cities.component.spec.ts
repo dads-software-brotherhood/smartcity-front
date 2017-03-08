@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TelefonoComponent } from './telefono.component';
+import { HomeSmartCitiesComponent } from './home-smart-cities.component';
 
-describe('TelefonoComponent', () => {
-  let component: TelefonoComponent;
-  let fixture: ComponentFixture<TelefonoComponent>;
+describe('HomeSmartCitiesComponent', () => {
+  let component: HomeSmartCitiesComponent;
+  let fixture: ComponentFixture<HomeSmartCitiesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TelefonoComponent ]
+      declarations: [ HomeSmartCitiesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TelefonoComponent);
+    fixture = TestBed.createComponent(HomeSmartCitiesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

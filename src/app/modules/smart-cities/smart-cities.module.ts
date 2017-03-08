@@ -8,8 +8,9 @@ import { FormsModule } from '@angular/forms'; // Eliminar cuando ya no se tenga 
 import { SmartCitiesComponent } from './smart-cities.component';
 
 // Se van a borrar
+import { HomeSmartCitiesComponent } from './components/home-smart-cities/home-smart-cities.component';
 import { PruebaComponent } from './components/prueba/prueba.component';
-import { TelefonoComponent } from './components/telefono/telefono.component';
+import { CustomerComponent } from './components/customer/customer.component';
 
 // Elementos del template
 import { TemplateModule } from '../../template/template.module';
@@ -32,7 +33,8 @@ import { NotificationTrayModule } from './modules/notification-tray/notification
   declarations: [
     SmartCitiesComponent,
     PruebaComponent, // Se va a borrar
-    TelefonoComponent // Se va a borrar,
+    CustomerComponent, // Se va a borrar
+    HomeSmartCitiesComponent
   ],
   exports: [
     SmartCitiesComponent
