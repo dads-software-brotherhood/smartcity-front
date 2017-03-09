@@ -22,6 +22,7 @@ export class CustomerComponent implements OnInit {
     { prop: 'lastName', name: 'Last name' }
   ];
 
+  selected = [];
 
   constructor(private customerService: CustomerService ) { }
 
@@ -49,5 +50,13 @@ export class CustomerComponent implements OnInit {
 
   randomNum(start: number, end: number): number {
     return Math.floor(Math.random() * end) + start;
+  }
+
+  onSelect({ selected }) {
+    console.log('Select Event', selected, this.selected);
+  }
+
+  onActivate(event) {
+    console.log('Activate Event', event);
   }
 }

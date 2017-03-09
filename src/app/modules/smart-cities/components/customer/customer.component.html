@@ -12,6 +12,9 @@
   [footerHeight]="50"
   [rowHeight]="'auto'"
   [trackByProp]="'updated'"
+  [selected]="selected"
+  [selectionType]="'single'"
+  (select)='onSelect($event)'
   [limit]="10">
 </ngx-datatable>
 

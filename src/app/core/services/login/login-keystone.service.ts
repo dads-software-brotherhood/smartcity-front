@@ -12,7 +12,7 @@ const tokenInfoName = 'token-info';
 import { users, UserInfo } from './users';
 
 @Injectable()
-export class LoginService {
+export class LoginKeystoneService {
 
   constructor(private http: Http) {
   }
@@ -22,22 +22,34 @@ export class LoginService {
     headers.append('Content-Type', 'application/json');
 
     const query = {
-      'username': email,
-      'password': password
+      'auth': {
+        'identity': {
+          'methods': ['password'],
+          'password': {
+            'user': {
+              'name': email,
+              'domain': { 'id': 'default' },
+              'password': password
+            }
+          }
+        }
+      }
     };
 
 
     return this.http
     .post(
-      environment.backend_sdk + '/login/token',
+      environment.idm_server + '/v3/auth/tokens',
       JSON.stringify(query),
       { headers }
     )
     .map((res: Response) => {
+      const responseHeaders = res.headers;
       const body = res.json();
+      const token = responseHeaders.get(tokenName);
 
-      if (body.token) {
-        localStorage.setItem(tokenName, body.token);
+      if (token) {
+        localStorage.setItem(tokenName, token);
         localStorage.setItem(tokenInfoName, JSON.stringify(body));
       } else {
         this.logout();
