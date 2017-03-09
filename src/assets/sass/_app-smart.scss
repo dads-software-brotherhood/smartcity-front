@@ -619,3 +619,30 @@ footer{
     right: 12px;
     top: 5px;
 }
+.smart-home{
+    text-align: center;
+    h1{
+        margin-bottom: 20px;
+    }
+    h2{
+        margin: 40px;
+    }
+    p{
+        margin: 10px;
+    }
+    .routes{
+        img{
+            max-height: 250px;
+        }
+    }
+    .smartRoutes {
+        margin: 40px auto;
+        h1{
+            margin: 20px auto;
+        }
+        img{
+            max-height: 125px;
+        }
+    }
+
+}
