@@ -19,6 +19,10 @@ class TokenInfo {
   start_date?: Date;
 }
 
+/*
+Login service sample for horizon tokens
+*/
+
 @Injectable()
 export class LoginOauthService {
 

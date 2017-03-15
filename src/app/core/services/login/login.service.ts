@@ -29,7 +29,7 @@ export class LoginService {
 
     return this.http
     .post(
-      environment.backend_sdk + '/login/token',
+      environment.backend_sdk + '/security/login',
       JSON.stringify(query),
       { headers }
     )

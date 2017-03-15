@@ -11,6 +11,10 @@ const tokenInfoName = 'token-info';
 
 import { users, UserInfo } from './users';
 
+/*
+Login service sample for keystone tokens
+*/
+
 @Injectable()
 export class LoginKeystoneService {
 
