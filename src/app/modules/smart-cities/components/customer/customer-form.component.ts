@@ -50,9 +50,9 @@ export class CustomerFormComponent implements OnInit {
         })
 
         if (this.id != "") { //// Based on id decide Title add/edit
-            this.title = "Edit Material"
+            this.title = "Edit Customer"
         } else {
-            this.title = "Add Material"
+            this.title = "Add Customer"
         }
 
         if (!this.id) {
