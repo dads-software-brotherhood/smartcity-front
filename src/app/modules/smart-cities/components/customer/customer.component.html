@@ -2,7 +2,7 @@
   Customers
 </h1>
 
-<ngx-datatable
+<!--<ngx-datatable
   class="material"
   [rows]="customers"
   [loadingIndicator]="loadingIndicator"
@@ -18,4 +18,35 @@
   [limit]="10">
 </ngx-datatable>
 
-<a (click)="add()" >Agregar</a>
+<a (click)="add()" >Agregar</a>-->
+<p>
+    <a [routerLink]="['/smart-cities/customer', '']" class="btn btn-primary"> Add</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let customer of customers">
+            <td>{{customer.id}}</td>
+            <td>{{customer.firstName}}</td>
+            <td>{{customer.lastName}}</td>
+            <td>
+                <a [routerLink]="['/smart-cities/customer', customer.id]">
+
+                    <i class="glyphicon glyphicon-edit"></i>
+              </a>
+            </td>
+            <td>
+                <!--<i (click)="deleteMaterial(material)" class="glyphicon glyphicon-remove"></i>-->
+                <!--assign material to object used for delete and "showDialog" to true which emits visible of Modal popup-->
+                <i (click)="showDialog=true"
+                 class="glyphicon glyphicon-remove" style="cursor:pointer"></i>
+            </td>
+        </tr>
+    </tbody>
