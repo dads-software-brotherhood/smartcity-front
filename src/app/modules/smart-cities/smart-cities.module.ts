@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // Eliminar cuando ya no se tenga el componente de prueba
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Eliminar cuando ya no se tenga el componente de prueba
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { SmartCitiesComponent } from './smart-cities.component';
@@ -12,6 +12,7 @@ import { SmartCitiesComponent } from './smart-cities.component';
 import { HomeSmartCitiesComponent } from './components/home-smart-cities/home-smart-cities.component';
 import { PruebaComponent } from './components/prueba/prueba.component';
 import { CustomerComponent } from './components/customer/customer.component';
+import { CustomerFormComponent } from './components/customer/customer-form.component';
 
 // Elementos del template
 import { TemplateModule } from '../../template/template.module';
@@ -28,6 +29,7 @@ import { NotificationTrayModule } from './modules/notification-tray/notification
     NgbModule.forRoot(),
     NgxDatatableModule,
     FormsModule, // Eliminar cuando ya no se tenga el componente de prueba
+    ReactiveFormsModule, //Eliminar cuando ya no se tenga el componente de prueba
     UserAccountModule,
     NotificationTrayModule,
     TemplateModule
@@ -36,6 +38,7 @@ import { NotificationTrayModule } from './modules/notification-tray/notification
     SmartCitiesComponent,
     PruebaComponent, // Se va a borrar
     CustomerComponent, // Se va a borrar
+    CustomerFormComponent, //Se va a borrar
     HomeSmartCitiesComponent
   ],
   exports: [
