@@ -23,7 +23,7 @@ export class CustomerFormComponent implements OnInit {
     errorMessage: string;
 
 
-    customer = new Customer(); //// Material model used for add/edit/delete
+    customer = new Customer(); //// Customer model used for add/edit/delete
 
     constructor(
         private fb: FormBuilder,
@@ -33,11 +33,10 @@ export class CustomerFormComponent implements OnInit {
         
     ) {
         
-                         this.customerForm = this.fb.group({ //// Make Model driven form
-            id: [],
+            this.customerForm = this.fb.group({ //// Make Model driven form
+            "id": [null],
             "firstName": [null, Validators.required],
             "lastName": [null, Validators.required],
-            "isEdit": [false]
 
         })
     }
@@ -59,36 +58,19 @@ export class CustomerFormComponent implements OnInit {
             return;
         }
 
-        this._service.loadById(this.id) //// If id is passed get material for edit.
+        this._service.loadById(this.id) //// If id is passed get customer for edit.
             .then(customer => {
                 this.customer = customer
                 console.log(customer.id);
                 console.log(customer.firstName);
                 console.log(customer.lastName);
-                // this.MapFormToModel(this.materialForm.controls, material);
                 let Form = (this.customerForm);
                 if (this.id != "") { 
                     //// If valid id is found (EDIT) fill Model form by material data passed by service.
-                    customer.isEdit = true;
                     (<FormGroup>this.customerForm).setValue(customer, { onlySelf: false });
 
                 }
             }
-            // success
-            // (data) => {
-            //     debugger
-            //     // redirect here...
-            // },
-            //user => this.material = user
-            // (mateial) => {
-            //     debugger
-            //     this.material=material
-            // }
-            // response => {
-            //     if (response.status == 404) {
-            //         this._router.navigate(['NotFound']);
-            //     }
-            // }
             )
 
        
@@ -98,18 +80,17 @@ export class CustomerFormComponent implements OnInit {
 
     save(form, isValid: boolean) {
             console.log(form);
-            if(!form.isEdit)
+            if(form.id == undefined)
             {
-                     this._service.insert(form)
-             .then(
-        form => this.customers.push(form),
-        error =>  this.errorMessage = <any>error
+                this._service.insert(form)
+                .then(form => this.customers.push(form),
+                    error =>  this.errorMessage = <any>error
         
       );
             }
             else
             {
-                this._service.update(form).then(res => this.customer.isEdit,
+                this._service.update(form).then(res => true,
                 error =>  this.errorMessage = <any>error);
             }
     

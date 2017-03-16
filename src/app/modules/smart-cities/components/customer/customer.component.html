@@ -23,6 +23,14 @@
     <a [routerLink]="['/smart-cities/customer', '']" class="btn btn-primary"> Add</a>
 </p>
 
+<modal-popup [(visible)]="showDialog" title="Confirm">
+    Are you to delete this Record?
+    <hr>
+    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDelete()">Yes</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">No</button>
+
+</modal-popup>
+
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -43,10 +51,10 @@
               </a>
             </td>
             <td>
-                <!--<i (click)="deleteMaterial(material)" class="glyphicon glyphicon-remove"></i>-->
-                <!--assign material to object used for delete and "showDialog" to true which emits visible of Modal popup-->
-                <i (click)="showDialog=true"
+                
+                <i (click)="showDialog=true; Objcustomer=customer"
                  class="glyphicon glyphicon-remove" style="cursor:pointer"></i>
             </td>
         </tr>
     </tbody>
+</table>

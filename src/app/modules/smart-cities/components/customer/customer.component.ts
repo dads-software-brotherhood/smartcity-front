@@ -12,9 +12,10 @@ export class CustomerComponent implements OnInit {
 
   errorMessage: string;
   customers: Customer[] = [];
-  customer: Customer;
+  Objcustomer = new Customer();
 
   loadingIndicator: boolean = true;
+  showDialog: boolean;
 
   // columns = [
   //   { prop: 'id', name: 'ID' },
@@ -24,10 +25,17 @@ export class CustomerComponent implements OnInit {
 
   // selected = [];
 
-  constructor(private customerService: CustomerService, private _router: Router ) { }
+  constructor(private customerService: CustomerService, private _router: Router ) { 
+  }
 
   ngOnInit() {
-    this.customerService.getAll().subscribe(
+    console.log('carga datos');
+    this.loadingIndicator = true;
+    this.bindTable();
+  }
+
+  bindTable() { //// Bind material Grid
+        this.customerService.getAll().subscribe(
       customers => {
         this.customers = customers;
         this.loadingIndicator = false;
@@ -35,7 +43,23 @@ export class CustomerComponent implements OnInit {
       },
       error => this.errorMessage = <any>error
     );
-  }
+    }
+
+   confirmDelete() {
+        this.showDialog = false; /// Close dialog
+        this.deleteCustomer(this.Objcustomer);
+                this.bindTable();
+    }
+
+    deleteCustomer(customer) {
+        console.log(customer);
+        var flag = 0;
+        console.log(customer.id);
+        this.customerService.delete(customer.id)
+            .then(res => true,
+                error =>  this.errorMessage = <any>error);
+
+    }
 
   // add() {
   //   const names = ['Juan', 'Maria', 'Pedro', 'John', 'Mary', 'Peter'];

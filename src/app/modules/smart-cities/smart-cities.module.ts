@@ -21,6 +21,8 @@ import { TemplateModule } from '../../template/template.module';
 import { UserAccountModule } from './modules/user-account/user-account.module';
 import { NotificationTrayModule } from './modules/notification-tray/notification-tray.module';
 
+import {ModalPopupComponent  } from '../../usable-component/modal-popup/modalpopup.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -39,6 +41,7 @@ import { NotificationTrayModule } from './modules/notification-tray/notification
     PruebaComponent, // Se va a borrar
     CustomerComponent, // Se va a borrar
     CustomerFormComponent, //Se va a borrar
+    ModalPopupComponent,
     HomeSmartCitiesComponent
   ],
   exports: [

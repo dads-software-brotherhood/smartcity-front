@@ -16,7 +16,7 @@
                     <div *ngIf="customerForm.controls['lastName'].hasError('required') && customerForm.controls['lastName'].touched" class="alert alert-danger" i18n>Last Name.</div>
                                    
                 </div>
-                <input id="isEdit" type="hidden" [formControl]="customerForm.controls['isEdit']" [(ngModel)]="customer.isEdit"/>
+                <input id="id" type="hidden" [formControl]="customerForm.controls['id']" [(ngModel)]="customer.id"/>
 
 
                 <!--<div class="form-group">
