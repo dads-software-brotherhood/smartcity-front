@@ -48,7 +48,7 @@ export class CustomerComponent implements OnInit {
    confirmDelete() {
         this.showDialog = false; /// Close dialog
         this.deleteCustomer(this.Objcustomer);
-                this.bindTable();
+        location.reload();
     }
 
     deleteCustomer(customer) {
