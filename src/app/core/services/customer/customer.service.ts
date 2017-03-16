@@ -62,7 +62,7 @@ export class CustomerService {
   delete(id: string): Promise<boolean> {
     const requestOptions: RequestOptions = this.buildRequestOptions();
 
-    return this.http.delete(customerUrl, requestOptions).toPromise()
+    return this.http.delete(this.buildByIdUrl(id), requestOptions).toPromise()
     .then((res: Response) => {return true;})
     .catch(this.handleError);
   }
