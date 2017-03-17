@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LoginService } from '../../core/services/login/login.service';
-import { UserInfo } from '../../core/services/login/users';
+import { IdentityUser } from '../../core/models/identity-user';
 
 @Component({
   selector: 'app-top-menu',
@@ -10,13 +10,13 @@ import { UserInfo } from '../../core/services/login/users';
 })
 export class TopMenuComponent implements OnInit {
 
-  userInfo: UserInfo;
+  identityUser: IdentityUser;
 
   constructor(private loginService: LoginService) {
   }
 
   ngOnInit() {
-    this.userInfo = this.loginService.getUserInfo();
+    this.identityUser = this.loginService.getLoggedUser();
   }
 
   logout() {
