@@ -1,8 +1,15 @@
+import { AddressType } from './address-type';
+
 export class Address {
-  country_id: number;
-  region_id: number;
-  location_id: number;
-  postcode: string;
+
+  countryId: number;
+  regionId: number;
+  localityId: number;
+  addreddCountry: string;
+  addreddRegion: string;
+  addreddLocality?: string;
   street: string;
-  typeAddress: number;
+  postalCode?: string;
+  addressType?: AddressType;
+
 }

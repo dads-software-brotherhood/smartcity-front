@@ -17,6 +17,7 @@ import { RestorePasswordModule } from './modules/restore-password/restore-passwo
 import { SmartCitiesModule } from './modules/smart-cities/smart-cities.module';
 
 // Servicios de la aplicación
+import { RemoteService } from './core/common/remote.service';
 import { LoginService } from './core/services/login/login.service';
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
 import { CustomerService } from './core/services/customer/customer.service';
@@ -44,6 +45,7 @@ import { appRoutes } from './app.routes';
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
+    RemoteService,
     LoginService,
     LoggedInGuard,
     CustomerService
