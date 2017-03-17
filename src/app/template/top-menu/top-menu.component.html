@@ -10,18 +10,13 @@
                     </a>
                     <ul class="dropdown-menu alert-dropdown" aria-labelledby="name2">
                         <li >
-                            <a href="javascript:;" class="dropdown-item">Traffic alerts 
-                            <span class="label-pill label-danger pull-right">2</span></a>
+                            <a href="javascript:;" class="dropdown-item">Traffic alerts</a>
                         </li>
                         <li >
-                            <a href="javascript:;" class="dropdown-item">Health alerts
-                            <span class="label-pill label-success pull-right">2</span>
-                            </a>
+                            <a href="javascript:;" class="dropdown-item">Health alerts</a>
                         </li>
                         <li >
-                            <a href="javascript:;" class="dropdown-item">Pollutation alerts
-                            <span class="label-pill label-warning pull-right">2</span>
-                            </a>
+                            <a href="javascript:;" class="dropdown-item">Pollutation alerts</a>
                         </li>
                         <li class="dropdown-divider"></li>
                         <li>
@@ -32,7 +27,7 @@
             </li>
             <li class="dropdown nav-item" ngbDropdown>
                 <a href="javascript:;" id="single-button" class="nav-link dropdown-toggle" ngbDropdownToggle >
-                    {{ userInfo.name }} {{ userInfo.familyName }} <b class="caret"></b>
+                    {{ identityUser.name }} <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="single-button">
                     <li>
@@ -43,12 +38,12 @@
                     </li>
                     <li class="dropdown-submenu">
                         <a tabindex="-1" class="dropdown-item">Settings</a>
-                        
+
                             <ul class="dropdown-menu pull-left">
                                 <li><a class="dropdown-item">Change Your Password</a></li>
                                 <li><a class="dropdown-item">Cancel Account</a></li>
                             </ul>
-                        
+
                     </li>
                     <li class="dropdown-divider"></li>
                     <li>

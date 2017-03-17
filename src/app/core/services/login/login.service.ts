@@ -3,92 +3,118 @@ import { Http, Headers, Response } from '@angular/http';
 
 import { environment } from '../../../../environments/environment';
 
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
-export const tokenName = 'x-subject-token';
+import { IdentityUser, TokenInfo } from '../../models/identity-user';
+
 const tokenInfoName = 'token-info';
 
-import { users, UserInfo } from './users';
+const base_rest_path = '/security';
+const login_url = environment.backend_sdk + base_rest_path + '/login';
+const logout_url = environment.backend_sdk + base_rest_path + '/logout';
+const valid_token_url = environment.backend_sdk + base_rest_path + '/valid-token';
+const refresh_token_url = environment.backend_sdk + base_rest_path + '/refresh-token';
+
 
 @Injectable()
 export class LoginService {
 
-  constructor(private http: Http) {
-  }
+  constructor(private http: Http) {}
 
   login(email: string, password: string) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
     const query = {
-      'auth': {
-        'identity': {
-          'methods': ['password'],
-          'password': {
-            'user': {
-              'name': email,
-              'domain': { 'id': 'default' },
-              'password': password
-            }
-          }
-        }
-      }
+      'username': email,
+      'password': password
     };
 
 
     return this.http
     .post(
-      environment.idm_server + '/v3/auth/tokens',
+      login_url,
       JSON.stringify(query),
       { headers }
     )
     .map((res: Response) => {
-      const responseHeaders = res.headers;
-      const body = res.json();
-      const token = responseHeaders.get(tokenName);
+      const identityUser: IdentityUser = res.json();
 
-      if (token) {
-        localStorage.setItem(tokenName, token);
-        localStorage.setItem(tokenInfoName, JSON.stringify(body));
+      if (identityUser) {
+        identityUser.name = identityUser.username;
+
+        localStorage.setItem(tokenInfoName, JSON.stringify(identityUser));
       } else {
         this.logout();
       }
 
-      return body;
+      return identityUser;
     })
     .catch((error: Response | any) => {
-      // console.log('Error at login');
-      // console.log(error);
+      console.log('Error at login');
+      console.log(error);
+
       this.logout();
       return [{'code': '503'}];
     });
   }
 
   logout() {
-    localStorage.removeItem(tokenName);
+    //TODO: perform logout
+    this.deleteToken();
+  }
+
+  private deleteToken() {
     localStorage.removeItem(tokenInfoName);
-
-    // TODO: Eliminar el token del servidor IDM
   }
 
-  isLoggedIn() {
-    const toeknInfo = JSON.parse(localStorage.getItem(tokenInfoName));
-
-    // if (toeknInfo) {
-    //   console.log(toeknInfo);
-    // }
-    // TODO: Revisar el token
-
-    return !!localStorage.getItem(tokenName);
+  isLoggedIn(): boolean {
+    //return this.isValidToken();
+    return !!localStorage.getItem(tokenInfoName);
   }
 
-  getUserInfo(): UserInfo {
-    return users[2];
+  private renewToken() {
+  }
+
+  private isValidToken(): Promise<boolean> {
+    if (localStorage.getItem(tokenInfoName)) {
+      //TODO: build headers
+      return this.http.post(valid_token_url, null, null).toPromise()
+        .then((res: Response) => {
+          return true;
+        })
+        .catch((error: Response | any) => {
+          this.deleteToken();
+          return false;
+        });
+    } else {
+      return new Promise((resolve, reject) => {
+        resolve(false);
+      });
+    }
+  }
+
+  getLoggedUser(): IdentityUser {
+    const tmp: string = localStorage.getItem(tokenInfoName);
+
+    if (tmp) {
+      return JSON.parse(tmp);
+    } else {
+      return null;
+    }
   }
 
   getToken(): string {
-    return localStorage.getItem(tokenName);
+    const identityUser: IdentityUser = this.getLoggedUser();
+
+    if (identityUser) {
+      return identityUser.tokenInfo.token;
+    } else {
+      return null;
+    }
   }
 
 }

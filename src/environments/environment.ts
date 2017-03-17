@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   idm_server: '/keyrock',
-  backend_sdk: 'http://localhost:8080',
+  backend_sdk: 'http://localhost:9000/back-sdk',
 //  client_id: 'd7d7a947a2744fa78f50ba33cb6f5885',
 //  client_secret: '0135e79e67b3483d93f31cd13387b4bb'
   client_id: '71c1a6a1a7f24345946509f826cb445f',
