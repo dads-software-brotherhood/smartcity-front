@@ -3,7 +3,7 @@ export enum TokenType {
   OTHER
 }
 
-export class Token {
+export class TokenInfo {
   token: string;
   refreshToken?: string;
   start: Date;
@@ -16,6 +16,6 @@ export class IdentityUser {
   mongoId?: string;
   name?: string;
   username: string;
-  token: Token;
+  tokenInfo: TokenInfo;
   roles: Array<string>;
 }

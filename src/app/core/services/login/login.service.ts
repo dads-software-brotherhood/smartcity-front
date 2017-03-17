@@ -8,7 +8,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-export const tokenName = 'x-subject-token';
+import { IdentityUser, TokenInfo } from '../../models/identity-user';
+
 const tokenInfoName = 'token-info';
 
 const base_rest_path = '/security';
@@ -17,7 +18,6 @@ const logout_url = environment.backend_sdk + base_rest_path + '/logout';
 const valid_token_url = environment.backend_sdk + base_rest_path + '/valid-token';
 const refresh_token_url = environment.backend_sdk + base_rest_path + '/refresh-token';
 
-import { IdentityUser, Token } from '../../models/identity-user';
 
 @Injectable()
 export class LoginService {
@@ -44,7 +44,8 @@ export class LoginService {
       const identityUser: IdentityUser = res.json();
 
       if (identityUser) {
-        localStorage.setItem(tokenName, identityUser.token.token);
+        identityUser.name = identityUser.username;
+
         localStorage.setItem(tokenInfoName, JSON.stringify(identityUser));
       } else {
         this.logout();
@@ -62,28 +63,25 @@ export class LoginService {
   }
 
   logout() {
-    if (localStorage.getItem(tokenName)) {
-      this.deleteToken();
-    }
+    //TODO: perform logout
+    this.deleteToken();
   }
 
   private deleteToken() {
-    localStorage.removeItem(tokenName);
     localStorage.removeItem(tokenInfoName);
   }
 
   isLoggedIn(): boolean {
-    const toeknInfo = JSON.parse(localStorage.getItem(tokenInfoName));
-
     //return this.isValidToken();
-    return !!localStorage.getItem(tokenName);
+    return !!localStorage.getItem(tokenInfoName);
   }
 
   private renewToken() {
   }
 
   private isValidToken(): Promise<boolean> {
-    if (localStorage.getItem(tokenName)) {
+    if (localStorage.getItem(tokenInfoName)) {
+      //TODO: build headers
       return this.http.post(valid_token_url, null, null).toPromise()
         .then((res: Response) => {
           return true;
@@ -110,7 +108,13 @@ export class LoginService {
   }
 
   getToken(): string {
-    return localStorage.getItem(tokenName);
+    const identityUser: IdentityUser = this.getLoggedUser();
+
+    if (identityUser) {
+      return identityUser.tokenInfo.token;
+    } else {
+      return null;
+    }
   }
 
 }
