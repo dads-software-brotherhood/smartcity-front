@@ -22,6 +22,8 @@ import { UserAccountModule } from './modules/user-account/user-account.module';
 import { NotificationTrayModule } from './modules/notification-tray/notification-tray.module';
 
 import {ModalPopupComponent  } from '../../usable-component/modal-popup/modalpopup.component';
+import { UserVehicleComponent } from './components/user-vehicle/user-vehicle.component';
+import { UserVehicleDetailComponent } from './components/user-vehicle/user-vehicle-detail.component';
 
 @NgModule({
   imports: [
@@ -42,7 +44,9 @@ import {ModalPopupComponent  } from '../../usable-component/modal-popup/modalpop
     CustomerComponent, // Se va a borrar
     CustomerFormComponent, //Se va a borrar
     ModalPopupComponent,
-    HomeSmartCitiesComponent
+    HomeSmartCitiesComponent,
+    UserVehicleComponent,
+    UserVehicleDetailComponent
   ],
   exports: [
     SmartCitiesComponent

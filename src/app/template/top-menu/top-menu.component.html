@@ -5,28 +5,28 @@
         <ul class="nav navbar-nav top-nav navbar-right pull-xs-right top-right-nav">
             <li class="dropdown nav-item" ngbDropdown>
                 <!-- <div class="dropdown"> -->
-                    <a href="javascript:;" id="name2" class="nav-link dropdown-toggle info-number" ngbDropdownToggle>
-                        <i class="fa fa-bell"></i><span class="label-pill">9+</span> <b class="caret"></b><span class="sr-only">(current)</span>
-                    </a>
-                    <ul class="dropdown-menu alert-dropdown" aria-labelledby="name2">
-                        <li >
-                            <a href="javascript:;" class="dropdown-item">Traffic alerts</a>
-                        </li>
-                        <li >
-                            <a href="javascript:;" class="dropdown-item">Health alerts</a>
-                        </li>
-                        <li >
-                            <a href="javascript:;" class="dropdown-item">Pollutation alerts</a>
-                        </li>
-                        <li class="dropdown-divider"></li>
-                        <li>
-                            <a href="http://207.249.127.180:8080/#/notifications" target="_new" class="dropdown-item">View All</a>
-                        </li>
-                    </ul>
+                <a href="javascript:;" id="name2" class="nav-link dropdown-toggle info-number" ngbDropdownToggle>
+                    <i class="fa fa-bell"></i><span class="label-pill">9+</span> <b class="caret"></b><span class="sr-only">(current)</span>
+                </a>
+                <ul class="dropdown-menu alert-dropdown" aria-labelledby="name2">
+                    <li>
+                        <a href="javascript:;" class="dropdown-item">Traffic alerts</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="dropdown-item">Health alerts</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="dropdown-item">Pollutation alerts</a>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li>
+                        <a href="http://207.249.127.180:8080/#/notifications" target="_new" class="dropdown-item">View All</a>
+                    </li>
+                </ul>
                 <!-- </div> -->
             </li>
             <li class="dropdown nav-item" ngbDropdown>
-                <a href="javascript:;" id="single-button" class="nav-link dropdown-toggle" ngbDropdownToggle >
+                <a href="javascript:;" id="single-button" class="nav-link dropdown-toggle" ngbDropdownToggle>
                     {{ identityUser.name }} <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="single-button">
@@ -36,13 +36,16 @@
                     <li>
                         <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-account/profile">Health Profile</a>
                     </li>
+                    <li>
+                        <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/vehicles">Vehicles</a>
+                    </li>
                     <li class="dropdown-submenu">
                         <a tabindex="-1" class="dropdown-item">Settings</a>
 
-                            <ul class="dropdown-menu pull-left">
-                                <li><a class="dropdown-item">Change Your Password</a></li>
-                                <li><a class="dropdown-item">Cancel Account</a></li>
-                            </ul>
+                        <ul class="dropdown-menu pull-left">
+                            <li><a class="dropdown-item">Change Your Password</a></li>
+                            <li><a class="dropdown-item">Cancel Account</a></li>
+                        </ul>
 
                     </li>
                     <li class="dropdown-divider"></li>
