@@ -21,6 +21,7 @@ import { RemoteService } from './core/common/remote.service';
 import { LoginService } from './core/services/login/login.service';
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
 import { CustomerService } from './core/services/customer/customer.service';
+import { VehicleService } from './core/services/vehicle/vehicle.service';
 
 // Rutas
 import { appRoutes } from './app.routes';
@@ -48,7 +49,8 @@ import { appRoutes } from './app.routes';
     RemoteService,
     LoginService,
     LoggedInGuard,
-    CustomerService
+    CustomerService,
+    VehicleService
   ],
   bootstrap: [AppComponent]
 })

@@ -52,18 +52,21 @@
         <tr>
             <th>Name</th>
             <th>Vehicle type</th>
-            <th>Plate Identifier</th>
+            <th>Brand Name</th>
+            <th>Model Name</th>
             <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr >
-            <td></td>
-            <td></td>
-            <td></td>
+        <tr *ngFor="let vehicle of vehicles">
+            <td>{{vehicle.name}}</td>
+            <td>{{vehicle.vehicleType}}</td>
+            <td>{{vehicle.brandName}}</td>
+            <td>{{vehicle.modelName}}</td>
             <td>
-              <a class="btn btn-smart" ngbtooltip="Edit" placement="top">
+              <a [routerLink]="['/smart-cities/vehicle', '']" 
+                 class="btn btn-smart" ngbtooltip="Edit" placement="top">
                 <i aria-hidden="true" class="fa fa-pencil"></i>
               </a>
             </td>
