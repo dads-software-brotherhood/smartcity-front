@@ -15,18 +15,15 @@ import { VehicleService } from '../../../../core/services/vehicle/vehicle.servic
 })
 export class UserVehicleDetailComponent implements OnInit {
   public vehicleForm: FormGroup;
-  public submitted: boolean;
-  public events: any[] = [];
   public index: string;
   public title: string;
   private vehicleTypes: any[];
   private fuelTypes: any[];
-  vehicles: Vehicle[] = [];
+
+  private vehicles: Vehicle[] = [];
   errorMessage: string;
 
-  vehicle = new Vehicle();
-  private valueVehicleType: VehicleType;
-  private valueFuelType: FuelType;
+  private vehicle = new Vehicle();
 
   constructor(private fb: FormBuilder,   
               private router: Router,
@@ -41,8 +38,9 @@ export class UserVehicleDetailComponent implements OnInit {
             "modelName": [null, Validators.required],
             "description": [null],
             "vehiclPlateIdentifier": [null],
-            "vehicleType": [null],
-            "fuelType": [null]
+            "vehicleType": [null, Validators.required],
+            "fuelType": [null, Validators.required],
+            "fuelConsumption": [null]
         })
       
       
@@ -51,23 +49,58 @@ export class UserVehicleDetailComponent implements OnInit {
     private sub: any;
    
   ngOnInit() {
-        // this.sub = this.route.params.subscribe(params => {
-        //     this.index = params["index"];
-        // })
-
-        if (this.index != undefined) { //// Based on id decide Title add/edit
+        this.sub = this.route.params.subscribe(params => {
+            this.index = params["id"];
+        })
+        if (this.index != "") { //// Based on id decide Title add/edit
             this.title = "Edit User Vehicle"
+            this.getVehicleData();
         } else {
             this.title = "Add User Vehicle"
         }
 
-        if (!this.index) {
-            return;
-        }
-         
   }
 
-  public getVehicleTypes() {
+  getVehicleData() { 
+    this._service.getAll().subscribe(
+      vehicles => { this.vehicles = vehicles;
+      this.vehicle = this.vehicles[this.index];
+  },
+      error => this.errorMessage = <any>error
+    );
+  }
+
+  restrictNumeric(e, object){
+    var input;
+    if (e.metaKey || e.ctrlKey) {
+        return true;
+    }
+    if (e.which === 32) {
+        return false;
+    }
+    if (e.which === 0) {
+        return true;
+    }
+    if (e.which < 33) {
+        return true;
+    }
+    if (e.which === 46) {
+        if(object.value != undefined && object.value != '')
+        {
+        if(object.value.indexOf('.') > 0)
+            return false;
+        else
+            return true;
+    }
+    else
+    return false;
+    }
+    input = String.fromCharCode(e.which);
+    return !!/[\d\s]/.test(input);
+  }
+
+
+  getVehicleTypes() {
     let vehicleTypes: any[] = [];
 
     //Get name-value pairs from VehicleTypeEnum
@@ -81,7 +114,7 @@ export class UserVehicleDetailComponent implements OnInit {
     return vehicleTypes;
 }
 
- public getFuelTypes() {
+ getFuelTypes() {
     let fuelTypes: any[] = [];
 
     //Get name-value pairs from VehicleTypeEnum
@@ -96,11 +129,18 @@ export class UserVehicleDetailComponent implements OnInit {
 }
 
 save(form, isValid: boolean) {
-           console.log(form);
+          console.log(this.index);
+          if(this.index == "")
+            {
            this._service.insert(form)
                 .then(form => this.vehicles.push(form),
                     error =>  this.errorMessage = <any>error);
-
+            }
+            else
+            {
+                this._service.update(form, this.index).then(res => true,
+                error =>  this.errorMessage = <any>error);
+            }
                 
         this.router.navigate(["/smart-cities/vehicles"]);
     }

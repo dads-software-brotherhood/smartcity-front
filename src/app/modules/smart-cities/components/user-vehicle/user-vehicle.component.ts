@@ -15,18 +15,16 @@ export class UserVehicleComponent implements OnInit {
   Objvehicle = new Vehicle();
   loadingIndicator: boolean = true;
 
-  constructor(private vehicleService: VehicleService, private _router: Router ) { 
+  constructor(private _service: VehicleService, private _router: Router ) { 
   }
 
-  ngOnInit() {
-    
+  ngOnInit() {   
     this.loadingIndicator = true;
-    console.log("carga datos");
     this.bindTable();
   }
 
   bindTable() { //// Bind vehicles Grid
-    this.vehicleService.getAll().subscribe(
+    this._service.getAll().subscribe(
       vehicles => { this.vehicles = vehicles;
     this.loadingIndicator = false;
   },

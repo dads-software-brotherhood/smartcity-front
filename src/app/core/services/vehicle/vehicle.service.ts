@@ -46,20 +46,16 @@ export class VehicleService {
     .catch(this.handleError);
   }
 
-   loadByIndex(index: string): Promise<Vehicle> {
-    const requestOptions: RequestOptions = this.buildRequestOptions();
+  update(vehicle: Vehicle, index: string): Promise<boolean> {
+    const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
 
-    return this.http.get(this.buildByIdUserUrlIndex(index), requestOptions).toPromise()
-    .then(this.extractData)
+    return this.http.put(this.buildByIdUserUrl() + '/' + index, JSON.stringify(vehicle), requestOptions).toPromise()
+    .then((res: Response) => {return true;})
     .catch(this.handleError);
   }
-  
+
   private buildByIdUserUrl() {
     return vehicleUrl + '/user-profile/' + this.loginService.getLoggedUser().id + '/vehicle';
-  }
-
-  private buildByIdUserUrlIndex(index: string) {
-    return this.buildByIdUserUrl() + '/' + index;
   }
 
   private buildRequestOptions(contentType?: string): RequestOptions {
