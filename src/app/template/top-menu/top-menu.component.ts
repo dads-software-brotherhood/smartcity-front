@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { LoginService } from '../../core/services/login/login.service';
 import { IdentityUser } from '../../core/models/identity-user';
+
+import { constants } from '../../core/common/constants';
 
 @Component({
   selector: 'app-top-menu',
@@ -12,7 +15,7 @@ export class TopMenuComponent implements OnInit {
 
   identityUser: IdentityUser;
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private router: Router) {
   }
 
   ngOnInit() {
@@ -21,6 +24,7 @@ export class TopMenuComponent implements OnInit {
 
   logout() {
     this.loginService.logout();
+    this.router.navigate(constants.logoutRoute);
   }
 
 }
