@@ -1,58 +1,70 @@
-
+  <form [formGroup]="vehicleForm" (ngSubmit)="save(vehicleForm.value,vehicleForm.valid)">
   <div class="row">
     <div class="col-md-12">
       <h2>{{title}}</h2>
       <hr class="title-hr">
       <div class="row">
         
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text"  class="form-control" placeholder="Name"/>
+            <input id="name"
+                   [formControl]="vehicleForm.controls['name']" [(ngModel)]="vehicle.name" 
+                   type="text" class="form-control" placeholder="Name"/>
+            <div *ngIf="vehicleForm.controls['name'].hasError('required') && vehicleForm.controls['name'].touched" class="alert alert-danger">Name</div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="inlineFormInputGroup">Vehicle Type</label>
-            <select class="form-control"
-               [(ngModel)]="vehicleTypes"
-                (ngModelChange)="changeVehicleType($event)">
-                <option *ngFor="let vehicleType of vehicleTypes" [ngValue]="vehicleType">{{vehicleType.name}}</option>
+            <select id="vehicleType" [formControl]="vehicleForm.controls['vehicleType']" class="form-control" [(ngModel)]="vehicle.vehicleType">
+                <option value="0" selected="selected">Select...</option>
+                <option *ngFor="let vehicleType of vehicleTypes" [ngValue]="vehicleType.name">{{vehicleType.name}}</option>
+              </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="inlineFormInputGroup">Fuel Type</label>
+            <select id="fuelType" [formControl]="vehicleForm.controls['fuelType']" class="form-control" [(ngModel)]="vehicle.fuelType">
+                <option value="0" selected="selected">Select...</option>
+                <option *ngFor="let fuelType of fuelTypes" [ngValue]="fuelType.name">{{fuelType.name}}</option>
               </select>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="brandName">Brand Name</label>
-            <input type="text"  class="form-control" placeholder="Brand Name"/>
+            <input id="brandName"
+                   [formControl]="vehicleForm.controls['brandName']" [(ngModel)]="vehicle.brandName" 
+                   type="text" class="form-control" placeholder="Brand Name"/>
+            <div *ngIf="vehicleForm.controls['brandName'].hasError('required') && vehicleForm.controls['brandName'].touched" class="alert alert-danger">Brand Name</div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="modelName">Model Name</label>
-            <input type="text"  class="form-control" placeholder="Model Name"/>
+            <input id="modelName"
+                   [formControl]="vehicleForm.controls['modelName']" [(ngModel)]="vehicle.modelName" 
+                   type="text" class="form-control" placeholder="Model Name"/>
+            <div *ngIf="vehicleForm.controls['modelName'].hasError('required') && vehicleForm.controls['modelName'].touched" class="alert alert-danger">Model Name</div>
           </div>
         </div>
         <div class="col-md-12">
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea type="text"  class="form-control" placeholder="Description"> </textarea>
+            <textarea id="description" type="text"
+            [formControl]="vehicleForm.controls['description']" [(ngModel)]="vehicle.description"  class="form-control" placeholder="Description"> </textarea>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="plateI">Plate Identifier</label>
-            <input type="text"  class="form-control" placeholder="Plate Identifier"/>
+            <label for="vehiclPlateIdentifier">Plate Identifier</label>
+            <input id="vehiclPlateIdentifier" type="text"
+            [formControl]="vehicleForm.controls['vehiclPlateIdentifier']" [(ngModel)]="vehicle.vehiclPlateIdentifier" class="form-control" placeholder="Plate Identifier"/>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="inlineFormInputGroup">Fuel Type</label>
-            <select class="form-control">
-               
-              </select>
-          </div>
-        </div>    
+        
         <div class="col-md-3 col-md-offset-6">
           <div class="form-group">
             <span class="labelHidden"></span>
@@ -62,7 +74,7 @@
         <div class="col-md-3 ">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <a type="submit" class="btn btn-smart btn-block" > Save</a>
+            <button [disabled]="!vehicleForm.valid" type="submit" class="btn btn-smart btn-block" > Save</button>
           </div>
         </div>
         <div class="col-md-12">
@@ -71,6 +83,7 @@
           </div>
         </div>
       </div>
-     
+      
     </div>
   </div>
+  </form>

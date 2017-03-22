@@ -19,6 +19,7 @@ export class UserVehicleComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.loadingIndicator = true;
     console.log("carga datos");
     this.bindTable();
@@ -28,7 +29,7 @@ export class UserVehicleComponent implements OnInit {
     this.vehicleService.getAll().subscribe(
       vehicles => { this.vehicles = vehicles;
     this.loadingIndicator = false;
-    },
+  },
       error => this.errorMessage = <any>error
     );
   }

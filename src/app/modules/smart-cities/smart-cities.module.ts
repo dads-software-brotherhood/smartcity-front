@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Eliminar cuando ya no se tenga el componente de prueba
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { SmartCitiesComponent } from './smart-cities.component';
@@ -32,8 +32,8 @@ import { UserVehicleDetailComponent } from './components/user-vehicle/user-vehic
     RouterModule,
     NgbModule.forRoot(),
     NgxDatatableModule,
-    FormsModule, // Eliminar cuando ya no se tenga el componente de prueba
-    ReactiveFormsModule, //Eliminar cuando ya no se tenga el componente de prueba
+    FormsModule, 
+    ReactiveFormsModule,
     UserAccountModule,
     NotificationTrayModule,
     TemplateModule
