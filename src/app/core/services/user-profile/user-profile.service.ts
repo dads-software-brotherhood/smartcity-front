@@ -21,7 +21,7 @@ const getUser = environment.backend_sdk + base_rest_path;
 export class UserProfileService extends RemoteUtils {
 
   constructor(private remoteConnectionService: RemoteConnectionService, private loginService: LoginService) {
-    super();
+    super(loginService);
   }
 
   public getUser(): Promise<UserProfile> {

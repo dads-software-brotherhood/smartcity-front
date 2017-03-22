@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -7,15 +8,16 @@ import 'rxjs/add/operator/toPromise';
 
 import { LoginService } from '../services/login/login.service';
 
+@Injectable()
 export class RemoteUtils {
 
-  constructor() { }
+  constructor(private localLoginService: LoginService) { }
 
-  public buildRequestOptions(loginService?: LoginService, playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): RequestOptions {
+  protected buildRequestOptions(playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): RequestOptions {
     const headers: Headers = new Headers();
 
-    if (loginService && loginService.isLoggedIn()) {
-      headers.append('X-Auth-Token', loginService.getToken());
+    if (this.localLoginService.isLoggedIn()) {
+      headers.append('X-Auth-Token', this.localLoginService.getToken());
     }
 
     if (contentType) {
@@ -35,25 +37,25 @@ export class RemoteUtils {
     return requestOptions;
   }
 
-  public extractNumberBody(res: Response): number {
+  protected extractNumberBody(res: Response): number {
     return Number(res.text());
   }
 
-  public extractTextBody(res: Response): string {
+  protected extractTextBody(res: Response): string {
     return res.text();
   }
 
-  public extractDataArray(res: Response) {
+  protected extractDataArray(res: Response) {
     const body = res.json();
     return body || [];
   }
 
-  public extractData(res: Response) {
+  protected extractData(res: Response) {
     const body = res.json();
     return body || {};
   }
 
-  public handleError (error: Response | any) {
+  protected handleError (error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
