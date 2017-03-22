@@ -49,18 +49,24 @@ export class LoginService {
     });
   }
 
-  logout() {
+  logout(): Observable<boolean> {
     const token: string = this.getToken();
 
     if (token) {
       const requestOptions: RequestOptions = this.buildRequestOptions(token);
-
-      this.http.delete(logout_url, requestOptions)
-      .subscribe((res) => {
-        console.log('logout')
-      });
-
       this.deleteToken(); //We delete token from local storage
+
+      return this.http.delete(logout_url, requestOptions)
+        .map((res) => {
+          console.log('logout');
+          return true;
+        })
+        .catch((error) => {
+          console.log(error);
+          return null;
+        });
+    } else {
+      return null;
     }
   }
 
@@ -70,8 +76,6 @@ export class LoginService {
 
   isLoggedIn(): Observable<boolean> {
     const token: string = this.getToken();
-
-    console.log(token);
 
     if (token) {
       const requestOptions: RequestOptions = this.buildRequestOptions(token);

@@ -46,8 +46,11 @@ export class MainMenuComponent implements OnInit {
   }
 
   logout() {
-    this.loginService.logout();
-    this.router.navigate(constants.logoutRoute);
+    this.loginService.logout().subscribe(
+      (res) => {
+        this.router.navigate(constants.logoutRoute);
+      }
+    );
   }
 
 }
