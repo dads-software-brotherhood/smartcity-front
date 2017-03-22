@@ -8,6 +8,7 @@ import { UserAccountComponent } from './user-account.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CredentialsComponent } from './components/credentials/credentials.component';
 import { CloseAccountComponent } from './components/close-account/close-account.component';
+import { HealthProfileComponent } from './components/health-profile/health-profile.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { CloseAccountComponent } from './components/close-account/close-account.
     ProfileComponent,
     CredentialsComponent,
     CloseAccountComponent,
-    UserAccountComponent
+    UserAccountComponent,
+    HealthProfileComponent
   ],
   exports: [
     ProfileComponent, CredentialsComponent, CloseAccountComponent, UserAccountComponent

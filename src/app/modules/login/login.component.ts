@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 
   submitForm(form: any) {
     this.loginService.login(form.email, form.password).subscribe((result) => {
+      console.log(result);
       if (result) {
         console.log(result);
 
