@@ -44,9 +44,9 @@ export class VehicleService {
     .then(this.extractData)
     .catch(this.handleError);
   }
-  
+
   private buildByIdUserUrl() {
-    return vehicleUrl + '/user-profile/58cc64818750f61a08012ab6/vehicle';
+    return vehicleUrl + '/user-profile/' + this.loginService.getLoggedUser().id + '/vehicle';
   }
 
   private buildRequestOptions(contentType?: string): RequestOptions {
