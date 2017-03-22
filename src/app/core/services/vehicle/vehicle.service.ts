@@ -18,6 +18,7 @@ const vehicleUrl = environment.backend_sdk;
 export class VehicleService {
 
   loginServ: LoginService;
+  private url: string;
 
   constructor(private http: Http, private loginService: LoginService) { }
 
@@ -44,9 +45,21 @@ export class VehicleService {
     .then(this.extractData)
     .catch(this.handleError);
   }
+
+   loadByIndex(index: string): Promise<Vehicle> {
+    const requestOptions: RequestOptions = this.buildRequestOptions();
+
+    return this.http.get(this.buildByIdUserUrlIndex(index), requestOptions).toPromise()
+    .then(this.extractData)
+    .catch(this.handleError);
+  }
   
   private buildByIdUserUrl() {
-    return vehicleUrl + '/user-profile/58cc64818750f61a08012ab6/vehicle';
+    return vehicleUrl + '/user-profile/' + this.loginService.getLoggedUser().id + '/vehicle';
+  }
+
+  private buildByIdUserUrlIndex(index: string) {
+    return this.buildByIdUserUrl() + '/' + index;
   }
 
   private buildRequestOptions(contentType?: string): RequestOptions {
