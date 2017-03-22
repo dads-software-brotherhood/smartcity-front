@@ -10,7 +10,6 @@ import { SmartCitiesComponent } from './smart-cities.component';
 
 // Se van a borrar
 import { HomeSmartCitiesComponent } from './components/home-smart-cities/home-smart-cities.component';
-import { PruebaComponent } from './components/prueba/prueba.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { CustomerFormComponent } from './components/customer/customer-form.component';
 
@@ -34,7 +33,7 @@ import { PublicTransportDetailComponent } from './components/public-transport/pu
     RouterModule,
     NgbModule.forRoot(),
     NgxDatatableModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     UserAccountModule,
     NotificationTrayModule,
@@ -42,7 +41,6 @@ import { PublicTransportDetailComponent } from './components/public-transport/pu
   ],
   declarations: [
     SmartCitiesComponent,
-    PruebaComponent, // Se va a borrar
     CustomerComponent, // Se va a borrar
     CustomerFormComponent, //Se va a borrar
     ModalPopupComponent,
