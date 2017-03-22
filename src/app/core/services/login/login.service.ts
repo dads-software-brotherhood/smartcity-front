@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { environment } from '../../../../environments/environment';
+import { constants } from '../../common/constants';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -9,8 +10,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { IdentityUser, TokenInfo } from '../../models/identity-user';
-
-const tokenInfoName = 'token-info';
+import { UserProfile } from '../../models/user-profile'
 
 const base_rest_path = '/security';
 const login_url = environment.backend_sdk + base_rest_path + '/login';
@@ -18,13 +18,15 @@ const logout_url = environment.backend_sdk + base_rest_path + '/logout';
 const valid_token_url = environment.backend_sdk + base_rest_path + '/valid-token';
 const refresh_token_url = environment.backend_sdk + base_rest_path + '/refresh-token';
 
+const user_profile = environment.backend_sdk + '/user-profile';
+
 
 @Injectable()
 export class LoginService {
 
   constructor(private http: Http) {}
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<IdentityUser> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -44,21 +46,17 @@ export class LoginService {
       const identityUser: IdentityUser = res.json();
 
       if (identityUser) {
-        identityUser.name = identityUser.username;
-
-        localStorage.setItem(tokenInfoName, JSON.stringify(identityUser));
+        localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
+        return identityUser;
       } else {
+        //Never happend
         this.logout();
+        return null;
       }
-
-      return identityUser;
     })
     .catch((error: Response | any) => {
-      console.log('Error at login');
-      console.log(error);
-
       this.logout();
-      return [{'code': '503'}];
+      return null;
     });
   }
 
@@ -68,28 +66,28 @@ export class LoginService {
   }
 
   private deleteToken() {
-    localStorage.removeItem(tokenInfoName);
+    localStorage.removeItem(constants.tokenInfoName);
   }
 
   isLoggedIn(): boolean {
     //return this.isValidToken();
-    return !!localStorage.getItem(tokenInfoName);
+    return !!localStorage.getItem(constants.tokenInfoName);
   }
 
   private renewToken() {
   }
 
   private isValidToken(): Promise<boolean> {
-    if (localStorage.getItem(tokenInfoName)) {
+    if (localStorage.getItem(constants.tokenInfoName)) {
       //TODO: build headers
       return this.http.post(valid_token_url, null, null).toPromise()
-        .then((res: Response) => {
-          return true;
-        })
-        .catch((error: Response | any) => {
-          this.deleteToken();
-          return false;
-        });
+      .then((res: Response) => {
+        return true;
+      })
+      .catch((error: Response | any) => {
+        this.deleteToken();
+        return false;
+      });
     } else {
       return new Promise((resolve, reject) => {
         resolve(false);
@@ -98,7 +96,7 @@ export class LoginService {
   }
 
   getLoggedUser(): IdentityUser {
-    const tmp: string = localStorage.getItem(tokenInfoName);
+    const tmp: string = localStorage.getItem(constants.tokenInfoName);
 
     if (tmp) {
       return JSON.parse(tmp);
@@ -115,6 +113,34 @@ export class LoginService {
     } else {
       return null;
     }
+  }
+
+  getUserProfile(token: string, email?: string): Promise<UserProfile> {
+    const requestOptions: RequestOptions = this.buildRequestOptions(token, email);
+
+    return this.http.get(user_profile, requestOptions).toPromise()
+      .then((res: Response) => {
+        return res.json();
+      })
+      .catch((error: Response | any) => {
+        return null;
+      });
+  }
+
+  private buildRequestOptions(token: string, email?: string):RequestOptions {
+    const headers: Headers = new Headers();
+    headers.append(constants.authTokenKey, token);
+
+    const requestOptions: RequestOptions = new RequestOptions();
+    requestOptions.headers= headers;
+
+    if (email) {
+      const params: URLSearchParams = new URLSearchParams();
+      params.set('email', email);
+      requestOptions.search= params;
+    }
+
+    return requestOptions;
   }
 
 }

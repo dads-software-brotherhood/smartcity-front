@@ -17,8 +17,9 @@ import { RestorePasswordModule } from './modules/restore-password/restore-passwo
 import { SmartCitiesModule } from './modules/smart-cities/smart-cities.module';
 
 // Servicios de la aplicación
-import { RemoteService } from './core/common/remote.service';
+import { RemoteConnectionService } from './core/services/remote-connection/remote-connection.service';
 import { LoginService } from './core/services/login/login.service';
+import { UserProfileService } from './core/services/user-profile/user-profile.service';
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
 import { CustomerService } from './core/services/customer/customer.service';
 import { VehicleService } from './core/services/vehicle/vehicle.service';
@@ -46,8 +47,9 @@ import { appRoutes } from './app.routes';
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    RemoteService,
+    RemoteConnectionService,
     LoginService,
+    UserProfileService,
     LoggedInGuard,
     CustomerService,
     VehicleService

@@ -3,7 +3,7 @@ import { HealthProfile } from './health-profile';
 import { Vehicle } from './vehicle';
 import { Gender } from './gender';
 
-export class User {
+export class UserProfile {
 
   id: string;
   email: string;
