@@ -32,22 +32,21 @@ export class LoginService {
     };
 
     return this.http.post(login_url, JSON.stringify(query), { headers })
-      .map((res: Response) => {
-        const identityUser: IdentityUser = res.json();
+    .map((res: Response) => {
+      const identityUser: IdentityUser = res.json();
 
-        if (identityUser) {
-          localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
-          return identityUser;
-        } else {
-          //Never happend
-          this.deleteToken();
-          return null;
-        }
-      })
-      .catch((error: Response | any) => {
+      if (identityUser) {
+        localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
+        return identityUser;
+      } else { //This case never happend
         this.deleteToken();
         return null;
-      });
+      }
+    })
+    .catch((error: Response | any) => {
+      this.deleteToken();
+      return null;
+    });
   }
 
   logout() {
@@ -57,9 +56,9 @@ export class LoginService {
       const requestOptions: RequestOptions = this.buildRequestOptions(token);
 
       this.http.delete(logout_url, requestOptions)
-        .subscribe((res) => {
-          console.log('deleted')
-        });
+      .subscribe((res) => {
+        console.log('logout')
+      });
 
       this.deleteToken(); //We delete token from local storage
     }
@@ -69,29 +68,19 @@ export class LoginService {
     localStorage.removeItem(constants.tokenInfoName);
   }
 
-  isLoggedIn(): boolean {
-    //return this.isValidToken();
-    return !!localStorage.getItem(constants.tokenInfoName);
-  }
+  isLoggedIn(): Observable<boolean> {
+    const token: string = this.getToken();
 
-  private renewToken() {
-  }
+    console.log(token);
 
-  private isValidToken(): Promise<boolean> {
-    if (localStorage.getItem(constants.tokenInfoName)) {
-      //TODO: build headers
-      return this.http.post(valid_token_url, null, null).toPromise()
-      .then((res: Response) => {
-        return true;
-      })
-      .catch((error: Response | any) => {
-        this.deleteToken();
-        return false;
-      });
+    if (token) {
+      const requestOptions: RequestOptions = this.buildRequestOptions(token);
+      return this.http.get(valid_token_url, requestOptions)
+              .map((res: Response) => {
+                return true;
+              });
     } else {
-      return new Promise((resolve, reject) => {
-        resolve(false);
-      });
+      return null;
     }
   }
 
