@@ -1,0 +1,69 @@
+ <div class="row">
+    <div class="col-md-12">
+      <h2>Public Transport</h2>
+      <hr class="title-hr">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Search</label>
+            <input type="text"  class="form-control" placeholder="Search"/>
+          </div>
+        </div>
+        
+        <div class="col-md-3 ">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <a type="submit" class="btn btn-smart btn-block" > Search </a>
+          </div>
+        </div>
+
+        <div class="col-md-3 ">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <a [routerLink]="['/smart-cities/transport', '']" type="submit" class="btn btn-smart btn-block" > Add </a>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <hr class="subTitle-hr">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table ">
+              <thead class="thead-default">
+                  <tr>
+                      <th>Name</th>
+                      <th>Vehicle type</th>
+                      <th>Plate Identifier</th>
+                      <th>Area Served</th>
+                      <th></th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr >
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <a class="btn btn-smart" ngbTooltip="Edit" placement="top">
+                          <i aria-hidden="true" class="fa fa-pencil"></i>
+                        </a>
+                      </td>
+                      <td>
+                        <a class="btn btn-danger" ngbTooltip="Edit" placement="top">
+                          <i aria-hidden="true" class="fa fa-trash"></i>
+                        </a>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -24,6 +24,8 @@ import { NotificationTrayModule } from './modules/notification-tray/notification
 import {ModalPopupComponent  } from '../../usable-component/modal-popup/modalpopup.component';
 import { UserVehicleComponent } from './components/user-vehicle/user-vehicle.component';
 import { UserVehicleDetailComponent } from './components/user-vehicle/user-vehicle-detail.component';
+import { PublicTransportComponent } from './components/public-transport/public-transport.component';
+import { PublicTransportDetailComponent } from './components/public-transport/public-transport-detail.component';
 
 @NgModule({
   imports: [
@@ -46,7 +48,9 @@ import { UserVehicleDetailComponent } from './components/user-vehicle/user-vehic
     ModalPopupComponent,
     HomeSmartCitiesComponent,
     UserVehicleComponent,
-    UserVehicleDetailComponent
+    UserVehicleDetailComponent,
+    PublicTransportComponent,
+    PublicTransportDetailComponent
   ],
   exports: [
     SmartCitiesComponent
