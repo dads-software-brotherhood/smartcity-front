@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -8,7 +7,6 @@ import 'rxjs/add/operator/toPromise';
 
 import { LoginService } from '../services/login/login.service';
 
-@Injectable()
 export class RemoteUtils {
 
   constructor(private localLoginService: LoginService) { }
