@@ -13,17 +13,17 @@ import { RemoteUtils } from '../../common/rempote-utils';
 export class RemoteConnectionService extends RemoteUtils {
 
     constructor(private http: Http, private loginService: LoginService) {
-      super();
+      super(loginService);
     }
 
     public getAsObservable(url: string, playload: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Observable<any> {
-      const requestOptions: RequestOptions = this.buildRequestOptions(this.loginService, playload, contentType, params, extraHeaders);
+      const requestOptions: RequestOptions = this.buildRequestOptions(playload, contentType, params, extraHeaders);
 
       return this.http.get(url, requestOptions);
     }
 
     public getAsPromise(url: string, playload: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Promise<any> {
-      const requestOptions: RequestOptions = this.buildRequestOptions(this.loginService, playload, contentType, params, extraHeaders);
+      const requestOptions: RequestOptions = this.buildRequestOptions(playload, contentType, params, extraHeaders);
 
       return this.http.get(url, requestOptions).toPromise();
     }
