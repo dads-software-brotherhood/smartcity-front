@@ -7,6 +7,8 @@ import 'rxjs/add/operator/catch';
 
 import { LoginService } from '../../core/services/login/login.service';
 
+import { constants } from '../../core/common/constants';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -33,7 +35,7 @@ export class LoginComponent implements OnInit {
       (result) => {
         if (result && result.tokenInfo) {
           this.loginError = false;
-          this.router.navigate(['smart-cities']);
+          this.router.navigate(constants.defaultLoggedRoute);
         } else {
           this.loginError = true;
         }

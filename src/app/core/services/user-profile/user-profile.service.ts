@@ -37,6 +37,33 @@ export class UserProfileService extends RemoteUtils {
 
     return null;
   }
-
+  //
+  // getUserProfile(token: string, email?: string): Promise<UserProfile> {
+  //   const requestOptions: RequestOptions = this.buildRequestOptions(token, email);
+  //
+  //   return this.http.get(user_profile, requestOptions).toPromise()
+  //     .then((res: Response) => {
+  //       return res.json();
+  //     })
+  //     .catch((error: Response | any) => {
+  //       return null;
+  //     });
+  // }
+  //
+  // private buildRequestOptions(token: string, email?: string):RequestOptions {
+  //   const headers: Headers = new Headers();
+  //   headers.append(constants.authTokenKey, token);
+  //
+  //   const requestOptions: RequestOptions = new RequestOptions();
+  //   requestOptions.headers= headers;
+  //
+  //   if (email) {
+  //     const params: URLSearchParams = new URLSearchParams();
+  //     params.set('email', email);
+  //     requestOptions.search= params;
+  //   }
+  //
+  //   return requestOptions;
+  // }
 
 }

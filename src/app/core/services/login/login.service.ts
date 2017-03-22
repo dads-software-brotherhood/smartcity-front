@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 
 import { environment } from '../../../../environments/environment';
 import { constants } from '../../common/constants';
@@ -10,16 +10,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { IdentityUser, TokenInfo } from '../../models/identity-user';
-import { UserProfile } from '../../models/user-profile'
 
 const base_rest_path = '/security';
 const login_url = environment.backend_sdk + base_rest_path + '/login';
 const logout_url = environment.backend_sdk + base_rest_path + '/logout';
 const valid_token_url = environment.backend_sdk + base_rest_path + '/valid-token';
 const refresh_token_url = environment.backend_sdk + base_rest_path + '/refresh-token';
-
-const user_profile = environment.backend_sdk + '/user-profile';
-
 
 @Injectable()
 export class LoginService {
@@ -35,34 +31,38 @@ export class LoginService {
       'password': password
     };
 
+    return this.http.post(login_url, JSON.stringify(query), { headers })
+      .map((res: Response) => {
+        const identityUser: IdentityUser = res.json();
 
-    return this.http
-    .post(
-      login_url,
-      JSON.stringify(query),
-      { headers }
-    )
-    .map((res: Response) => {
-      const identityUser: IdentityUser = res.json();
-
-      if (identityUser) {
-        localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
-        return identityUser;
-      } else {
-        //Never happend
-        this.logout();
+        if (identityUser) {
+          localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
+          return identityUser;
+        } else {
+          //Never happend
+          this.deleteToken();
+          return null;
+        }
+      })
+      .catch((error: Response | any) => {
+        this.deleteToken();
         return null;
-      }
-    })
-    .catch((error: Response | any) => {
-      this.logout();
-      return null;
-    });
+      });
   }
 
   logout() {
-    //TODO: perform logout
-    this.deleteToken();
+    const token: string = this.getToken();
+
+    if (token) {
+      const requestOptions: RequestOptions = this.buildRequestOptions(token);
+
+      this.http.delete(logout_url, requestOptions)
+        .subscribe((res) => {
+          console.log('deleted')
+        });
+
+      this.deleteToken(); //We delete token from local storage
+    }
   }
 
   private deleteToken() {
@@ -115,30 +115,12 @@ export class LoginService {
     }
   }
 
-  getUserProfile(token: string, email?: string): Promise<UserProfile> {
-    const requestOptions: RequestOptions = this.buildRequestOptions(token, email);
-
-    return this.http.get(user_profile, requestOptions).toPromise()
-      .then((res: Response) => {
-        return res.json();
-      })
-      .catch((error: Response | any) => {
-        return null;
-      });
-  }
-
-  private buildRequestOptions(token: string, email?: string):RequestOptions {
+  private buildRequestOptions(token: string):RequestOptions {
     const headers: Headers = new Headers();
     headers.append(constants.authTokenKey, token);
 
     const requestOptions: RequestOptions = new RequestOptions();
-    requestOptions.headers= headers;
-
-    if (email) {
-      const params: URLSearchParams = new URLSearchParams();
-      params.set('email', email);
-      requestOptions.search= params;
-    }
+    requestOptions.headers = headers;
 
     return requestOptions;
   }
