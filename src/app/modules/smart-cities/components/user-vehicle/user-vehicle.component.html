@@ -1,0 +1,84 @@
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Vehicles</h2>
+      <hr class="title-hr">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="inlineFormInputGroup">Name</label>
+            <input type="text"  class="form-control" placeholder="Name"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="inlineFormInputGroup">Plate Identifier</label>
+            <input type="text"  class="form-control" placeholder="Plate"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="inlineFormInputGroup">Vehicle Type</label>
+            <select class="form-control" >
+                  <option>selected</option>
+                  <option value="1">Buss</option>
+                  <option value="2">Car</option>
+                  <option value="3">Taxi</option>
+                </select>
+          </div>
+        </div>
+        <div class="col-md-3 ">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <a type="submit" class="btn btn-smart btn-block" > Search </a>
+          </div>
+        </div>
+        <div class="col-md-3 ">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <a [routerLink]="['/smart-cities/vehicle', '']" type="submit" class="btn btn-smart btn-block" > New Vehicle</a>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <hr class="subTitle-hr">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table ">
+    <thead class="thead-default">
+        <tr>
+            <th>Name</th>
+            <th>Vehicle type</th>
+            <th>Brand Name</th>
+            <th>Model Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let vehicle of vehicles">
+            <td>{{vehicle.name}}</td>
+            <td>{{vehicle.vehicleType}}</td>
+            <td>{{vehicle.brandName}}</td>
+            <td>{{vehicle.modelName}}</td>
+            <td>
+              <a [routerLink]="['/smart-cities/vehicle', '']" 
+                 class="btn btn-smart" ngbtooltip="Edit" placement="top">
+                <i aria-hidden="true" class="fa fa-pencil"></i>
+              </a>
+            </td>
+            <td>
+              <a class="btn btn-danger" ngbtooltip="Edit" placement="top">
+                <i aria-hidden="true" class="fa fa-trash"></i>
+              </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -10,6 +10,8 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { CustomerFormComponent } from './components/customer/customer-form.component';
 
 import { LoggedInGuard } from '../../core/services/login/logged-in.guard';
+import { UserVehicleComponent } from './components/user-vehicle/user-vehicle.component';
+import { UserVehicleDetailComponent } from './components/user-vehicle/user-vehicle-detail.component';
 
 export const SmartCitiesRoutes: Routes = [
   {
@@ -20,6 +22,8 @@ export const SmartCitiesRoutes: Routes = [
       { path: 'prueba', component: PruebaComponent, canActivate: [ LoggedInGuard ]},
       { path: 'customers', component: CustomerComponent, canActivate: [ LoggedInGuard ]},
       { path: 'customer/:id', component: CustomerFormComponent, canActivate: [LoggedInGuard] },
+      { path: 'vehicles', component: UserVehicleComponent, canActivate: [ LoggedInGuard ]},
+      { path: 'vehicle/:id', component: UserVehicleDetailComponent, canActivate: [ LoggedInGuard ]},
       { path: '', component: HomeSmartCitiesComponent, canActivate: [ LoggedInGuard ]},
       ... UserAccountRoutes,
       ... NotificationTrayRoutes

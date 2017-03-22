@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
@@ -17,9 +17,11 @@ import { RestorePasswordModule } from './modules/restore-password/restore-passwo
 import { SmartCitiesModule } from './modules/smart-cities/smart-cities.module';
 
 // Servicios de la aplicación
+import { RemoteService } from './core/common/remote.service';
 import { LoginService } from './core/services/login/login.service';
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
 import { CustomerService } from './core/services/customer/customer.service';
+import { VehicleService } from './core/services/vehicle/vehicle.service';
 
 // Rutas
 import { appRoutes } from './app.routes';
@@ -32,6 +34,7 @@ import { appRoutes } from './app.routes';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     JsonpModule,
     NgbModule.forRoot(),
@@ -44,9 +47,11 @@ import { appRoutes } from './app.routes';
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
+    RemoteService,
     LoginService,
     LoggedInGuard,
-    CustomerService
+    CustomerService,
+    VehicleService
   ],
   bootstrap: [AppComponent]
 })

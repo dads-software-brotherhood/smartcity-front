@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Eliminar cuando ya no se tenga el componente de prueba
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { SmartCitiesComponent } from './smart-cities.component';
@@ -22,6 +22,8 @@ import { UserAccountModule } from './modules/user-account/user-account.module';
 import { NotificationTrayModule } from './modules/notification-tray/notification-tray.module';
 
 import {ModalPopupComponent  } from '../../usable-component/modal-popup/modalpopup.component';
+import { UserVehicleComponent } from './components/user-vehicle/user-vehicle.component';
+import { UserVehicleDetailComponent } from './components/user-vehicle/user-vehicle-detail.component';
 
 @NgModule({
   imports: [
@@ -30,8 +32,8 @@ import {ModalPopupComponent  } from '../../usable-component/modal-popup/modalpop
     RouterModule,
     NgbModule.forRoot(),
     NgxDatatableModule,
-    FormsModule, // Eliminar cuando ya no se tenga el componente de prueba
-    ReactiveFormsModule, //Eliminar cuando ya no se tenga el componente de prueba
+    FormsModule, 
+    ReactiveFormsModule,
     UserAccountModule,
     NotificationTrayModule,
     TemplateModule
@@ -42,7 +44,9 @@ import {ModalPopupComponent  } from '../../usable-component/modal-popup/modalpop
     CustomerComponent, // Se va a borrar
     CustomerFormComponent, //Se va a borrar
     ModalPopupComponent,
-    HomeSmartCitiesComponent
+    HomeSmartCitiesComponent,
+    UserVehicleComponent,
+    UserVehicleDetailComponent
   ],
   exports: [
     SmartCitiesComponent
