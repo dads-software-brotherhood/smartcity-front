@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { LoginService } from '../login/login.service';
-import { RemoteUtils } from '../../common/rempote-utils';
+import { RemoteUtils } from '../../common/remote-utils';
 
 @Injectable()
 export class RemoteConnectionService extends RemoteUtils {
@@ -16,13 +16,13 @@ export class RemoteConnectionService extends RemoteUtils {
       super(loginService);
     }
 
-    public getAsObservable(url: string, playload: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Observable<any> {
+    public getAsObservable(url: string, playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Observable<any> {
       const requestOptions: RequestOptions = this.buildRequestOptions(playload, contentType, params, extraHeaders);
 
       return this.http.get(url, requestOptions);
     }
 
-    public getAsPromise(url: string, playload: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Promise<any> {
+    public getAsPromise(url: string, playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Promise<any> {
       const requestOptions: RequestOptions = this.buildRequestOptions(playload, contentType, params, extraHeaders);
 
       return this.http.get(url, requestOptions).toPromise();

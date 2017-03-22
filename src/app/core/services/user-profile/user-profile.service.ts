@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, URLSearchParams } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 
 import { RemoteConnectionService } from '../remote-connection/remote-connection.service';
 import { LoginService } from '../login/login.service';
 
-import { RemoteUtils } from '../../common/rempote-utils';
+import { RemoteUtils } from '../../common/remote-utils';
 import { UserProfile } from '../../models/user-profile';
 
 import { environment } from '../../../../environments/environment';
@@ -14,29 +14,28 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-const base_rest_path = '/user-profile';
-const getUser = environment.backend_sdk + base_rest_path;
+const baseRestPath = '/user-profile';
+const baseGetUserUrl = environment.backend_sdk + baseRestPath;
 
 @Injectable()
 export class UserProfileService extends RemoteUtils {
 
+  getUserUrl: string;
+
   constructor(private remoteConnectionService: RemoteConnectionService, private loginService: LoginService) {
     super(loginService);
+
+    this.getUserUrl = baseGetUserUrl + '/' + loginService.getLoggedUser().id;
   }
 
-  public getUser(): Promise<UserProfile> {
-    // if (this.loginService.isLoggedIn()) {
-    //
-    // }
-    //
-    // const params: URLSearchParams = new URLSearchParams();
-    // params.set("", "")
-    //
-    // this.getAsPromise(getUser, null, null, null);
-
-
-    return null;
+  public getUserProfile(): Observable<UserProfile> {
+    return this.remoteConnectionService.getAsObservable(this.getUserUrl)
+      .map((res : Response) => res = res.json());
   }
+
+  public updateUserProfile() {
+  }
+
   //
   // getUserProfile(token: string, email?: string): Promise<UserProfile> {
   //   const requestOptions: RequestOptions = this.buildRequestOptions(token, email);

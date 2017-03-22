@@ -9,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 import { Customer } from '../../models/customer';
 import { LoginService } from '../login/login.service';
 
-import { RemoteUtils } from '../../common/rempote-utils';
+import { RemoteUtils } from '../../common/remote-utils';
 
 import { environment } from '../../../../environments/environment';
 
