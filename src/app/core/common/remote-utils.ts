@@ -67,4 +67,16 @@ export class RemoteUtils {
     return Observable.throw(errMsg);
   }
 
+  protected fixParam(param: any): string {
+    if ( typeof param === 'string' ) {
+      return param;
+    } else if ( typeof param === 'boolean' || typeof param === 'number' ) {
+      return param + '';
+    } else if ( typeof param === 'string' ) {
+      return param;
+    } else {
+      return null;
+    }
+  }
+
 }

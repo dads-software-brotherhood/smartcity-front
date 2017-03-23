@@ -33,7 +33,9 @@ export class UserProfileService extends RemoteUtils {
       .map((res : Response) => res = res.json());
   }
 
-  public updateUserProfile() {
+  public updateUserProfile(): Observable<boolean> {
+    return this.remoteConnectionService.putAsObservable(this.getUserUrl);
+
   }
 
   //
