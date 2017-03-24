@@ -23,6 +23,10 @@ import { UserProfileService } from './core/services/user-profile/user-profile.se
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
 import { CustomerService } from './core/services/customer/customer.service';
 import { VehicleService } from './core/services/vehicle/vehicle.service';
+import { CountryService } from './core/services/country/country.service';
+import { RegionService } from './core/services/region/region.service';
+import { LocalityService } from './core/services/locality/locality.service';
+
 
 // Rutas
 import { appRoutes } from './app.routes';
@@ -52,7 +56,10 @@ import { appRoutes } from './app.routes';
     UserProfileService,
     LoggedInGuard,
     CustomerService,
-    VehicleService
+    VehicleService,
+    CountryService,
+    RegionService,
+    LocalityService
   ],
   bootstrap: [AppComponent]
 })
