@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { users, UserInfo } from './users';
+import { UserProfileService } from '../../../../../../core/services/user-profile/user-profile.service';
+
+import { Address } from '../../../../../../core/models/address';
+import { UserProfile } from '../../../../../../core/models/user-profile';
 
 @Component({
   selector: 'app-profile',
@@ -9,16 +12,15 @@ import { users, UserInfo } from './users';
 })
 export class ProfileComponent implements OnInit {
 
-  userInfo: UserInfo;
+  userProfile: UserProfile;
+  address: Address;
 
-  constructor() {
-    this.userInfo = users[this.randomNum(0, users.length)];
+  constructor(private userProfileService: UserProfileService) {
   }
 
   ngOnInit() {
-  }
-
-  randomNum(start: number, end: number): number {
-    return Math.floor(Math.random() * end) + start;
+    this.userProfileService.getUserProfile().subscribe(
+      (userProfile) => this.userProfile = userProfile
+    );
   }
 }

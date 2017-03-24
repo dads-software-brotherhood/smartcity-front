@@ -6,9 +6,9 @@ export class Address {
   countryId: number;
   regionId: number;
   localityId: number;
-  addreddCountry: string;
-  addreddRegion: string;
-  addreddLocality?: string;
+  addressCountry: string;
+  addressRegion: string;
+  addressLocality?: string;
   street: string;
   postalCode?: string;
   addressType?: AddressType;
