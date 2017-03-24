@@ -14,6 +14,8 @@ import { UserVehicleDetailComponent } from './components/user-vehicle/user-vehic
 import { PublicTransportComponent } from './components/public-transport/public-transport.component';
 import { PublicTransportDetailComponent } from './components/public-transport/public-transport-detail.component';
 
+import { UserManagerRoutes } from './modules/user-manager/index';
+
 export const SmartCitiesRoutes: Routes = [
   {
     path: 'smart-cities',
@@ -28,7 +30,8 @@ export const SmartCitiesRoutes: Routes = [
       { path: 'transport/:id', component: PublicTransportDetailComponent, canActivate: [ LoggedInGuard ]},
       { path: '', component: HomeSmartCitiesComponent, canActivate: [ LoggedInGuard ]},
       ... UserAccountRoutes,
-      ... NotificationTrayRoutes
+      ... NotificationTrayRoutes,
+      ... UserManagerRoutes
     ]
   }
 ];

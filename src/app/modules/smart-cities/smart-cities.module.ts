@@ -26,6 +26,7 @@ import { UserVehicleDetailComponent } from './components/user-vehicle/user-vehic
 import { PublicTransportComponent } from './components/public-transport/public-transport.component';
 import { PublicTransportDetailComponent } from './components/public-transport/public-transport-detail.component';
 
+import {UserManagerModule} from './modules/user-manager/user-manager.module';
 @NgModule({
   imports: [
     BrowserModule,
@@ -37,7 +38,8 @@ import { PublicTransportDetailComponent } from './components/public-transport/pu
     ReactiveFormsModule,
     UserAccountModule,
     NotificationTrayModule,
-    TemplateModule
+    TemplateModule,
+    UserManagerModule
   ],
   declarations: [
     SmartCitiesComponent,
