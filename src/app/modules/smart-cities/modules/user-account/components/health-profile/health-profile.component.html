@@ -1,5 +1,11 @@
 <div class="row">
   <div class="col-md-12">
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      <p class="text-xs-center"><strong>{{successMessage}}</strong></p>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
+    </div>
     <h4>Health Data</h4>
     <hr class="subTitle-hr">
     <div class="row">
@@ -23,7 +29,7 @@
           <div class="col-md-6" *ngFor="let symptom of allergySymptoms">
             <div class="form-check" >
               <label class="form-check-label">
-                <input class="form-check-input" [checked]="healthProfile.allergySymptoms.includes(symptom)"  type="checkbox" value="{{symptom}}">
+                <input class="form-check-input symptom" [checked]="hhealthProfile?.allergySymptoms.includes(symptom)" name="symptom" type="checkbox" value="{{symptom}}">
                 {{symptom}}
               </label>
             </div>
@@ -39,14 +45,15 @@
         </div>
         <div class="clearfix"></div>
         <div class="col-sm-2">
-          <img src="../../assets/img/asthma-level-{{healthProfile.asthmaLevel}}.svg" style="max-height: 280px" class="img-fluid center-block"/>
+          <img *ngIf="!healthProfile.asthmaLevel" src="../../assets/img/asthma-level-1.svg" style="max-height: 280px" class="img-fluid center-block"/>
+          <img *ngIf="healthProfile.asthmaLevel" src="../../assets/img/asthma-level-{{healthProfile.asthmaLevel}}.svg" style="max-height: 280px" class="img-fluid center-block"/>
         </div>
         <div class="col-sm-9">
           <div class="col-sm-12">
 
             <div class="form-check">
               <label class="form-check-label">
-                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level" id="asthma-level" [value]="4">
+                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="4">
                 Severe Persistent Asthma
               </label>
               <ul [hidden]="!(healthProfile.asthmaLevel == 4)">
@@ -63,7 +70,7 @@
             </div>
             <div class="form-check">
               <label class="form-check-label">
-                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level" id="asthma-level" [value]="3">
+                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="3">
                 Moderate Persistent Asthma
               </label>
               <ul [hidden]="!(healthProfile.asthmaLevel == 3)">
@@ -80,7 +87,7 @@
             </div>
             <div class="form-check">
               <label class="form-check-label">
-                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level" id="asthma-level" [value]="2">
+                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="2">
                 Mild Persistent Asthma
               </label>
               <ul [hidden]="!(healthProfile.asthmaLevel == 2)">
@@ -97,7 +104,7 @@
             </div>
             <div class="form-check">
               <label class="form-check-label">
-                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level" id="asthma-level" [value]="1">
+                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="1">
                 Mild Intermittent Asthma
               </label>
               <ul [hidden]="!(healthProfile.asthmaLevel == 1)">
@@ -120,7 +127,7 @@
   <div class="col-md-12">
     <div class="col-md-3 col-md-offset-9">
       <div class="form-group">
-        <a  class="btn btn-smart btn-block"> Save </a>
+        <a  class="btn btn-smart btn-block" (click)="save()"> Save </a>
       </div>
     </div>
   </div>
