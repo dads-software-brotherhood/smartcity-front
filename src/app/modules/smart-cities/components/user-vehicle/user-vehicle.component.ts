@@ -15,6 +15,7 @@ export class UserVehicleComponent implements OnInit {
   vehicles: Vehicle[] = [];
   Objvehicle = new Vehicle();
   loadingIndicator: boolean = true;
+  sum: number = 0;
 
   //  columns = [
   //   { prop: 'name', name: 'Name' },
@@ -29,6 +30,7 @@ export class UserVehicleComponent implements OnInit {
   ngOnInit() {   
     this.loadingIndicator = true;
     this.bindTable();
+    this.sum = this.getTotalRows();
   }
 
   bindTable() { //// Bind vehicles Grid
@@ -51,25 +53,42 @@ export class UserVehicleComponent implements OnInit {
         
     }
 
-    // myFunction() {
-    // // Declare variables 
-    //   var input, filter, table, tr, td, i;
-    //   input = document.getElementById("myInput");
-    //   filter = input.value.toUpperCase();
-    //   table = document.getElementById("myTable");
-    //   tr = table.getElementsByTagName("tr");
+    getTotalRows(){
+      var table = document.getElementById("myTable");
+      var trs = document.getElementsByTagName("tr");
+      var trFirst = trs[0];
+      var tds = trFirst.getElementsByTagName('th');
+      for(var i=0;i<tds.length;i++){
+          this.sum = this.sum + 1;
+      }
+      return this.sum - 2;
+    }
 
-    // // Loop through all table rows, and hide those who don't match the search query
-    //   for (i = 0; i < tr.length; i++) {
-    //     td = tr[i].getElementsByTagName("td")[1];
-    //     if (td) {
-    //       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-    //         tr[i].style.display = "";
-    //       } else {
-    //         tr[i].style.display = "none";
-    //       }
-    //     } 
-    //   }
-    // }
+    FilterData() {
+    // Declare variables 
+      var input, filter, table, tr, td, i, j;
+      
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        for(j = 0; j< this.sum; j++)
+        {
+        td = tr[i].getElementsByTagName("td")[j];
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+            break;
+            } else {
+            tr[i].style.display = "none";
+            }
+          }
+
+        }
+      }
+    }
 
 }
