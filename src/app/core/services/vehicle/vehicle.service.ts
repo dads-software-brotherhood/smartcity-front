@@ -54,6 +54,14 @@ export class VehicleService {
     .catch(this.handleError);
   }
 
+  delete(index: string): Promise<boolean> {
+    const requestOptions: RequestOptions = this.buildRequestOptions();
+
+    return this.http.delete(this.buildByIdUserUrl() + '/' + index, requestOptions).toPromise()
+    .then((res: Response) => {return true;})
+    .catch(this.handleError);
+  }
+
   private buildByIdUserUrl() {
     return vehicleUrl + '/user-profile/' + this.loginService.getLoggedUser().id + '/vehicle';
   }

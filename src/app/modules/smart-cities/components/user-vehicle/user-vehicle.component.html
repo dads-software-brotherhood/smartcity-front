@@ -7,13 +7,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="inlineFormInputGroup">Name</label>
-            <input type="text"  class="form-control" placeholder="Name"/>
+            <input id="myInput" type="text" class="form-control" placeholder="Name..."/>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="inlineFormInputGroup">Plate Identifier</label>
-            <input type="text"  class="form-control" placeholder="Plate"/>
+            <input type="text"  class="form-control" placeholder="Brand Name..."/>
           </div>
         </div>
         <div class="col-md-6">
@@ -47,9 +47,11 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <table class="table ">
+
+          <table id="myTable" class="table ">
     <thead class="thead-default">
         <tr>
+            <!--<th>Index</th>-->
             <th>Name</th>
             <th>Vehicle type</th>
             <th>Brand Name</th>
@@ -60,6 +62,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let vehicle of vehicles; let i=index">
+            <!--<td>{{i}}</td>-->
             <td>{{vehicle.name}}</td>
             <td>{{vehicle.vehicleType}}</td>
             <td>{{vehicle.brandName}}</td>
@@ -72,7 +75,7 @@
             </td>
             <td>
               <a class="btn btn-danger" ngbtooltip="Edit" placement="top">
-                <i aria-hidden="true" class="fa fa-trash"></i>
+                <i aria-hidden="true" class="fa fa-trash" (click)="confirmDelete(i)"></i>
               </a>
             </td>
         </tr>
