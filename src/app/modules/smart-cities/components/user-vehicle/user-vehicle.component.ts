@@ -14,29 +14,20 @@ export class UserVehicleComponent implements OnInit {
   errorMessage: string;
   vehicles: Vehicle[] = [];
   Objvehicle = new Vehicle();
-  loadingIndicator: boolean = true;
-  sum: number = 0;
-
-  //  columns = [
-  //   { prop: 'name', name: 'Name' },
-  //   { prop: 'vehicleType', name: 'Vehicle Type' },
-  //   { prop: 'brandName', name: 'Brand Name' },
-  //   { prop: 'modelName', name: 'Model Name'}
-  // ];
+  sum: number = 0; //variable que se utiliza para contabilizar el total de columnas que tiene la tabla
+                   //para utilizar en las busquedas.
 
   constructor(private _service: VehicleService, private _router: Router ) { 
   }
 
   ngOnInit() {   
-    this.loadingIndicator = true;
     this.bindTable();
-    this.sum = this.getTotalRows();
+    this.sum = this.getTotalRows(); //asignar a variable "sum" el valor del número total de columnas en la tabla
   }
 
   bindTable() { //// Bind vehicles Grid
     this._service.getAll().subscribe(
       vehicles => { this.vehicles = vehicles;
-    this.loadingIndicator = false;
   },
       error => this.errorMessage = <any>error
     );
@@ -61,7 +52,7 @@ export class UserVehicleComponent implements OnInit {
       for(var i=0;i<tds.length;i++){
           this.sum = this.sum + 1;
       }
-      return this.sum - 2;
+      return this.sum - 2; //se resta 2 para no tomar en cuenta las ultimas 2 columnas de la tabla (botón editar y eliminar)
     }
 
     FilterData() {
@@ -73,7 +64,7 @@ export class UserVehicleComponent implements OnInit {
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
 
-    // Loop through all table rows, and hide those who don't match the search query
+    // Loop through all table rows and columns, and hide those who don't match the search query
       for (i = 0; i < tr.length; i++) {
         for(j = 0; j< this.sum; j++)
         {
