@@ -1,0 +1,76 @@
+ <div class="row">
+    <div class="col-md-12">
+      <h2>User Manager Tray</h2>
+      <hr class="title-hr">
+      <div class="row">
+           <div class="col-md-3">
+          <div class="form-group">
+            <label for="">Name</label>
+            <input type="text"  class="form-control" placeholder="Search by Name"/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="">email</label>
+            <input type="text"  class="form-control" placeholder="Search by Email"/>
+          </div>
+        </div>
+        
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="">Role</label>
+            <input type="text"  class="form-control" placeholder="Search by Role"/>
+          </div>
+        </div>
+
+        <div class="col-md-3 ">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <a type="submit" class="btn btn-smart btn-block" > Search </a>
+          </div>
+        </div>
+
+        
+      </div>
+
+      <div class="row">
+           <div class="col-md-9"></div>
+            <div class="col-md-3 ">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <a [routerLink]="['/smart-cities/transport', '']" type="submit" class="btn btn-smart btn-block" > Add </a>
+          </div>
+        </div>
+
+        
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table ">
+              <thead class="thead-default">
+                  <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Delete</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr >
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      
+                      <td>
+                        <a class="btn btn-danger" ngbTooltip="Edit" placement="top">
+                          <i aria-hidden="true" class="fa fa-trash"></i>
+                        </a>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
