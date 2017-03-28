@@ -22,12 +22,14 @@ export class UserVehicleTrayComponent implements OnInit {
 
   ngOnInit() {   
     this.bindTable();
-    this.sum = this.getTotalRows(); //asignar a variable "sum" el valor del número total de columnas en la tabla
+    this.sum = this.getTotalCols(); //asignar a variable "sum" el valor del número total de columnas en la tabla
   }
 
   bindTable() { //// Bind vehicles Grid
     this._service.getAll().subscribe(
       vehicles => { this.vehicles = vehicles;
+          this.vehicles.forEach(function(item, index){
+            item.index = index.toString()});
   },
       error => this.errorMessage = <any>error
     );
@@ -44,7 +46,7 @@ export class UserVehicleTrayComponent implements OnInit {
         
     }
 
-    getTotalRows(){
+    getTotalCols(){
       var table = document.getElementById("myTable");
       var trs = document.getElementsByTagName("tr");
       var trFirst = trs[0];

@@ -26,6 +26,7 @@ import { PublicTransportDetailComponent } from './components/public-transport/pu
 
 import { UserManagerModule } from './modules/user-manager/user-manager.module';
 import { UserVehicleModule } from './modules/user-vehicle/user-vehicle.module';
+
 @NgModule({
   imports: [
     BrowserModule,

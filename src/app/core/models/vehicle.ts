@@ -3,6 +3,7 @@ import { FuelType } from './fuel-type';
 
 export class Vehicle {
 
+  index: string;
   name: string;
   description?: string;
   vehicleType: VehicleType;
@@ -15,9 +16,10 @@ export class Vehicle {
   dateModified?: Date;
   datecreated?: Date;
   
-  constructor(name?: string, description?: string, vehicleType?: VehicleType,
+  constructor(index?: string, name?: string, description?: string, vehicleType?: VehicleType,
               brandName?: string, modelName?: string, vehicleModelDate?: Date, fuelType?: FuelType,
               fuelConsumption?: number, vehiclPlateIdentifier?: string, dateModified?: Date, dateCreated?: Date) {
+    this.index = index;
     this.name = name;
     this.description = description;
     this.vehicleType = vehicleType;
