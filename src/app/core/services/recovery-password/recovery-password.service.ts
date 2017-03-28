@@ -20,6 +20,8 @@ export class RecoveryPasswordService {
 
     return this.remoteConnectionService.postAsObservable(url)
     .catch((error) => {
+      console.error('Error at fortgot password');
+      console.error(error);
       return null;
     });
   }

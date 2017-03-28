@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { CustomFormsModule } from 'ng2-validation'
 
 import { ForgotPasswordComponent } from './forgot-password.component';
 
@@ -16,7 +17,8 @@ import { TemplateModule } from '../../template/template.module';
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
-    TemplateModule
+    TemplateModule,
+    CustomFormsModule
   ],
   declarations: [ForgotPasswordComponent],
   exports: [ForgotPasswordComponent]
