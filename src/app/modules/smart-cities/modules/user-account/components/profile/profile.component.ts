@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { CountryService } from '../../../../../../core/services/country/country.service';
-import { RegionService } from '../../../../../../core/services/region/region.service';
-import { LocalityService } from '../../../../../../core/services/locality/locality.service';
 import { UserProfileService } from '../../../../../../core/services/user-profile/user-profile.service';
 
 import { Country } from '../../../../../../core/models/country';
@@ -18,93 +17,51 @@ import { UserProfile } from '../../../../../../core/models/user-profile';
 })
 export class ProfileComponent implements OnInit {
 
-  countries: Array<Country> = [];
-  regions: Array<Region> = [];
-  localities: Array<Locality> = [];
   userProfile: UserProfile = new UserProfile();
-  address: Address = new Address();
 
-  constructor(private userProfileService: UserProfileService, private countryService: CountryService, private regionService: RegionService, private localityService: LocalityService) { }
+  userProfileFormGroup: FormGroup;
+
+  constructor(private userProfileService: UserProfileService, private fb: FormBuilder) {
+    this.userProfileFormGroup = this.fb.group({
+      'name': [null, Validators.required],
+      'familyName': [null, Validators.required],
+      'birthDate': [null, Validators.nullValidator],
+      'gender': [null, Validators.nullValidator]
+    });
+  }
 
   ngOnInit() {
-    this.userProfileService.getUserProfile().subscribe(
-      (userProfile) => {
-        if (userProfile) {
-          this.userProfile = userProfile;
-        } else {
-          this.userProfile = new UserProfile();
-        }
-
-        if (!userProfile.addresses) {
-          userProfile.addresses = [];
-        }
-
-        this.loadCountries();
-      }
-    );
-  }
-
-  private loadCountries() {
-    this.countryService.getAll().subscribe(
-      (countries) => {
-        this.countries = countries
-
-        if (!this.address.countryId && countries.length == 1) {
-          this.address.countryId = countries[0].id;
-        }
-
-        if (this.address.countryId) {
-          this.loadRegions();
-        }
-      }
-    );
-  }
-
-  private loadRegions() {
-    if (this.address.countryId) {
-      this.regionService.getByCountryId(this.address.countryId).subscribe(
-        (regions) => {
-          this.regions = regions;
-
-          if (!this.address.regionId && regions.length == 1 ) {
-            this.address.regionId = regions[0].id;
+    console.log(2);
+    try {
+      this.userProfileService.getUserProfile().subscribe(
+        (userProfile) => {
+          if (userProfile) {
+            this.userProfile = userProfile;
+            
+            console.log(3);
+            this.userProfileFormGroup.setValue({'name': this.userProfile.name});
+          } else {
+            this.userProfile = new UserProfile();
           }
 
-          if (this.address.regionId) {
-            this.loadLocalities();
+          console.log(userProfile);
+
+          //   = this.fb.group({
+          //   'name': [this.userProfile.name, Validators.required],
+          //   'familyName': [this.userProfile.familyName, Validators.required],
+          //   'birthDate': [this.userProfile.birthDate, Validators.nullValidator],
+          //   'gender': [this.userProfile.gender, Validators.nullValidator]
+          // });
+          //
+          if (!userProfile.addresses) {
+            userProfile.addresses = [];
           }
         }
       );
+    } catch (e) {
+      console.log('Error at profile load');
+      console.log(e);
     }
-  }
-
-  private loadLocalities() {
-    if (this.address.regionId) {
-      this.localityService.getByRegionId(this.address.regionId).subscribe(
-        (localities) => {
-          this.localities = localities;
-
-          if (!this.address.localityId && localities.length == 1 ) {
-            this.address.localityId = localities[0].id;
-          }
-        }
-      );
-    }
-  }
-
-  public changeCountry(value) {
-    this.address.countryId = value;
-    this.address.regionId = null;
-    this.address.localityId = null;
-
-    this.loadRegions();
-  }
-
-  public changeRegion(value) {
-    this.address.regionId = value;
-    this.address.localityId = null;
-
-    this.loadLocalities();
   }
 
 }

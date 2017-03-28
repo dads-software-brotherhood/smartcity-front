@@ -6,6 +6,7 @@ import { CloseAccountComponent } from './components/close-account/close-account.
 import { CredentialsComponent } from './components/credentials/credentials.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HealthProfileComponent } from './components/health-profile/health-profile.component';
+import { AddressComponent } from './components/address/address.component';
 
 import { LoggedInGuard } from '../../../../core/services/login/logged-in.guard';
 
@@ -18,6 +19,7 @@ export const UserAccountRoutes: Routes = [
       { path: 'close-account', component: CloseAccountComponent, canActivate: [ LoggedInGuard ]},
       { path: 'credentials', component: CredentialsComponent, canActivate: [ LoggedInGuard ]},
       { path: 'profile', component: ProfileComponent, canActivate: [ LoggedInGuard ]},
+      { path: 'address', component: AddressComponent, canActivate: [ LoggedInGuard ]},
       { path: 'health-profile', component: HealthProfileComponent, canActivate: [ LoggedInGuard ]}
     ]
   }
