@@ -36,7 +36,7 @@
         <div class="col-md-3 ">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <a [routerLink]="['/smart-cities/vehicle', '']" type="submit" class="btn btn-smart btn-block" > New Vehicle</a>
+            <a [routerLink]="['/smart-cities/user-vehicle/vehicle', '']" type="submit" class="btn btn-smart btn-block" > New Vehicle</a>
           </div>
         </div>
         <div class="col-md-12">
@@ -70,7 +70,7 @@
             <td>{{vehicle.brandName}}</td>
             <td>{{vehicle.modelName}}</td>
             <td>
-              <a [routerLink]="['/smart-cities/vehicle', i]" 
+              <a [routerLink]="['/smart-cities/user-vehicle/vehicle', i]" 
                  class="btn btn-smart" ngbtooltip="Edit" placement="top">
                 <i aria-hidden="true" class="fa fa-pencil"></i>
               </a>

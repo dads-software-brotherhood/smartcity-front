@@ -20,13 +20,12 @@ import { TemplateModule } from '../../template/template.module';
 import { UserAccountModule } from './modules/user-account/user-account.module';
 import { NotificationTrayModule } from './modules/notification-tray/notification-tray.module';
 
-import {ModalPopupComponent  } from '../../usable-component/modal-popup/modalpopup.component';
-import { UserVehicleComponent } from './components/user-vehicle/user-vehicle.component';
-import { UserVehicleDetailComponent } from './components/user-vehicle/user-vehicle-detail.component';
+import { ModalPopupComponent  } from '../../usable-component/modal-popup/modalpopup.component';
 import { PublicTransportComponent } from './components/public-transport/public-transport.component';
 import { PublicTransportDetailComponent } from './components/public-transport/public-transport-detail.component';
 
-import {UserManagerModule} from './modules/user-manager/user-manager.module';
+import { UserManagerModule } from './modules/user-manager/user-manager.module';
+import { UserVehicleModule } from './modules/user-vehicle/user-vehicle.module';
 @NgModule({
   imports: [
     BrowserModule,
@@ -39,7 +38,8 @@ import {UserManagerModule} from './modules/user-manager/user-manager.module';
     UserAccountModule,
     NotificationTrayModule,
     TemplateModule,
-    UserManagerModule
+    UserManagerModule,
+    UserVehicleModule
   ],
   declarations: [
     SmartCitiesComponent,
@@ -47,8 +47,6 @@ import {UserManagerModule} from './modules/user-manager/user-manager.module';
     CustomerFormComponent, //Se va a borrar
     ModalPopupComponent,
     HomeSmartCitiesComponent,
-    UserVehicleComponent,
-    UserVehicleDetailComponent,
     PublicTransportComponent,
     PublicTransportDetailComponent
   ],

@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { RouterLink, Router} from '@angular/router';
-import { Vehicle } from '../../../../core/models/vehicle';
-import { VehicleService } from '../../../../core/services/vehicle/vehicle.service';
+import { Vehicle } from '../../../../../../core/models/vehicle';
+import { VehicleService } from '../../../../../../core/services/vehicle/vehicle.service';
 
 @Component({
-  selector: 'user-vehicle',
-  templateUrl: './user-vehicle.component.html',
-  styleUrls: ['./user-vehicle.component.sass'],
+  selector: 'user-vehicle-tray',
+  templateUrl: './user-vehicle-tray.component.html',
+  styleUrls: ['./user-vehicle-tray.component.sass'],
 
 })
-export class UserVehicleComponent implements OnInit {
+export class UserVehicleTrayComponent implements OnInit {
 
   errorMessage: string;
   vehicles: Vehicle[] = [];

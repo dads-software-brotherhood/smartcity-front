@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { VehicleType } from '../../../../core/models/vehicle-type';
-import { FuelType } from '../../../../core/models/fuel-type';
-import { Vehicle } from '../../../../core/models/vehicle';
-import { EnumEx } from '../../../../core/models/EnumEx';
+import { VehicleType } from '../../../../../../core/models/vehicle-type';
+import { FuelType } from '../../../../../../core/models/fuel-type';
+import { Vehicle } from '../../../../../../core/models/vehicle';
+import { EnumEx } from '../../../../../../core/models/EnumEx';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router'
 
-import { VehicleService } from '../../../../core/services/vehicle/vehicle.service';
+import { VehicleService } from '../../../../../../core/services/vehicle/vehicle.service';
 
 @Component({
   templateUrl: './user-vehicle-detail.component.html',
-  styleUrls: ['./user-vehicle.component.sass']
+  styleUrls: ['./user-vehicle-detail.component.sass']
 })
 export class UserVehicleDetailComponent implements OnInit {
   public vehicleForm: FormGroup;
@@ -142,7 +142,7 @@ save(form, isValid: boolean) {
                 error =>  this.errorMessage = <any>error);
             }
                 
-        this.router.navigate(["/smart-cities/vehicles"]);
+        this.router.navigate(["/smart-cities/user-vehicle/vehicles"]);
     }
 
 }

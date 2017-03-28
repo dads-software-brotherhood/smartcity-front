@@ -9,12 +9,11 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { CustomerFormComponent } from './components/customer/customer-form.component';
 
 import { LoggedInGuard } from '../../core/services/login/logged-in.guard';
-import { UserVehicleComponent } from './components/user-vehicle/user-vehicle.component';
-import { UserVehicleDetailComponent } from './components/user-vehicle/user-vehicle-detail.component';
 import { PublicTransportComponent } from './components/public-transport/public-transport.component';
 import { PublicTransportDetailComponent } from './components/public-transport/public-transport-detail.component';
 
 import { UserManagerRoutes } from './modules/user-manager/index';
+import { UserVehicleRoutes } from './modules/user-vehicle/index';
 
 export const SmartCitiesRoutes: Routes = [
   {
@@ -24,14 +23,13 @@ export const SmartCitiesRoutes: Routes = [
     children: [
       { path: 'customers', component: CustomerComponent, canActivate: [ LoggedInGuard ]},
       { path: 'customer/:id', component: CustomerFormComponent, canActivate: [LoggedInGuard] },
-      { path: 'vehicles', component: UserVehicleComponent, canActivate: [ LoggedInGuard ]},
-      { path: 'vehicle/:id', component: UserVehicleDetailComponent, canActivate: [ LoggedInGuard ]},
       { path: 'transports', component: PublicTransportComponent, canActivate: [ LoggedInGuard ]},
       { path: 'transport/:id', component: PublicTransportDetailComponent, canActivate: [ LoggedInGuard ]},
       { path: '', component: HomeSmartCitiesComponent, canActivate: [ LoggedInGuard ]},
       ... UserAccountRoutes,
       ... NotificationTrayRoutes,
-      ... UserManagerRoutes
+      ... UserManagerRoutes,
+      ... UserVehicleRoutes
     ]
   }
 ];
