@@ -19,8 +19,10 @@ import { SmartCitiesModule } from './modules/smart-cities/smart-cities.module';
 // Servicios de la aplicación
 import { RemoteConnectionService } from './core/services/remote-connection/remote-connection.service';
 import { LoginService } from './core/services/login/login.service';
-import { UserProfileService } from './core/services/user-profile/user-profile.service';
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
+import { ForgotPasswordService } from './core/services/recovery-password/forgot-password.service';
+import { RestorePasswordService } from './core/services/recovery-password/restore-password.service';
+import { UserProfileService } from './core/services/user-profile/user-profile.service';
 import { CustomerService } from './core/services/customer/customer.service';
 import { VehicleService } from './core/services/vehicle/vehicle.service';
 import { CountryService } from './core/services/country/country.service';
@@ -53,6 +55,8 @@ import { appRoutes } from './app.routes';
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     RemoteConnectionService,
     LoginService,
+    ForgotPasswordService,
+    RestorePasswordService,
     UserProfileService,
     LoggedInGuard,
     CustomerService,
