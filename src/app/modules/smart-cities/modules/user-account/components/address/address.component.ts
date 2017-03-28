@@ -39,6 +39,7 @@ export class AddressComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadCountries();
   }
 
 
