@@ -22,6 +22,8 @@ export class ProfileComponent implements OnInit {
   userProfileFormGroup: FormGroup;
 
   constructor(private userProfileService: UserProfileService, private fb: FormBuilder) {
+    console.log(1);
+
     this.userProfileFormGroup = this.fb.group({
       'name': [null, Validators.required],
       'familyName': [null, Validators.required],
@@ -37,14 +39,22 @@ export class ProfileComponent implements OnInit {
         (userProfile) => {
           if (userProfile) {
             this.userProfile = userProfile;
-            
+
+            console.log(userProfile);
+
             console.log(3);
-            this.userProfileFormGroup.setValue({'name': this.userProfile.name});
+
+            this.userProfileFormGroup = this.fb.group({
+              'name': [this.userProfile.name, Validators.required],
+              'familyName': [this.userProfile.familyName, Validators.required],
+              'birthDate': [this.userProfile.birthDate, Validators.nullValidator],
+              'gender': [this.userProfile.gender, Validators.nullValidator]
+            });
           } else {
             this.userProfile = new UserProfile();
           }
 
-          console.log(userProfile);
+          console.log(4);
 
           //   = this.fb.group({
           //   'name': [this.userProfile.name, Validators.required],
