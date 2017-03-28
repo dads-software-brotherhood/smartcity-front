@@ -31,24 +31,28 @@
             <input type="text"  class="form-control" placeholder="Email"/>
           </div>
         </div>
-        <div class="row">  
+         
+       </div> 
+       <div class="row">  
             <div class="col-md-3"></div>
          <div class="col-md-6">
           <div class="form-group">
             <label for="">Role</label>
-            <input type="text"  class="form-control"/>
+            <select id="role" [formControl]="adminUserRegisterForm.controls['role']" class="form-control">
+                <option *ngFor="let role of roles" [ngValue]="role.name">{{role.name}}</option>
+              </select>
           </div>
         </div>
-       </div>    
-       </div>          
+       </div>            
       <div class="row">
          
            <div class="col-md-3"></div>
             <div class="col-md-6 ">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <a [routerLink]="['/smart-cities/user-manager/user-maganer-tray', '']" type="Cancel" class="btn btn-smart btn-block" > Cancel </a>
-             
+            
+            <a [routerLink]="['/smart-cities/user-manager/user-manager-tray']" class="btn btn-danger btn-block" > Cancel </a>
+            <button  type="submit" class="btn btn-smart btn-block" > Save</button>
           </div>
         </div>
 
