@@ -25,4 +25,10 @@ export class SignupService {
     return this.remoteConnectionService.postAsObservable(registerUrl, JSON.stringify(payload), 'application/json');
   }
 
+  public validateToken(token: string): Observable<any> {
+    const url = registerValidTokenBaseUrl + token;
+
+    return this.remoteConnectionService.getAsObservable(url);
+  }
+
 }

@@ -4,5 +4,5 @@ import { AccountVerificationComponent } from './account-verification.component'
 
 export const SignupRoutes: Route[] = [
   { path: 'signup', component: SignupComponent },
-  { path: 'account-verification', component: AccountVerificationComponent }
+  { path: 'account-verification/:token', component: AccountVerificationComponent }
 ];
