@@ -47,45 +47,52 @@
       </div>
       <div class="row">
         <div class="col-md-12">
+          <div class="table-responsive">
+            <table id="myTable" class="table ">
+      <thead class="thead-default">
+          <tr>
+              <!--<th>Index</th>-->
+              <th>Name</th>
+              <th>Vehicle type</th>
+              <th>Plate Identifier</th>
+              <th>Brand Name</th>
+              <th>Model Name</th>
+              <th></th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let vehicle of vehicles | paginate: { itemsPerPage: 4, currentPage: p }">
+              <!--<td>{{i}}</td>-->
+              <td>{{vehicle.name}}</td>
+              <td>{{vehicle.vehicleType}}</td>
+              <td>{{vehicle.vehiclPlateIdentifier}}</td>
+              <td>{{vehicle.brandName}}</td>
+              <td>{{vehicle.modelName}}</td>
+              <td>
+                <a [routerLink]="['/smart-cities/user-vehicle/vehicle', vehicle.index]" 
+                  class="btn btn-smart" ngbtooltip="Edit" placement="top">
+                  <i aria-hidden="true" class="fa fa-pencil"></i>
+                </a>
+              </td>
+              <td>
+                <a class="btn btn-danger" ngbtooltip="Edit" placement="top">
+                  <i aria-hidden="true" class="fa fa-trash" (click)="confirmDelete(vehicle.index)"></i>
+                </a>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+            
+          </div>
 
-          <table id="myTable" class="table ">
-    <thead class="thead-default">
-        <tr>
-            <!--<th>Index</th>-->
-            <th>Name</th>
-            <th>Vehicle type</th>
-            <th>Plate Identifier</th>
-            <th>Brand Name</th>
-            <th>Model Name</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let vehicle of vehicles | paginate: { itemsPerPage: 4, currentPage: p }">
-            <!--<td>{{i}}</td>-->
-            <td>{{vehicle.name}}</td>
-            <td>{{vehicle.vehicleType}}</td>
-            <td>{{vehicle.vehiclPlateIdentifier}}</td>
-            <td>{{vehicle.brandName}}</td>
-            <td>{{vehicle.modelName}}</td>
-            <td>
-              <a [routerLink]="['/smart-cities/user-vehicle/vehicle', vehicle.index]" 
-                 class="btn btn-smart" ngbtooltip="Edit" placement="top">
-                <i aria-hidden="true" class="fa fa-pencil"></i>
-              </a>
-            </td>
-            <td>
-              <a class="btn btn-danger" ngbtooltip="Edit" placement="top">
-                <i aria-hidden="true" class="fa fa-trash" (click)="confirmDelete(vehicle.index)"></i>
-              </a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
         </div>
       </div>
-       <pagination-controls (pageChange)="p = $event"></pagination-controls>
-    `
     </div>
   </div>
