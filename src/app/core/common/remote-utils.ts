@@ -12,8 +12,16 @@ export class RemoteUtils {
   constructor(private localLoginService: LoginService) { }
 
   protected buildRequestOptions(playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): RequestOptions {
-    const headers: Headers = new Headers();
+    let headers: Headers;
+
+    if (extraHeaders) {
+      headers = extraHeaders;
+    } else {
+      headers = new Headers();
+    }
+
     headers.append('Access-Control-Allow-Origin', '*');
+
     if (this.localLoginService.isLoggedIn()) {
       headers.append('X-Auth-Token', this.localLoginService.getToken());
     }

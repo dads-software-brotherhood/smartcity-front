@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,9 +13,10 @@ import { RecoveryPasswordService } from '../../core/services/recovery-password/r
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.sass']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
   complexForm: FormGroup;
+  private forgotPasswordSubs: any;
 
   constructor(private recoveryPasswordService: RecoveryPasswordService, private router: Router, fb: FormBuilder) {
     this.complexForm = fb.group({
@@ -26,10 +27,21 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    if (this.forgotPasswordSubs) {
+      this.forgotPasswordSubs.unsubscribe();
+    }
+  }
+
   submitForm(form: any) {
-    this.recoveryPasswordService.forgotPassword(form.email).subscribe(
+    this.forgotPasswordSubs = this.recoveryPasswordService.forgotPassword(form.email).subscribe(
       (res) => {
         alert('Message\nA verification message will be send to your mailbox.\nOnce you have receivied the token, you will be able to choise a new password for your account');
+
+        this.router.navigate(constants.logoutRoute);
+      },
+      (error) => {
+        alert('Messade\nThere was a communication error, please try later.');
 
         this.router.navigate(constants.logoutRoute);
       }
