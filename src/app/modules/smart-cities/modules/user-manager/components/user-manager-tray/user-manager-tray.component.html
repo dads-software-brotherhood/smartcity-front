@@ -3,36 +3,53 @@
       <h2>User Manager Tray</h2>
       <hr class="title-hr">
       <div class="row">
-           <div class="col-md-3">
+           <div class="col-md-6">
           <div class="form-group">
             <label for="">Name</label>
-            <input type="text"  class="form-control" placeholder="Search by Name"/>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group">
-            <label for="">email</label>
-            <input type="text"  class="form-control" placeholder="Search by Email"/>
+            <input type="text" [formControl]="UserTrayForm.controls['name']"  class="form-control" placeholder="Search by Name"/>
           </div>
         </div>
         
-        <div class="col-md-3">
+         <div class="col-md-6">
           <div class="form-group">
-            <label for="">Role</label>
-            <input type="text"  class="form-control" placeholder="Search by Role"/>
+            <label for="">Family Name</label>
+            <input type="text" [formControl]="UserTrayForm.controls['familyname']"  class="form-control" placeholder="Search by Family Name"/>
           </div>
         </div>
+       
 
-        <div class="col-md-3 ">
+       
+
+        
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">email</label>
+            <input type="text" ng-model="email" [formControl]="UserTrayForm.controls['email']"   class="form-control" placeholder="Search by Email"/>
+            
+            <div *ngIf="UserTrayForm.controls['email'].hasError('email') && UserTrayForm.controls['email'].touched" class="alert alert-danger" i18n>Email does not have a valid structure</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Role</label>
+           <select id="role" [formControl]="UserTrayForm.controls['role']" class="form-control">
+                <option *ngFor="let role of roles" [ngValue]="role.name">{{role.name}}</option>
+              </select>
+              
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9"></div>
+         <div class="col-md-3">
           <div class="form-group">
             <span class="labelHidden"></span>
             <a type="submit" class="btn btn-smart btn-block" > Search </a>
           </div>
         </div>
-
-        
       </div>
-
       <div class="row">
            <div class="col-md-9"></div>
             <div class="col-md-3 ">
@@ -64,7 +81,7 @@
                       
                       <td>
                         <a class="btn btn-danger" ngbTooltip="Edit" placement="top">
-                          <i aria-hidden="true" class="fa fa-trash"></i>
+                          <i aria-hidden="true" class="fa fa-trash" (click)="deleteUser()"></i>
                         </a>
                       </td>
                   </tr>

@@ -29,8 +29,10 @@
          <div class="col-md-6">
           <div class="form-group">
             <label for="">email</label>
-            <input type="text" [formControl]="adminUserRegisterForm.controls['email']"  class="form-control" placeholder="Email"/>
-            <div *ngIf="adminUserRegisterForm.controls['email'].hasError('required') && adminUserRegisterForm.controls['email'].touched" class="alert alert-danger">Data Required *</div>
+            <input type="text" ng-model="email" [formControl]="adminUserRegisterForm.controls['email']"  class="form-control" placeholder="Email"/>
+            <div *ngIf="adminUserRegisterForm.controls['email'].hasError('required') && adminUserRegisterForm.controls['email'].touched" class="alert alert-danger" i18n>Data Required *</div>
+            <div *ngIf="adminUserRegisterForm.controls['email'].hasError('email') && adminUserRegisterForm.controls['email'].touched" class="alert alert-danger" i18n>Email does not have a valid structure</div>
+            
           </div>
         </div>
         <div class="col-md-6">
@@ -61,7 +63,7 @@
             <span class="labelHidden"></span>
             
             
-            <button  type="submit" class="btn btn-smart btn-block"> Save</button>
+            <button  type="submit" [disabled]="!adminUserRegisterForm.valid" class="btn btn-smart btn-block"> Save</button>
           </div>
         </div>
 
