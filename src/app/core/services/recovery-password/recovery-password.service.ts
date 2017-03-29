@@ -3,7 +3,6 @@ import { Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { LoginService } from '../login/login.service';
 import { RemoteConnectionService } from '../remote-connection/remote-connection.service';
 
 import { environment } from '../../../../environments/environment';
@@ -16,7 +15,7 @@ const restorePasswordUrl = environment.backend_sdk + '/restore-password';
 @Injectable()
 export class RecoveryPasswordService {
 
-  constructor(private remoteConnectionService: RemoteConnectionService, private loginService: LoginService) {}
+  constructor(private remoteConnectionService: RemoteConnectionService) {}
 
   public forgotPassword(email: string): Observable<any> {
     const url = baseForgotPasswordUrl + '/' + email;
@@ -32,13 +31,12 @@ export class RecoveryPasswordService {
 
   public restorePassword(token: string, password: string): Observable<any> {
     const headers:Headers = this.buildRecoveryHeader(token);
-    headers.append('Content-Type', 'application/json');
 
     const payload = {
       'password' : password
     }
 
-    return this.remoteConnectionService.postAsObservable(restorePasswordUrl, JSON.stringify(payload), '', null, headers);
+    return this.remoteConnectionService.postAsObservable(restorePasswordUrl, JSON.stringify(payload), 'application/json', null, headers);
   }
 
   private buildRecoveryHeader(token: string): Headers {

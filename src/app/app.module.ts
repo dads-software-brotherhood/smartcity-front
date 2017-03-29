@@ -27,6 +27,7 @@ import { VehicleService } from './core/services/vehicle/vehicle.service';
 import { CountryService } from './core/services/country/country.service';
 import { RegionService } from './core/services/region/region.service';
 import { LocalityService } from './core/services/locality/locality.service';
+import { SignupService } from './core/services/signup/signup.service';
 
 
 // Rutas
@@ -61,7 +62,8 @@ import { appRoutes } from './app.routes';
     VehicleService,
     CountryService,
     RegionService,
-    LocalityService
+    LocalityService,
+    SignupService
   ],
   bootstrap: [AppComponent]
 })
