@@ -32,6 +32,11 @@ export class ForgotPasswordComponent implements OnInit {
         alert('Message\nA verification message will be send to your mailbox.\nOnce you have receivied the token, you will be able to choise a new password for your account');
 
         this.router.navigate(constants.logoutRoute);
+      },
+      (error) => {
+        alert('Messade\nThere was a communication error, please try later.');
+
+        this.router.navigate(constants.logoutRoute);
       }
     );
   }
