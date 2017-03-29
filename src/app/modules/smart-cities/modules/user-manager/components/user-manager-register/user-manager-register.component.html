@@ -2,57 +2,66 @@
 
 <h2>User Register</h2>
  <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-12">
     
       <hr class="title-hr">
       <div class="row">
-          <div class="col-md-3"></div>
+          
            <div class="col-md-6">
           <div class="form-group">
             <label for="">Name</label>
-            <input type="text"  class="form-control" placeholder="Name"/>
+            <input type="text" [formControl]="adminUserRegisterForm.controls['name']" class="form-control" placeholder="Name"/>
+            <div *ngIf="adminUserRegisterForm.controls['name'].hasError('required') && adminUserRegisterForm.controls['name'].touched" class="alert alert-danger">Data Required *</div>
           </div>
-        </div>
-      </div>
-       <div class="row">
-           <div class="col-md-3"></div>  
-         <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
           <div class="form-group">
             <label for="">Family Name</label>
-            <input type="text"  class="form-control" placeholder="Family Name"/>
+            <input type="text" [formControl]="adminUserRegisterForm.controls['familyname']" class="form-control" placeholder="familyname"/>
+            <div *ngIf="adminUserRegisterForm.controls['familyname'].hasError('required') && adminUserRegisterForm.controls['familyname'].touched" class="alert alert-danger">Data Required *</div>
           </div>
         </div>
-       </div>    
+        
+      </div>
+          
        <div class="row">  
-           <div class="col-md-3"></div>
+           
          <div class="col-md-6">
           <div class="form-group">
             <label for="">email</label>
-            <input type="text"  class="form-control" placeholder="Email"/>
+            <input type="text" [formControl]="adminUserRegisterForm.controls['email']"  class="form-control" placeholder="Email"/>
+            <div *ngIf="adminUserRegisterForm.controls['email'].hasError('required') && adminUserRegisterForm.controls['email'].touched" class="alert alert-danger">Data Required *</div>
           </div>
         </div>
-         
-       </div> 
-       <div class="row">  
-            <div class="col-md-3"></div>
-         <div class="col-md-6">
+        <div class="col-md-6">
           <div class="form-group">
             <label for="">Role</label>
             <select id="role" [formControl]="adminUserRegisterForm.controls['role']" class="form-control">
                 <option *ngFor="let role of roles" [ngValue]="role.name">{{role.name}}</option>
               </select>
+              <div *ngIf="adminUserRegisterForm.controls['role'].hasError('required') && adminUserRegisterForm.controls['role'].touched" class="alert alert-danger">Data Required *</div>
           </div>
         </div>
-       </div>            
+         
+       </div> 
+                 
       <div class="row">
          
-           <div class="col-md-3"></div>
+           
             <div class="col-md-6 ">
           <div class="form-group">
             <span class="labelHidden"></span>
             
             <a [routerLink]="['/smart-cities/user-manager/user-manager-tray']" class="btn btn-danger btn-block" > Cancel </a>
-            <button  type="submit" class="btn btn-smart btn-block" > Save</button>
+            
+          </div>
+        </div>
+          <div class="col-md-6">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            
+            
+            <button  type="submit" class="btn btn-smart btn-block"> Save</button>
           </div>
         </div>
 
