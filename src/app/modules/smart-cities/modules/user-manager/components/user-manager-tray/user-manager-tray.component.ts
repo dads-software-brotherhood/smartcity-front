@@ -40,14 +40,18 @@ export class UserManagerTrayComponent implements OnInit {
     //Convert name-value pairs to VehicleType[]
     rolesEnumList.forEach(pair => {
         let role = { 'id': pair.value.toString(), 'name': pair.name };
-        roles.push(role);
+        if(role.name!="SA")
+        {
+          roles.push(role);
+        }
+        
     });
     return roles;
 }
   deleteUser(){
-    var person = prompt("Please enter your name", "");
-if (person != null) {
-   alert(person.toString());
-   }
+    var person = prompt("", "");
+    if (person != null) {
+      alert(person.toString());
+      }
   }
 }

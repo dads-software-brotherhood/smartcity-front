@@ -20,12 +20,12 @@ export class UserManagerRegisterComponent implements OnInit {
   private userRoles: any[];
   private roles: any[];
   errorMessage: string;
+  private rol: string;
 
   constructor(private fb: FormBuilder,   
               private router: Router,
               private route: ActivatedRoute, private loginService: LoginService) { 
-                
-                this.roles = this.getRoles();
+               this.roles = this.getRoles();
                 this.adminUserRegisterForm = fb.group({ //// Make Model driven form
                       "name": [null, Validators.required],
                       "familyname": [null, Validators.required],
@@ -37,15 +37,47 @@ export class UserManagerRegisterComponent implements OnInit {
 
               private sub: any;
   ngOnInit() {
-    var index;
-    this.identityUser = this.loginService.getLoggedUser();
-    console.log(this.loginService.getLoggedUser());
-    for (index = 0; index < this.identityUser.roles.length; ++index) {
-    console.log(this.identityUser.roles[index]);
-}
     
+     //this.identityUser = this.loginService.getLoggedUser();
+    //this.rol= this.identityUser.roles[0].toString(); 
+      this.rol="ADMIN";
+      
   }
+
   getRoles() {
+    let roles: any[] = [];
+    var index;// = array.indexOf(5);
+    this.rol="SA";
+    console.log(this.rol);
+    //Get name-value pairs from VehicleTypeEnum
+    let rolesEnumList = EnumEx.getNamesAndValues(role);
+
+    //Convert name-value pairs to VehicleType[]
+    rolesEnumList.forEach(pair => {
+        let role = { 'id': pair.value.toString(), 'name': pair.name };
+         if(this.rol=="ADMIN")
+         {
+            if(role.name!="SA" && role.name!="ADMIN")
+           {
+            
+             roles.push(role);
+           }
+         }else
+         {
+            if(role.name!="SA")
+           {
+            
+             roles.push(role);
+           }
+         }
+          
+          });
+          
+          
+         
+    return roles;
+}
+ getRolesAdmin() {
     let roles: any[] = [];
 
     //Get name-value pairs from VehicleTypeEnum
@@ -54,7 +86,18 @@ export class UserManagerRegisterComponent implements OnInit {
     //Convert name-value pairs to VehicleType[]
     rolesEnumList.forEach(pair => {
         let role = { 'id': pair.value.toString(), 'name': pair.name };
-        roles.push(role);
+      
+          if(role.name != "SA" && role.name != "ADMIN")
+          {
+            
+                 roles.push(role);
+            
+           
+          }
+         
+        
+        
+       
     });
     return roles;
 }

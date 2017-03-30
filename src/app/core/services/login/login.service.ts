@@ -90,7 +90,6 @@ export class LoginService {
 
   getLoggedUser(): IdentityUser {
     const tmp: string = localStorage.getItem(constants.tokenInfoName);
-
     if (tmp) {
       return JSON.parse(tmp);
     } else {
