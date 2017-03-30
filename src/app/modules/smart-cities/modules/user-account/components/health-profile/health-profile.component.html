@@ -6,12 +6,12 @@
     <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
       <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
     </div>
-    <h4>Health Data</h4>
+    <h4>Health data</h4>
     <hr class="subTitle-hr">
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <label for="health-state">Health State</label>
+          <label for="health-state">Health state</label>
           <select class="form-control" [(ngModel)]="healthProfile.healthState">
             <option *ngFor="let state of healthStates" [ngValue]="state"  >{{state}}</option>
           </select>
@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <label >Allergy Symptoms</label>
+          <label >Allergy symptoms</label>
         </div>
         <div class="clearfix"></div>
           <div class="col-md-6" *ngFor="let symptom of allergySymptoms">
@@ -54,7 +54,7 @@
             <div class="form-check">
               <label class="form-check-label">
                 <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="4">
-                Severe Persistent Asthma
+                Severe persistent asthma
               </label>
               <ul [hidden]="!(healthProfile.asthmaLevel == 4)">
                 <li>
@@ -71,7 +71,7 @@
             <div class="form-check">
               <label class="form-check-label">
                 <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="3">
-                Moderate Persistent Asthma
+                Moderate persistent asthma
               </label>
               <ul [hidden]="!(healthProfile.asthmaLevel == 3)">
                 <li>
@@ -88,7 +88,7 @@
             <div class="form-check">
               <label class="form-check-label">
                 <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="2">
-                Mild Persistent Asthma
+                Mild persistent asthma
               </label>
               <ul [hidden]="!(healthProfile.asthmaLevel == 2)">
                 <li>
@@ -105,7 +105,7 @@
             <div class="form-check">
               <label class="form-check-label">
                 <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="1">
-                Mild Intermittent Asthma
+                Mild intermittent asthma
               </label>
               <ul [hidden]="!(healthProfile.asthmaLevel == 1)">
                 <li>
