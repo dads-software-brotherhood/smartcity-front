@@ -43,7 +43,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       (error) => {
         alert('Messade\nThere was a communication error, please try later.');
 
-        this.router.navigate(constants.logoutRoute);
+        console.error(error);
       }
     );
   }

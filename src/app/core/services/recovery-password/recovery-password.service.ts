@@ -8,7 +8,7 @@ import { RemoteConnectionService } from '../remote-connection/remote-connection.
 import { environment } from '../../../../environments/environment';
 import { constants } from '../../common/constants';
 
-const baseForgotPasswordUrl = environment.backend_sdk + '/forgot-password';
+const forgotPasswordUrl = environment.backend_sdk + '/forgot-password';
 const validTokenUrl = environment.backend_sdk + '/valid-token';
 const restorePasswordUrl = environment.backend_sdk + '/restore-password';
 
@@ -18,9 +18,11 @@ export class RecoveryPasswordService {
   constructor(private remoteConnectionService: RemoteConnectionService) {}
 
   public forgotPassword(email: string): Observable<any> {
-    const url = baseForgotPasswordUrl + '/' + email;
+    const payload = {
+      'username' : email
+    }
 
-    return this.remoteConnectionService.postAsObservable(url);
+    return this.remoteConnectionService.postAsObservable(forgotPasswordUrl, JSON.stringify(payload), 'application/json');
   }
 
   public isValidToken(token: string): Observable<any> {

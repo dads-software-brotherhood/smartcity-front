@@ -27,7 +27,7 @@ export class RestorePasswordComponent implements OnInit, OnDestroy {
 
     this.complexForm = fb.group({
       'password': password,
-      'confirmPassword': [null, [CustomValidators.equalTo(password)]]
+      'confirmPassword': [null, [Validators.required, CustomValidators.equalTo(password)]]
     });
   }
 

@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.complexForm = fb.group({
       'email': [null, [Validators.required, CustomValidators.email]],
       'password': password,
-      'confirmPassword': [null, [CustomValidators.equalTo(password)]]
+      'confirmPassword': [null, [Validators.required, CustomValidators.equalTo(password)]]
     });
   }
 

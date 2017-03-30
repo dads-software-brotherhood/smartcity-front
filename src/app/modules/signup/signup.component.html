@@ -43,6 +43,7 @@
                           <div class="input-group-addon"><i class="fa fa-fw fa-lock"></i></div>
                           <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" [formControl]="complexForm.controls['confirmPassword']">
                         </div>
+                        <div *ngIf="complexForm.controls['confirmPassword'].hasError('required') && complexForm.controls['confirmPassword'].touched" class="alert alert-danger" i18n>Confirm password is required</div>
                         <div *ngIf="complexForm.controls['confirmPassword'].hasError('equalTo') && complexForm.controls['confirmPassword'].touched" class="alert alert-danger" i18n>Password don’t match.</div>
                       </div>
                     </div>
@@ -53,7 +54,7 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <button class="btn btn-smart btn-block" > Save </button>
+                        <button class="btn btn-smart btn-block" [disabled]="!complexForm.valid"> Save </button>
                       </div>
                     </div>
                   </div>
