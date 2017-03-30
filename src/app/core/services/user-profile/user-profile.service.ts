@@ -7,6 +7,7 @@ import { LoginService } from '../login/login.service';
 import { RemoteConnectionService } from '../remote-connection/remote-connection.service';
 
 import { environment } from '../../../../environments/environment';
+import { constants } from '../../common/constants';
 
 import { UserProfile } from '../../models/user-profile';
 
@@ -24,7 +25,7 @@ export class UserProfileService {
   }
 
   public updateUserProfile(userProfile: UserProfile): Observable<any> {
-    return this.remoteConnectionService.putAsObservable(this.buildUrl(), JSON.stringify(userProfile), '');
+    return this.remoteConnectionService.putAsObservable(this.buildUrl(), JSON.stringify(userProfile), constants.contentTypeJson);
   }
 
   private buildUrl(): string {

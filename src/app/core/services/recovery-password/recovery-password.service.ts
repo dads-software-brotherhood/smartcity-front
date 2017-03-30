@@ -22,7 +22,7 @@ export class RecoveryPasswordService {
       'username' : email
     }
 
-    return this.remoteConnectionService.postAsObservable(forgotPasswordUrl, JSON.stringify(payload), 'application/json');
+    return this.remoteConnectionService.postAsObservable(forgotPasswordUrl, JSON.stringify(payload), constants.contentTypeJson);
   }
 
   public isValidToken(token: string): Observable<any> {
@@ -38,7 +38,7 @@ export class RecoveryPasswordService {
       'password' : password
     }
 
-    return this.remoteConnectionService.postAsObservable(restorePasswordUrl, JSON.stringify(payload), 'application/json', null, headers);
+    return this.remoteConnectionService.postAsObservable(restorePasswordUrl, JSON.stringify(payload), constants.contentTypeJson, null, headers);
   }
 
   private buildRecoveryHeader(token: string): Headers {
