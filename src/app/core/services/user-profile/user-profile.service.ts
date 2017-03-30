@@ -16,19 +16,19 @@ const baseGetUserUrl = environment.backend_sdk + baseRestPath;
 @Injectable()
 export class UserProfileService {
 
-  private getUserUrl: string;
-
-  constructor(private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) {
-    this.getUserUrl = baseGetUserUrl + '/' + loginService.getLoggedUser().id;
-  }
+  constructor(private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { }
 
   public getUserProfile(): Observable<UserProfile> {
-    return this.remoteConnectionService.getAsObservable(this.getUserUrl)
+    return this.remoteConnectionService.getAsObservable(this.buildUrl())
       .map((res : Response) => res = res.json());
   }
 
   public updateUserProfile(userProfile: UserProfile): Observable<any> {
-    return this.remoteConnectionService.putAsObservable(this.getUserUrl, JSON.stringify(userProfile), 'application/json');
+    return this.remoteConnectionService.putAsObservable(this.buildUrl(), JSON.stringify(userProfile), '');
+  }
+
+  private buildUrl(): string {
+    return baseGetUserUrl + '/' + this.loginService.getLoggedUser().id;
   }
 
 }
