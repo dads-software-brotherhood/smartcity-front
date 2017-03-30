@@ -47,14 +47,14 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     this.registerSubs = this.signupService.register(form.value.email, form.value.password).subscribe(
       (res) => {
-        alert('Message\nYou must be validate your account....');
+        alert('Message\nThe token has been sent to your mail, please check your tray');
         this.router.navigate(constants.logoutRoute);
       },
       (error) => {
         if (error.status && error.status == 409) {
-          alert('Error\nThis email is alredy register');
+          alert('Error\nEmail already registered');
         } else {
-          alert('An error...')
+          alert('Error\nThere was a communication error, please try later.')
         }
       }
     );
