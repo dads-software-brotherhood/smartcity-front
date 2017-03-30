@@ -5,7 +5,8 @@ import { FuelType } from '../../../../../../core/models/fuel-type';
 import { Vehicle } from '../../../../../../core/models/vehicle';
 import { EnumEx } from '../../../../../../core/models/EnumEx';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgClass } from '@angular/common';
 
 import { VehicleService } from '../../../../../../core/services/vehicle/vehicle.service';
 
@@ -150,5 +151,77 @@ save(form, isValid: boolean) {
                 
         this.router.navigate(["/smart-cities/user-vehicle/vehicles"]);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////77777
+//     fileChange(input){
+//         this.readFiles(input.files);
+//     }
+
+//     readFile(file, reader, callback){
+//             reader.onload = () => {
+//             callback(reader.result);
+//         }
+//         reader.readAsDataURL(file);
+//     }
+
+//     readFiles(files){
+//   // Create the file reader
+//   let reader = new FileReader();
+//     // Start reading this file
+//     this.readFile(files[0], reader, (result) =>{
+//       // Create an img element and add the image file data to it
+//       var img = document.createElement("img");
+//       img.src = result;
+//       this.resize(img, 250, 250, (resized_jpeg, before, after)=>{
+//         // Add the resized jpeg img source to a list for preview
+//         // This is also the file you want to upload. (either as a
+//         // base64 string or img.src = resized_jpeg if you prefer a file).
+//         console.log(resized_jpeg); 
+//         this.vehicle.base64 = resized_jpeg;
+//       });
+//     });
+//     files = null;
+// }
+
+// resize(img, MAX_WIDTH:number, MAX_HEIGHT:number, callback){
+//   // This will wait until the img is loaded before calling this function
+//   return img.onload = () => {
+
+//     // Get the images current width and height
+//     var width = img.width;
+//     var height = img.height;
+
+//     // Set the WxH to fit the Max values (but maintain proportions)
+//     if (width > height) {
+//         if (width > MAX_WIDTH) {
+//             height *= MAX_WIDTH / width;
+//             width = MAX_WIDTH;
+//         }
+//     } else {
+//         if (height > MAX_HEIGHT) {
+//             width *= MAX_HEIGHT / height;
+//             height = MAX_HEIGHT;
+//         }
+//     }
+
+//     // create a canvas object
+//     var canvas = document.createElement("canvas");
+
+//     // Set the canvas to the new calculated dimensions
+//     canvas.width = width;
+//     canvas.height = height;
+//     var ctx = canvas.getContext("2d");  
+
+//     ctx.drawImage(img, 0, 0,  width, height); 
+
+//     // Get this encoded as a jpeg
+//     // IMPORTANT: 'jpeg' NOT 'jpg'
+//     var dataUrl = canvas.toDataURL('image/jpeg');
+
+//     // callback with the results
+//     callback(dataUrl, img.src.length, dataUrl.length);
+//   };
+// }
+
 
 }
