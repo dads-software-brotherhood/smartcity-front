@@ -15,7 +15,7 @@ import { TemplateModule } from '../../template/template.module';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule.forRoot(),
+    NgbModule,
     TemplateModule
   ],
   declarations: [LoginComponent],

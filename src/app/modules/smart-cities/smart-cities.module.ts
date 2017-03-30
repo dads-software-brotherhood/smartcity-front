@@ -32,7 +32,7 @@ import { UserVehicleModule } from './modules/user-vehicle/user-vehicle.module';
     BrowserModule,
     CommonModule,
     RouterModule,
-    NgbModule.forRoot(),
+    NgbModule,
     NgxDatatableModule,
     FormsModule,
     ReactiveFormsModule,

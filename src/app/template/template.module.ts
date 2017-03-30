@@ -16,7 +16,7 @@ import { LoginService } from '../core/services/login/login.service';
     CommonModule,
     RouterModule,
     HttpModule,
-    NgbModule.forRoot()
+    NgbModule
   ],
   declarations: [
     FooterComponent,

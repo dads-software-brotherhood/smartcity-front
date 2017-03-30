@@ -10,7 +10,7 @@ import {UserManagerTrayComponent} from './components/user-manager-tray/user-mana
 @NgModule({
   imports: [
     CommonModule,
-    NgbModule.forRoot(),
+    NgbModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule

@@ -12,7 +12,7 @@ import { UserVehicleDetailComponent } from './components/user-vehicle-detail/use
 @NgModule({
   imports: [
     CommonModule,
-    NgbModule.forRoot(),
+    NgbModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,

@@ -14,7 +14,7 @@ import { AddressComponent } from './components/address/address.component';
 @NgModule({
   imports: [
     CommonModule,
-    NgbModule.forRoot(),
+    NgbModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule
