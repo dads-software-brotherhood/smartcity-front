@@ -6,6 +6,7 @@ export class UserModel {
   familyName:string;
   email:string;
   role:string;
+  canDel:boolean;
  
 
 }

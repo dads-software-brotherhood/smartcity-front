@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-
+import { RemoteConnectionService } from '../remote-connection/remote-connection.service';
 //import { Vehicle } from '../../models/vehicle';
 import { LoginService } from '../login/login.service';
 import {UserModel} from '../../models/user-model';
@@ -20,7 +20,9 @@ export class UserService {
   loginServ: LoginService;
   private url: string;
 
-  constructor(private http: Http, private loginService: LoginService) { }
+  constructor(private http: Http, private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) {
+    //super(loginService);    
+   }
 
   // count(): Observable<number> {
   //   const requestOptions: RequestOptions = this.buildRequestOptions();
@@ -30,10 +32,10 @@ export class UserService {
   //   .catch(this.handleError);
   // }
 
-  getAll(limit?: number, offset?: number): Observable<UserModel[]> {
+  getAll(): Observable<UserModel[]> {
     const requestOptions: RequestOptions = this.buildRequestOptions();
 
-    return this.http.get(this.buildByIdUserUrl() , requestOptions)
+    return this.http.get(this.buildUserUrl()+"/list" , requestOptions)
     .map(this.extractDataArray)
     .catch(this.handleError);
   }
@@ -41,7 +43,7 @@ export class UserService {
   insert(userModel: UserModel): Promise<UserModel> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
 
-    return this.http.post(this.buildByIdUserUrl(), JSON.stringify(userModel), requestOptions).toPromise()
+    return this.http.post(this.buildUserUrl()+"/register", JSON.stringify(userModel), requestOptions).toPromise()
     .then(this.extractData)
     .catch(this.handleError);
   }
@@ -57,13 +59,14 @@ export class UserService {
   delete(index: string): Promise<boolean> {
     const requestOptions: RequestOptions = this.buildRequestOptions();
 
-    return this.http.delete(this.buildByIdUserUrl() + '/' + index, requestOptions).toPromise()
+    return this.http.delete(this.buildUserUrl() + '/' + index, requestOptions).toPromise()
     .then((res: Response) => {return true;})
     .catch(this.handleError);
   }
 
-  private buildByIdUserUrl() {
-    return userModelUrl + '/user-model/' + this.loginService.getLoggedUser().id + '/user-model';
+  private buildUserUrl() {
+    return userModelUrl + '/admin/user';
+    
   }
 
   private buildRequestOptions(contentType?: string): RequestOptions {

@@ -10,14 +10,14 @@
            <div class="col-md-6">
           <div class="form-group">
             <label for="">Name</label>
-            <input type="text" [formControl]="adminUserRegisterForm.controls['name']" class="form-control" placeholder="Name"/>
+            <input type="text" [formControl]="adminUserRegisterForm.controls['name']" [(ngModel)]="userModel.name" class="form-control" placeholder="Name"/>
             <div *ngIf="adminUserRegisterForm.controls['name'].hasError('required') && adminUserRegisterForm.controls['name'].touched" class="alert alert-danger">Data Required *</div>
           </div>
           </div>
           <div class="col-md-6">
           <div class="form-group">
             <label for="">Family Name</label>
-            <input type="text" [formControl]="adminUserRegisterForm.controls['familyname']" class="form-control" placeholder="familyname"/>
+            <input type="text" [formControl]="adminUserRegisterForm.controls['familyname']" [(ngModel)]="userModel.familyname" class="form-control" placeholder="familyname"/>
             <div *ngIf="adminUserRegisterForm.controls['familyname'].hasError('required') && adminUserRegisterForm.controls['familyname'].touched" class="alert alert-danger">Data Required *</div>
           </div>
         </div>
@@ -29,7 +29,7 @@
          <div class="col-md-6">
           <div class="form-group">
             <label for="">email</label>
-            <input type="text" ng-model="email" [formControl]="adminUserRegisterForm.controls['email']"  class="form-control" placeholder="Email"/>
+            <input type="text" ng-model="email" [formControl]="adminUserRegisterForm.controls['email']"  [(ngModel)]="userModel.email"  class="form-control" placeholder="Email"/>
             <div *ngIf="adminUserRegisterForm.controls['email'].hasError('required') && adminUserRegisterForm.controls['email'].touched" class="alert alert-danger" i18n>Data Required *</div>
             <div *ngIf="adminUserRegisterForm.controls['email'].hasError('email') && adminUserRegisterForm.controls['email'].touched" class="alert alert-danger" i18n>Email does not have a valid structure</div>
             
@@ -38,7 +38,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="">Role</label>
-            <select id="role" [formControl]="adminUserRegisterForm.controls['role']" class="form-control">
+            <select id="role" [formControl]="adminUserRegisterForm.controls['role']" [(ngModel)]="userModel.role" class="form-control">
                 <option *ngFor="let role of roles" [ngValue]="role.name">{{role.name}}</option>
               </select>
               <div *ngIf="adminUserRegisterForm.controls['role'].hasError('required') && adminUserRegisterForm.controls['role'].touched" class="alert alert-danger">Data Required *</div>

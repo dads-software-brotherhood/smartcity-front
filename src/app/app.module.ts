@@ -24,6 +24,7 @@ import { RecoveryPasswordService } from './core/services/recovery-password/recov
 import { UserProfileService } from './core/services/user-profile/user-profile.service';
 import { CustomerService } from './core/services/customer/customer.service';
 import { VehicleService } from './core/services/vehicle/vehicle.service';
+import { UserService } from './core/services/user-service/user-service.service';
 import { CountryService } from './core/services/country/country.service';
 import { RegionService } from './core/services/region/region.service';
 import { LocalityService } from './core/services/locality/locality.service';
@@ -63,7 +64,8 @@ import { appRoutes } from './app.routes';
     CountryService,
     RegionService,
     LocalityService,
-    SignupService
+    SignupService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

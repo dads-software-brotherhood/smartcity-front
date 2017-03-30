@@ -66,21 +66,22 @@
         <div class="col-md-12">
           <table class="table ">
               <thead class="thead-default">
-                  <tr>
+                  <tr >
                       <th>Name</th>
+                      <th>Family Name</th>
                       <th>Email</th>
                       <th>Role</th>
                       <th>Delete</th>
                   </tr>
               </thead>
               <tbody>
-                  <tr >
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      
+                  <tr *ngFor="let user of users">
+                      <td>{{user.name}}</td>
+                      <td>{{user.familyname}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.role}}</td>
                       <td>
-                        <a class="btn btn-danger" ngbTooltip="Edit" placement="top">
+                        <a *ngIf="user.canDel==true" class="btn btn-danger"  ngbTooltip="Edit" placement="top">
                           <i aria-hidden="true" class="fa fa-trash" (click)="deleteUser()"></i>
                         </a>
                       </td>

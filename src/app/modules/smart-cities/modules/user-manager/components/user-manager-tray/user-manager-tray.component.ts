@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EnumEx } from '../../../../../../core/models/EnumEx';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router'
 import { role } from '../../../../../../core/models/role';
 import { CustomValidators } from 'ng2-validation';
+import { UserModel } from '../../../../../../core/models/user-model';
+import { UserService } from '../../../../../../core/services/user-service/user-service.service';
 @Component({
   selector: 'app-user-manager-tray',
   templateUrl: './user-manager-tray.component.html',
@@ -13,9 +15,10 @@ import { CustomValidators } from 'ng2-validation';
 export class UserManagerTrayComponent implements OnInit {
   public UserTrayForm : FormGroup;
   private roles: any[];
-  private users: any[];
+  private users: UserModel[] = [];
   errorMessage: string;
-  constructor(private fb: FormBuilder,   
+  private  canDel:boolean=false;
+  constructor(private _service: UserService,private fb: FormBuilder,   
               private router: Router,
               private route: ActivatedRoute) { 
                  this.roles = this.getRoles();
@@ -23,14 +26,45 @@ export class UserManagerTrayComponent implements OnInit {
                       "name": [null],
                       "familyname": [null],
                       "email": [null, Validators.compose([Validators.required,CustomValidators.email])],
-                      "role": [null]
-                      
+                      "role": [null],
+                      "canDel":[null]                    
                       
                   })
               }
 
   ngOnInit() {
+   
+    this.bindTable();
   }
+  bindTable()
+  {
+    var rol="SA";
+   
+     this._service.getAll().subscribe(
+      users => { this.users = users;
+          this.users.forEach(function(item)
+          {
+            item.role="ADMIN";
+            if(item.role == "ADMIN" && rol=="ADMIN")
+            {
+              item.canDel=false;
+            }
+            else 
+            if(rol="SA")
+            {item.canDel=true;
+            }
+            
+            console.log(rol);
+            //console.log(this.canDel);
+            //item.email = email.toString()
+          });
+  },
+      error => this.errorMessage = <any>error
+    );
+
+  }
+
+  
     getRoles() {
     let roles: any[] = [];
 
