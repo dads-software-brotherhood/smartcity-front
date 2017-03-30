@@ -3,5 +3,6 @@ export const constants = {
   recoveryToken: 'recovery-token',
   tokenInfoName: 'token-info',
   defaultLoggedRoute: ['smart-cities'],
-  logoutRoute: ['/']
+  logoutRoute: ['/'],
+  contentTypeJson: 'application/json'
 }

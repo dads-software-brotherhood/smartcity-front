@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { CustomValidators } from 'ng2-validation';
 
 import { UserProfileService } from '../../../../../../core/services/user-profile/user-profile.service';
+import { LoginService } from '../../../../../../core/services/login/login.service';
 
 import { Country } from '../../../../../../core/models/country';
 import { Region } from '../../../../../../core/models/region';
@@ -19,52 +21,46 @@ export class ProfileComponent implements OnInit {
 
   userProfile: UserProfile = new UserProfile();
 
-  userProfileFormGroup: FormGroup;
+  complexForm: FormGroup;
 
-  constructor(private userProfileService: UserProfileService, private fb: FormBuilder) {
-    console.log(1);
+  private currentDate:Date = new Date();
 
-    this.userProfileFormGroup = this.fb.group({
-      'name': [null, Validators.required],
-      'familyName': [null, Validators.required],
-      'birthDate': [null, Validators.nullValidator],
-      'gender': [null, Validators.nullValidator]
+  constructor(private userProfileService: UserProfileService, private loginService: LoginService, private fb: FormBuilder) {
+    this.complexForm = this.fb.group({
+      'name': this.buildNameFormControl(),
+      'familyName': this.buildNameFormControl(),
+      'birthDate': this.buildBirthDateControl(),
+      'gender': this.buildGenderFormControl()
     });
   }
 
+  private buildNameFormControl(value?: string): FormControl {
+    return new FormControl(value, [Validators.required, Validators.minLength(2)]);
+  }
+
+  private buildBirthDateControl(value?: Date): FormControl {
+    return new FormControl(value, [CustomValidators.dateISO, CustomValidators.maxDate(this.currentDate)]);
+  }
+
+  private buildGenderFormControl(value?: any): FormControl {
+    return new FormControl(value, []);
+  }
+
   ngOnInit() {
-    console.log(2);
     try {
       this.userProfileService.getUserProfile().subscribe(
         (userProfile) => {
           if (userProfile) {
             this.userProfile = userProfile;
 
-            console.log(userProfile);
-
-            console.log(3);
-
-            this.userProfileFormGroup = this.fb.group({
-              'name': [this.userProfile.name, Validators.required],
-              'familyName': [this.userProfile.familyName, Validators.required],
-              'birthDate': [this.userProfile.birthDate, Validators.nullValidator],
-              'gender': [this.userProfile.gender, Validators.nullValidator]
+            this.complexForm = this.fb.group({
+              'name': this.buildNameFormControl(userProfile.name),
+              'familyName': this.buildNameFormControl(userProfile.familyName),
+              'birthDate': this.buildBirthDateControl(userProfile.birthDate),
+              'gender': this.buildGenderFormControl(userProfile.gender)
             });
           } else {
             this.userProfile = new UserProfile();
-          }
-
-          console.log(4);
-
-          //   = this.fb.group({
-          //   'name': [this.userProfile.name, Validators.required],
-          //   'familyName': [this.userProfile.familyName, Validators.required],
-          //   'birthDate': [this.userProfile.birthDate, Validators.nullValidator],
-          //   'gender': [this.userProfile.gender, Validators.nullValidator]
-          // });
-          //
-          if (!userProfile.addresses) {
-            userProfile.addresses = [];
           }
         }
       );
@@ -72,6 +68,33 @@ export class ProfileComponent implements OnInit {
       console.log('Error at profile load');
       console.log(e);
     }
+  }
+
+  submitForm(form: any) {
+    this.userProfile.name = form.name;
+    this.userProfile.familyName = form.familyName;
+    if (form.birthDate) {
+      this.userProfile.birthDate = new Date(form.birthDate);
+    } else {
+      this.userProfile.birthDate = null
+    }
+
+    if (form.gender) {
+      this.userProfile.gender = form.gender;
+    } else {
+      this.userProfile.gender = null;
+    }
+
+    this.userProfileService.updateUserProfile(this.userProfile).subscribe(
+      (res) => {
+        this.loginService.getLoggedUser().name = this.userProfile.name + ' ' + this.userProfile.familyName;
+        alert('All ok');
+      },
+      (error) => {
+        console.error(error);
+        alert('Error...');
+      }
+    );
   }
 
 }

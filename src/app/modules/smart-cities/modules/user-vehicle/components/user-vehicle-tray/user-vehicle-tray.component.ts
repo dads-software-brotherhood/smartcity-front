@@ -37,6 +37,7 @@ export class UserVehicleTrayComponent implements OnInit {
 
   confirmDelete(index) {
         var conf = window.confirm("Are you sure you want to permanently delete this vehicle?");
+        console.log(conf);
         if(conf == true){
           this._service.delete(index)
             .then(res => true,
@@ -72,11 +73,12 @@ export class UserVehicleTrayComponent implements OnInit {
         {
         td = tr[i].getElementsByTagName("td")[j];
           if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-            break;
-            } else {
-            tr[i].style.display = "none";
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {            
+               tr[i].style.display = "";
+               break;
+            }
+            else {
+              tr[i].style.display = "none";
             }
           }
 

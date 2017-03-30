@@ -12,6 +12,7 @@ import { LoginService } from '../login/login.service';
 import { RemoteUtils } from '../../common/remote-utils';
 
 import { environment } from '../../../../environments/environment';
+import { constants } from '../../common/constants';
 
 const customerUrl = environment.backend_sdk + '/customers';
 const customersCountUrl = customerUrl + '/count'
@@ -48,7 +49,7 @@ export class CustomerService extends RemoteUtils {
   }
 
   insert(customer: Customer): Promise<Customer> {
-    const requestOptions: RequestOptions = this.buildRequestOptions(null, 'application/json');
+    const requestOptions: RequestOptions = this.buildRequestOptions(null, constants.contentTypeJson);
 
     return this.http.post(customerUrl, JSON.stringify(customer), requestOptions).toPromise()
     .then(this.extractData)
@@ -56,7 +57,7 @@ export class CustomerService extends RemoteUtils {
   }
 
   update(customer: Customer): Promise<boolean> {
-    const requestOptions: RequestOptions = this.buildRequestOptions(null, 'application/json');
+    const requestOptions: RequestOptions = this.buildRequestOptions(null, constants.contentTypeJson);
 
     return this.http.put(this.buildByIdUrl(customer.id), JSON.stringify(customer), requestOptions).toPromise()
     .then((res: Response) => {return true;})

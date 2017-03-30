@@ -24,7 +24,7 @@ export class LoginService {
 
   login(email: string, password: string): Observable<IdentityUser> {
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', constants.contentTypeJson);
 
     const query = {
       'username': email,

@@ -22,7 +22,7 @@ export class SignupService {
       'password' : password
     }
 
-    return this.remoteConnectionService.postAsObservable(registerUrl, JSON.stringify(payload), 'application/json');
+    return this.remoteConnectionService.postAsObservable(registerUrl, JSON.stringify(payload), constants.contentTypeJson);
   }
 
   public validateToken(token: string): Observable<any> {
