@@ -40,7 +40,13 @@ export class UserVehicleDetailComponent implements OnInit {
             "vehiclPlateIdentifier": [null],
             "vehicleType": [null, Validators.required],
             "fuelType": [null, Validators.required],
-            "fuelConsumption": [null]
+            "fuelConsumption": [null],
+            "manufacturerName": [null],
+            "cargoVolume": [null],
+            "height": [null],
+            "width": [null],
+            "depth": [null],
+            "weight": [null]
         })
       
       
