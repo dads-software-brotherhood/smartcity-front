@@ -27,9 +27,8 @@ export class UserProfileService {
       .map((res : Response) => res = res.json());
   }
 
-  public updateUserProfile(): Observable<boolean> {
-    return null;
-    // return this.remoteConnectionService.putAsObservable(this.getUserUrl);
+  public updateUserProfile(userProfile: UserProfile): Observable<any> {
+    return this.remoteConnectionService.putAsObservable(this.getUserUrl, JSON.stringify(userProfile), 'application/json');
   }
 
 }
