@@ -21,13 +21,12 @@ export class Vehicle {
   weight: number;
   dateModified?: Date;
   datecreated?: Date;
-  base64?: string;
   
   constructor(index?: string, name?: string, description?: string, vehicleType?: VehicleType,
               brandName?: string, modelName?: string, vehicleModelDate?: Date, fuelType?: FuelType,
               fuelConsumption?: number, vehiclPlateIdentifier?: string, manufacturerName?: string,
               cargoVolume?: number, height?: number, width?: number, depth?: number, weight?: number,
-              dateModified?: Date, dateCreated?: Date, base64?: string) {
+              dateModified?: Date, dateCreated?: Date) {
     this.index = index;
     this.name = name;
     this.description = description;
@@ -46,6 +45,5 @@ export class Vehicle {
     this.weight = weight;
     this.dateModified = dateModified;
     this.datecreated = dateCreated;
-    this.base64 = base64;
   }
 }
