@@ -91,10 +91,10 @@ export class UserManagerTrayComponent implements OnInit {
     var motive = prompt("If you are sure to delete user, then type a motive.", "Motive");
     if (motive != null) {
       this._user.message=motive;
-      this._service.delete(this._user)
+       this._service.delete(this._user)
             .then(form => this.users.push(this._user),
                                     error =>  this.errorMessage = <any>error);
-                
+      //console.log(x);
       
       }
   }

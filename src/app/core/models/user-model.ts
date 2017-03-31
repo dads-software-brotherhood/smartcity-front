@@ -1,5 +1,3 @@
-import {roleId} from './role-id';
-
 export class UserModel {
 
   name:string;

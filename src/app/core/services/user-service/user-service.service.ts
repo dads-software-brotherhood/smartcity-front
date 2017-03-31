@@ -42,7 +42,6 @@ export class UserService {
 
   insert(userModel: UserModel): Promise<UserModel> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
-  
     return this.http.post(this.buildUserUrl()+"/register", JSON.stringify(userModel), requestOptions)
     .toPromise()
    .then(this.extractData)
