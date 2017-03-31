@@ -4,6 +4,7 @@ import { EnumEx } from '../../../../../../core/models/EnumEx';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router'
 import { role } from '../../../../../../core/models/role';
+//import { roleId } from '../../../../../../core/models/role-id';
 import { CustomValidators } from 'ng2-validation';
 import { UserModel } from '../../../../../../core/models/user-model';
 import { UserService } from '../../../../../../core/services/user-service/user-service.service';
@@ -16,6 +17,7 @@ export class UserManagerTrayComponent implements OnInit {
   public UserTrayForm : FormGroup;
   private roles: any[];
   private users: UserModel[] = [];
+  private _user: UserModel= new UserModel();
   errorMessage: string;
   private  canDel:boolean=false;
   constructor(private _service: UserService,private fb: FormBuilder,   
@@ -27,6 +29,7 @@ export class UserManagerTrayComponent implements OnInit {
                       "familyname": [null],
                       "email": [null, Validators.compose([Validators.required,CustomValidators.email])],
                       "role": [null],
+                      "message":[null],
                       "canDel":[null]                    
                       
                   })
@@ -44,7 +47,7 @@ export class UserManagerTrayComponent implements OnInit {
       users => { this.users = users;
           this.users.forEach(function(item)
           {
-            item.role="ADMIN";
+            //item.role.role="ADMIN";
             if(item.role == "ADMIN" && rol=="ADMIN")
             {
               item.canDel=false;
@@ -67,10 +70,7 @@ export class UserManagerTrayComponent implements OnInit {
   
     getRoles() {
     let roles: any[] = [];
-
-    //Get name-value pairs from VehicleTypeEnum
     let rolesEnumList = EnumEx.getNamesAndValues(role);
-
     //Convert name-value pairs to VehicleType[]
     rolesEnumList.forEach(pair => {
         let role = { 'id': pair.value.toString(), 'name': pair.name };
@@ -82,10 +82,20 @@ export class UserManagerTrayComponent implements OnInit {
     });
     return roles;
 }
-  deleteUser(){
-    var person = prompt("", "");
-    if (person != null) {
-      alert(person.toString());
+  deleteUser(form, isValid: boolean ,email,name,familyName,role){
+    
+     this._user.email=email;
+     this._user.name=name;
+     this._user.familyName= familyName;
+     this._user.role=role;
+    var motive = prompt("If you are sure to delete user, then type a motive.", "Motive");
+    if (motive != null) {
+      this._user.message=motive;
+      this._service.delete(this._user)
+            .then(form => this.users.push(this._user),
+                                    error =>  this.errorMessage = <any>error);
+                
+      
       }
   }
 }

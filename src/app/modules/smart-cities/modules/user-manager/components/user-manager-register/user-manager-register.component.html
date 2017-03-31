@@ -1,6 +1,6 @@
 
-
-<h2>User Register</h2>
+  <form [formGroup]="adminUserRegisterForm" (ngSubmit)="save(adminUserRegisterForm.value,adminUserRegisterForm.valid)">
+    <h2>User Register</h2>
  <div class="row">
     <div class="col-md-12">
     
@@ -41,6 +41,7 @@
             <select id="role" [formControl]="adminUserRegisterForm.controls['role']" [(ngModel)]="userModel.role" class="form-control">
                 <option *ngFor="let role of roles" [ngValue]="role.name">{{role.name}}</option>
               </select>
+              <input type="hidden" name="roleid" id="role_id" value="" />
               <div *ngIf="adminUserRegisterForm.controls['role'].hasError('required') && adminUserRegisterForm.controls['role'].touched" class="alert alert-danger">Data Required *</div>
           </div>
         </div>
@@ -58,18 +59,22 @@
             
           </div>
         </div>
-          <div class="col-md-6">
+          <div class="col-md-3 ">
           <div class="form-group">
             <span class="labelHidden"></span>
-            
-            
-            <button  type="submit" [disabled]="!adminUserRegisterForm.valid" class="btn btn-smart btn-block"> Save</button>
+            <button [disabled]="!adminUserRegisterForm.valid" type="submit" class="btn btn-smart btn-block" > Save</button>
           </div>
         </div>
-
+        <div class="col-md-12">
+          <div class="form-group">
+            <hr class="subTitle-hr">
+          </div>
+        </div>
         
       </div>
 
       
     </div>
   </div>
+  </form>
+

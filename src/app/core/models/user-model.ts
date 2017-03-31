@@ -1,4 +1,4 @@
-
+import {roleId} from './role-id';
 
 export class UserModel {
 
@@ -6,6 +6,7 @@ export class UserModel {
   familyName:string;
   email:string;
   role:string;
+  message:string;
   canDel:boolean;
  
 

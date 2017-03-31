@@ -4,6 +4,7 @@ import { EnumEx } from '../../../../../../core/models/EnumEx';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router'
 import { role } from '../../../../../../core/models/role';
+//import { roleId } from '../../../../../../core/models/role-id';
 import { UserModel } from '../../../../../../core/models/user-model';
 import { CustomValidators } from 'ng2-validation';
 import {UserService} from '../../../../../../core/services/user-service/user-service.service';
@@ -82,13 +83,14 @@ export class UserManagerRegisterComponent implements OnInit {
     return roles;
 }
 save(form, isValid: boolean) {
-          //console.log(this.index);
+          console.log(form);
+          //console.log("Hola");
           this._service.insert(form)
                 .then(form => this.userModel.push(form),
-                    error =>  this.errorMessage = <any>error);
+                                    error =>  this.errorMessage = <any>error);
          
                 
-        this.router.navigate(["/smart-cities/user-manager/user-manager-tray"]);
+        //this.router.navigate(["/smart-cities/user-manager/user-manager-tray"]);
     }
  
 }

@@ -42,10 +42,12 @@ export class UserService {
 
   insert(userModel: UserModel): Promise<UserModel> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
-
-    return this.http.post(this.buildUserUrl()+"/register", JSON.stringify(userModel), requestOptions).toPromise()
-    .then(this.extractData)
+  
+    return this.http.post(this.buildUserUrl()+"/register", JSON.stringify(userModel), requestOptions)
+    .toPromise()
+   .then(this.extractData)
     .catch(this.handleError);
+    
   }
 
 //   update(vehicle: Vehicle, index: string): Promise<boolean> {
@@ -56,11 +58,12 @@ export class UserService {
 //     .catch(this.handleError);
 //   }
 
-  delete(index: string): Promise<boolean> {
-    const requestOptions: RequestOptions = this.buildRequestOptions();
-
-    return this.http.delete(this.buildUserUrl() + '/' + index, requestOptions).toPromise()
-    .then((res: Response) => {return true;})
+  delete(userModel: UserModel): Promise<UserModel> {
+    const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
+      console.log(JSON.stringify(userModel));
+    return this.http.post(this.buildUserUrl() + '/delete', JSON.stringify(userModel), requestOptions)
+    .toPromise()
+   .then(this.extractData)
     .catch(this.handleError);
   }
 
@@ -98,6 +101,7 @@ export class UserService {
 
   private extractData(res: Response) {
     const body = res.json();
+    console.log(body);
     return body || {};
   }
 
