@@ -33,7 +33,7 @@
                           <input type="password" class="form-control" id="password" placeholder="Password" [formControl]="complexForm.controls['password']">
                         </div>
                         <div *ngIf="complexForm.controls['password'].hasError('required') && complexForm.controls['password'].touched" class="alert alert-danger" i18n>The password is required.</div>
-                        <div *ngIf="complexForm.controls['password'].hasError('minlength') && complexForm.controls['password'].touched" class="alert alert-danger" i18n>The password must legth 8 caracters.</div>
+                        <div *ngIf="complexForm.controls['password'].hasError('minlength') && complexForm.controls['password'].touched" class="alert alert-danger" i18n>Password must be at least 8 characters.</div>
                       </div>
                     </div>
                     <div class="col-lg-12">

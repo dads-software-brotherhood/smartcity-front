@@ -36,7 +36,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   submitForm(form: any) {
     this.forgotPasswordSubs = this.recoveryPasswordService.forgotPassword(form.email).subscribe(
       (res) => {
-        alert('Message\nA verification message will be send to your mailbox.\nOnce you have receivied the token, you will be able to choise a new password for your account');
+        alert('Message\nA verification token will be sent to your mailbox. Once you have received the token, you will be able to choose a new password for your account');
 
         this.router.navigate(constants.logoutRoute);
       },
