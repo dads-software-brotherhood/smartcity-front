@@ -3,21 +3,20 @@
     <div class="col-md-12">
       <h2>{{title}}</h2>
       <hr class="title-hr">
+      <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      <p class="text-xs-center"><strong>{{successMessage}}</strong></p>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
+    </div>
       <div class="row">
-        <!--<div class="col-md-12">
-          <input type="file" (change)="fileChange(input)" #input />
-          <div>  
-          <img [attr.src]='vehicle.base64' alt=""/>
-          </div>
-        </div>-->
-
         <div class="col-md-12">
           <div class="form-group">
             <label for="name">Name *</label>
             <input id="name"
                    [formControl]="vehicleForm.controls['name']" [(ngModel)]="vehicle.name" 
                    type="text" class="form-control" placeholder="Name"/>
-            <div *ngIf="vehicleForm.controls['name'].hasError('required') && vehicleForm.controls['name'].touched" class="alert alert-danger">Data Required *</div>
+            <!--<div *ngIf="vehicleForm.controls['name'].hasError('required') && vehicleForm.controls['name'].touched" class="alert alert-danger">Data Required *</div>-->
           </div>
         </div>      
         <div class="col-md-6">
@@ -26,7 +25,7 @@
             <select id="vehicleType" [formControl]="vehicleForm.controls['vehicleType']" class="form-control" [(ngModel)]="vehicle.vehicleType">
                 <option *ngFor="let vehicleType of vehicleTypes" [ngValue]="vehicleType.name">{{vehicleType.name}}</option>
               </select>
-               <div *ngIf="vehicleForm.controls['vehicleType'].hasError('required') && vehicleForm.controls['vehicleType'].touched" class="alert alert-danger">Data Required *</div>
+               <!--<div *ngIf="vehicleForm.controls['vehicleType'].hasError('required') && vehicleForm.controls['vehicleType'].touched" class="alert alert-danger">Data Required *</div>-->
           </div>
         </div>
         <div class="col-md-6">
@@ -35,7 +34,7 @@
             <select id="fuelType" [formControl]="vehicleForm.controls['fuelType']" class="form-control" [(ngModel)]="vehicle.fuelType">
                 <option *ngFor="let fuelType of fuelTypes" [ngValue]="fuelType.name">{{fuelType.name}}</option>
               </select>
-              <div *ngIf="vehicleForm.controls['fuelType'].hasError('required') && vehicleForm.controls['fuelType'].touched" class="alert alert-danger">Data Required *</div>
+              <!--<div *ngIf="vehicleForm.controls['fuelType'].hasError('required') && vehicleForm.controls['fuelType'].touched" class="alert alert-danger">Data Required *</div>-->
           </div>
         </div>
         <div class="clearfix"></div>
@@ -45,7 +44,7 @@
             <input id="brandName"
                    [formControl]="vehicleForm.controls['brandName']" [(ngModel)]="vehicle.brandName" 
                    type="text" class="form-control" placeholder="Brand name"/>
-            <div *ngIf="vehicleForm.controls['brandName'].hasError('required') && vehicleForm.controls['brandName'].touched" class="alert alert-danger">Data Required *</div>
+            <!--<div *ngIf="vehicle.vehicleType != 'BYCICLE'" class="alert alert-danger">Data Required *</div>-->
           </div>
         </div>
         <div class="col-md-6">
@@ -54,7 +53,7 @@
             <input id="modelName"
                    [formControl]="vehicleForm.controls['modelName']" [(ngModel)]="vehicle.modelName" 
                    type="text" class="form-control" placeholder="Model name"/>
-            <div *ngIf="vehicleForm.controls['modelName'].hasError('required') && vehicleForm.controls['modelName'].touched" class="alert alert-danger">Data Required *</div>
+            <!--<div *ngIf="vehicle.vehicleType != 'BYCICLE'" class="alert alert-danger">Data Required *</div>-->
           </div>
         </div>
         <div class="clearfix"></div>
@@ -72,48 +71,7 @@
             [formControl]="vehicleForm.controls['fuelConsumption']" [(ngModel)]="vehicle.fuelConsumption" class="form-control" placeholder="Fuel consumption"/>
           </div>
         </div>
-         <div class="col-md-6">
-          <div class="form-group">
-            <label for="manufacturerName">Manufacturer</label>
-            <input id="manufacturerName" type="text"
-            [formControl]="vehicleForm.controls['manufacturerName']" [(ngModel)]="vehicle.manufacturerName" class="form-control" placeholder="Manufacturer"/>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="cargoVolume">Cargo Volume Kg.</label>
-            <input id="cargoVolume" type="text" (keypress)="restrictNumeric($event, vehicleForm.controls['cargoVolume'])"
-            [formControl]="vehicleForm.controls['cargoVolume']" [(ngModel)]="vehicle.cargoVolume" class="form-control" placeholder="Cargo volume"/>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="height">Height (meters)</label>
-            <input id="height" type="text" (keypress)="restrictNumeric($event, vehicleForm.controls['height'])"
-            [formControl]="vehicleForm.controls['height']" [(ngModel)]="vehicle.height" class="form-control" placeholder="Height (m)"/>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="width">Width (meters)</label>
-            <input id="width" type="text" (keypress)="restrictNumeric($event, vehicleForm.controls['width'])"
-            [formControl]="vehicleForm.controls['width']" [(ngModel)]="vehicle.width" class="form-control" placeholder="Width (m)"/>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="depth">Depth (meters)</label>
-            <input id="depth" type="text" (keypress)="restrictNumeric($event, vehicleForm.controls['depth'])"
-            [formControl]="vehicleForm.controls['depth']" [(ngModel)]="vehicle.depth" class="form-control" placeholder="Depth (m)"/>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="weight">Weight (Kg)</label>
-            <input id="weight" type="text" (keypress)="restrictNumeric($event, vehicleForm.controls['weight'])"
-            [formControl]="vehicleForm.controls['weight']" [(ngModel)]="vehicle.weight" class="form-control" placeholder="Weight (Kg)"/>
-          </div>
-        </div>
+         
         <div class="col-md-12">
           <div class="form-group">
             <label for="description">Description</label>
@@ -132,7 +90,7 @@
         <div class="col-md-3 ">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <button [disabled]="!vehicleForm.valid" type="submit" class="btn btn-smart btn-block" > Save</button>
+            <button type="submit" class="btn btn-smart btn-block" > Save</button>
           </div>
         </div>
         <div class="col-md-12">
