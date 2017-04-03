@@ -1,9 +1,21 @@
+  
 
+  
   <div class="row">
     <div class="col-md-12">
       <h2>Vehicles</h2>
       <hr class="title-hr">
       <div class="row">
+
+        <modal-popup [(visible)]="showDialog" title="System Message">
+          {{messageModal}}
+        <hr>
+        <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
+        <hr *ngIf="includeText">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDelete()">Yes</button>
+        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">No</button>
+        </modal-popup>
+
         <div class="col-md-6">
           <div class="form-group">
             <label for="inlineFormInputGroup">Search</label>
@@ -51,7 +63,6 @@
             <table id="myTable" class="table ">
       <thead class="thead-default">
           <tr>
-              <!--<th>Index</th>-->
               <th>Name</th>
               <th>Vehicle type</th>
               <th>Plate identifier</th>
@@ -63,7 +74,6 @@
       </thead>
       <tbody>
           <tr *ngFor="let vehicle of vehicles | paginate: { itemsPerPage: 4, currentPage: p }">
-              <!--<td>{{i}}</td>-->
               <td>{{vehicle.name}}</td>
               <td>{{vehicle.vehicleType}}</td>
               <td>{{vehicle.vehiclPlateIdentifier}}</td>
@@ -77,7 +87,8 @@
               </td>
               <td>
                 <a class="btn btn-danger" ngbtooltip="Edit" placement="top">
-                  <i aria-hidden="true" class="fa fa-trash" (click)="confirmDelete(vehicle.index)"></i>
+                  <!--<i aria-hidden="true" class="fa fa-trash" (click)="confirmDelete(vehicle.index)"></i>-->
+                  <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objvehicle=vehicle"> </i>
                 </a>
               </td>
           </tr>

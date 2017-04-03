@@ -8,6 +8,7 @@ import { Ng2PaginationModule } from 'ng2-pagination';
 import { UserVehicleComponent } from './user-vehicle.component';
 import { UserVehicleTrayComponent } from './components/user-vehicle-tray/user-vehicle-tray.component';
 import { UserVehicleDetailComponent } from './components/user-vehicle-detail/user-vehicle-detail.component';
+import { ModalPopupModule  } from '../../../../usable-component/modal-popup/modalpopup.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { UserVehicleDetailComponent } from './components/user-vehicle-detail/use
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    Ng2PaginationModule
+    Ng2PaginationModule,
+    ModalPopupModule
   ],
   declarations: [
     UserVehicleComponent,

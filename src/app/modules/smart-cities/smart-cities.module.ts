@@ -20,7 +20,7 @@ import { TemplateModule } from '../../template/template.module';
 import { UserAccountModule } from './modules/user-account/user-account.module';
 import { NotificationTrayModule } from './modules/notification-tray/notification-tray.module';
 
-import { ModalPopupComponent  } from '../../usable-component/modal-popup/modalpopup.component';
+import { ModalPopupModule  } from '../../usable-component/modal-popup/modalpopup.module';
 import { PublicTransportComponent } from './components/public-transport/public-transport.component';
 import { PublicTransportDetailComponent } from './components/public-transport/public-transport-detail.component';
 
@@ -40,13 +40,13 @@ import { UserVehicleModule } from './modules/user-vehicle/user-vehicle.module';
     NotificationTrayModule,
     TemplateModule,
     UserManagerModule,
-    UserVehicleModule
+    UserVehicleModule,
+    ModalPopupModule
   ],
   declarations: [
     SmartCitiesComponent,
     CustomerComponent, // Se va a borrar
     CustomerFormComponent, //Se va a borrar
-    ModalPopupComponent,
     HomeSmartCitiesComponent,
     PublicTransportComponent,
     PublicTransportDetailComponent

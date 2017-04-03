@@ -16,6 +16,10 @@ export class UserVehicleTrayComponent implements OnInit {
   Objvehicle = new Vehicle();
   sum: number = 0; //variable que se utiliza para contabilizar el total de columnas que tiene la tabla
                    //para utilizar en las busquedas.
+  showDialog: boolean;
+  isConfirm: boolean;
+  messageModal: string;
+  includeText: boolean;
 
   constructor(private _service: VehicleService, private _router: Router ) { 
   }
@@ -23,6 +27,10 @@ export class UserVehicleTrayComponent implements OnInit {
   ngOnInit() {   
     this.bindTable();
     this.sum = this.getTotalCols(); //asignar a variable "sum" el valor del número total de columnas en la tabla
+    this.isConfirm = true;
+    this.includeText = false;
+    this.messageModal = "Are you sure to delete this register of his vehicle?";
+
   }
 
   bindTable() { //// Bind vehicles Grid
@@ -35,16 +43,12 @@ export class UserVehicleTrayComponent implements OnInit {
     );
   }
 
-  confirmDelete(index) {
-        var conf = window.confirm("Are you sure you want to permanently delete this vehicle?");
-        console.log(conf);
-        if(conf == true){
-          this._service.delete(index)
-            .then(res => true,
+  confirmDelete() {
+           this.showDialog = false; /// Close dialog
+           this._service.delete(this.Objvehicle.index)
+             .then(res => true,
                 error =>  this.errorMessage = <any>error);
-          location.reload();
-        }
-        
+           location.reload();
     }
 
     getTotalCols(){
