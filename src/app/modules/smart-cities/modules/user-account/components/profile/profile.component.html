@@ -22,6 +22,7 @@
             <div *ngIf="complexForm.controls['familyName'].hasError('minlength') && complexForm.controls['familyName'].touched" class="alert alert-danger" i18n>The family name must be have two characters.</div>
           </div>
         </div>
+        <div class="clearfix"></div>
         <div class="col-md-6">
           <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['birthDate'].valid && complexForm.controls['birthDate'].touched}">
             <label for="birthDate">Birth date</label>
