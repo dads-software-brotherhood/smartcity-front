@@ -22,7 +22,6 @@ import { LoginService } from './core/services/login/login.service';
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
 import { RecoveryPasswordService } from './core/services/recovery-password/recovery-password.service';
 import { UserProfileService } from './core/services/user-profile/user-profile.service';
-import { CustomerService } from './core/services/customer/customer.service';
 import { VehicleService } from './core/services/vehicle/vehicle.service';
 import { UserService } from './core/services/user-service/user-service.service';
 import { CountryService } from './core/services/country/country.service';
@@ -59,7 +58,6 @@ import { appRoutes } from './app.routes';
     RecoveryPasswordService,
     UserProfileService,
     LoggedInGuard,
-    CustomerService,
     VehicleService,
     CountryService,
     RegionService,
