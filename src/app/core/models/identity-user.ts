@@ -18,4 +18,5 @@ export class IdentityUser {
   username: string;
   tokenInfo: TokenInfo;
   roles: Array<string>;
+  date?: Date;
 }

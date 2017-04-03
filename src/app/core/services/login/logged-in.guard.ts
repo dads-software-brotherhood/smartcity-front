@@ -9,7 +9,7 @@ export class LoggedInGuard implements CanActivate {
   }
 
   canActivate() {
-    return this.loginService.isLoggedIn().map((res) => res);
+    return this.loginService.isLoggedIn();
   }
 
 }

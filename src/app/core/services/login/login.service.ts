@@ -36,6 +36,7 @@ export class LoginService {
       const identityUser: IdentityUser = res.json();
 
       if (identityUser) {
+        identityUser.date = new Date();
         localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
         return identityUser;
       } else { //This case never happend
@@ -74,19 +75,40 @@ export class LoginService {
     localStorage.removeItem(constants.tokenInfoName);
   }
 
-  isLoggedIn(): Observable<boolean> {
-    const token: string = this.getToken();
+  isLoggedIn(): boolean {
+    const identityUser: IdentityUser = this.getLoggedUser();
 
-    if (token) {
-      const requestOptions: RequestOptions = this.buildRequestOptions(token);
-      return this.http.get(valid_token_url, requestOptions)
-              .map((res: Response) => {
-                return true;
-              });
+    if (identityUser && identityUser.date && identityUser.tokenInfo && identityUser.tokenInfo.time) {
+      const renewTime = identityUser.tokenInfo.time / 2;
+      const currentDate = new Date();
+      const tokenTime = (currentDate.getTime() - new Date(identityUser.date).getTime()) / 1000; //Logged time in seconds
+
+      if (tokenTime > identityUser.tokenInfo.time) {
+        return false;
+      } else {
+        if (tokenTime > renewTime) {
+          //TODO: Refresh token
+        }
+        return true;
+      }
     } else {
-      return null;
+      return false;
     }
   }
+
+  // isLoggedIn(): Observable<boolean> {
+  //   const token: string = this.getToken();
+
+  //   if (token) {
+  //     const requestOptions: RequestOptions = this.buildRequestOptions(token);
+  //     return this.http.get(valid_token_url, requestOptions)
+  //             .map((res: Response) => {
+  //               return true;
+  //             });
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   getLoggedUser(): IdentityUser {
     const tmp: string = localStorage.getItem(constants.tokenInfoName);
