@@ -16,6 +16,10 @@ export class UserVehicleTrayComponent implements OnInit {
   Objvehicle = new Vehicle();
   sum: number = 0; //variable que se utiliza para contabilizar el total de columnas que tiene la tabla
                    //para utilizar en las busquedas.
+  
+  //Variables utilizadas para mostrar la ventana modal, isConfirm=true (Muestra 2 botones Aceptar, Cancelar),
+  //isConfirm=false (Muestra solo un botón Aceptar), messageModal (Mensaje que muestra la ventana Modal),
+  //includeText (Se utiliza para mostrar un textArea o no)
   showDialog: boolean;
   isConfirm: boolean;
   messageModal: string;

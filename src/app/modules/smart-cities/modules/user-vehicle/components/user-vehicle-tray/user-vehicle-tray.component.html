@@ -6,7 +6,7 @@
       <h2>Vehicles</h2>
       <hr class="title-hr">
       <div class="row">
-
+         <!-- Implementación de ventana modal -->
         <modal-popup [(visible)]="showDialog" title="System Message">
           {{messageModal}}
         <hr>
@@ -15,6 +15,7 @@
         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDelete()">Yes</button>
         <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">No</button>
         </modal-popup>
+        <!-- ************************************************* -->
 
         <div class="col-md-6">
           <div class="form-group">
@@ -22,29 +23,6 @@
             <input id="myInput" type="text" (keyup)="FilterData()" class="form-control" placeholder="Search..."/>
           </div>
         </div>
-        <!--<div class="col-md-6">
-          <div class="form-group">
-            <label for="inlineFormInputGroup">Plate Identifier</label>
-            <input type="text"  class="form-control" placeholder="Brand Name..."/>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="inlineFormInputGroup">Vehicle Type</label>
-            <select class="form-control" >
-                  <option>selected</option>
-                  <option value="1">Buss</option>
-                  <option value="2">Car</option>
-                  <option value="3">Taxi</option>
-                </select>
-          </div>
-        </div>
-        <div class="col-md-3 ">
-          <div class="form-group">
-            <span class="labelHidden"></span>
-            <a type="submit" class="btn btn-smart btn-block" > Search </a>
-          </div>
-        </div>-->
         <div class="col-md-3 ">
           <div class="form-group">
             <span class="labelHidden"></span>
