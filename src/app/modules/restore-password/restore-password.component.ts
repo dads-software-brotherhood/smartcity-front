@@ -22,7 +22,10 @@ export class RestorePasswordComponent implements OnInit, OnDestroy {
   private validTokenSubs: any;
   private restorePasswordSubs: any;
 
-  constructor(private recoveryPasswordService: RecoveryPasswordService, private route: ActivatedRoute, private router: Router, fb: FormBuilder) {
+  constructor(private recoveryPasswordService: RecoveryPasswordService,
+      private route: ActivatedRoute,
+      private router: Router,
+      fb: FormBuilder) {
     const password: FormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
     this.complexForm = fb.group({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 
 import { UserProfileService } from '../../../../../../core/services/user-profile/user-profile.service';
@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
 
   complexForm: FormGroup;
 
-  private currentDate:Date = new Date();
+  private currentDate: Date = new Date();
 
   constructor(private userProfileService: UserProfileService, private loginService: LoginService, private fb: FormBuilder) {
     this.complexForm = this.fb.group({
@@ -76,7 +76,7 @@ export class ProfileComponent implements OnInit {
     if (form.birthDate) {
       this.userProfile.birthDate = new Date(form.birthDate);
     } else {
-      this.userProfile.birthDate = null
+      this.userProfile.birthDate = null;
     }
 
     if (form.gender) {

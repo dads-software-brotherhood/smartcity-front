@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { CustomValidators } from 'ng2-validation';
 
+import { constants } from '../../../../../../core/common/constants';
 
 import { CountryService } from '../../../../../../core/services/country/country.service';
 import { RegionService } from '../../../../../../core/services/region/region.service';
@@ -20,18 +23,25 @@ import { Address } from '../../../../../../core/models/address';
 })
 export class AddressComponent implements OnInit {
 
+  address: Address;
+
   countries: Array<Country> = [];
   regions: Array<Region> = [];
   localities: Array<Locality> = [];
-  address: Address = new Address();
 
-  addressForm: FormGroup;
+  complexForm: FormGroup;
 
-  constructor(private userProfileService: UserProfileService, private countryService: CountryService, private regionService: RegionService, private localityService: LocalityService, fb: FormBuilder) {
-    this.addressForm = fb.group({
-      'countryId': [this.address.countryId, Validators.nullValidator],
-      'regionId': [this.address.regionId, Validators.nullValidator],
-      'localityId': [this.address.localityId, Validators.nullValidator],
+  constructor(private userProfileService: UserProfileService,
+      private countryService: CountryService,
+      private regionService: RegionService,
+      private localityService: LocalityService,
+      private route: ActivatedRoute,
+      private router: Router,
+      private fb: FormBuilder) {
+    this.complexForm = fb.group({
+      'countryId': [this.address.countryId, Validators.required],
+      'regionId': [this.address.regionId, Validators.required],
+      'localityId': [this.address.localityId, Validators.required],
       'addressType': [this.address.addressType, Validators.nullValidator],
       'street': [this.address.street, Validators.required],
       'postalCode': [this.address.postalCode, Validators.required]
@@ -39,6 +49,10 @@ export class AddressComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (! this.address) {
+      this.address = new Address();
+    }
+
     this.loadCountries();
   }
 
@@ -46,9 +60,9 @@ export class AddressComponent implements OnInit {
   private loadCountries() {
     this.countryService.getAll().subscribe(
       (countries) => {
-        this.countries = countries
+        this.countries = countries;
 
-        if (!this.address.countryId && countries.length == 1) {
+        if (!this.address.countryId && countries.length === 1) {
           this.address.countryId = countries[0].id;
         }
 
@@ -65,7 +79,7 @@ export class AddressComponent implements OnInit {
         (regions) => {
           this.regions = regions;
 
-          if (!this.address.regionId && regions.length == 1 ) {
+          if (!this.address.regionId && regions.length === 1 ) {
             this.address.regionId = regions[0].id;
           }
 
@@ -83,7 +97,7 @@ export class AddressComponent implements OnInit {
         (localities) => {
           this.localities = localities;
 
-          if (!this.address.localityId && localities.length == 1 ) {
+          if (!this.address.localityId && localities.length === 1 ) {
             this.address.localityId = localities[0].id;
           }
         }
