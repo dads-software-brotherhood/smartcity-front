@@ -64,10 +64,10 @@
                 </a>
               </td>
               <td>
-                <a class="btn btn-danger" ngbtooltip="Edit" placement="top">
-                  <!--<i aria-hidden="true" class="fa fa-trash" (click)="confirmDelete(vehicle.index)"></i>-->
+                <!--<a class="btn btn-danger" ngbtooltip="Edit" placement="top">
                   <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objvehicle=vehicle"> </i>
-                </a>
+                </a>-->
+                <button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top" (click)="showDialog=true;Objvehicle=vehicle"></button>
               </td>
           </tr>
       </tbody>
