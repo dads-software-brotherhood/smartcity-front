@@ -1,6 +1,8 @@
+import { Country } from './country';
+
 export class Region {
   id: number;
-  countryId: number;
   name: string;
   regionCode?: string;
+  country: Country;
 }

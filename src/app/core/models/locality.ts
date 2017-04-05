@@ -1,5 +1,7 @@
+import { Region } from './region';
+
 export class Locality {
   id: number;
-  regionId: number;
   name: string;
+  region: Region;
 }

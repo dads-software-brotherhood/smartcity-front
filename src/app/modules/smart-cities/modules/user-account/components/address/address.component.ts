@@ -23,7 +23,13 @@ import { Address } from '../../../../../../core/models/address';
 })
 export class AddressComponent implements OnInit {
 
-  address: Address;
+  address: Address = new Address();
+
+  index: number;
+
+  countryId: number = -1;
+  regionId: number = -1;
+  localityId: number = -1;
 
   countries: Array<Country> = [];
   regions: Array<Region> = [];
@@ -38,53 +44,98 @@ export class AddressComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router,
       private fb: FormBuilder) {
-    this.complexForm = fb.group({
-      'countryId': [this.address.countryId, Validators.required],
-      'regionId': [this.address.regionId, Validators.required],
-      'localityId': [this.address.localityId, Validators.required],
-      'addressType': [this.address.addressType, Validators.nullValidator],
-      'street': [this.address.street, Validators.required],
-      'postalCode': [this.address.postalCode, Validators.required]
+    this.prepareComplexForm();
+  }
+
+  private prepareComplexForm() {
+    this.complexForm = this.fb.group({
+      'countryId': this.buildSelectRequiredFormControl(this.countryId),
+      'regionId': this.buildSelectRequiredFormControl(this.regionId),
+      'localityId': this.buildSelectRequiredFormControl(this.localityId),
+      'addressType': this.buildSimpleFormControl(this.address.addressType),
+      'street': this.buildRequiredFormControl(this.address.street),
+      'postalCode': this.buildSimpleFormControl(this.address.postalCode)
     });
   }
 
+  private buildRequiredFormControl(value?: any): FormControl {
+    return new FormControl(value, Validators.required);
+  }
+
+  private buildSelectRequiredFormControl(value?: any): FormControl {
+    return new FormControl(value, CustomValidators.notEqual(-1));
+  }
+
+  private buildSimpleFormControl(value?: any): FormControl {
+    return new FormControl(value, []);
+  }
+
+  private buildPostalCodeFormControl(value?: any): FormControl {
+    return new FormControl(value, [Validators.required, Validators.pattern(new RegExp('^[0-9]{1-5}$'))]);
+  }
+
   ngOnInit() {
+    this.route.params.subscribe((params: Params) => {
+      this.index = params['index'];
+
+      if (this.index) {
+        //TODO: Load Address
+        this.loadAddress();
+      } else {
+        this.loadAddress();
+      }
+    });
+
+
+  }
+
+private loadAddress() {
     if (! this.address) {
       this.address = new Address();
     }
 
-    this.loadCountries();
-  }
+    if (this.address.locality) {
+      this.countryId = this.address.locality.region.country.id;
+      this.regionId = this.address.locality.region.id;
+      this.localityId = this.address.locality.id;
+    }
 
+    this.loadCountries();
+
+}
 
   private loadCountries() {
     this.countryService.getAll().subscribe(
       (countries) => {
         this.countries = countries;
 
-        if (!this.address.countryId && countries.length === 1) {
-          this.address.countryId = countries[0].id;
+        if (this.countryId === -1 && countries.length === 1) {
+          this.countryId = countries[0].id;
         }
 
-        if (this.address.countryId) {
+        if (this.countryId !== -1) {
           this.loadRegions();
+        } else {
+          this.prepareComplexForm();    
         }
       }
     );
   }
 
   private loadRegions() {
-    if (this.address.countryId) {
-      this.regionService.getByCountryId(this.address.countryId).subscribe(
+    if (this.countryId !== -1) {
+      this.regionService.getByCountryId(this.countryId).subscribe(
         (regions) => {
           this.regions = regions;
 
-          if (!this.address.regionId && regions.length === 1 ) {
-            this.address.regionId = regions[0].id;
+          if (this.regionId === -1 && regions.length === 1 ) {
+            this.regionId = regions[0].id;
           }
 
-          if (this.address.regionId) {
+          if (this.regionId !== -1) {
             this.loadLocalities();
+          } else {
+            this.prepareComplexForm();
           }
         }
       );
@@ -92,31 +143,37 @@ export class AddressComponent implements OnInit {
   }
 
   private loadLocalities() {
-    if (this.address.regionId) {
-      this.localityService.getByRegionId(this.address.regionId).subscribe(
+    if (this.regionId !== -1) {
+      this.localityService.getByRegionId(this.regionId).subscribe(
         (localities) => {
           this.localities = localities;
 
-          if (!this.address.localityId && localities.length === 1 ) {
-            this.address.localityId = localities[0].id;
+          if (this.localityId === -1 && localities.length === 1 ) {
+            this.localityId = localities[0].id;
           }
+
+          this.prepareComplexForm();
         }
       );
     }
   }
 
   public changeCountry(value) {
-    this.address.countryId = value;
-    this.address.regionId = null;
-    this.address.localityId = null;
+    this.countryId = value;
+    this.regionId = -1;
+    this.localityId = -1;
 
     this.loadRegions();
   }
 
   public changeRegion(value) {
-    this.address.regionId = value;
-    this.address.localityId = null;
+    this.regionId = value;
+    this.localityId = -1;
 
     this.loadLocalities();
+  }
+
+  public submitForm(form: any) {
+
   }
 }
