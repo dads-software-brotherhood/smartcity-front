@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 
@@ -25,7 +26,7 @@ export class ProfileComponent implements OnInit {
 
   private currentDate: Date = new Date();
 
-  constructor(private userProfileService: UserProfileService, private loginService: LoginService, private fb: FormBuilder) {
+  constructor(private userProfileService: UserProfileService, private loginService: LoginService, private fb: FormBuilder, private router: Router) {
     this.userProfile.addresses = [];
     this.complexForm = this.fb.group({
       'name': this.buildNameFormControl(),
@@ -99,7 +100,8 @@ export class ProfileComponent implements OnInit {
     this.userProfileService.updateUserProfile(this.userProfile).subscribe(
       (res) => {
         this.loginService.getLoggedUser().name = this.userProfile.name + ' ' + this.userProfile.familyName;
-        alert('All ok');
+        alert('The information was successfully saved');
+        this.router.navigate(['/smart-cities']);
       },
       (error) => {
         console.error(error);
@@ -114,7 +116,7 @@ export class ProfileComponent implements OnInit {
         (res) => {
           this.userProfile.addresses.splice(Number(index), 1);
           this.fixIndexAddress();
-          alert('All ok');
+          alert('The information was successfully saved');
         },
         (error) => {
           console.error(error);

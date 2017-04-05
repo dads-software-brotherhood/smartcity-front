@@ -192,24 +192,20 @@ private loadAddress() {
 
         this.userProfileService.updateAddress(this.address).subscribe(
           (res) => {
-            alert('All OK');
-            this.router.navigate(['/smart-cities/user-account/profile']);
+            this.allOk();
           },
           (error) => {
-            console.error(error);
-            alert('Error');
+            this.error(error);
           }
         );
 
       } else {
         this.userProfileService.insertAddress(this.address).subscribe(
           (res) => {
-            alert('All OK');
-            this.router.navigate(['/smart-cities/user-account/profile']);
+            this.allOk();
           },
           (error) => {
-            console.error(error);
-            alert('Error');
+            this.error(error);
           }
         );
       }
@@ -218,6 +214,15 @@ private loadAddress() {
     }
   }
 
+  private allOk() {
+    alert('The information was successfully saved');
+    this.router.navigate(['/smart-cities/user-account/profile']);
+  }
+
+  private error(error: any) {
+    console.error(error);
+    alert('Error');
+  }
 
   private findLocality(id: number): Locality {
     for (let i = 0; i < this.localities.length; i++) {

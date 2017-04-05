@@ -11,6 +11,7 @@
               <option value="-1" disabled>Select</option>
               <option *ngFor="let country of countries"  value="{{ country.id }}">{{ country.name }}</option>>
             </select>
+            <div *ngIf="complexForm.controls['countryId'].hasError('notEqual') && complexForm.controls['countryId'].touched" class="alert alert-danger" i18n>The country is required.</div>
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
@@ -20,6 +21,7 @@
               <option value="-1" disabled>Select</option>
               <option *ngFor="let region of regions"  value="{{ region.id }}">{{ region.name }}</option>>
             </select>
+            <div *ngIf="complexForm.controls['regionId'].hasError('notEqual') && complexForm.controls['regionId'].touched" class="alert alert-danger" i18n>The region is required.</div>
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
@@ -29,6 +31,7 @@
               <option value="-1" disabled>Select</option>
               <option *ngFor="let locality of localities"  value="{{ locality.id }}">{{ locality.name }}</option>>
             </select>
+            <div *ngIf="complexForm.controls['localityId'].hasError('notEqual') && complexForm.controls['localityId'].touched" class="alert alert-danger" i18n>The locality is required.</div>
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
@@ -37,10 +40,12 @@
             <input id="postalCode" class="form-control" [formControl]="complexForm.controls['postalCode']" type="text" placeholder="Postal Code"/>
           </div>
         </div>
+        <div class="clearfix"></div>
         <div class="col-md-12 col-lg-6">
           <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['street'].valid && complexForm.controls['street'].touched}">
             <label for="street">Street *</label>
             <input id="street" class="form-control" [formControl]="complexForm.controls['street']" type="text" placeholder="Street"/>
+            <div *ngIf="complexForm.controls['street'].hasError('required') && complexForm.controls['street'].touched" class="alert alert-danger" i18n>The street is required.</div>
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
