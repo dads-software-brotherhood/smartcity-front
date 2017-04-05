@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UserAccountComponent } from './user-account.component';
@@ -16,6 +17,7 @@ import { AddressComponent } from './components/address/address.component';
     CommonModule,
     NgbModule,
     RouterModule,
+    Ng2PaginationModule,
     FormsModule,
     ReactiveFormsModule
   ],

@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
   private currentDate: Date = new Date();
 
   constructor(private userProfileService: UserProfileService, private loginService: LoginService, private fb: FormBuilder) {
+    this.userProfile.addresses = [];
     this.complexForm = this.fb.group({
       'name': this.buildNameFormControl(),
       'familyName': this.buildNameFormControl(),
@@ -51,6 +52,12 @@ export class ProfileComponent implements OnInit {
       this.userProfileService.getUserProfile().subscribe(
         (userProfile) => {
           if (userProfile) {
+            if (userProfile.addresses) {
+              for (let i = 0; i < userProfile.addresses.length; i++) {
+                userProfile.addresses[i].index = i;
+              }
+            }
+
             this.userProfile = userProfile;
 
             this.complexForm = this.fb.group({

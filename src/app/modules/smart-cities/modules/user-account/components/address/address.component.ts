@@ -193,6 +193,7 @@ private loadAddress() {
         this.userProfileService.updateAddress(this.address).subscribe(
           (res) => {
             alert('All OK');
+            this.router.navigate(['/smart-cities/user-account/profile']);
           },
           (error) => {
             console.error(error);
@@ -204,6 +205,7 @@ private loadAddress() {
         this.userProfileService.insertAddress(this.address).subscribe(
           (res) => {
             alert('All OK');
+            this.router.navigate(['/smart-cities/user-account/profile']);
           },
           (error) => {
             console.error(error);

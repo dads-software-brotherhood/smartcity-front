@@ -66,10 +66,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
+                <tr *ngFor="let address of userProfile.addresses  | paginate: { itemsPerPage: 4, currentPage: p }">
+                  <td>{{ address.street }}, {{ address.locality.name }}, <span *ngIf="address.postalCode" >{{ address.postalCode }}, </span> {{ address.locality.region.name }}, {{ address.locality.region.country.name }} </td>
                   <td>
-                    <a class="btn btn-smart" placement="top" ngbTooltip="Edit">
+                    <a class="btn btn-smart" placement="top" ngbTooltip="Edit" routerLink="/smart-cities/user-account/address/{{ address.index }}" routerLinkActive="active">
                       <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                   </td>
@@ -78,9 +78,15 @@
                       <i class="fa fa-trash" aria-hidden="true"></i>
                     </a>
                   </td>
-
                 </tr>
               </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </td>
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>
