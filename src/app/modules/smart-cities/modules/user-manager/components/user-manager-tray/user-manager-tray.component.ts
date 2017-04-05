@@ -15,6 +15,7 @@ import { UserService } from '../../../../../../core/services/user-service/user-s
 })
 export class UserManagerTrayComponent implements OnInit {
   public UserTrayForm : FormGroup;
+   public Modal : FormGroup;
   private roles: any[];
   private users: UserModel[] = [];
   private _user: UserModel= new UserModel();
@@ -26,8 +27,7 @@ export class UserManagerTrayComponent implements OnInit {
   isConfirm: boolean;
   messageModal: string;
   includeText: boolean;
-
-  constructor(private _service: UserService,private fb: FormBuilder,   
+  constructor(private _service: UserService,private fb: FormBuilder,private fm: FormBuilder,   
               private router: Router,
               private route: ActivatedRoute) { 
                  this.roles = this.getRoles();
@@ -36,8 +36,14 @@ export class UserManagerTrayComponent implements OnInit {
                       "familyname": [null],
                       "email": [null, Validators.compose([Validators.required,CustomValidators.email])],
                       "role": [null],
-                      "message":[null],
+                      "message":[null, Validators.required],
                       "canDel":[null]                    
+                      
+                  })
+                  this.Modal = fm.group({ //// Make Model driven form
+                      
+                      "message":[null, Validators.required]
+                                        
                       
                   })
               }
@@ -101,12 +107,10 @@ export class UserManagerTrayComponent implements OnInit {
 }
   deleteUser(){
     //this.showDialog = false; /// Close dialog
-     console.log(this._user);
-     
-    var motive = null;//prompt("If you are sure to delete user, then type a motive.", "Motive");
-    if (motive != null) {
-      this._user.message=motive;
-       this._service.delete(this._user)
+     var x = $("#_message").val();
+    
+     this._user.message = x;
+      this._service.delete(this._user)
             .then(form => 
             {
               //this.bindTable();
@@ -114,8 +118,5 @@ export class UserManagerTrayComponent implements OnInit {
             }).catch(res=>{
               this.errorMessage="Error deleting user. Please try later.";            
             });
-      
-      
-      }
   }
 }

@@ -14,9 +14,11 @@
         <modal-popup [(visible)]="showDialog" title="System Message">
           {{messageModal}}
         <hr>
-        <textarea *ngIf="includeText" [formControl]="UserTrayForm.controls['message']" type="text" class="form-control"> </textarea>
+        <textarea *ngIf="includeText" [formControl]="Modal.controls['message']" id="_message" type="text"  class="form-control"> </textarea>
+        <div *ngIf="Modal.controls['message'].hasError('required') && Modal.controls['message'].touched" class="alert alert-danger">Data Required *</div>
         <hr *ngIf="includeText">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteUser()">Yes</button>
+        <button type="button" [disabled]="!Modal.valid" class="btn btn-danger" data-dismiss="modal" (click)="deleteUser()">Yes</button>
+
         <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = true">No</button>
         </modal-popup>
         <!-- ************************************************* -->
