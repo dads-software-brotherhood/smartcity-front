@@ -10,8 +10,7 @@ import { CustomValidators } from 'ng2-validation';
 import {UserService} from '../../../../../../core/services/user-service/user-service.service';
 import {IdentityUser} from '../../../../../../core/models/identity-user';
 import { LoginService } from '../../../../../../core/services/login/login.service';
-import { Observable } from 'rxjs/observable';
-import 'rxjs/add/observable/throw';
+
 
 @Component({
   selector: 'app-user-register',
