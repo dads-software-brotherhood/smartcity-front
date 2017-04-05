@@ -31,7 +31,6 @@ export class UserVehicleDetailComponent implements OnInit {
               private _service: VehicleService) { 
     this.vehicleTypes = this.getVehicleTypes();
     this.fuelTypes = this.getFuelTypes();
-    const regexVehicleType = '(CAR|MOTORCYCLE)';
     this.vehicleForm = fb.group({ //// Make Model driven form
             "name": [null, Validators.required],
             "brandName": [null],
@@ -121,75 +120,6 @@ export class UserVehicleDetailComponent implements OnInit {
     return fuelTypes;
 }
 
-onVehicleTypeChange(event)
-{
-    var divBrandName = document.getElementById("divBrandName");
-    var divModelName = document.getElementById("divModelName");
-    var inputBrandName = document.getElementById("brandName");
-    var inputModelName = document.getElementById("modelName");
-
-    if(divBrandName != null && divModelName != null)
-    {
-        if(event.target.value.indexOf('CAR') > -1 || event.target.value.indexOf('MOTORCYCLE') > -1)
-        {
-            if((<HTMLInputElement>inputBrandName).value != "")
-                divBrandName.setAttribute("style", "display: none;");
-            else
-                divBrandName.setAttribute("style", "display: block;");
-
-            if((<HTMLInputElement>inputModelName).value != "")
-                divModelName.setAttribute("style", "display: none;");
-            else
-                divModelName.setAttribute("style", "display: block;");
-        }
-        else
-        {
-            divBrandName.setAttribute("style", "display: none;");
-            divModelName.setAttribute("style", "display: none;");
-        }
-    }
-}
-
-onKeyUpBrandName(event)
-{
-    var divBrandName = document.getElementById("divBrandName");
-    var selectVehicleType = document.getElementById("vehicleType");
-    var selectValue = (<HTMLSelectElement>selectVehicleType).value;
-
-    if(divBrandName != null)
-    {
-        if(event.target.value != "")
-            divBrandName.setAttribute("style", "display: none;");
-        else
-        {
-            if(selectValue.indexOf('CAR') > -1 || selectValue.indexOf('MOTORCYCLE') > -1)
-                divBrandName.setAttribute("style", "display: block;");
-            else
-                divBrandName.setAttribute("style", "display: none;");
-        }
-    }
-}
-
-onKeyUpModelName(event)
-{
-    var divModelName = document.getElementById("divModelName");
-    var selectVehicleType = document.getElementById("vehicleType");
-    var selectValue = (<HTMLSelectElement>selectVehicleType).value;
-
-    if(divModelName != null)
-    {
-        if(event.target.value != "")
-            divModelName.setAttribute("style", "display: none;");
-        else
-        {
-            if(selectValue.indexOf('CAR') > -1 || selectValue.indexOf('MOTORCYCLE') > -1)
-                divModelName.setAttribute("style", "display: block;");
-            else
-                divModelName.setAttribute("style", "display: none;");
-        }
-    }
-}
-
 save(form, isValid: boolean) {
     this.errorMessage = null;
     this.successMessage = null;
@@ -223,7 +153,15 @@ save(form, isValid: boolean) {
             this.successMessage = "Your record is successfully registered!!";    
         // this.router.navigate(["/smart-cities/user-vehicle/vehicles"]);
         }
+        else
+        {
+            this.errorMessage = "All fields marked with an asterisk are required!!";
+        }
     }
+    else
+    {
+        this.errorMessage = "All fields marked with an asterisk are required!!";   
+    } 
  
 }
 }
