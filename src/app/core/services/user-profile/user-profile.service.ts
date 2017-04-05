@@ -9,6 +9,7 @@ import { RemoteConnectionService } from '../remote-connection/remote-connection.
 import { environment } from '../../../../environments/environment';
 import { constants } from '../../common/constants';
 
+import { Address } from '../../models/address';
 import { UserProfile } from '../../models/user-profile';
 
 const baseRestPath = '/user-profile';
@@ -20,16 +21,41 @@ export class UserProfileService {
   constructor(private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { }
 
   public getUserProfile(): Observable<UserProfile> {
-    return this.remoteConnectionService.getAsObservable(this.buildUrl())
+    return this.remoteConnectionService.getAsObservable(this.buildProfileUrl())
       .map((res : Response) => res = res.json());
   }
 
   public updateUserProfile(userProfile: UserProfile): Observable<any> {
-    return this.remoteConnectionService.putAsObservable(this.buildUrl(), JSON.stringify(userProfile), constants.contentTypeJson);
+    return this.remoteConnectionService.putAsObservable(this.buildProfileUrl(), JSON.stringify(userProfile), constants.contentTypeJson);
   }
 
-  private buildUrl(): string {
+  public getAddress(index: number): Observable<Address> {
+    return this.remoteConnectionService.getAsObservable(this.buildAddressUrl(index))
+      .map((res: Response) => res = res.json());
+  }
+
+  public insertAddress(address: Address) {
+    return this.remoteConnectionService.postAsObservable(this.buildAddressUrl(), JSON.stringify(address), constants.contentTypeJson)
+      .map((res: Response) => res = res.json());
+  }
+
+  public updateAddress(address: Address) {
+    return this.remoteConnectionService.putAsObservable(this.buildAddressUrl(address.index), JSON.stringify(address), constants.contentTypeJson)
+      .map((res: Response) => res = res.json());
+  }
+
+  private buildProfileUrl(): string {
     return baseGetUserUrl + '/' + this.loginService.getLoggedUser().id;
+  }
+
+  private buildAddressUrl(index?: number): string {
+    let tmp = this.buildProfileUrl() + '/address';
+
+    if (index) {
+      tmp += '/' + index;
+    }
+
+    return tmp;
   }
 
 }

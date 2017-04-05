@@ -79,14 +79,21 @@ export class AddressComponent implements OnInit {
       this.index = params['index'];
 
       if (this.index) {
-        //TODO: Load Address
-        this.loadAddress();
+        this.userProfileService.getAddress(this.index).subscribe(
+          (res) => {
+            this.address = res;
+            this.loadAddress();
+          },
+          (error) => {
+            console.error(error);
+            this.index = null;
+            this.loadAddress();
+          }
+        )
       } else {
         this.loadAddress();
       }
     });
-
-
   }
 
 private loadAddress() {
@@ -174,6 +181,52 @@ private loadAddress() {
   }
 
   public submitForm(form: any) {
+    this.address.addressType = form.addressType;
+    this.address.postalCode = form.postalCode;
+    this.address.street = form.street;
+    this.address.locality = this.findLocality(form.localityId);
 
+    if (this.address.locality) {
+      if (this.index) {
+        this.address.index = this.index;
+
+        this.userProfileService.updateAddress(this.address).subscribe(
+          (res) => {
+            alert('All OK');
+          },
+          (error) => {
+            console.error(error);
+            alert('Error');
+          }
+        );
+
+      } else {
+        this.userProfileService.insertAddress(this.address).subscribe(
+          (res) => {
+            alert('All OK');
+          },
+          (error) => {
+            console.error(error);
+            alert('Error');
+          }
+        );
+      }
+    } else {
+      alert('Unexpected error');
+    }
   }
+
+
+  private findLocality(id: number): Locality {
+    for (let i = 0; i < this.localities.length; i++) {
+      if (this.localities[i].id === Number(id)) {
+        return this.localities[i];
+      }
+    }
+
+    console.log('Not found locality ID: ' + id);
+
+    return null;
+  }
+
 }
