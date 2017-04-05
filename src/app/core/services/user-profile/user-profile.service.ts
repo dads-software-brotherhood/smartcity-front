@@ -29,7 +29,7 @@ export class UserProfileService {
     return this.remoteConnectionService.putAsObservable(this.buildProfileUrl(), JSON.stringify(userProfile), constants.contentTypeJson);
   }
 
-  public getAddress(index: number): Observable<Address> {
+  public getAddress(index: string): Observable<Address> {
     return this.remoteConnectionService.getAsObservable(this.buildAddressUrl(index))
       .map((res: Response) => res = res.json());
   }
@@ -44,11 +44,15 @@ export class UserProfileService {
       .map((res: Response) => res = res.json());
   }
 
+  public deleteAddress(index: string) {
+    return this.remoteConnectionService.deleteAsObservable(this.buildAddressUrl(index));
+  }
+
   private buildProfileUrl(): string {
     return baseGetUserUrl + '/' + this.loginService.getLoggedUser().id;
   }
 
-  private buildAddressUrl(index?: number): string {
+  private buildAddressUrl(index?: string): string {
     let tmp = this.buildProfileUrl() + '/address';
 
     if (index) {

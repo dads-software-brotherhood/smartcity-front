@@ -25,7 +25,7 @@ export class AddressComponent implements OnInit {
 
   address: Address = new Address();
 
-  index: number;
+  index: string;
 
   countryId: number = -1;
   regionId: number = -1;

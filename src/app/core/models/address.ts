@@ -3,7 +3,7 @@ import { Locality } from './locality';
 
 export class Address {
 
-  index?: number;
+  index?: string;
   street: string;
   postalCode?: string;
   addressType?: AddressType;

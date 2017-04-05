@@ -52,12 +52,6 @@ export class ProfileComponent implements OnInit {
       this.userProfileService.getUserProfile().subscribe(
         (userProfile) => {
           if (userProfile) {
-            if (userProfile.addresses) {
-              for (let i = 0; i < userProfile.addresses.length; i++) {
-                userProfile.addresses[i].index = i;
-              }
-            }
-
             this.userProfile = userProfile;
 
             this.complexForm = this.fb.group({
@@ -66,6 +60,8 @@ export class ProfileComponent implements OnInit {
               'birthDate': this.buildBirthDateControl(userProfile.birthDate),
               'gender': this.buildGenderFormControl(userProfile.gender)
             });
+
+            this.fixIndexAddress();
           } else {
             this.userProfile = new UserProfile();
           }
@@ -74,6 +70,14 @@ export class ProfileComponent implements OnInit {
     } catch (e) {
       console.log('Error at profile load');
       console.log(e);
+    }
+  }
+
+  private fixIndexAddress() {
+    if (this.userProfile.addresses) {
+      for (let i = 0; i < this.userProfile.addresses.length; i++) {
+        this.userProfile.addresses[i].index = i + '';
+      }
     }
   }
 
@@ -102,6 +106,22 @@ export class ProfileComponent implements OnInit {
         alert('Error...');
       }
     );
+  }
+
+  confirmDelete(index: string) {
+    if (confirm('¿Estas seguro? ' + index)) {
+      this.userProfileService.deleteAddress(index).subscribe(
+        (res) => {
+          this.userProfile.addresses.splice(Number(index), 1);
+          this.fixIndexAddress();
+          alert('All ok');
+        },
+        (error) => {
+          console.error(error);
+          alert('Error');
+        }
+      );
+    }
   }
 
 }

@@ -45,6 +45,15 @@
         </div>
 
         <div class="clearfix"></div>
+        
+        <div class="col-lg-3 col-lg-offset-6 col-md-6">
+          <a class="btn btn-danger btn-block" routerLink="/smart-cities" routerLinkActive="active" > Cancel </a>&nbsp;
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <button type="submit" class="btn btn-smart btn-block" [disabled]="!complexForm.valid" i18n  > Save </button>
+        </div>
+
+        <div class="clearfix"></div>
 
         <div class="col-lg-3 col-lg-offset-9 col-md-offset-6 col-md-6">
           <div class="form-group">
@@ -74,7 +83,7 @@
                     </a>
                   </td>
                   <td>
-                    <a class="btn btn-danger" placement="top" ngbTooltip="Delete">
+                    <a class="btn btn-danger" placement="top" ngbTooltip="Delete" (click)="confirmDelete(address.index)">
                       <i class="fa fa-trash" aria-hidden="true"></i>
                     </a>
                   </td>
@@ -89,12 +98,6 @@
               </tfoot>
             </table>
           </div>
-        </div>
-        <div class="col-lg-3 col-lg-offset-6 col-md-6">
-          <a type="submit" class="btn btn-danger btn-block" routerLink="/smart-cities" routerLinkActive="active" > Cancel </a>&nbsp;
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <button type="submit" class="btn btn-smart btn-block" [disabled]="!complexForm.valid" i18n  > Save </button>
         </div>
       </div>
     </form>
