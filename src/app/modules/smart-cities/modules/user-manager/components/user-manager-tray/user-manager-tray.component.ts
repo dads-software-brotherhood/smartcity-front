@@ -18,8 +18,15 @@ export class UserManagerTrayComponent implements OnInit {
   private roles: any[];
   private users: UserModel[] = [];
   private _user: UserModel= new UserModel();
-  errorMessage: string;
+  private errorMessage: string;
+  private successMessage:string;
   private  canDel:boolean=false;
+  //Modal
+  private showDialog: boolean;
+  isConfirm: boolean;
+  messageModal: string;
+  includeText: boolean;
+
   constructor(private _service: UserService,private fb: FormBuilder,   
               private router: Router,
               private route: ActivatedRoute) { 
@@ -38,6 +45,9 @@ export class UserManagerTrayComponent implements OnInit {
   ngOnInit() {
    
     this.bindTable();
+     this.isConfirm = true;
+    this.includeText = true;
+    this.messageModal = "Are you sure to delete this user?";
   }
   bindTable()
   {
@@ -47,22 +57,29 @@ export class UserManagerTrayComponent implements OnInit {
       users => { this.users = users;
           this.users.forEach(function(item)
           {
-            //item.role.role="ADMIN";
+            
             if(item.role == "ADMIN" && rol=="ADMIN")
             {
               item.canDel=false;
             }
             else 
-            if(rol="SA")
-            {item.canDel=true;
+            if(rol=="ADMIN" && item.role!="ADMIN")
+            {
+                item.canDel=true;
+            }
+            if(rol=="SA")
+            {
+              item.canDel=true;
             }
             
             console.log(rol);
             //console.log(this.canDel);
             //item.email = email.toString()
           });
+          console.log(users);
+          
   },
-      error => this.errorMessage = <any>error
+      error => this.errorMessage = "Error trying retrieve users data. Please try later."
     );
 
   }
@@ -82,19 +99,22 @@ export class UserManagerTrayComponent implements OnInit {
     });
     return roles;
 }
-  deleteUser(form, isValid: boolean ,email,name,familyName,role){
-    
-     this._user.email=email;
-     this._user.name=name;
-     this._user.familyName= familyName;
-     this._user.role=role;
-    var motive = prompt("If you are sure to delete user, then type a motive.", "Motive");
+  deleteUser(){
+    //this.showDialog = false; /// Close dialog
+     console.log(this._user);
+     
+    var motive = null;//prompt("If you are sure to delete user, then type a motive.", "Motive");
     if (motive != null) {
       this._user.message=motive;
        this._service.delete(this._user)
-            .then(form => this.users.push(this._user),
-                                    error =>  this.errorMessage = <any>error);
-      //console.log(x);
+            .then(form => 
+            {
+              //this.bindTable();
+               location.reload();       
+            }).catch(res=>{
+              this.errorMessage="Error deleting user. Please try later.";            
+            });
+      
       
       }
   }

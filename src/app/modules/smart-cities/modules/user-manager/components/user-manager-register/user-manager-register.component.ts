@@ -10,6 +10,8 @@ import { CustomValidators } from 'ng2-validation';
 import {UserService} from '../../../../../../core/services/user-service/user-service.service';
 import {IdentityUser} from '../../../../../../core/models/identity-user';
 import { LoginService } from '../../../../../../core/services/login/login.service';
+import { Observable } from 'rxjs/observable';
+import 'rxjs/add/observable/throw';
 
 @Component({
   selector: 'app-user-register',
@@ -22,7 +24,7 @@ export class UserManagerRegisterComponent implements OnInit {
   userService:UserService;
   private userRoles: any[];
   private roles: any[];
-  errorMessage: string;
+  private errorMessage: string;
   private rol: string;
   private userModel:UserModel[]=[];
   //private vehicle = new UserModel();
@@ -33,7 +35,7 @@ export class UserManagerRegisterComponent implements OnInit {
                this.roles = this.getRoles();
                 this.adminUserRegisterForm = fb.group({ //// Make Model driven form
                       "name": [null, Validators.required],
-                      "familyname": [null, Validators.required],
+                      "familyName": [null, Validators.required],
                       "email": [null, Validators.compose([Validators.required,CustomValidators.email])],
                       "role": [null, Validators.required],
                       
@@ -83,11 +85,34 @@ export class UserManagerRegisterComponent implements OnInit {
     return roles;
 }
 save(form, isValid: boolean) {
-          console.log(form);
+          //console.log(form);
           //console.log("Hola");
-          this._service.insert(form)
-                .then(form => this.userModel.push(form),
-                                    error =>  this.errorMessage = <any>error);
+         
+          
+          this._service.insert(form).then(res=>{
+            //var mess:String = res.tostring();
+            if(res == "Success")
+            {
+               this.router.navigate(["/smart-cities/user-manager/user-manager-tray"]);
+            }
+            
+            
+           } ).catch(err=> {
+              
+             console.log(<any>err);
+
+             if(err == "409")
+           {
+             
+              this.errorMessage="This email: "+ form.email +" is already registered";
+           }else
+           this.errorMessage="An error has ocurred sendind user information. Please try again later";}
+          );
+            
+         
+           
+               // .then(form => this.userModel.push(form),
+                 //                   error =>  this.errorMessage = <any>error);
          
                 
         //this.router.navigate(["/smart-cities/user-manager/user-manager-tray"]);

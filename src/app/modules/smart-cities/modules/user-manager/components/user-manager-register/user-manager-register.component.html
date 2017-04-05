@@ -5,6 +5,9 @@
     <div class="col-md-12">
     
       <hr class="title-hr">
+       <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
+    </div>
       <div class="row">
           
            <div class="col-md-6">
@@ -17,8 +20,8 @@
           <div class="col-md-6">
           <div class="form-group">
             <label for="">Family Name</label>
-            <input type="text" [formControl]="adminUserRegisterForm.controls['familyname']" [(ngModel)]="userModel.familyname" class="form-control" placeholder="familyname"/>
-            <div *ngIf="adminUserRegisterForm.controls['familyname'].hasError('required') && adminUserRegisterForm.controls['familyname'].touched" class="alert alert-danger">Data Required *</div>
+            <input type="text" [formControl]="adminUserRegisterForm.controls['familyName']" [(ngModel)]="userModel.familyName" class="form-control" placeholder="familyname"/>
+            <div *ngIf="adminUserRegisterForm.controls['familyName'].hasError('required') && adminUserRegisterForm.controls['familyName'].touched" class="alert alert-danger">Data Required *</div>
           </div>
         </div>
         

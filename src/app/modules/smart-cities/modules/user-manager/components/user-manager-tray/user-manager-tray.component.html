@@ -3,7 +3,23 @@
     <div class="col-md-12">
       <h2>User Manager Tray</h2>
       <hr class="title-hr">
+      <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      <p class="text-xs-center"><strong>{{successMessage}}</strong></p>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
+    </div>
       <div class="row">
+         <!-- Implementación de ventana modal -->
+        <modal-popup [(visible)]="showDialog" title="System Message">
+          {{messageModal}}
+        <hr>
+        <textarea *ngIf="includeText" [formControl]="UserTrayForm.controls['message']" type="text" class="form-control"> </textarea>
+        <hr *ngIf="includeText">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteUser()">Yes</button>
+        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = true">No</button>
+        </modal-popup>
+        <!-- ************************************************* -->
            <div class="col-md-6">
           <div class="form-group">
             <label for="">Name</label>
@@ -63,6 +79,7 @@
 
       <div class="row">
         <div class="col-md-12">
+          <div class="table-responsive">
           <table class="table ">
               <thead class="thead-default">
                   <tr >
@@ -74,19 +91,25 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr *ngFor="let user of users">
+                  <tr *ngFor="let user of users | paginate: { itemsPerPage: 4, currentPage: p }">
                       <td>{{user.name}}</td>
-                      <td>{{user.familyname}}</td>
+                      <td>{{user.familyName}}</td>
                       <td>{{user.email}}</td>
                       <td>{{user.role}}</td>
                       <td>
                         <a *ngIf="user.canDel==true" class="btn btn-danger"  ngbTooltip="Edit" placement="top">
-                          <i aria-hidden="true" class="fa fa-trash" (click)="deleteUser(UserTrayForm.value,true,user.email, user.name,user.familyname,user.role)"></i>
+                          <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;_user=user"></i>
                         </a>
                       </td>
                   </tr>
               </tbody>
           </table>
+        </div>
+        </div>
+         <div class="col-md-12">
+          <div class="form-group">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
         </div>
       </div>
     </div>

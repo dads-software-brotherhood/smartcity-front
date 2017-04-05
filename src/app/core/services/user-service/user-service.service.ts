@@ -10,6 +10,7 @@ import { RemoteConnectionService } from '../remote-connection/remote-connection.
 import { LoginService } from '../login/login.service';
 import {UserModel} from '../../models/user-model';
 import { environment } from '../../../../environments/environment';
+import 'rxjs/add/observable/throw';
 
 const userModelUrl = environment.backend_sdk;
 // const vehicleCountUrl = vehicleUrl + '/count'
@@ -36,11 +37,11 @@ export class UserService {
     const requestOptions: RequestOptions = this.buildRequestOptions();
 
     return this.http.get(this.buildUserUrl()+"/list" , requestOptions)
-    .map(this.extractDataArray)
-    .catch(this.handleError);
+    .map(this.extractDataArray);
+    //.catch(this.handleError);
   }
 
-  insert(userModel: UserModel): Promise<UserModel> {
+  insert(userModel: UserModel): Promise<any> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
     return this.http.post(this.buildUserUrl()+"/register", JSON.stringify(userModel), requestOptions)
     .toPromise()
@@ -57,9 +58,9 @@ export class UserService {
 //     .catch(this.handleError);
 //   }
 
-  delete(userModel: UserModel): Promise<UserModel> {
+  delete(userModel: UserModel): Promise<any> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
-      console.log(JSON.stringify(userModel));
+      
     return this.http.post(this.buildUserUrl() + '/delete', JSON.stringify(userModel), requestOptions)
     .toPromise()
    .then(this.extractData)
@@ -99,22 +100,24 @@ export class UserService {
   }
 
   private extractData(res: Response) {
-    const body = res.json();
-    console.log(body);
-    return body || {};
+    const body = res.text();
+    return body;
   }
 
   private handleError (error: Response | any) {
+    
+    // In a real world app, we might use a remote logging infrastructure
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+       const body = error.json();
+       const err = body.error || JSON.stringify(body);
+      errMsg = error.status.toString();//`${error.status.toString()} - ${error.statusText || ''} ${err}`;
+      console.log(errMsg)
     } else {
-      errMsg = error.message ? error.message : error.toString();
+      errMsg =  error.status.tostring();//error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
+    //console.error(errMsg);
     return Observable.throw(errMsg);
-  }
+   }
 }
