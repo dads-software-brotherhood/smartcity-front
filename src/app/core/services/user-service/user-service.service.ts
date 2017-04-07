@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-
+import { constants } from '../../common/constants';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -37,8 +37,13 @@ export class UserService {
     const requestOptions: RequestOptions = this.buildRequestOptions();
 
     return this.http.get(this.buildUserUrl()+"/list" , requestOptions)
-    .map(this.extractDataArray);
-    //.catch(this.handleError);
+    .map(this.extractDataArray)
+    .catch(this.handleError);
+  }
+  public register(userModel: UserModel): Observable<any> {
+   
+
+    return this.remoteConnectionService.postAsObservable(this.buildUserUrl()+"/register", JSON.stringify(userModel), constants.contentTypeJson);
   }
 
   insert(userModel: UserModel): Promise<any> {
@@ -49,14 +54,6 @@ export class UserService {
     .catch(this.handleError);
     
   }
-
-//   update(vehicle: Vehicle, index: string): Promise<boolean> {
-//     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
-
-//     return this.http.put(this.buildByIdUserUrl() + '/' + index, JSON.stringify(vehicle), requestOptions).toPromise()
-//     .then((res: Response) => {return true;})
-//     .catch(this.handleError);
-//   }
 
   delete(userModel: UserModel): Promise<any> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');

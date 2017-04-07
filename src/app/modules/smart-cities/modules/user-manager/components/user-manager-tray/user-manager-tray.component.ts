@@ -8,6 +8,7 @@ import { role } from '../../../../../../core/models/role';
 import { CustomValidators } from 'ng2-validation';
 import { UserModel } from '../../../../../../core/models/user-model';
 import { UserService } from '../../../../../../core/services/user-service/user-service.service';
+import { LoginService } from 'app/core/services/login/login.service';
 @Component({
   selector: 'app-user-manager-tray',
   templateUrl: './user-manager-tray.component.html',
@@ -22,13 +23,14 @@ export class UserManagerTrayComponent implements OnInit {
   private errorMessage: string;
   private successMessage:string;
   private  canDel:boolean=false;
+  private loggedRol:string;
   //Modal
   private showDialog: boolean;
   isConfirm: boolean;
   messageModal: string;
   includeText: boolean;
   constructor(private _service: UserService,private fb: FormBuilder,private fm: FormBuilder,   
-              private router: Router,
+              private router: Router, private loginService: LoginService,
               private route: ActivatedRoute) { 
                  this.roles = this.getRoles();
                 this.UserTrayForm = fb.group({ //// Make Model driven form
@@ -54,10 +56,13 @@ export class UserManagerTrayComponent implements OnInit {
      this.isConfirm = true;
     this.includeText = true;
     this.messageModal = "Are you sure to delete this user?";
+   // this.loggedRol = this.loginService.getLoggedUser().roles.toString();
+    console.log(this.loginService.getLoggedUser());
   }
   bindTable()
   {
     var rol="SA";
+    
    
      this._service.getAll().subscribe(
       users => { this.users = users;
