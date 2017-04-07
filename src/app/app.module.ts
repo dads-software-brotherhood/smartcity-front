@@ -19,7 +19,6 @@ import { SmartCitiesModule } from './modules/smart-cities/smart-cities.module';
 // Servicios de la aplicación
 import { RemoteConnectionService } from './core/services/remote-connection/remote-connection.service';
 import { LoginService } from './core/services/login/login.service';
-import { LoggedInGuard } from './core/services/login/logged-in.guard';
 import { RecoveryPasswordService } from './core/services/recovery-password/recovery-password.service';
 import { UserProfileService } from './core/services/user-profile/user-profile.service';
 import { VehicleService } from './core/services/vehicle/vehicle.service';
@@ -28,6 +27,11 @@ import { CountryService } from './core/services/country/country.service';
 import { RegionService } from './core/services/region/region.service';
 import { LocalityService } from './core/services/locality/locality.service';
 import { SignupService } from './core/services/signup/signup.service';
+// Guards para los routes
+import { LoggedInGuard } from './core/services/login/logged-in.guard';
+import { LoggedInAdmin } from './core/services/login/logged-in-admin.guard';
+import { LoggedInSA} from './core/services/login/logged-in-sa.guard';
+import { LoggedInTransportAdmin} from './core/services/login/logged-in-transport-admin.guard';
 
 
 // Rutas
@@ -58,6 +62,9 @@ import { appRoutes } from './app.routes';
     RecoveryPasswordService,
     UserProfileService,
     LoggedInGuard,
+    LoggedInAdmin,
+    LoggedInSA,
+    LoggedInTransportAdmin,
     VehicleService,
     CountryService,
     RegionService,

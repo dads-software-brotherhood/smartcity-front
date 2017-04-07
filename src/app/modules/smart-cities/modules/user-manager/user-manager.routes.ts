@@ -7,7 +7,7 @@ import {UserManagerRegisterComponent} from './components/user-manager-register/u
 import {UserManagerTrayComponent} from './components/user-manager-tray/user-manager-tray.component';
 export const UserManagerRoutes: Routes = [
   {
-    path: 'user-manager',component: UserManagerComponent,canActivate: [ LoggedInGuard ],
+    path: 'user-manager', component: UserManagerComponent, canActivate: [ LoggedInGuard ],
     children: [
       { path: 'user-register', component: UserManagerRegisterComponent},
       { path: 'user-manager-tray', component: UserManagerTrayComponent}

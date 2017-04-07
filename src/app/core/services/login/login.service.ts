@@ -9,6 +9,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+import { role } from '../../../core/models/role';
+
 import { IdentityUser, TokenInfo } from '../../models/identity-user';
 
 const base_rest_path = '/security';
@@ -76,6 +78,10 @@ export class LoginService {
   }
 
   isLoggedIn(): boolean {
+    return this.checkToken();
+  }
+
+  private checkToken(){
     const identityUser: IdentityUser = this.getLoggedUser();
 
     if (identityUser && identityUser.date && identityUser.tokenInfo && identityUser.tokenInfo.time) {
@@ -95,6 +101,29 @@ export class LoginService {
       return false;
     }
   }
+
+  isAdmin(): boolean {
+    return this.checkRole(role.ADMIN);
+  }
+
+  isSA(): boolean {
+    return this.checkRole(role.SA);
+  }
+
+  isTransportAdmin(): boolean{
+    return this.checkRole(role.TRANSPORT_ADMIN);
+  }
+
+  checkRole(roleToCompare: role): boolean {
+     const identityUser: IdentityUser = this.getLoggedUser();
+    if (this.checkToken()){
+      if (identityUser.roles.indexOf(role[roleToCompare])  > -1) {
+            return true;
+      };
+    }
+    return false;
+  }
+
 
   // isLoggedIn(): Observable<boolean> {
   //   const token: string = this.getToken();
