@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { LoginService } from '../../core/services/login/login.service';
 import { IdentityUser } from '../../core/models/identity-user';
+
+import { constants } from '../../core/common/constants';
 
 @Component({
   selector: 'app-main-menu',
@@ -16,7 +19,7 @@ export class MainMenuComponent implements OnInit {
 
   identityUser: IdentityUser;
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   eventCalled() {
     this.isActive = !this.isActive;
@@ -43,7 +46,11 @@ export class MainMenuComponent implements OnInit {
   }
 
   logout() {
-    this.loginService.logout();
+    this.loginService.logout().subscribe(
+      (res) => {
+        this.router.navigate(constants.logoutRoute);
+      }
+    );
   }
 
 }

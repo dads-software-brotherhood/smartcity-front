@@ -515,7 +515,7 @@ a:hover{
 }
 .labelHidden{
     display: block;
-    height: 34px;
+    height: 32px;
 }
 .title-hr, .subTitle-hr{
     margin-top: 0px; 
@@ -645,4 +645,10 @@ footer{
         }
     }
 
+}
+.ng2-pagination{
+    margin: 1rem 0 !important;
+}
+.text-center{
+    text-align: center !important;
 }

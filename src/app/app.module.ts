@@ -17,10 +17,18 @@ import { RestorePasswordModule } from './modules/restore-password/restore-passwo
 import { SmartCitiesModule } from './modules/smart-cities/smart-cities.module';
 
 // Servicios de la aplicación
-import { RemoteService } from './core/common/remote.service';
+import { RemoteConnectionService } from './core/services/remote-connection/remote-connection.service';
 import { LoginService } from './core/services/login/login.service';
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
-import { CustomerService } from './core/services/customer/customer.service';
+import { RecoveryPasswordService } from './core/services/recovery-password/recovery-password.service';
+import { UserProfileService } from './core/services/user-profile/user-profile.service';
+import { VehicleService } from './core/services/vehicle/vehicle.service';
+import { UserService } from './core/services/user-service/user-service.service';
+import { CountryService } from './core/services/country/country.service';
+import { RegionService } from './core/services/region/region.service';
+import { LocalityService } from './core/services/locality/locality.service';
+import { SignupService } from './core/services/signup/signup.service';
+
 
 // Rutas
 import { appRoutes } from './app.routes';
@@ -45,10 +53,17 @@ import { appRoutes } from './app.routes';
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    RemoteService,
+    RemoteConnectionService,
     LoginService,
+    RecoveryPasswordService,
+    UserProfileService,
     LoggedInGuard,
-    CustomerService
+    VehicleService,
+    CountryService,
+    RegionService,
+    LocalityService,
+    SignupService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

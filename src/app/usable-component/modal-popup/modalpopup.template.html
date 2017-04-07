@@ -1,14 +1,3 @@
-<!--<div [@animation] *ngIf="visible" class="dialog" >
-    <ng-content></ng-content>
-</div>
-
-<div *ngIf="visible" class="overlay" (click)="close()"></div>-->
-
-
-<!--<div [@animation] *ngIf="visible" class="dialog">
-    <ng-content></ng-content>
-</div>-->
-
 
 <div   [@animation] *ngIf="visible"  class="modal show" style="z-index:1021;">
     <div class="modal-dialog">
@@ -21,12 +10,6 @@
             <div class="modal-body">
                  <ng-content></ng-content>
             </div>
-            <!--<div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="close()">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>-->
         </div>
-        <!-- /.modal-content -->
     </div>
 <div *ngIf="visible" class="modal" (click)="close()"></div>
-    <!-- /.modal-dialog -->

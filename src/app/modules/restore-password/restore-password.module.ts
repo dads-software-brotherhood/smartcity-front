@@ -14,7 +14,7 @@ import { TemplateModule } from '../../template/template.module';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule.forRoot(),
+    NgbModule,
     RouterModule,
     TemplateModule
   ],

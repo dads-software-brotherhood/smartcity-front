@@ -13,9 +13,10 @@ export class TokenInfo {
 }
 
 export class IdentityUser {
-  mongoId?: string;
+  id: string;
   name?: string;
   username: string;
   tokenInfo: TokenInfo;
   roles: Array<string>;
+  date?: Date;
 }

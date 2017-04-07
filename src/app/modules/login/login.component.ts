@@ -3,7 +3,11 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import 'rxjs/add/operator/catch';
+
 import { LoginService } from '../../core/services/login/login.service';
+
+import { constants } from '../../core/common/constants';
 
 @Component({
   selector: 'app-login',
@@ -27,21 +31,18 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(form: any) {
-    this.loginService.login(form.email, form.password).subscribe((result) => {
-      if (result) {
-        console.log(result);
-
-        if (this.loginService.isLoggedIn()) {
+    this.loginService.login(form.email, form.password).subscribe(
+      (result) => {
+        if (result && result.tokenInfo) {
           this.loginError = false;
-          this.router.navigate(['smart-cities']);
+          this.router.navigate(constants.defaultLoggedRoute);
         } else {
           this.loginError = true;
-
         }
-      } else {
+      },
+      (error) => {
         this.loginError = true;
-      }
-    });
+      });
   }
 
 }

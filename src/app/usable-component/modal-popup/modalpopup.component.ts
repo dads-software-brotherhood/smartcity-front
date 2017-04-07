@@ -24,6 +24,8 @@ export class ModalPopupComponent implements OnInit {
     @Input() title :string;
     
     @Input() visible: boolean;
+    @Input() isConfirm: boolean;
+    @Input() messageModal: string;
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor() { }

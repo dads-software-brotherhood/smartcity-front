@@ -1,0 +1,135 @@
+<div class="row">
+  <div class="col-md-12">
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      <p class="text-xs-center"><strong>{{successMessage}}</strong></p>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
+    </div>
+    <h4>Health data</h4>
+    <hr class="subTitle-hr">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="health-state">Health state</label>
+          <select class="form-control" [(ngModel)]="healthProfile.healthState">
+            <option *ngFor="let state of healthStates" [ngValue]="state"  >{{state}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12" [hidden]="!(healthProfile.healthState == 'Allergy')">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label >Allergy symptoms</label>
+        </div>
+        <div class="clearfix"></div>
+          <div class="col-md-6" *ngFor="let symptom of allergySymptoms">
+            <div class="form-check" >
+              <label class="form-check-label">
+                <input class="form-check-input symptom" [checked]="hhealthProfile?.allergySymptoms.includes(symptom)" name="symptom" type="checkbox" value="{{symptom}}">
+                {{symptom}}
+              </label>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12" [hidden]="!(healthProfile.healthState == 'Asthma')">
+    <div class="row">
+      <div class="col-md-12">
+      <div class="form-group">
+          <label >Asthma level</label>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-2">
+          <img *ngIf="!healthProfile.asthmaLevel" src="../../assets/img/asthma-level-1.svg" style="max-height: 280px" class="img-fluid center-block"/>
+          <img *ngIf="healthProfile.asthmaLevel" src="../../assets/img/asthma-level-{{healthProfile.asthmaLevel}}.svg" style="max-height: 280px" class="img-fluid center-block"/>
+        </div>
+        <div class="col-sm-9">
+          <div class="col-sm-12">
+
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="4">
+                Severe persistent asthma
+              </label>
+              <ul [hidden]="!(healthProfile.asthmaLevel == 4)">
+                <li>
+                  Symptoms of a cough, wheeze, chest tightness or difficulty breathing continuously.
+                </li>
+                <li>
+                  Severely limit daily physical activities
+                </li>
+                <li>
+                  Nighttime symptoms frequently
+                </li>
+              </ul>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="3">
+                Moderate persistent asthma
+              </label>
+              <ul [hidden]="!(healthProfile.asthmaLevel == 3)">
+                <li>
+                  Symptoms of a cough, wheeze, chest tightness or difficulty breathing daily
+                </li>
+                <li>
+                  Symptoms interfere with daily activities
+                </li>
+                <li>
+                  Nighttime symptoms 5 or more times a month
+                </li>
+              </ul>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="2">
+                Mild persistent asthma
+              </label>
+              <ul [hidden]="!(healthProfile.asthmaLevel == 2)">
+                <li>
+                  Symptoms of a cough, wheeze, chest tightness or difficulty breathing three to six times a week
+                </li>
+                <li>
+                  Attacks interfere with daily activities.
+                </li>
+                <li>
+                  Nighttime symptoms three to four times a month
+                </li>
+              </ul>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" [(ngModel)]="healthProfile.asthmaLevel" type="radio" name="asthma-level"  [value]="1">
+                Mild intermittent asthma
+              </label>
+              <ul [hidden]="!(healthProfile.asthmaLevel == 1)">
+                <li>
+                  Symptoms of a cough, wheeze, chest tightness or difficulty breathing less than twice a week
+                </li>
+                <li>
+                  Do not interfere with normal activities
+                </li>
+                <li>
+                   Nighttime symptoms less than twice a month
+                </li>
+              </ul>
+            </div>
+          </div>    
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="col-md-3 col-md-offset-9">
+      <div class="form-group">
+        <a  class="btn btn-smart btn-block" (click)="save()"> Save </a>
+      </div>
+    </div>
+  </div>
+
+</div>

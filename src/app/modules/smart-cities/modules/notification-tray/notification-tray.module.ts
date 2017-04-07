@@ -9,7 +9,7 @@ import { NotificationTrayComponent } from './notification-tray.component';
 @NgModule({
   imports: [
     CommonModule,
-    NgbModule.forRoot(),
+    NgbModule,
     RouterModule,
     FormsModule
   ],

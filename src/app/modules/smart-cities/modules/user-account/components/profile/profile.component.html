@@ -1,144 +1,109 @@
 <div class="row">
   <div class="col-md-12">
-    <h4>User Data</h4>
+    <h4>User data</h4>
     <hr class="subTitle-hr">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="inlineFormInputGroup">Name</label>
-          <input type="text" [(ngModel)]="userInfo.name" class="form-control" placeholder="Name"/>
+    <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['name'].valid && complexForm.controls['name'].touched}">
+            <label for="name">Name *</label>
+            <input type="text" class="form-control" placeholder="Name" id="name"
+              [formControl]="complexForm.controls['name']"/>
+            <div *ngIf="complexForm.controls['name'].hasError('required') && complexForm.controls['name'].touched" class="alert alert-danger" i18n>The name is required.</div>
+            <div *ngIf="complexForm.controls['name'].hasError('minlength') && complexForm.controls['name'].touched" class="alert alert-danger" i18n>The name must be have two characters.</div>
+          </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="inlineFormInputGroup">Family Name</label>
-          <input type="text" [(ngModel)]="userInfo.familyName" class="form-control" placeholder="Family Name"/>
+        <div class="col-md-6">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['familyName'].valid && complexForm.controls['familyName'].touched}">
+            <label for="familyName">Family name *</label>
+            <input type="text" class="form-control" placeholder="Family Name" id="familyName"
+              [formControl]="complexForm.controls['familyName']"/>
+            <div *ngIf="complexForm.controls['familyName'].hasError('required') && complexForm.controls['familyName'].touched" class="alert alert-danger" i18n>The family name is required.</div>
+            <div *ngIf="complexForm.controls['familyName'].hasError('minlength') && complexForm.controls['familyName'].touched" class="alert alert-danger" i18n>The family name must be have two characters.</div>
+          </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="inlineFormInputGroup">Birth Date</label>
-          <input class="form-control" [(ngModel)]="userInfo.birthDate" type="date"/>
+        <div class="clearfix"></div>
+        <div class="col-md-6">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['birthDate'].valid && complexForm.controls['birthDate'].touched}">
+            <label for="birthDate">Birth date</label>
+            <input class="form-control" type="date" id="birthDate" placeholder="yyyy-mm-dd"
+              [formControl]="complexForm.controls['birthDate']"/>
+            <div *ngIf="complexForm.controls['birthDate'].hasError('dateISO') && complexForm.controls['birthDate'].touched" class="alert alert-danger" i18n>The birth date format is invalid.</div>
+            <div *ngIf="complexForm.controls['birthDate'].hasError('maxDate') && complexForm.controls['birthDate'].touched" class="alert alert-danger" i18n>The birth date can't be greated than current date</div>
+          </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group radioCustom">
-          <label for="inlineFormInputGroup">Gender</label>
+        <div class="col-md-6">
+          <div class="form-group radioCustom">
+            <label for="gender">Gender</label>
             <label class="radio-inline">
-              <input type="radio" [checked]="userInfo.gender == 1"  name="genderOptions" value="1" /> M
+              <input type="radio" name="gender" value="MALE" [formControl]="complexForm.controls['gender']"/> M
             </label>
             <label class="radio-inline">
-              <input type="radio" [checked]="userInfo.gender == 2" name="genderOptions" value="2" /> F
+              <input type="radio" name="gender" value="FEMALE" [formControl]="complexForm.controls['gender']"/> F
             </label>
+          </div>
         </div>
-      </div>
 
-      <div class="clearfix"></div>
+        <div class="clearfix"></div>
+        
+        <div class="col-lg-3 col-lg-offset-6 col-md-6">
+          <a class="btn btn-danger btn-block" routerLink="/smart-cities" routerLinkActive="active" > Cancel </a>&nbsp;
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <button type="submit" class="btn btn-smart btn-block" [disabled]="!complexForm.valid" i18n  > Save </button>
+        </div>
 
         <div class="col-md-12">
-          <h4>Home/Work  Address </h4>
-          <hr class="subTitle-hr">
-          <div class="row">
-            <div class="col-md-6 col-lg-3">
-              <div class="form-group">
-                <label>Country</label>
-                <select class="form-control" [(ngModel)]="userInfo.addresses[0].country_id">
-                  <option>selected</option>
-                  <option value="1">México</option>
-                  <option value="2">España</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <div class="form-group">
-                <label for="inlineFormInputGroup">Region</label>
-                <select class="form-control" [(ngModel)]="userInfo.addresses[0].region_id">
-                  <option>selected</option>
-                  <option value="1">Ciudad de México</option>
-                  <option value="2">Guadalajara</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <div class="form-group">
-                <label for="inlineFormInputGroup">Location</label>
-                <select class="form-control" [(ngModel)]="userInfo.addresses[0].location_id">
-                  <option>selected</option>
-                  <option value="1">Benito Juárez</option>
-                  <option value="2">Coyoacan</option>
-                  <option value="3">Tlalpan</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <div class="form-group">
-                <label for="inlineFormInputGroup">Postal Code</label>
-                <input class="form-control" [(ngModel)]="userInfo.addresses[0].postcode" type="text" placeholder="Postal Code"/>
-              </div>
-            </div>
-            <div class="col-md-12 col-lg-6">
-              <div class="form-group">
-                <label for="inlineFormInputGroup">Street</label>
-                <input class="form-control" [(ngModel)]="userInfo.addresses[0].street" type="text" placeholder="Street"/>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <div class="form-group radioCustom">
-                <label for="inlineFormInputGroup">Type</label>
-                  <label class="radio-inline">
-                    <input type="radio" [checked]="userInfo.addresses[0].typeAddress == 1" name="tyoeOptions" value="1" /> Home
-                  </label>
-                  <label class="radio-inline">
-                    <input type="radio" [checked]="userInfo.addresses[0].typeAddress == 2" name="tyoeOptions" value="2" /> Work
-                  </label>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <div class="form-group">
-                <span class="labelHidden"></span>
-                <a class="btn btn-smart btn-block"> Add </a>
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="table-responsive">
-                <table class="table">
-                  <thead class="thead-default">
-                    <tr>
-                      <th>Address</th>
-                      <th class="head-btn"></th>
-                      <th class="head-btn"></th>
+          <p>Data marked with * are required</p>
+        </div>
+        
+        <div class="clearfix"></div>
 
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td></td>
-                      <td>
-                        <a class="btn btn-smart" placement="top" ngbTooltip="Edit">
-                          <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
-                      </td>
-                      <td>
-                        <a class="btn btn-danger" placement="top" ngbTooltip="Delete">
-                          <i class="fa fa-trash" aria-hidden="true"></i>
-                        </a>
-                      </td>
-
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="col-lg-3 col-lg-offset-6">
-              <a type="submit" class="btn btn-danger btn-block" > Cancel </a>&nbsp;
-            </div>
-            <div class="col-lg-3">
-              <a type="submit" class="btn btn-smart btn-block" > Save </a>
-            </div>
-          </div>
-
+        <div class="col-lg-3 col-lg-offset-9 col-md-offset-6 col-md-6">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <a class="btn btn-smart btn-block" routerLink="/smart-cities/user-account/address" routerLinkActive="active"> Add address</a>
           </div>
         </div>
 
+        <div class="clearfix"></div>
+
+        <div class="col-lg-12" *ngIf="userProfile.addresses && userProfile.addresses.length != 0"  >
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-default">
+                <tr>
+                  <th>Address</th>
+                  <th class="head-btn"></th>
+                  <th class="head-btn"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let address of userProfile.addresses  | paginate: { itemsPerPage: 4, currentPage: p }">
+                  <td>{{ address.street }}, {{ address.locality.name }}, <span *ngIf="address.postalCode" >{{ address.postalCode }}, </span> {{ address.locality.region.name }}, {{ address.locality.region.country.name }} </td>
+                  <td>
+                    <a class="btn btn-smart" placement="top" ngbTooltip="Edit" routerLink="/smart-cities/user-account/address/{{ address.index }}" routerLinkActive="active">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a class="btn btn-danger" placement="top" ngbTooltip="Delete" (click)="confirmDelete(address.index)">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

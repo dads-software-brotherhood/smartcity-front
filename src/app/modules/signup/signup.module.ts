@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import { SignupComponent } from './signup.component';
+import { AccountVerificationComponent } from './account-verification.component'
 
 // Elementos del template
 import { TemplateModule } from '../../template/template.module';
@@ -14,15 +15,17 @@ import { TemplateModule } from '../../template/template.module';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule.forRoot(),
+    NgbModule,
     RouterModule,
     TemplateModule
   ],
   declarations: [
-    SignupComponent
+    SignupComponent,
+    AccountVerificationComponent
   ],
   exports: [
-    SignupComponent
+    SignupComponent,
+    AccountVerificationComponent
   ]
 })
 export class SignupModule { }

@@ -1,0 +1,119 @@
+  <form [formGroup]="UserTrayForm" >
+ <div class="row">
+    <div class="col-md-12">
+      <h2>User Manager Tray</h2>
+      <hr class="title-hr">
+      <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      <p class="text-xs-center"><strong>{{successMessage}}</strong></p>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
+    </div>
+      <div class="row">
+         <!-- Implementación de ventana modal -->
+        <modal-popup [(visible)]="showDialog" title="System Message">
+          {{messageModal}}
+        <hr>
+        <textarea *ngIf="includeText" [formControl]="Modal.controls['message']" id="_message" type="text"  class="form-control"> </textarea>
+        <div *ngIf="Modal.controls['message'].hasError('required') && Modal.controls['message'].touched" class="alert alert-danger">Data Required *</div>
+        <hr *ngIf="includeText">
+        <button type="button" [disabled]="!Modal.valid" class="btn btn-danger" data-dismiss="modal" (click)="deleteUser()">Yes</button>
+
+        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = true">No</button>
+        </modal-popup>
+        <!-- ************************************************* -->
+           <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Name</label>
+            <input type="text" [formControl]="UserTrayForm.controls['name']"  class="form-control" placeholder="Search by Name"/>
+          </div>
+        </div>
+        
+         <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Family Name</label>
+            <input type="text" [formControl]="UserTrayForm.controls['familyname']"  class="form-control" placeholder="Search by Family Name"/>
+          </div>
+        </div>
+       
+
+       
+
+        
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">email</label>
+            <input type="text"  [formControl]="UserTrayForm.controls['email']"   class="form-control" placeholder="Search by Email"/>
+            
+            <div *ngIf="UserTrayForm.controls['email'].hasError('email') && UserTrayForm.controls['email'].touched" class="alert alert-danger" i18n>Email does not have a valid structure</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Role</label>
+           <select id="role" [formControl]="UserTrayForm.controls['role']" class="form-control">
+                <option *ngFor="let role of roles" [ngValue]="role.name">{{role.name}}</option>
+              </select>
+              
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9"></div>
+         <div class="col-md-3">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <a type="submit" class="btn btn-smart btn-block" > Search </a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+           <div class="col-md-9"></div>
+            <div class="col-md-3 ">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <a [routerLink]="['/smart-cities/user-manager/user-register']" class="btn btn-smart btn-block" > Add </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+          <table class="table ">
+              <thead class="thead-default">
+                  <tr >
+                      <th>Name</th>
+                      <th>Family Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Delete</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let user of users | paginate: { itemsPerPage: 4, currentPage: p }">
+                      <td>{{user.name}}</td>
+                      <td>{{user.familyName}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.role}}</td>
+                      <td>
+                        <a *ngIf="user.canDel==true" class="btn btn-danger"  ngbTooltip="Edit" placement="top">
+                          <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;_user=user"></i>
+                        </a>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+        </div>
+         <div class="col-md-12">
+          <div class="form-group">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>

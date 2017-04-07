@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4>Home/Work  Address </h4>
+    <hr class="subTitle-hr">
+    <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
+      <div class="row">
+        <div class="col-md-6 col-lg-3">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['countryId'].valid && complexForm.controls['countryId'].touched}">
+            <label for="countryId">Country *</label>
+            <select id="countryId" class="form-control" [formControl]="complexForm.controls['countryId']" (ngModelChange)="changeCountry($event)">
+              <option value="-1" disabled>Select</option>
+              <option *ngFor="let country of countries"  value="{{ country.id }}">{{ country.name }}</option>>
+            </select>
+            <div *ngIf="complexForm.controls['countryId'].hasError('notEqual') && complexForm.controls['countryId'].touched" class="alert alert-danger" i18n>The country is required.</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['regionId'].valid && complexForm.controls['regionId'].touched}">
+            <label for="regionId">Region *</label>
+            <select id="regionId" class="form-control" [formControl]="complexForm.controls['regionId']" (ngModelChange)="changeRegion($event)">
+              <option value="-1" disabled>Select</option>
+              <option *ngFor="let region of regions"  value="{{ region.id }}">{{ region.name }}</option>>
+            </select>
+            <div *ngIf="complexForm.controls['regionId'].hasError('notEqual') && complexForm.controls['regionId'].touched" class="alert alert-danger" i18n>The region is required.</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['localityId'].valid && complexForm.controls['localityId'].touched}">
+            <label for="localityId">Locatity *</label>
+            <select id="localityId" class="form-control" [formControl]="complexForm.controls['localityId']">
+              <option value="-1" disabled>Select</option>
+              <option *ngFor="let locality of localities"  value="{{ locality.id }}">{{ locality.name }}</option>>
+            </select>
+            <div *ngIf="complexForm.controls['localityId'].hasError('notEqual') && complexForm.controls['localityId'].touched" class="alert alert-danger" i18n>The locality is required.</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['postalCode'].valid && complexForm.controls['postalCode'].touched}">
+            <label for="postalCode">Postal Code</label>
+            <input id="postalCode" class="form-control" [formControl]="complexForm.controls['postalCode']" type="text" placeholder="Postal Code"/>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12 col-lg-6">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['street'].valid && complexForm.controls['street'].touched}">
+            <label for="street">Street *</label>
+            <input id="street" class="form-control" [formControl]="complexForm.controls['street']" type="text" placeholder="Street"/>
+            <div *ngIf="complexForm.controls['street'].hasError('required') && complexForm.controls['street'].touched" class="alert alert-danger" i18n>The street is required.</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="form-group radioCustom" >
+            <label for="addressType">Type</label>
+            <label class="radio-inline">
+              <input type="radio" name="addressType" value="HOME" [formControl]="complexForm.controls['addressType']"  /> Home
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="addressType" value="WORK" [formControl]="complexForm.controls['addressType']" /> Work
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-lg-offset-6 col-md-6">
+        <a type="submit" class="btn btn-danger btn-block" routerLink="/smart-cities/user-account/profile" routerLinkActive="active" > Cancel </a>&nbsp;
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <button type="submit" class="btn btn-smart btn-block" [disabled]="!complexForm.valid" i18n  > Save </button>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-md-12">
+        <p>Data marked with * are required</p>
+      </div>
+    </div>
+  </div>
+</div>

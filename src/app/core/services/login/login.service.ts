@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 
 import { environment } from '../../../../environments/environment';
+import { constants } from '../../common/constants';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -10,96 +11,107 @@ import 'rxjs/add/operator/toPromise';
 
 import { IdentityUser, TokenInfo } from '../../models/identity-user';
 
-const tokenInfoName = 'token-info';
-
 const base_rest_path = '/security';
 const login_url = environment.backend_sdk + base_rest_path + '/login';
 const logout_url = environment.backend_sdk + base_rest_path + '/logout';
 const valid_token_url = environment.backend_sdk + base_rest_path + '/valid-token';
 const refresh_token_url = environment.backend_sdk + base_rest_path + '/refresh-token';
 
-
 @Injectable()
 export class LoginService {
 
   constructor(private http: Http) {}
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<IdentityUser> {
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', constants.contentTypeJson);
 
     const query = {
       'username': email,
       'password': password
     };
 
-
-    return this.http
-    .post(
-      login_url,
-      JSON.stringify(query),
-      { headers }
-    )
+    return this.http.post(login_url, JSON.stringify(query), { headers })
     .map((res: Response) => {
       const identityUser: IdentityUser = res.json();
 
       if (identityUser) {
-        identityUser.name = identityUser.username;
-
-        localStorage.setItem(tokenInfoName, JSON.stringify(identityUser));
-      } else {
-        this.logout();
+        identityUser.date = new Date();
+        localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
+        return identityUser;
+      } else { //This case never happend
+        this.deleteToken();
+        return null;
       }
-
-      return identityUser;
     })
     .catch((error: Response | any) => {
-      console.log('Error at login');
-      console.log(error);
-
-      this.logout();
-      return [{'code': '503'}];
+      this.deleteToken();
+      return null;
     });
   }
 
-  logout() {
-    //TODO: perform logout
-    this.deleteToken();
-  }
+  logout(): Observable<boolean> {
+    const token: string = this.getToken();
 
-  private deleteToken() {
-    localStorage.removeItem(tokenInfoName);
-  }
+    if (token) {
+      const requestOptions: RequestOptions = this.buildRequestOptions(token);
+      this.deleteToken(); //We delete token from local storage
 
-  isLoggedIn(): boolean {
-    //return this.isValidToken();
-    return !!localStorage.getItem(tokenInfoName);
-  }
-
-  private renewToken() {
-  }
-
-  private isValidToken(): Promise<boolean> {
-    if (localStorage.getItem(tokenInfoName)) {
-      //TODO: build headers
-      return this.http.post(valid_token_url, null, null).toPromise()
-        .then((res: Response) => {
+      return this.http.delete(logout_url, requestOptions)
+        .map((res) => {
+          console.log('logout');
           return true;
         })
-        .catch((error: Response | any) => {
-          this.deleteToken();
-          return false;
+        .catch((error) => {
+          console.log(error);
+          return null;
         });
     } else {
-      return new Promise((resolve, reject) => {
-        resolve(false);
-      });
+      return null;
     }
   }
 
-  getLoggedUser(): IdentityUser {
-    const tmp: string = localStorage.getItem(tokenInfoName);
+  private deleteToken() {
+    localStorage.removeItem(constants.tokenInfoName);
+  }
 
+  isLoggedIn(): boolean {
+    const identityUser: IdentityUser = this.getLoggedUser();
+
+    if (identityUser && identityUser.date && identityUser.tokenInfo && identityUser.tokenInfo.time) {
+      const renewTime = identityUser.tokenInfo.time / 2;
+      const currentDate = new Date();
+      const tokenTime = (currentDate.getTime() - new Date(identityUser.date).getTime()) / 1000; //Logged time in seconds
+
+      if (tokenTime > identityUser.tokenInfo.time) {
+        return false;
+      } else {
+        if (tokenTime > renewTime) {
+          //TODO: Refresh token
+        }
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  // isLoggedIn(): Observable<boolean> {
+  //   const token: string = this.getToken();
+
+  //   if (token) {
+  //     const requestOptions: RequestOptions = this.buildRequestOptions(token);
+  //     return this.http.get(valid_token_url, requestOptions)
+  //             .map((res: Response) => {
+  //               return true;
+  //             });
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
+  getLoggedUser(): IdentityUser {
+    const tmp: string = localStorage.getItem(constants.tokenInfoName);
     if (tmp) {
       return JSON.parse(tmp);
     } else {
@@ -115,6 +127,16 @@ export class LoginService {
     } else {
       return null;
     }
+  }
+
+  private buildRequestOptions(token: string):RequestOptions {
+    const headers: Headers = new Headers();
+    headers.append(constants.authTokenKey, token);
+
+    const requestOptions: RequestOptions = new RequestOptions();
+    requestOptions.headers = headers;
+
+    return requestOptions;
   }
 
 }

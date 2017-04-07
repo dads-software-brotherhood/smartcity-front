@@ -1,0 +1,121 @@
+ <div class="row">
+    <div class="col-md-12">
+      <h2>New Transport</h2>
+      <hr class="title-hr">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Name</label>
+            <input type="text"  class="form-control" placeholder="Name"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="inlineFormInputGroup">Vehicle Type</label>
+            <select class="form-control" >
+                <option>selected</option>
+                <option value="1">Buss</option>
+                <option value="2">Car</option>
+                <option value="3">Taxi</option>
+              </select>
+          </div>
+        </div>
+
+        <div class="col-md-12 radioCustom">          
+          <label>Category</label>
+          <div class="form-group">
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-smart" [class.active]="category.publicTransport">
+                <input type="checkbox" [(ngModel)]="category.publicTransport"> Public
+              </label>
+              <label class="btn btn-smart" [class.active]="category.privateTransport">
+                <input type="checkbox" [(ngModel)]="category.privateTransport"> Private
+              </label>
+              <label class="btn btn-smart" [class.active]="category.municipalTransport">
+                <input type="checkbox" [(ngModel)]="category.municipalTransport"> Municipal Services
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Area Served</label>
+            <input type="text"  class="form-control" placeholder="Area Served"/>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Plate Identifier</label>
+            <input type="text"  class="form-control" placeholder="Plate Identifier"/>
+          </div>
+        </div>
+        
+        <div class="col-md-12">
+          <label>Stops</label>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text"  class="form-control" placeholder="Latitude"/>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text"  class="form-control" placeholder="Longitude"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Arribal Time</label>
+            <input type="date"  class="form-control" placeholder="Arribal Time"/>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Return Time</label>
+            <input type="date"  class="form-control" placeholder="Return Time"/>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Date Modified</label>
+            <input type="date"  class="form-control" placeholder="Date Modified"/>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Date Created</label>
+            <input type="date"  class="form-control" placeholder="Date Created"/>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-md-offset-6">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <a [routerLink]="['/smart-cities/transports']" class="btn btn-danger btn-block" > Cancel </a>
+          </div>
+        </div>
+
+        <div class="col-md-3 ">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <button type="submit" class="btn btn-smart btn-block" > Save</button>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <hr class="subTitle-hr">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>

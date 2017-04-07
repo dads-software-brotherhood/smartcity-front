@@ -4,9 +4,12 @@ import { LoginService } from './login.service';
 
 @Injectable()
 export class LoggedInGuard implements CanActivate {
-  constructor(private loginService: LoginService) {}
+
+  constructor(private loginService: LoginService) {
+  }
 
   canActivate() {
     return this.loginService.isLoggedIn();
   }
+
 }
