@@ -19,7 +19,7 @@ export const UserAccountRoutes: Routes = [
     children: [
       { path: 'close-account', component: CloseAccountComponent, canActivate: [ LoggedInGuard ]},
       { path: 'credentials', component: CredentialsComponent, canActivate: [ LoggedInGuard ]},
-      { path: 'profile', component: ProfileComponent, canActivate: [ LoggedInAdmin ]},
+      { path: 'profile', component: ProfileComponent, canActivate: [ LoggedInGuard ]},
       { path: 'address', component: AddressComponent, canActivate: [ LoggedInGuard ]},
       { path: 'address/:index', component: AddressComponent, canActivate: [ LoggedInGuard ]},
       { path: 'health-profile', component: HealthProfileComponent, canActivate: [ LoggedInGuard ]}
