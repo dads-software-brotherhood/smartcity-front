@@ -18,7 +18,8 @@ export class Vehicle {
   
   constructor(index?: string, name?: string, description?: string, vehicleType?: VehicleType,
               brandName?: string, modelName?: string, vehicleModelDate?: Date, fuelType?: FuelType,
-              fuelConsumption?: number, vehiclPlateIdentifier?: string, dateModified?: Date, dateCreated?: Date) {
+              fuelConsumption?: number, vehiclPlateIdentifier?: string, dateModified?: Date, 
+              dateCreated?: Date) {
     this.index = index;
     this.name = name;
     this.description = description;

@@ -6,6 +6,9 @@
       <h2>Vehicles</h2>
       <hr class="title-hr">
       <div class="row">
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
+    </div>
          <!-- Implementación de ventana modal -->
         <modal-popup [(visible)]="showDialog" title="System Message">
           {{messageModal}}

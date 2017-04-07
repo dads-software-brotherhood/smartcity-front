@@ -28,34 +28,48 @@ export class UserVehicleTrayComponent implements OnInit {
   constructor(private _service: VehicleService, private _router: Router ) { 
   }
 
-  ngOnInit() {   
+  ngOnInit() {  
+    try
+    { 
     this.bindTable();
     this.sum = this.getTotalCols(); //asignar a variable "sum" el valor del número total de columnas en la tabla
     this.isConfirm = true;
     this.includeText = false;
     this.messageModal = "Are you sure to delete this register of his vehicle?";
-
+    }
+    catch(e){this.errorMessage="An error occurred while loading the vehicle list";}
   }
 
   bindTable() { //// Bind vehicles Grid
+    try
+    {
     this._service.getAll().subscribe(
       vehicles => { this.vehicles = vehicles;
           this.vehicles.forEach(function(item, index){
-            item.index = index.toString()});
+              item.index = index.toString();
+            });
   },
       error => this.errorMessage = <any>error
     );
   }
+  catch(e){throw e;}
+  }
 
   confirmDelete() {
+      try
+      {
            this.showDialog = false; /// Close dialog
            this._service.delete(this.Objvehicle.index)
              .then(res => true,
                 error =>  this.errorMessage = <any>error);
            location.reload();
+      }
+      catch(e){this.errorMessage="An error occurred while deleting the registry";}
     }
 
     getTotalCols(){
+      try
+      {
       var table = document.getElementById("myTable");
       var trs = document.getElementsByTagName("tr");
       var trFirst = trs[0];
@@ -64,12 +78,16 @@ export class UserVehicleTrayComponent implements OnInit {
           this.sum = this.sum + 1;
       }
       return this.sum - 2; //se resta 2 para no tomar en cuenta las ultimas 2 columnas de la tabla (botón editar y eliminar)
+      }
+      catch(e){throw e;}
     }
 
     FilterData() {
     // Declare variables 
       var input, filter, table, tr, td, i, j;
       
+      try
+      {
       input = document.getElementById("myInput");
       filter = input.value.toUpperCase();
       table = document.getElementById("myTable");
@@ -92,6 +110,8 @@ export class UserVehicleTrayComponent implements OnInit {
 
         }
       }
+    }
+    catch(e){this.errorMessage="An error occurred while performing the search";}
     }
 
 }
