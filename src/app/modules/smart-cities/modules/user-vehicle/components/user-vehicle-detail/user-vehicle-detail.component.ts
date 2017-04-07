@@ -26,6 +26,11 @@ export class UserVehicleDetailComponent implements OnInit {
   private successMessage : string;
   private vehicle = new Vehicle();
 
+  showDialog: boolean;
+  isConfirm: boolean;
+  messageModal: string;
+  includeText: boolean;
+
   constructor(private fb: FormBuilder,   
               private router: Router,
               private route: ActivatedRoute,
@@ -53,6 +58,9 @@ export class UserVehicleDetailComponent implements OnInit {
   ngOnInit() {
         try
         {
+            this.isConfirm = false;
+            this.includeText = false;
+            this.messageModal = "";
             this.bindTable();
             this.sub = this.route.params.subscribe(params => {
                 this.index = params["id"];
@@ -210,7 +218,7 @@ save(form, isValid: boolean) {
     var valido = false;
     var isRepeat = false;
     var vehicleName;
-    var btn = document.getElementById("btnSave");
+    var vehicleNameNew;
 
     try
     {
@@ -242,8 +250,9 @@ save(form, isValid: boolean) {
             vehicleName = this.vehicles[this.index].name.toUpperCase().trim();
             if(vehicleName != this.vehicle.name.toUpperCase().trim())
             {
+                vehicleNameNew = this.vehicle.name.toUpperCase().trim();
                 this.vehicles.forEach(function(item){
-                if(vehicleName == item.name.toUpperCase().trim())
+                if(vehicleNameNew == item.name.toUpperCase().trim())
                 {
                     valido = false;
                     isRepeat = true;
@@ -258,19 +267,17 @@ save(form, isValid: boolean) {
             {
                 this._service.insert(form).then(form => this.vehicles.push(form),
                 error =>  this.errorMessage = <any>error);
+                this.messageModal = "Your record is successfully registered!";
+                this.showDialog = true;
             }
             else
             {
                 this._service.update(form, this.index).then(res => true,
                 error =>  this.errorMessage = <any>error);
+                this.messageModal = "Your record is successfully modified!";
+                this.showDialog = true;
             }
-            this.successMessage = "Your record is successfully registered!!";  
-
-            if(btn != null)
-            {
-                (<HTMLButtonElement>btn).disabled = true;
-            }  
-            // // this.router.navigate(["/smart-cities/user-vehicle/vehicles"]);
+ 
         }
         else if(!valido && isRepeat)
         {
@@ -280,6 +287,10 @@ save(form, isValid: boolean) {
 }
 catch(e)
 { this.errorMessage = "Error occurred while saving vehicle data"; }
+}
+
+onConfirm(){
+    this.router.navigate(["/smart-cities/user-vehicle/vehicles"]);
 }
 
 restrictNumeric(e, object){
