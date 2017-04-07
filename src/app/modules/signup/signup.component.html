@@ -19,7 +19,7 @@
                         <label class="sr-only" for="email">Email</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                           <div class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></div>
-                          <input type="text" class="form-control" id="email" placeholder="Email" [formControl]="complexForm.controls['email']">
+                          <input type="email" class="form-control" id="email" placeholder="Email" [formControl]="complexForm.controls['email']">
                         </div>
                         <div *ngIf="complexForm.controls['email'].hasError('required') && complexForm.controls['email'].touched" class="alert alert-danger" i18n>The email is required</div>
                         <div *ngIf="complexForm.controls['email'].hasError('email') && complexForm.controls['email'].touched" class="alert alert-danger" i18n>Email does not have a valid structure</div>

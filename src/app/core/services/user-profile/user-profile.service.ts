@@ -10,10 +10,12 @@ import { environment } from '../../../../environments/environment';
 import { constants } from '../../common/constants';
 
 import { Address } from '../../models/address';
+import { ChangePassword } from '../../models/change-password';
 import { UserProfile } from '../../models/user-profile';
 
 const baseRestPath = '/user-profile';
 const baseGetUserUrl = environment.backend_sdk + baseRestPath;
+const changePasswordPath = environment.backend_sdk + '/register/update-password';
 
 @Injectable()
 export class UserProfileService {
@@ -46,6 +48,10 @@ export class UserProfileService {
 
   public deleteAddress(index: string) {
     return this.remoteConnectionService.deleteAsObservable(this.buildAddressUrl(index));
+  }
+
+  public changePassword(changePassword: ChangePassword): Observable<any> {
+    return this.remoteConnectionService.postAsObservable(changePasswordPath, JSON.stringify(changePassword), constants.contentTypeJson);
   }
 
   private buildProfileUrl(): string {
