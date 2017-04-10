@@ -102,6 +102,10 @@ export class LoginService {
     }
   }
 
+  isUser(): boolean {
+    return this.checkRole(role.USER);
+  }
+
   isAdmin(): boolean {
     return this.checkRole(role.ADMIN);
   }
