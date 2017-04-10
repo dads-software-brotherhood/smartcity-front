@@ -41,7 +41,7 @@ export class LoginService {
         identityUser.date = new Date();
         localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
         return identityUser;
-      } else { //This case never happend
+      } else { // This case never happend
         this.deleteToken();
         return null;
       }
@@ -57,7 +57,7 @@ export class LoginService {
 
     if (token) {
       const requestOptions: RequestOptions = this.buildRequestOptions(token);
-      this.deleteToken(); //We delete token from local storage
+      this.deleteToken(); // We delete token from local storage
 
       return this.http.delete(logout_url, requestOptions)
         .map((res) => {
@@ -81,19 +81,19 @@ export class LoginService {
     return this.checkToken();
   }
 
-  private checkToken(){
+  private checkToken() {
     const identityUser: IdentityUser = this.getLoggedUser();
 
     if (identityUser && identityUser.date && identityUser.tokenInfo && identityUser.tokenInfo.time) {
       const renewTime = identityUser.tokenInfo.time / 2;
       const currentDate = new Date();
-      const tokenTime = (currentDate.getTime() - new Date(identityUser.date).getTime()) / 1000; //Logged time in seconds
+      const tokenTime = (currentDate.getTime() - new Date(identityUser.date).getTime()) / 1000; // Logged time in seconds
 
       if (tokenTime > identityUser.tokenInfo.time) {
         return false;
       } else {
         if (tokenTime > renewTime) {
-          //TODO: Refresh token
+          // TODO: Refresh token
         }
         return true;
       }
@@ -110,14 +110,14 @@ export class LoginService {
     return this.checkRole(role.SA);
   }
 
-  isTransportAdmin(): boolean{
+  isTransportAdmin(): boolean {
     return this.checkRole(role.TRANSPORT_ADMIN);
   }
 
   checkRole(roleToCompare: role): boolean {
-     const identityUser: IdentityUser = this.getLoggedUser();
     if (this.checkToken()){
-      if (identityUser.roles.indexOf(role[roleToCompare])  > -1) {
+      const identityUser: IdentityUser = this.getLoggedUser();
+      if (identityUser.roles && identityUser.roles.indexOf(role[roleToCompare])  > -1) {
             return true;
       };
     }
