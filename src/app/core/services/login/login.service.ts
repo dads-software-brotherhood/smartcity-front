@@ -119,7 +119,7 @@ export class LoginService {
   }
 
   checkRole(roleToCompare: role): boolean {
-    if (this.checkToken()){
+    if (this.checkToken()) {
       const identityUser: IdentityUser = this.getLoggedUser();
       if (identityUser.roles && identityUser.roles.indexOf(role[roleToCompare])  > -1) {
             return true;
@@ -162,7 +162,7 @@ export class LoginService {
     }
   }
 
-  private buildRequestOptions(token: string):RequestOptions {
+  private buildRequestOptions(token: string): RequestOptions {
     const headers: Headers = new Headers();
     headers.append(constants.authTokenKey, token);
 
