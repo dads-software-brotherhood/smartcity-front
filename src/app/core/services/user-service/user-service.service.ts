@@ -46,6 +46,16 @@ export class UserService {
     return this.remoteConnectionService.postAsObservable(this.buildUserUrl()+"/register", JSON.stringify(userModel), constants.contentTypeJson);
   }
 
+  getBy(userModel: UserModel): Promise<any> {
+    const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
+    return this.http.post(this.buildUserUrl()+"/filter", JSON.stringify(userModel), requestOptions)
+    .toPromise()
+   .then(this.extractData)
+    .catch(this.handleError);
+    
+  }
+
+
   insert(userModel: UserModel): Promise<any> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
     return this.http.post(this.buildUserUrl()+"/register", JSON.stringify(userModel), requestOptions)

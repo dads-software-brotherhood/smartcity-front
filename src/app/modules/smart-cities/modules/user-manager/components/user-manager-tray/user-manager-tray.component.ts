@@ -24,6 +24,7 @@ export class UserManagerTrayComponent implements OnInit {
   private successMessage:string;
   private  canDel:boolean=false;
   private loggedRol:string;
+  private rol:string;
   //Modal
   private showDialog: boolean;
   isConfirm: boolean;
@@ -34,11 +35,11 @@ export class UserManagerTrayComponent implements OnInit {
               private route: ActivatedRoute) { 
                  this.roles = this.getRoles();
                 this.UserTrayForm = fb.group({ //// Make Model driven form
-                      "name": [null],
+                      "name": [null, Validators.required],
                       "familyname": [null],
-                      "email": [null, Validators.compose([Validators.required,CustomValidators.email])],
+                      "email": [null],
                       "role": [null],
-                      "message":[null, Validators.required],
+                      "message":[null],
                       "canDel":[null]                    
                       
                   })
@@ -51,22 +52,40 @@ export class UserManagerTrayComponent implements OnInit {
               }
 
   ngOnInit() {
-   
-    this.bindTable();
+   this.rol="ADMIN";
+    this.getAll();
      this.isConfirm = true;
     this.includeText = true;
     this.messageModal = "Are you sure to delete this user?";
    // this.loggedRol = this.loginService.getLoggedUser().roles.toString();
-    console.log(this.loginService.getLoggedUser());
+    //console.log(this.loginService.getLoggedUser());
   }
   bindTable()
   {
-    var rol="SA";
-    
-   
-     this._service.getAll().subscribe(
-      users => { this.users = users;
-          this.users.forEach(function(item)
+      
+
+  }
+  getBy()
+  {
+     this._user.name=$("#name").val();
+      this._user.familyName=$("#familyname").val();
+      this._user.email=$("#email").val();
+      this._user.role=$("#role").val();
+    console.log(this._user);
+      this._service.getBy(this._user)
+            .then(res => 
+            {
+             this.users=[];
+             //this.users = res; 
+              this.userCanDel(this.rol);      
+               
+            }).catch(err=>{
+              this.errorMessage="Error retrieving data. Please try later.";            
+            });    
+
+  }
+  userCanDel(rol:string){
+     this.users.forEach(function(item)
           {
             
             if(item.role == "ADMIN" && rol=="ADMIN")
@@ -81,20 +100,25 @@ export class UserManagerTrayComponent implements OnInit {
             if(rol=="SA")
             {
               item.canDel=true;
-            }
-            
-            console.log(rol);
-            //console.log(this.canDel);
-            //item.email = email.toString()
+            }   
           });
-          console.log(users);
-          
-  },
-      error => this.errorMessage = "Error trying retrieve users data. Please try later."
-    );
-
+          console.log(this.users);
   }
 
+  getAll(){
+     var rol="SA";
+    
+   
+     this._service.getAll().subscribe(
+      users => { this.users = users;
+        this.userCanDel(this.rol);
+         
+       
+          
+  },
+      (error) => console.log(error.status)//this.errorMessage = "Error trying retrieve users data. Please try later."
+    );
+  }
   
     getRoles() {
     let roles: any[] = [];
