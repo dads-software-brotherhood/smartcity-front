@@ -46,7 +46,7 @@
           <span class="iBlock"><i class="fa fa-home" aria-hidden="true"></i></span> Home
         </a>
 
-        <a routerLink="/smart-cities" routerLinkActive="active" class="list-group-item">
+        <a routerLink="/smart-cities" routerLinkActive="active" class="list-group-item" *ngIf="isSA || isAdmin">
           <span class="iBlock"><i class="fa fa-users" aria-hidden="true"></i></span> Groups
         </a>
 
@@ -58,11 +58,11 @@
             <span class="iBlock"><i class="fa fa-bell" aria-hidden="true"></i></span> Notifications
         </a>
 
-        <a routerLink="/smart-cities/transports" routerLinkActive="active" class="list-group-item">
+        <a routerLink="/smart-cities/transports" routerLinkActive="active" class="list-group-item" *ngIf="isSA || isTransportAdmin">
           <span class="iBlock"><i class="fa fa-bus" aria-hidden="true"></i></span> Public transport
         </a>
 
-         <a routerLink="/smart-cities/user-manager/user-manager-tray" routerLinkActive="active" class="list-group-item">
+         <a routerLink="/smart-cities/user-manager/user-manager-tray" routerLinkActive="active" class="list-group-item" *ngIf="isSA || isAdmin">
           <span class="iBlock"><i class="fa fa-bus" aria-hidden="true"></i></span> User Manager
         </a>
 
