@@ -20,25 +20,26 @@ export class RecoveryPasswordService {
   public forgotPassword(email: string): Observable<any> {
     const payload = {
       'username' : email
-    }
+    };
 
     return this.remoteConnectionService.postAsObservable(forgotPasswordUrl, JSON.stringify(payload), constants.contentTypeJson);
   }
 
   public isValidToken(token: string): Observable<any> {
-    const headers:Headers = this.buildRecoveryHeader(token);
+    const headers: Headers = this.buildRecoveryHeader(token);
 
     return this.remoteConnectionService.getAsObservable(validTokenUrl, null, null, null, headers);
   }
 
   public restorePassword(token: string, password: string): Observable<any> {
-    const headers:Headers = this.buildRecoveryHeader(token);
+    const headers: Headers = this.buildRecoveryHeader(token);
 
     const payload = {
       'password' : password
-    }
+    };
 
-    return this.remoteConnectionService.postAsObservable(restorePasswordUrl, JSON.stringify(payload), constants.contentTypeJson, null, headers);
+    return this.remoteConnectionService.postAsObservable(restorePasswordUrl,
+      JSON.stringify(payload), constants.contentTypeJson, null, headers);
   }
 
   private buildRecoveryHeader(token: string): Headers {
