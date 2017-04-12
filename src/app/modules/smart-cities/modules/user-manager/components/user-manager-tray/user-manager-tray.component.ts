@@ -9,6 +9,8 @@ import { CustomValidators } from 'ng2-validation';
 import { UserModel } from '../../../../../../core/models/user-model';
 import { UserService } from '../../../../../../core/services/user-service/user-service.service';
 import { LoginService } from 'app/core/services/login/login.service';
+require ('zone.js');
+
 @Component({
   selector: 'app-user-manager-tray',
   templateUrl: './user-manager-tray.component.html',
@@ -19,12 +21,14 @@ export class UserManagerTrayComponent implements OnInit {
    public Modal : FormGroup;
   private roles: any[];
   private users: UserModel[] = [];
+    private users_: UserModel[] = [];
   private _user: UserModel= new UserModel();
   private errorMessage: string;
   private successMessage:string;
   private  canDel:boolean=false;
   private loggedRol:string;
   private rol:string;
+  private warningMessage:String;
   //Modal
   private showDialog: boolean;
   isConfirm: boolean;
@@ -52,7 +56,7 @@ export class UserManagerTrayComponent implements OnInit {
               }
 
   ngOnInit() {
-   this.rol="ADMIN";
+   this.rol="SA";
     this.getAll();
      this.isConfirm = true;
     this.includeText = true;
@@ -67,6 +71,9 @@ export class UserManagerTrayComponent implements OnInit {
   }
   getBy()
   {
+      
+   
+    this.errorMessage=null;
      this._user.name=$("#name").val();
       this._user.familyName=$("#familyname").val();
       this._user.email=$("#email").val();
@@ -75,17 +82,19 @@ export class UserManagerTrayComponent implements OnInit {
       this._service.getBy(this._user)
             .then(res => 
             {
-             this.users=[];
-             //this.users = res; 
-              this.userCanDel(this.rol);      
+             this.users=res;
+             console.log(this.users);
+             
+              this.userCanDel(this.rol, this.users);      
                
             }).catch(err=>{
-              this.errorMessage="Error retrieving data. Please try later.";            
-            });    
+              this.errorMessage="Search cannot display any coincidences";            
+            });
+    
 
   }
-  userCanDel(rol:string){
-     this.users.forEach(function(item)
+  userCanDel(rol:string, arr:UserModel[]){
+     arr.forEach(function(item)
           {
             
             if(item.role == "ADMIN" && rol=="ADMIN")
@@ -106,17 +115,18 @@ export class UserManagerTrayComponent implements OnInit {
   }
 
   getAll(){
-     var rol="SA";
     
+    this.warningMessage=null;
+    this.errorMessage=null;
    
      this._service.getAll().subscribe(
       users => { this.users = users;
-        this.userCanDel(this.rol);
+        this.userCanDel(this.rol, users);
          
        
           
   },
-      (error) => console.log(error.status)//this.errorMessage = "Error trying retrieve users data. Please try later."
+      (error) => this.warningMessage = "No data to display"
     );
   }
   
@@ -136,6 +146,9 @@ export class UserManagerTrayComponent implements OnInit {
 }
   deleteUser(){
     //this.showDialog = false; /// Close dialog
+    
+    this.warningMessage=null;
+    this.errorMessage=null;
      var x = $("#_message").val();
     
      this._user.message = x;
@@ -147,5 +160,13 @@ export class UserManagerTrayComponent implements OnInit {
             }).catch(res=>{
               this.errorMessage="Error deleting user. Please try later.";            
             });
+  }
+
+  clear()
+  {
+    this.getAll();
+    this.UserTrayForm.reset();
+   
+     
   }
 }

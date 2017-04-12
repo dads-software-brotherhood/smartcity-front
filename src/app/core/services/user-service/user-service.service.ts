@@ -50,7 +50,7 @@ export class UserService {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
     return this.http.post(this.buildUserUrl()+"/filter", JSON.stringify(userModel), requestOptions)
     .toPromise()
-   .then(this.extractData)
+   .then(this.extractDataArray)
     .catch(this.handleError);
     
   }
@@ -108,6 +108,10 @@ export class UserService {
 
   private extractData(res: Response) {
     const body = res.text();
+    return body;
+  }
+  private extractDataqry(res: Response) {
+    const body = res.json();
     return body;
   }
 

@@ -9,6 +9,9 @@
     <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
       <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
     </div>
+    <div *ngIf="warnMessage" class="alert alert-warning text-center" role="alert">
+      <p class="text-xs-center"><strong>{{warningMessage}}</strong></p>
+    </div>
       <div class="row">
          <!-- Implementación de ventana modal -->
         <modal-popup [(visible)]="showDialog" title="System Message">
@@ -62,11 +65,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-9"></div>
+        <div class="col-md-6"></div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <button (click)="clear()" class="btn btn-smart btn-block" > Clear </button>
+          </div>
+        </div>
          <div class="col-md-3">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <button  [disabled]="!UserTrayForm.valid" (click)="getBy()" class="btn btn-smart btn-block" > Search </button>
+            <button (click)="getBy()" class="btn btn-smart btn-block" > Search </button>
           </div>
         </div>
       </div>
@@ -116,5 +125,9 @@
         </div>
       </div>
     </div>
+
+  
+
+
   </div>
   </form>
