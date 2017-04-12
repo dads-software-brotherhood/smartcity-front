@@ -9,6 +9,9 @@
     <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
       <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
     </div>
+    <div *ngIf="warnMessage" class="alert alert-warning text-center" role="alert">
+      <p class="text-xs-center"><strong>{{warningMessage}}</strong></p>
+    </div>
       <div class="row">
          <!-- Implementación de ventana modal -->
         <modal-popup [(visible)]="showDialog" title="System Message">
@@ -25,14 +28,15 @@
            <div class="col-md-6">
           <div class="form-group">
             <label for="">Name</label>
-            <input type="text" [formControl]="UserTrayForm.controls['name']"  class="form-control" placeholder="Search by Name"/>
+            <input type="text" [formControl]="UserTrayForm.controls['name']" id="name"  class="form-control" placeholder="Search by Name"/>
+            <div *ngIf="UserTrayForm.controls['name'].hasError('name') && UserTrayForm.controls['name'].touched" class="alert alert-danger" i18n>At least fill Name. Please.</div>
           </div>
         </div>
         
          <div class="col-md-6">
           <div class="form-group">
             <label for="">Family Name</label>
-            <input type="text" [formControl]="UserTrayForm.controls['familyname']"  class="form-control" placeholder="Search by Family Name"/>
+            <input type="text" [formControl]="UserTrayForm.controls['familyname']" id="familyname"  class="form-control" placeholder="Search by Family Name"/>
           </div>
         </div>
        
@@ -45,9 +49,9 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="">email</label>
-            <input type="text"  [formControl]="UserTrayForm.controls['email']"   class="form-control" placeholder="Search by Email"/>
+            <input type="text" id="email"  [formControl]="UserTrayForm.controls['email']"   class="form-control" placeholder="Search by Email"/>
             
-            <div *ngIf="UserTrayForm.controls['email'].hasError('email') && UserTrayForm.controls['email'].touched" class="alert alert-danger" i18n>Email does not have a valid structure</div>
+            
           </div>
         </div>
         <div class="col-md-6">
@@ -61,11 +65,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-9"></div>
+        <div class="col-md-6"></div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <button (click)="clear()" class="btn btn-smart btn-block" > Clear </button>
+          </div>
+        </div>
          <div class="col-md-3">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <a type="submit" class="btn btn-smart btn-block" > Search </a>
+            <button (click)="getBy()" class="btn btn-smart btn-block" > Search </button>
           </div>
         </div>
       </div>
@@ -115,5 +125,9 @@
         </div>
       </div>
     </div>
+
+  
+
+
   </div>
   </form>

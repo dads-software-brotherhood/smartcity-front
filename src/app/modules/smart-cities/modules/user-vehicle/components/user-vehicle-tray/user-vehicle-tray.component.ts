@@ -35,7 +35,7 @@ export class UserVehicleTrayComponent implements OnInit {
     this.sum = this.getTotalCols(); //asignar a variable "sum" el valor del número total de columnas en la tabla
     this.isConfirm = true;
     this.includeText = false;
-    this.messageModal = "Are you sure to delete this register of his vehicle?";
+    this.messageModal = "Are you sure to delete this record?";
     }
     catch(e){this.errorMessage="An error occurred while loading the vehicle list";}
   }

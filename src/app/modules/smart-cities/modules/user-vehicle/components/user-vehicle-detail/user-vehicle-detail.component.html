@@ -26,7 +26,7 @@
             <input id="name"
                    [formControl]="vehicleForm.controls['name']" [(ngModel)]="vehicle.name" 
                    type="text" class="form-control" placeholder="Name"/>
-            <div *ngIf="vehicleForm.controls['name'].hasError('required') && vehicleForm.controls['name'].touched" class="alert alert-danger">Data Required *</div>
+            <div *ngIf="vehicleForm.controls['name'].hasError('required') && vehicleForm.controls['name'].touched" class="alert alert-danger">The name is required</div>
           </div>
         </div>      
         <div class="col-md-6">
@@ -35,7 +35,7 @@
               <select id="vehicleType" [formControl]="vehicleForm.controls['vehicleType']" (change)="onVehicleTypeChange($event)" class="form-control" [(ngModel)]="vehicle.vehicleType">
                 <option *ngFor="let vehicleType of vehicleTypes" [ngValue]="vehicleType.name">{{vehicleType.name}}</option>
               </select>
-               <div *ngIf="vehicleForm.controls['vehicleType'].hasError('required') && vehicleForm.controls['vehicleType'].touched" class="alert alert-danger">Data Required *</div>
+               <div *ngIf="vehicleForm.controls['vehicleType'].hasError('required') && vehicleForm.controls['vehicleType'].touched" class="alert alert-danger">The vehicle type is required</div>
           </div>
         </div>
         <div class="col-md-6">
@@ -44,27 +44,27 @@
             <select id="fuelType" [formControl]="vehicleForm.controls['fuelType']" class="form-control" [(ngModel)]="vehicle.fuelType">
                 <option *ngFor="let fuelType of fuelTypes" [ngValue]="fuelType.name">{{fuelType.name}}</option>
               </select>
-              <div *ngIf="vehicleForm.controls['fuelType'].hasError('required') && vehicleForm.controls['fuelType'].touched" class="alert alert-danger">Data Required *</div>
+              <div *ngIf="vehicleForm.controls['fuelType'].hasError('required') && vehicleForm.controls['fuelType'].touched" class="alert alert-danger">The fuel type is required</div>
           </div>
         </div>
         <div class="clearfix"></div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="brandName">Brand name *</label>
+            <label for="brandName">Brand name</label>
             <input id="brandName"
                    [formControl]="vehicleForm.controls['brandName']" [(ngModel)]="vehicle.brandName" 
                    type="text" class="form-control" placeholder="Brand name" (keyup)="onKeyUpBrandName($event)"/>
-            <div style="display: none" id="divBrandName" class="alert alert-danger">Data Required *</div>
+            <div style="display: none" id="divBrandName" class="alert alert-danger">The brand name is required</div>
 
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="modelName">Model name *</label>
+            <label for="modelName">Model name</label>
             <input id="modelName"
                    [formControl]="vehicleForm.controls['modelName']" [(ngModel)]="vehicle.modelName" 
                 type="text" class="form-control" placeholder="Model name" (keyup)="onKeyUpModelName($event)"/>
-            <div style="display: none" id="divModelName" class="alert alert-danger">Data Required *</div>
+            <div style="display: none" id="divModelName" class="alert alert-danger">The model name is required</div>
 
           </div>
         </div>
