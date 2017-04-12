@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2PaginationModule } from 'ng2-pagination';
 
 import { VehicleTypeComponent } from './vehicle-type.component';
-// import { UserVehicleTrayComponent } from './components/user-vehicle-tray/user-vehicle-tray.component';
+import { VehicleTypeTrayComponent } from './components/vehicle-type-tray/vehicle-type-tray.component';
 // import { UserVehicleDetailComponent } from './components/user-vehicle-detail/user-vehicle-detail.component';
 import { ModalPopupModule  } from '../../../../usable-component/modal-popup/modalpopup.module';
 
@@ -21,12 +21,12 @@ import { ModalPopupModule  } from '../../../../usable-component/modal-popup/moda
     ModalPopupModule
   ],
   declarations: [
-    VehicleTypeComponent
-    // UserVehicleTrayComponent,
+    VehicleTypeComponent,
+    VehicleTypeTrayComponent
     // UserVehicleDetailComponent
   ],
   exports: [
-    //   UserVehicleTrayComponent, UserVehicleDetailComponent
+      VehicleTypeTrayComponent
   ]
 })
 export class VehicleTypeModule { }

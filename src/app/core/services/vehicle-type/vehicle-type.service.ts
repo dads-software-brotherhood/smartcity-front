@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-import { VehicleTypesModel } from '../../models/vehicle-types';
+import { VehicleType } from '../../models/vehicle-type';
 import { LoginService } from '../login/login.service';
 
 import { environment } from '../../../../environments/environment';
@@ -14,14 +14,14 @@ import { environment } from '../../../../environments/environment';
 const vehicleTypesUrl = environment.backend_sdk;
 
 @Injectable()
-export class VehicleTypesService {
+export class VehicleTypeService {
 
   loginServ: LoginService;
   private url: string;
 
   constructor(private http: Http, private loginService: LoginService) { }
 
-  getAll(limit?: number, offset?: number): Observable<VehicleTypesModel[]> {
+  getAll(limit?: number, offset?: number): Observable<VehicleType[]> {
     const requestOptions: RequestOptions = this.buildRequestOptions();
 
     return this.http.get(this.buildByIdUserUrl() , requestOptions)
@@ -29,7 +29,7 @@ export class VehicleTypesService {
     .catch(this.handleError);
   }
 
-  insert(vehicleTypesModel: VehicleTypesModel): Promise<VehicleTypesModel> {
+  insert(vehicleTypesModel: VehicleType): Promise<VehicleType> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
 
     return this.http.post(this.buildByIdUserUrl(), JSON.stringify(vehicleTypesModel), requestOptions).toPromise()
@@ -37,7 +37,7 @@ export class VehicleTypesService {
     .catch(this.handleError);
   }
 
-  update(vehicleTypesModel: VehicleTypesModel, id: string): Promise<boolean> {
+  update(vehicleTypesModel: VehicleType, id: string): Promise<boolean> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
 
     return this.http.put(this.buildByIdUserUrl() + id, JSON.stringify(vehicleTypesModel), requestOptions).toPromise()
@@ -54,7 +54,7 @@ export class VehicleTypesService {
   }
 
   private buildByIdUserUrl() {
-    return vehicleTypesUrl + '/vehiclesType/';
+    return vehicleTypesUrl + '/vehicletype/';
   }
 
   private buildRequestOptions(contentType?: string): RequestOptions {

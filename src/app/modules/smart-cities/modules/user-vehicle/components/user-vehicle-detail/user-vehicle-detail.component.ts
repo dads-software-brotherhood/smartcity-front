@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { VehicleService } from '../../../../../../core/services/vehicle/vehicle.service';
+import { VehicleTypeService } from '../../../../../../core/services/vehicle-type/vehicle-type.service';
 
 @Component({
   templateUrl: './user-vehicle-detail.component.html',
@@ -18,7 +19,7 @@ export class UserVehicleDetailComponent implements OnInit {
   public vehicleForm: FormGroup;
   public index: string;
   public title: string;
-  private vehicleTypes: any[];
+  private vehicleTypes: VehicleType[];
   private fuelTypes: any[];
   private vehicles: Vehicle[] = [];
   private vehiclesCharge: Vehicle[] = [];
@@ -34,12 +35,13 @@ export class UserVehicleDetailComponent implements OnInit {
   constructor(private fb: FormBuilder,   
               private router: Router,
               private route: ActivatedRoute,
-              private _service: VehicleService) { 
+              private _service: VehicleService,
+              private _serviceVehicleType: VehicleTypeService) { 
     try
     {
-    this.vehicleTypes = this.getVehicleTypes();
-    this.fuelTypes = this.getFuelTypes();
-    this.vehicleForm = fb.group({ //// Make Model driven form
+        this.getVehicleTypes();
+        this.fuelTypes = this.getFuelTypes();
+        this.vehicleForm = fb.group({ //// Make Model driven form
             "name": [null, Validators.required],
             "brandName": [null],
             "modelName": [null],
@@ -90,19 +92,15 @@ export class UserVehicleDetailComponent implements OnInit {
   }
 
   getVehicleTypes() {
-    try
-    {
-    let vehicleTypes: any[] = [];
-    //Get name-value pairs from VehicleTypeEnum
-    let vehicleTypeEnumList = EnumEx.getNamesAndValues(VehicleType);
-    //Convert name-value pairs to VehicleType[]
-    vehicleTypeEnumList.forEach(pair => {
-        let vehicleType = { 'id': pair.value.toString(), 'name': pair.name };
-        vehicleTypes.push(vehicleType);
-    });
-    return vehicleTypes;
-    }
-    catch(e){throw e;}
+     try
+      {
+        this._serviceVehicleType.getAll().subscribe(
+        vehicleType => { this.vehicleTypes = vehicleType;
+        },
+        error => this.errorMessage = <any>error
+        );
+      }
+      catch(e){ throw e;}
 }
 
  getFuelTypes() {
@@ -121,87 +119,6 @@ export class UserVehicleDetailComponent implements OnInit {
     catch(e){throw e;}
 }
 
-onVehicleTypeChange(event)
-{
-    try
-    {
-    var divBrandName = document.getElementById("divBrandName");
-    var divModelName = document.getElementById("divModelName");
-    var inputBrandName = document.getElementById("brandName");
-    var inputModelName = document.getElementById("modelName");
-
-    if(divBrandName != null && divModelName != null)
-    {
-        if(event.target.value.indexOf('CAR') > -1 || event.target.value.indexOf('MOTORCYCLE') > -1)
-        {
-            if((<HTMLInputElement>inputBrandName).value != "")
-                divBrandName.setAttribute("style", "display: none;");
-            else
-                divBrandName.setAttribute("style", "display: block;");
-
-            if((<HTMLInputElement>inputModelName).value != "")
-                divModelName.setAttribute("style", "display: none;");
-            else
-                divModelName.setAttribute("style", "display: block;");
-        }
-        else
-        {
-            divBrandName.setAttribute("style", "display: none;");
-            divModelName.setAttribute("style", "display: none;");
-        }
-    }
-    }
-    catch(e) {this.errorMessage="An error occurred while checking the type of vehicle"; }
-}
-
-onKeyUpBrandName(event)
-{
-    try
-    {
-    var divBrandName = document.getElementById("divBrandName");
-    var selectVehicleType = document.getElementById("vehicleType");
-    var selectValue = (<HTMLSelectElement>selectVehicleType).value;
-
-    if(divBrandName != null)
-    {
-        if(event.target.value != "")
-            divBrandName.setAttribute("style", "display: none;");
-        else
-        {
-            if(selectValue.indexOf('CAR') > -1 || selectValue.indexOf('MOTORCYCLE') > -1)
-                divBrandName.setAttribute("style", "display: block;");
-            else
-                divBrandName.setAttribute("style", "display: none;");
-        }
-    }
-    }
-    catch(e){this.errorMessage="An error occurred while writing the vehicle's brand"}
-}
-
-onKeyUpModelName(event)
-{
-    try
-    {
-    var divModelName = document.getElementById("divModelName");
-    var selectVehicleType = document.getElementById("vehicleType");
-    var selectValue = (<HTMLSelectElement>selectVehicleType).value;
-
-    if(divModelName != null)
-    {
-        if(event.target.value != "")
-            divModelName.setAttribute("style", "display: none;");
-        else
-        {
-            if(selectValue.indexOf('CAR') > -1 || selectValue.indexOf('MOTORCYCLE') > -1)
-                divModelName.setAttribute("style", "display: block;");
-            else
-                divModelName.setAttribute("style", "display: none;");
-        }
-    }
-    }
-    catch(e){this.errorMessage="An error occurred while writing the vehicle's model"}
-}
-
 bindTable() {
     try
     {
@@ -211,6 +128,14 @@ bindTable() {
     }
     catch(e){throw e;}
   }
+
+private findVehicleType(id): VehicleType {
+    for (let i = 0; i < this.vehicleTypes.length; i++) {
+      if (this.vehicleTypes[i].id === id) {
+        return this.vehicleTypes[i];
+      }
+    }
+}
 
 save(form, isValid: boolean) {
     this.errorMessage = null;
@@ -225,8 +150,9 @@ save(form, isValid: boolean) {
     if(isValid)
     {
         vehicleName = this.vehicle.name.toUpperCase().trim();
+        this.vehicle.vehicleType = this.findVehicleType(form.vehicleType);
 
-        if(this.vehicle.vehicleType.toString() == "CAR" || this.vehicle.vehicleType.toString() == "MOTORCYCLE")
+        if(this.vehicle.vehicleType.includeBrandModel)
         {
             if(this.vehicle.brandName != "" && this.vehicle.modelName != "" && this.vehicle.brandName != undefined
                && this.vehicle.modelName != undefined)
@@ -263,9 +189,12 @@ save(form, isValid: boolean) {
        
         if(valido)
         {
+            form.vehicleType = this.vehicle.vehicleType;
+            
             if(this.index == "")
             {
-                this._service.insert(form).then(form => this.vehicles.push(form),
+                
+                this._service.insert(this.vehicle).then(form => this.vehicles.push(form),
                 error =>  this.errorMessage = <any>error);
                 this.messageModal = "Your record is successfully registered!";
                 this.showDialog = true;
@@ -282,6 +211,10 @@ save(form, isValid: boolean) {
         else if(!valido && isRepeat)
         {
             this.errorMessage = "There is already a vehicle with that name registered";
+        }
+        else if(!valido && !isRepeat)
+        {
+            this.errorMessage = "For this type of vehicle, Brand Name and Model Name are required";
         }
     }
 }

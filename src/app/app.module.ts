@@ -22,6 +22,7 @@ import { LoginService } from './core/services/login/login.service';
 import { RecoveryPasswordService } from './core/services/recovery-password/recovery-password.service';
 import { UserProfileService } from './core/services/user-profile/user-profile.service';
 import { VehicleService } from './core/services/vehicle/vehicle.service';
+import { VehicleTypeService } from './core/services/vehicle-type/vehicle-type.service';
 import { GroupService } from './core/services/group/group.service';
 import { NotificationTypeService } from './core/services/notification-type/notification-type.service';
 import { UserService } from './core/services/user-service/user-service.service';
@@ -69,6 +70,7 @@ import { appRoutes } from './app.routes';
     LoggedInTransportAdmin,
     VehicleService,
     GroupService,
+    VehicleTypeService,
     NotificationTypeService,
     CountryService,
     RegionService,

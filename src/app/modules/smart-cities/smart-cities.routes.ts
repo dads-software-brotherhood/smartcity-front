@@ -13,6 +13,7 @@ import { PublicTransportDetailComponent } from './components/public-transport/pu
 import { UserManagerRoutes } from './modules/user-manager/index';
 import { UserVehicleRoutes } from './modules/user-vehicle/index';
 import { GroupRoutes } from './modules/group/index';
+import { VehicleTypesRoutes } from './modules/vehicle-type/index';
 
 export const SmartCitiesRoutes: Routes = [
   {
@@ -27,7 +28,8 @@ export const SmartCitiesRoutes: Routes = [
       ... NotificationTrayRoutes,
       ... UserManagerRoutes,
       ... UserVehicleRoutes,
-      ... GroupRoutes
+      ... GroupRoutes,
+      ... VehicleTypesRoutes
     ]
   }
 ];
