@@ -4,6 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalPopupModule  } from '../../../../usable-component/modal-popup/modalpopup.module';
 
 import { UserAccountComponent } from './user-account.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -19,7 +20,8 @@ import { AddressComponent } from './components/address/address.component';
     RouterModule,
     Ng2PaginationModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalPopupModule
   ],
   declarations: [
     ProfileComponent,

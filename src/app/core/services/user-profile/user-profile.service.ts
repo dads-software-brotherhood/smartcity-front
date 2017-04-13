@@ -42,8 +42,9 @@ export class UserProfileService {
   }
 
   public updateAddress(address: Address) {
-    return this.remoteConnectionService.putAsObservable(this.buildAddressUrl(address.index), JSON.stringify(address), constants.contentTypeJson)
-      .map((res: Response) => res = res.json());
+    return this.remoteConnectionService.putAsObservable(this.buildAddressUrl(address.index),
+      JSON.stringify(address), constants.contentTypeJson)
+        .map((res: Response) => res = res.json());
   }
 
   public deleteAddress(index: string) {
@@ -52,6 +53,11 @@ export class UserProfileService {
 
   public changePassword(changePassword: ChangePassword): Observable<any> {
     return this.remoteConnectionService.postAsObservable(changePasswordPath, JSON.stringify(changePassword), constants.contentTypeJson);
+  }
+
+  public cancelAccount():Observable<any> {
+    const url: string = this.buildProfileUrl();
+    return this.remoteConnectionService.deleteAsObservable(url);
   }
 
   private buildProfileUrl(): string {

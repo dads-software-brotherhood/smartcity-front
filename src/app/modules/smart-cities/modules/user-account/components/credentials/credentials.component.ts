@@ -10,6 +10,8 @@ import { LoginService } from '../../../../../../core/services/login/login.servic
 import { ChangePassword } from '../../../../../../core/models/change-password';
 import { IdentityUser } from '../../../../../../core/models/identity-user';
 
+import { constants } from '../../../../../../core/common/constants';
+
 @Component({
   selector: 'app-credentials',
   templateUrl: './credentials.component.html',
@@ -43,7 +45,7 @@ export class CredentialsComponent implements OnInit {
     this.userProfileService.changePassword(changePassword).subscribe(
       (res) => {
         alert('All OK');
-        this.router.navigate(['/smart-cities']);
+        this.router.navigate([constants.defaultLoggedRoute]);
       },
       (error) => {
         console.error(error);

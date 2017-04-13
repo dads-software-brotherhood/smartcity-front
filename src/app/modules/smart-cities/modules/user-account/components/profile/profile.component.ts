@@ -13,6 +13,8 @@ import { Locality } from '../../../../../../core/models/locality';
 import { Address } from '../../../../../../core/models/address';
 import { UserProfile } from '../../../../../../core/models/user-profile';
 
+import { constants } from '../../../../../../core/common/constants';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -101,7 +103,7 @@ export class ProfileComponent implements OnInit {
       (res) => {
         this.loginService.getLoggedUser().name = this.userProfile.name + ' ' + this.userProfile.familyName;
         alert('The information was successfully saved');
-        this.router.navigate(['/smart-cities']);
+        this.router.navigate([constants.defaultLoggedRoute]);
       },
       (error) => {
         console.error(error);
