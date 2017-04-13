@@ -1,19 +1,19 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { RouterLink, Router} from '@angular/router';
-import { VehicleType } from '../../../../../../core/models/vehicle-type';
-import { VehicleTypeService } from '../../../../../../core/services/vehicle-type/vehicle-type.service';
+import { Group } from '../../../../../../core/models/group';
+import { GroupService } from '../../../../../../core/services/group/group.service';
 
 @Component({
-  selector: 'vehicle-type-tray',
-  templateUrl: './vehicle-type-tray.component.html',
-  styleUrls: ['./vehicle-type-tray.component.sass'],
+  selector: 'group-tray',
+  templateUrl: './group-tray.component.html',
+  styleUrls: ['./group-tray.component.sass'],
 
 })
-export class VehicleTypeTrayComponent implements OnInit {
+export class GroupTrayComponent implements OnInit {
 
   errorMessage: string;
-  vehicleTypes: VehicleType[] = [];
-  ObjvehicleType = new VehicleType();
+  groups: Group[] = [];
+  Objgroup = new Group();
   sum: number = 0; //variable que se utiliza para contabilizar el total de columnas que tiene la tabla
                    //para utilizar en las busquedas.
   
@@ -25,36 +25,39 @@ export class VehicleTypeTrayComponent implements OnInit {
   messageModal: string;
   includeText: boolean;
 
-  constructor(private _service: VehicleTypeService, private _router: Router ) { 
+  constructor(private _service: GroupService, private _router: Router ) { 
   }
 
-  ngOnInit() { 
+  ngOnInit() {  
     try
     { 
     this.bindTable();
     this.sum = this.getTotalCols(); //asignar a variable "sum" el valor del número total de columnas en la tabla
     this.isConfirm = true;
     this.includeText = false;
-    this.messageModal = "Are you sure to delete this record?";
+    this.messageModal = "Are you sure to delete this register of his group?";
     }
-    catch(e){this.errorMessage="An error occurred while loading the vehicle list";} 
+    catch(e){this.errorMessage="An error occurred while loading the group list";}
   }
 
-  bindTable() { //// Bind vehicles Grid
+  bindTable() { //// Bind groups Grid
     try
     {
-      this._service.getAll().subscribe(
-        vehicleTypes => { this.vehicleTypes = vehicleTypes;},
-        error => this.errorMessage = <any>error);
-    }
-    catch(e){throw e;}
+    this._service.getAll().subscribe(
+      groups => { this.groups = groups;
+  },
+      error => this.errorMessage = <any>error
+    );
+  }
+  catch(e){throw e;}
   }
 
   confirmDelete() {
+      
       try
       {
            this.showDialog = false; /// Close dialog
-           this._service.delete(this.ObjvehicleType.id)
+           this._service.delete(this.Objgroup.id)
              .then(res => true,
                 error =>  this.errorMessage = <any>error);
            location.reload();
@@ -109,5 +112,4 @@ export class VehicleTypeTrayComponent implements OnInit {
     catch(e){this.errorMessage="An error occurred while performing the search";}
     }
 
-  
 }

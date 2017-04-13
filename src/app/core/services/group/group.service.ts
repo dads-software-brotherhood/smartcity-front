@@ -6,45 +6,58 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-import { VehicleType } from '../../models/vehicle-type';
+import { Group } from '../../models/group';
 import { LoginService } from '../login/login.service';
 
 import { environment } from '../../../../environments/environment';
-import { RemoteConnectionService } from '../remote-connection/remote-connection.service';
 
-const vehicleTypesUrl = environment.backend_sdk;
+const groupUrl = environment.backend_sdk + '/groups';
+// const groupCountUrl = groupUrl + '/count'
 
 @Injectable()
-export class VehicleTypeService {
+export class GroupService {
 
   loginServ: LoginService;
   private url: string;
 
-  constructor(private http: Http, private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { }
+  constructor(private http: Http, private loginService: LoginService) { }
 
-  getAll(): Observable<Array<VehicleType>> {
-    return this.remoteConnectionService.getAsObservable(this.buildByIdUserUrl(), null, null, null)
-      .map((res: Response) => {
-        return res.json();
-      })
-      .catch((error) => {
-        console.log(error);
-        return [];
-      });
-  }
+  // count(): Observable<number> {
+  //   const requestOptions: RequestOptions = this.buildRequestOptions();
 
-  insert(vehicleTypesModel: VehicleType): Promise<VehicleType> {
-    const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
+  //   return this.http.get(groupCountUrl, requestOptions)
+  //   .map(this.extractNumberBody)
+  //   .catch(this.handleError);
+  // }
 
-    return this.http.post(this.buildByIdUserUrl(), JSON.stringify(vehicleTypesModel), requestOptions).toPromise()
+  loadById(id: string): Promise<Group> {
+    const requestOptions: RequestOptions = this.buildRequestOptions();
+
+    return this.http.get(groupUrl + '/' + id, requestOptions).toPromise()
     .then(this.extractData)
     .catch(this.handleError);
   }
 
-  update(vehicleTypesModel: VehicleType, id: string): Promise<boolean> {
+  getAll(limit?: number, offset?: number): Observable<Group[]> {
+    const requestOptions: RequestOptions = this.buildRequestOptions();
+
+    return this.http.get(groupUrl , requestOptions)
+    .map(this.extractDataArray)
+    .catch(this.handleError);
+  }
+
+  insert(group: Group): Promise<Group> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
 
-    return this.http.put(this.buildByIdUserUrl() + id, JSON.stringify(vehicleTypesModel), requestOptions).toPromise()
+    return this.http.post(groupUrl, JSON.stringify(group), requestOptions).toPromise()
+    .then(this.extractData)
+    .catch(this.handleError);
+  }
+
+  update(group: Group): Promise<boolean> {
+    const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
+
+    return this.http.put(groupUrl + '/' + group.id, JSON.stringify(group), requestOptions).toPromise()
     .then((res: Response) => {return true;})
     .catch(this.handleError);
   }
@@ -52,14 +65,11 @@ export class VehicleTypeService {
   delete(id: string): Promise<boolean> {
     const requestOptions: RequestOptions = this.buildRequestOptions();
 
-    return this.http.delete(this.buildByIdUserUrl() + id, requestOptions).toPromise()
+    return this.http.delete(groupUrl + '/' + id, requestOptions).toPromise()
     .then((res: Response) => {return true;})
     .catch(this.handleError);
   }
 
-  private buildByIdUserUrl() {
-    return vehicleTypesUrl + '/vehicletype/';
-  }
 
   private buildRequestOptions(contentType?: string): RequestOptions {
     const headers: Headers = new Headers();

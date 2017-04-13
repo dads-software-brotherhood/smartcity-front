@@ -5,9 +5,9 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2PaginationModule } from 'ng2-pagination';
 
-import { VehicleTypeComponent } from './vehicle-type.component';
-import { VehicleTypeTrayComponent } from './components/vehicle-type-tray/vehicle-type-tray.component';
-// import { UserVehicleDetailComponent } from './components/user-vehicle-detail/user-vehicle-detail.component';
+import { GroupComponent } from './group.component';
+import { GroupTrayComponent } from './components/group-tray/group-tray.component';
+import { GroupDetailComponent } from './components/group-detail/group-detail.component';
 import { ModalPopupModule  } from '../../../../usable-component/modal-popup/modalpopup.module';
 
 @NgModule({
@@ -21,12 +21,12 @@ import { ModalPopupModule  } from '../../../../usable-component/modal-popup/moda
     ModalPopupModule
   ],
   declarations: [
-    VehicleTypeComponent,
-    VehicleTypeTrayComponent
-    // UserVehicleDetailComponent
+    GroupComponent,
+    GroupTrayComponent,
+    GroupDetailComponent
   ],
   exports: [
-      VehicleTypeTrayComponent
+    GroupTrayComponent, GroupDetailComponent
   ]
 })
-export class VehicleTypeModule { }
+export class GroupModule { }

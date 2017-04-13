@@ -95,7 +95,7 @@ save(form, isValid: boolean) {
       },
       (error) => {
         if (error.status && error.status == 409) {
-               this.errorMessage="Error\nEmail already registered";
+               this.errorMessage="The email is already in use.";
         } else {
          this.errorMessage="An error has ocurred sendind user information. Please try again later";
         }

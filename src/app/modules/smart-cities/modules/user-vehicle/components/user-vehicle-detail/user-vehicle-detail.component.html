@@ -32,12 +32,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="vehicleType">Vehicle type *</label>
-              <select id="vehicleType" [formControl]="vehicleForm.controls['vehicleType']" (change)="onVehicleTypeChange($event)" class="form-control" [(ngModel)]="vehicle.vehicleType">
-                <option *ngFor="let vehicleType of vehicleTypes" [ngValue]="vehicleType.name">{{vehicleType.name}}</option>
+              <select id="vehicleType" [formControl]="vehicleForm.controls['vehicleType']" class="form-control" [(ngModel)]="vehicle.vehicleType">
+                <option *ngFor="let vehicleType of vehicleTypes" [ngValue]="vehicleType.id">{{vehicleType.name}}</option>
               </select>
                <div *ngIf="vehicleForm.controls['vehicleType'].hasError('required') && vehicleForm.controls['vehicleType'].touched" class="alert alert-danger">The vehicle type is required</div>
           </div>
         </div>
+        <input type="hidden" id="hid">
         <div class="col-md-6">
           <div class="form-group">
             <label for="fuelType">Fuel type *</label>
@@ -53,7 +54,7 @@
             <label for="brandName">Brand name</label>
             <input id="brandName"
                    [formControl]="vehicleForm.controls['brandName']" [(ngModel)]="vehicle.brandName" 
-                   type="text" class="form-control" placeholder="Brand name" (keyup)="onKeyUpBrandName($event)"/>
+                   type="text" class="form-control" placeholder="Brand name"/>
             <div style="display: none" id="divBrandName" class="alert alert-danger">The brand name is required</div>
 
           </div>
@@ -63,7 +64,7 @@
             <label for="modelName">Model name</label>
             <input id="modelName"
                    [formControl]="vehicleForm.controls['modelName']" [(ngModel)]="vehicle.modelName" 
-                type="text" class="form-control" placeholder="Model name" (keyup)="onKeyUpModelName($event)"/>
+                type="text" class="form-control" placeholder="Model name"/>
             <div style="display: none" id="divModelName" class="alert alert-danger">The model name is required</div>
 
           </div>

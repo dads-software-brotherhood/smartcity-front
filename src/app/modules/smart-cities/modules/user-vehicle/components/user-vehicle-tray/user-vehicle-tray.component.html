@@ -56,7 +56,7 @@
       <tbody>
           <tr *ngFor="let vehicle of vehicles | paginate: { itemsPerPage: 4, currentPage: p }">
               <td>{{vehicle.name}}</td>
-              <td>{{vehicle.vehicleType}}</td>
+              <td>{{vehicle.vehicleType.name}}</td>
               <td>{{vehicle.vehiclPlateIdentifier}}</td>
               <td>{{vehicle.brandName}}</td>
               <td>{{vehicle.modelName}}</td>
