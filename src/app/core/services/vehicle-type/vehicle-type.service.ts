@@ -10,6 +10,7 @@ import { VehicleType } from '../../models/vehicle-type';
 import { LoginService } from '../login/login.service';
 
 import { environment } from '../../../../environments/environment';
+import { RemoteConnectionService } from '../remote-connection/remote-connection.service';
 
 const vehicleTypesUrl = environment.backend_sdk;
 
@@ -19,14 +20,17 @@ export class VehicleTypeService {
   loginServ: LoginService;
   private url: string;
 
-  constructor(private http: Http, private loginService: LoginService) { }
+  constructor(private http: Http, private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { }
 
-  getAll(limit?: number, offset?: number): Observable<VehicleType[]> {
-    const requestOptions: RequestOptions = this.buildRequestOptions();
-
-    return this.http.get(this.buildByIdUserUrl() , requestOptions)
-    .map(this.extractDataArray)
-    .catch(this.handleError);
+  getAll(): Observable<Array<VehicleType>> {
+    return this.remoteConnectionService.getAsObservable(this.buildByIdUserUrl(), null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
   }
 
   insert(vehicleTypesModel: VehicleType): Promise<VehicleType> {
