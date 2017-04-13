@@ -2,11 +2,11 @@
     <div class="row routes">
         <div class="col-md-12">
             <h1>Green Route: An app for pollution and traffic monitoring</h1>
-            <p>The objective of Green Route  is to help the final user to determine the best route to 
-                follow to reach a destination, taking into account the user profile 
-                (such as health conditions), and the user preferences, such as transport type. 
-                Green Route proposes the ideal route for the user, avoiding routes with high 
-                levels of pollution, floods or pollen, etc., allowing for instance, to obtain 
+            <p>The objective of Green Route  is to help the final user to determine the best route to
+                follow to reach a destination, taking into account the user profile
+                (such as health conditions), and the user preferences, such as transport type.
+                Green Route proposes the ideal route for the user, avoiding routes with high
+                levels of pollution, floods or pollen, etc., allowing for instance, to obtain
                 the preferred routes for people with respiratory diseases.</p>
             <img src="../../assets/img/routes.svg" class="img-fluid">
             <h2>Go faster, move safely and keep healthy</h2>
@@ -49,3 +49,41 @@
         </div>
     </div>
 </div>
+
+
+<template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>One fine body&hellip;</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+  </div>
+</template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+
+<hr>
+
+<pre>{{closeResult}}</pre>
+
+
+<form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group-addon" (click)="d.toggle()" >
+        <img src="../../../../../assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+      </div>
+    </div>
+  </div>
+</form>
+
+<hr/>
+<pre>Model: {{ model | json }}</pre>
