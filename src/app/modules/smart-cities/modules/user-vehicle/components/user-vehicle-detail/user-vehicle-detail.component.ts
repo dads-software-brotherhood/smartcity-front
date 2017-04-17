@@ -113,19 +113,29 @@ export class UserVehicleDetailComponent implements OnInit {
         var intervalo = setInterval(() =>  
         this._serviceVehicleType.getAll().subscribe(
         vehicleType => { this.vehicleTypes = vehicleType;
+            if(this.index != "")
+            {
             if(this.vehicle.vehicleType != undefined)
             {
                 clearInterval(intervalo);
-                if(this.index != "")
+                for(let i=0; i<vehicleType.length; i++)
                 {
-                    for(let i=0; i<vehicleType.length; i++)
-                    {
-                        if(this.vehicle.vehicleType.id == vehicleType[i].id)
-                            this.vehicleTypeId = vehicleType[i].id;
-                    }
-                    this.prepareForm();
+                    if(this.vehicle.vehicleType.id == vehicleType[i].id)
+                    this.vehicleTypeId = vehicleType[i].id;
                 }
+                this.prepareForm();
+                   
             }
+        }
+        else
+        {
+            clearInterval(intervalo);
+            if(this.vehicle.vehicleType != undefined)
+            {
+            this.vehicleTypeId = this.vehicle.vehicleType.id;
+            }
+            this.prepareForm();
+        }
         },
         error => this.errorMessage = <any>error
         ),100);
@@ -133,7 +143,7 @@ export class UserVehicleDetailComponent implements OnInit {
       catch(e){ throw e;}
 }
 
- getFuelTypes() {
+getFuelTypes() {
     try
     {
     let fuelTypes: any[] = [];
@@ -192,13 +202,14 @@ save(form, isValid: boolean) {
         
         if(this.index == "")
         {
-            this.vehicles.forEach(function(item){
-                if(vehicleName == item.name.toUpperCase().trim())
+            for(let i=0; i<this.vehicles.length; i++)
+                {
+                if(vehicleName == this.vehicles[i].name.toUpperCase().trim())
                 {
                     this.valido = false;
                     isRepeat = true;
                 }
-            });
+            }
         }
         else
         {
@@ -228,6 +239,7 @@ save(form, isValid: boolean) {
                 error =>  this.errorMessage = <any>error);
                 this.messageModal = "Your record is successfully registered!";
                 this.showDialog = true;
+                this.getVehicleTypes();
 
             }
             else
@@ -236,6 +248,7 @@ save(form, isValid: boolean) {
                 error =>  this.errorMessage = <any>error);
                 this.messageModal = "Your record is successfully modified!";
                 this.showDialog = true;
+                this.getVehicleTypes();
             }
  
         }
@@ -266,18 +279,14 @@ onConfirm(){
 
 restrictNumeric(e, object){
     var input;
-    if (e.metaKey || e.ctrlKey) {
+    if (e.metaKey || e.ctrlKey)
         return true;
-    }
-    if (e.which === 32) {
+    if (e.which === 32)
         return false;
-    }
-    if (e.which === 0) {
+    if (e.which === 0)
         return true;
-    }
-    if (e.which < 33) {
+    if (e.which < 33)
         return true;
-    }
     if (e.which === 46) {
         if(object.value != undefined && object.value != '')
         {
@@ -285,7 +294,7 @@ restrictNumeric(e, object){
             return false;
         else
             return true;
-    }
+        }
     else
     return false;
     }
