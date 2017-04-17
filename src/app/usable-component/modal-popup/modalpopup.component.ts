@@ -1,5 +1,5 @@
 import {Component, OnInit, Input,
-    Output, OnChanges, EventEmitter, trigger, state, style, animate, transition} from '@angular/core'
+        Output, OnChanges, EventEmitter, trigger, state, style, animate, transition} from '@angular/core'
 
 @Component({
     selector: 'modal-popup',
@@ -33,7 +33,6 @@ export class ModalPopupComponent implements OnInit {
     ngOnInit() { }
 
     close() {
-        debugger
         this.visible = false;
         this.visibleChange.emit(this.visible);
     }
