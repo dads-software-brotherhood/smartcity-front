@@ -7,7 +7,7 @@ import { Ng2PaginationModule } from 'ng2-pagination';
 
 import { VehicleTypeComponent } from './vehicle-type.component';
 import { VehicleTypeTrayComponent } from './components/vehicle-type-tray/vehicle-type-tray.component';
-// import { UserVehicleDetailComponent } from './components/user-vehicle-detail/user-vehicle-detail.component';
+import { VehicleTypeDetailComponent } from './components/vehicle-type-detail/vehicle-type-detail.component';
 import { ModalPopupModule  } from '../../../../usable-component/modal-popup/modalpopup.module';
 
 @NgModule({
@@ -22,11 +22,12 @@ import { ModalPopupModule  } from '../../../../usable-component/modal-popup/moda
   ],
   declarations: [
     VehicleTypeComponent,
-    VehicleTypeTrayComponent
-    // UserVehicleDetailComponent
+    VehicleTypeTrayComponent,
+    VehicleTypeDetailComponent
   ],
   exports: [
-      VehicleTypeTrayComponent
+      VehicleTypeTrayComponent,
+      VehicleTypeDetailComponent
   ]
 })
 export class VehicleTypeModule { }

@@ -31,7 +31,8 @@
         </div>      
         <div class="col-md-6">
           <div class="form-group">
-              <input type="checkbox" id="includeBrandModel" [formControl]="vehicleTypeForm.controls['includeBrandModel']"/>Include Brand and Model?
+              <input type="checkbox" id="includeBrandModel" [formControl]="vehicleTypeForm.controls['includeBrandModel']"
+                    [(ngModel)]="vehicleType.includeBrandModel"/> Include Brand and Model?
           </div>
         </div>
         <div class="col-md-3 col-md-offset-6">

@@ -50,7 +50,7 @@
           <tr *ngFor="let vehicleType of vehicleTypes | paginate: { itemsPerPage: 4, currentPage: p }">
               <td>{{vehicleType.name}}</td>
               <td>
-                <a [routerLink]="['/smart-cities']" 
+                <a [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', vehicleType.id]" 
                   class="btn btn-smart" ngbtooltip="Edit" placement="top">
                   <i aria-hidden="true" class="fa fa-pencil"></i>
                 </a>
