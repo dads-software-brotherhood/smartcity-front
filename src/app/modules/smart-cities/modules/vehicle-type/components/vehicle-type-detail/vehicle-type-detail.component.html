@@ -32,7 +32,7 @@
         <div class="col-md-6">
           <div class="form-group">
               <input type="checkbox" id="includeBrandModel" [formControl]="vehicleTypeForm.controls['includeBrandModel']"
-                    [(ngModel)]="vehicleType.includeBrandModel"/> Include Brand and Model?
+                    [(ngModel)]="vehicleType.includeBrandModel"/>&nbsp;Include Brand and Model?
           </div>
         </div>
         <div class="col-md-3 col-md-offset-6">
@@ -47,11 +47,17 @@
               <button id="btnSave" [disabled]="!vehicleTypeForm.valid" type="submit" class="btn btn-smart btn-block" > Save</button>
           </div>
         </div>
-        <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <p>&nbsp;&nbsp;&nbsp;Data marked with * are required</p>
+          </div>
+        </div>
+        <!--<div class="col-md-12">
           <div class="form-group">
             <hr class="subTitle-hr">
           </div>
         </div>
+        -->
       </div>
       
     </div>
