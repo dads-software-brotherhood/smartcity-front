@@ -11,6 +11,7 @@ import { CredentialsComponent } from './components/credentials/credentials.compo
 import { CloseAccountComponent } from './components/close-account/close-account.component';
 import { HealthProfileComponent } from './components/health-profile/health-profile.component';
 import { AddressComponent } from './components/address/address.component';
+import { ModalPopupModule  } from '../../../../usable-component/modal-popup/modalpopup.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { AddressComponent } from './components/address/address.component';
     RouterModule,
     Ng2PaginationModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalPopupModule
   ],
   declarations: [
     ProfileComponent,

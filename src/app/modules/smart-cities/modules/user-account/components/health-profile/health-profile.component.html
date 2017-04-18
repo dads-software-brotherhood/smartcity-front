@@ -134,3 +134,12 @@
     </div>
 
 </div>
+<!-- Implementación de ventana modal -->
+<modal-popup [(visible)]="showDialog" title="System Message">
+  {{messageModal}}
+  <hr>
+  <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
+  <hr *ngIf="includeText">
+  <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="showDialog = false">Close</button>
+</modal-popup>
+<!-- ************************************************* -->
