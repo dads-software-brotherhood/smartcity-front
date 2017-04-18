@@ -13,6 +13,7 @@
         <div class="form-group">
           <label for="health-state">Name</label>
           <input type="text" class="form-control" placeholder="Name" id="group" [(ngModel)]="group.group"/>
+          
         </div>
       </div>
     </div>
@@ -42,5 +43,13 @@
       </div>
     </div>
   </div>
-
 </div>
+<!-- Implementación de ventana modal -->
+<modal-popup [(visible)]="showDialog" title="System Message">
+  {{messageModal}}
+  <hr>
+  <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
+  <hr *ngIf="includeText">
+  <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="showDialog = false">Close</button>
+</modal-popup>
+<!-- ************************************************* -->
