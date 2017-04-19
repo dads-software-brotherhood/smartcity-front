@@ -10,6 +10,8 @@ import { Vehicle } from '../../models/vehicle';
 import { LoginService } from '../login/login.service';
 
 import { environment } from '../../../../environments/environment';
+import { RemoteConnectionService } from '../remote-connection/remote-connection.service';
+import { constants } from '../../common/constants';
 
 const vehicleUrl = environment.backend_sdk;
 // const vehicleCountUrl = vehicleUrl + '/count'
@@ -20,95 +22,34 @@ export class VehicleService {
   loginServ: LoginService;
   private url: string;
 
-  constructor(private http: Http, private loginService: LoginService) { }
-
-  // count(): Observable<number> {
-  //   const requestOptions: RequestOptions = this.buildRequestOptions();
-
-  //   return this.http.get(vehicleCountUrl, requestOptions)
-  //   .map(this.extractNumberBody)
-  //   .catch(this.handleError);
-  // }
-
-  getAll(limit?: number, offset?: number): Observable<Vehicle[]> {
-    const requestOptions: RequestOptions = this.buildRequestOptions();
-
-    return this.http.get(this.buildByIdUserUrl() , requestOptions)
-    .map(this.extractDataArray)
-    .catch(this.handleError);
+  constructor(private http: Http, private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { 
   }
 
-  insert(vehicle: Vehicle): Promise<Vehicle> {
-    const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
-
-    return this.http.post(this.buildByIdUserUrl(), JSON.stringify(vehicle), requestOptions).toPromise()
-    .then(this.extractData)
-    .catch(this.handleError);
+  getAll(): Observable<Array<Vehicle>> {
+    return this.remoteConnectionService.getAsObservable(this.buildByIdUserUrl(), null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
   }
 
-  update(vehicle: Vehicle, index: string): Promise<boolean> {
-    const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
-
-    return this.http.put(this.buildByIdUserUrl() + '/' + index, JSON.stringify(vehicle), requestOptions).toPromise()
-    .then((res: Response) => {return true;})
-    .catch(this.handleError);
+  insert(vehicle: Vehicle): Observable<any> {
+    return this.remoteConnectionService.postAsObservable(this.buildByIdUserUrl(), JSON.stringify(vehicle), constants.contentTypeJson);
   }
 
-  delete(index: string): Promise<boolean> {
-    const requestOptions: RequestOptions = this.buildRequestOptions();
+  update(vehicle: Vehicle, id: string): Observable<any> {
+    return this.remoteConnectionService.putAsObservable(this.buildByIdUserUrl() + '/' + id, JSON.stringify(vehicle), constants.contentTypeJson);
+  }
 
-    return this.http.delete(this.buildByIdUserUrl() + '/' + index, requestOptions).toPromise()
-    .then((res: Response) => {return true;})
-    .catch(this.handleError);
+  delete(id: string) {
+    return this.remoteConnectionService.deleteAsObservable(this.buildByIdUserUrl() + '/' + id);
   }
 
   private buildByIdUserUrl() {
     return vehicleUrl + '/user-profile/' + this.loginService.getLoggedUser().id + '/vehicle';
   }
 
-  private buildRequestOptions(contentType?: string): RequestOptions {
-    const headers: Headers = new Headers();
-
-    if (this.loginService.isLoggedIn()) {
-      headers.append('X-Auth-Token', this.loginService.getToken());
-    }
-
-    if (contentType) {
-      headers.append('Content-Type', contentType);
-    }
-
-    return new RequestOptions({ 'headers': headers });
-  }
-
-  private extractNumberBody(res: Response): number {
-    return Number(res.text());
-  }
-
-  private extractTextBody(res: Response): string {
-    return res.text();
-  }
-
-  private extractDataArray(res: Response) {
-    const body = res.json();
-    return body || [];
-  }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || {};
-  }
-
-  private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
 }

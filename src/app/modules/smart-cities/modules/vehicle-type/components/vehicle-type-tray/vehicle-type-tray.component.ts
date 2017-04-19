@@ -54,10 +54,10 @@ export class VehicleTypeTrayComponent implements OnInit {
       try
       {
            this.showDialog = false; /// Close dialog
-           this._service.delete(this.ObjvehicleType.id)
-             .then(res => true,
-                error =>  this.errorMessage = <any>error);
-           location.reload();
+          //  this._service.delete(this.ObjvehicleType.id)
+          //    .then(res => true,
+          //       error =>  this.errorMessage = <any>error);
+          //  location.reload();
       }
       catch(e){this.errorMessage="An error occurred while deleting the registry";}
     }

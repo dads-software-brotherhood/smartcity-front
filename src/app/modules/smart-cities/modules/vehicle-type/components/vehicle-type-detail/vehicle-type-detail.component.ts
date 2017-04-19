@@ -28,6 +28,7 @@ export class VehicleTypeDetailComponent implements OnInit {
   messageModal: string;
   includeText: boolean;
   id: string;
+  valido: boolean = true;
 
   constructor(private fb: FormBuilder,   
               private router: Router,
@@ -37,7 +38,8 @@ export class VehicleTypeDetailComponent implements OnInit {
     {
         this.prepareForm();
     }
-    catch(e){ this.errorMessage="Error occurred while loading vehicle-type data"} 
+    catch(e){   this.messageModal = "Error occurred while loading vehicle-type data";
+                    this.showDialog = true; } 
    } 
 
   private sub: any;
@@ -67,14 +69,16 @@ export class VehicleTypeDetailComponent implements OnInit {
                 this.id = params["id"];
             })
             if (this.id != "") { //// Based on id decide Title add/edit
-                this.title = "Edit User Vehicle"
+                this.title = "Edit User Vehicle";
                 this.getVehicleTypeData();
             } 
             else {
-                this.title = "Add User Vehicle"
+                this.title = "Add User Vehicle";
             }
         }
-        catch(e){ this.errorMessage = "Error occurred while loading vehicle-type data"}
+        catch(e){ this.messageModal = "An error ocurred while loading record";
+                    this.showDialog = true;
+                    this.valido = false;}
   }
 
   getVehicleTypeData() { 
@@ -90,6 +94,73 @@ export class VehicleTypeDetailComponent implements OnInit {
       }
       catch(e){ throw e; }
   }
+
+  save(form, isValid: boolean) {
+    this.errorMessage = null;
+
+    try
+    {
+    if(isValid)
+    {
+        if(this.id == "")
+        {  
+             this._serviceVehicleType.insert(form).subscribe(
+             (res) => {
+                        this.messageModal = "Your record is successfully registered!";
+                        this.showDialog = true;
+                        this.valido = true;
+            },
+            (error) => {
+                if(error.status == 500)
+                {
+                    this.messageModal = "The vehicle type already exist!";
+                    this.showDialog = true;
+                }
+                else
+                {
+                    this.messageModal = "An error ocurred while saving the record";
+                    this.showDialog = true;
+                }
+                this.valido = false;
+            }
+            );
+        }
+        else
+        {
+            this._serviceVehicleType.update(form, this.id).subscribe(
+             (res) => {
+                        this.messageModal = "Your record is successfully modified!";
+                        this.showDialog = true;
+                        this.valido = true;
+            },
+            (error) => {
+                if(error.status == 500)
+                {
+                    this.messageModal = "The vehicle type already exist!";
+                    this.showDialog = true;
+                }
+                else
+                {
+                    this.messageModal = "An error ocurred while saving the record";
+                    this.showDialog = true;
+                }
+                this.valido = false;
+            }
+            );   
+        }
+ 
+    }
+}
+catch(e)
+{ }
+}
+
+onConfirm(){
+    if(this.valido)
+    this.router.navigate(["/smart-cities/vehicle-type/vehicleType"]);
+    else
+    this.showDialog = false;
+}
 
   
 }
