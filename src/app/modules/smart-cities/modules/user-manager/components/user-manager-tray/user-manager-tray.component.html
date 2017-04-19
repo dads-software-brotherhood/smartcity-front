@@ -14,7 +14,7 @@
     </div>
       <div class="row">
          <!-- Implementación de ventana modal -->
-        <modal-popup [(visible)]="showDialog" title="System Message">
+        <modal-popup [(visible)]="showDialog" title="Smart Cities Message">
           {{messageModal}}
         <hr>
         <textarea *ngIf="includeText" [formControl]="Modal.controls['message']" id="_message" type="text"  class="form-control"> </textarea>
@@ -22,7 +22,7 @@
         <hr *ngIf="includeText">
         <button type="button" [disabled]="!Modal.valid" class="btn btn-danger" data-dismiss="modal" (click)="deleteUser()">Yes</button>
 
-        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = true">No</button>
+        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">No</button>
         </modal-popup>
         <!-- ************************************************* -->
            <div class="col-md-6">
