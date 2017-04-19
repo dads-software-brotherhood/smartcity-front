@@ -15,6 +15,7 @@ $topnav-background-color: #00D3DE;
     font-size: 23px;
     z-index: 3;
     display: none;
+    cursor: pointer;
 }
 .btn:focus{
     outline: 3px auto #FFF;
@@ -250,7 +251,7 @@ a:hover{
         display: block
     }
     .navbar-brand{
-        float: none;
+        text-align: center;
         display: inline-block;
         cursor: pointer;
     }
@@ -515,7 +516,7 @@ a:hover{
 }
 .labelHidden{
     display: block;
-    height: 32px;
+    height: 33px;
 }
 .title-hr, .subTitle-hr{
     margin-top: 0px; 
@@ -652,3 +653,4 @@ footer{
 .text-center{
     text-align: center !important;
 }
+

@@ -51,7 +51,9 @@ fieldset[disabled] a.btn {
 //
 // Alternate buttons
 //
-
+.btn-smart {
+  @include button-variant($btn-smart-color, $btn-smart-bg, $btn-smart-border);
+}
 .btn-primary {
   @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
 }

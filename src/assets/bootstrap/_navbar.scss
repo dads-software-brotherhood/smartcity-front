@@ -35,6 +35,7 @@
   font-size: $font-size-lg;
   line-height: inherit;
   white-space: nowrap;
+  margin-left: 16px;
 
   @include hover-focus {
     text-decoration: none;
@@ -181,7 +182,7 @@
 .navbar-light {
   .navbar-brand,
   .navbar-toggler {
-    color: $navbar-light-active-color;
+    color: $white;
 
     @include hover-focus {
       color: $navbar-light-active-color;
@@ -190,7 +191,7 @@
 
   .navbar-nav {
     .nav-link {
-      color: $navbar-light-color;
+      color: $white;
 
       @include hover-focus {
         color: $navbar-light-hover-color;
@@ -226,7 +227,7 @@
 .navbar-inverse {
   .navbar-brand,
   .navbar-toggler {
-    color: $navbar-inverse-active-color;
+    color: $white;
 
     @include hover-focus {
       color: $navbar-inverse-active-color;
@@ -235,7 +236,7 @@
 
   .navbar-nav {
     .nav-link {
-      color: $navbar-inverse-color;
+      color: $white;
 
       @include hover-focus {
         color: $navbar-inverse-hover-color;

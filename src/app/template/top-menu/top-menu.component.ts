@@ -37,4 +37,9 @@ export class TopMenuComponent implements OnInit {
     );
   }
 
+  toggleSidebar() {
+      const dom: any = document.querySelector('body');
+      dom.classList.toggle('push-right');
+    }
+
 }

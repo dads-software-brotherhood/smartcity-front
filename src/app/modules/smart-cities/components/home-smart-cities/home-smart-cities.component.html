@@ -13,45 +13,46 @@
         </div>
     </div>
     <div class="row smartRoutes">
-        <div class="col-xs-4">
+        <div class="col col-xs-4">
             <img src="../../assets/img/smartRoutes.svg" class="img-fluid">
         </div>
-        <div class="col-xs-8">
+        <div class="col col-xs-8">
             <h1>Smart Routes</h1>
             <p>The best route based on weather condition, pollution, traffic and your available transports</p>
         </div>
     </div>
     <div class="row smartRoutes">
-        <div class="col-xs-8">
+        <div class="col col-xs-8">
             <h1>Taking care of your health</h1>
             <p>Register your health information to get the perfect route for you</p>
         </div>
-        <div class="col-xs-4">
+        <div class="col col-xs-4">
             <img src="../../assets/img/health.svg" class="img-fluid">
         </div>
     </div>
     <div class="row smartRoutes">
-        <div class="col-xs-4">
+        <div class="col col-xs-4">
             <img src="../../assets/img/bell.svg" class="img-fluid">
         </div>
-        <div class="col-xs-8">
+        <div class="col col-xs-8">
             <h1>Keep up to date</h1>
             <p>Receive alerts and notifications about traffic jam, accidents, polluntants</p>
         </div>
     </div>
     <div class="row smartRoutes">
-        <div class="col-xs-8">
+        <div class="col col-xs-8">
             <h1>Smart Points</h1>
             <p>Connect physical objects or places with your smart phone to offer and interactive and multimedia experience</p>
         </div>
-        <div class="col-xs-4">
+        <div class="col col-xs-4">
             <img src="../../assets/img/smartPoints.svg" class="img-fluid">
         </div>
     </div>
 </div>
 
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
 
-<template #content let-c="close" let-d="dismiss">
+<template ngbModalContainer #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Modal title</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -65,8 +66,6 @@
     <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
   </div>
 </template>
-
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
 
 <hr>
 

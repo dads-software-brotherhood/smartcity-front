@@ -3,66 +3,73 @@
     <h4>User data</h4>
     <hr class="subTitle-hr">
     <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['name'].valid && complexForm.controls['name'].touched}">
-            <label for="name">Name *</label>
-            <input type="text" class="form-control" placeholder="Name" id="name"
-              [formControl]="complexForm.controls['name']"/>
-            <div *ngIf="complexForm.controls['name'].hasError('required') && complexForm.controls['name'].touched" class="alert alert-danger" i18n>The name is required.</div>
-            <div *ngIf="complexForm.controls['name'].hasError('minlength') && complexForm.controls['name'].touched" class="alert alert-danger" i18n>The name must be have two characters.</div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['name'].valid && complexForm.controls['name'].touched}">
+              <label for="name">Name *</label>
+              <input type="text" class="form-control" placeholder="Name" id="name"
+                [formControl]="complexForm.controls['name']"/>
+              <div *ngIf="complexForm.controls['name'].hasError('required') && complexForm.controls['name'].touched" class="alert alert-danger" i18n>The name is required.</div>
+              <div *ngIf="complexForm.controls['name'].hasError('minlength') && complexForm.controls['name'].touched" class="alert alert-danger" i18n>The name must be have two characters.</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['familyName'].valid && complexForm.controls['familyName'].touched}">
+              <label for="familyName">Family name *</label>
+              <input type="text" class="form-control" placeholder="Family Name" id="familyName"
+                [formControl]="complexForm.controls['familyName']"/>
+              <div *ngIf="complexForm.controls['familyName'].hasError('required') && complexForm.controls['familyName'].touched" class="alert alert-danger" i18n>The family name is required.</div>
+              <div *ngIf="complexForm.controls['familyName'].hasError('minlength') && complexForm.controls['familyName'].touched" class="alert alert-danger" i18n>The family name must be have two characters.</div>
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['familyName'].valid && complexForm.controls['familyName'].touched}">
-            <label for="familyName">Family name *</label>
-            <input type="text" class="form-control" placeholder="Family Name" id="familyName"
-              [formControl]="complexForm.controls['familyName']"/>
-            <div *ngIf="complexForm.controls['familyName'].hasError('required') && complexForm.controls['familyName'].touched" class="alert alert-danger" i18n>The family name is required.</div>
-            <div *ngIf="complexForm.controls['familyName'].hasError('minlength') && complexForm.controls['familyName'].touched" class="alert alert-danger" i18n>The family name must be have two characters.</div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['birthDate'].valid && complexForm.controls['birthDate'].touched}">
+              <label for="birthDate">Birth date</label>
+              <input class="form-control" type="date" id="birthDate" placeholder="yyyy-mm-dd"
+                [formControl]="complexForm.controls['birthDate']"/>
+              <div *ngIf="complexForm.controls['birthDate'].hasError('dateISO') && complexForm.controls['birthDate'].touched" class="alert alert-danger" i18n>The birth date format is invalid.</div>
+              <div *ngIf="complexForm.controls['birthDate'].hasError('maxDate') && complexForm.controls['birthDate'].touched" class="alert alert-danger" i18n>The birth date can't be greated than current date</div>
+            </div>
           </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="col-md-6">
-          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['birthDate'].valid && complexForm.controls['birthDate'].touched}">
-            <label for="birthDate">Birth date</label>
-            <input class="form-control" type="date" id="birthDate" placeholder="yyyy-mm-dd"
-              [formControl]="complexForm.controls['birthDate']"/>
-            <div *ngIf="complexForm.controls['birthDate'].hasError('dateISO') && complexForm.controls['birthDate'].touched" class="alert alert-danger" i18n>The birth date format is invalid.</div>
-            <div *ngIf="complexForm.controls['birthDate'].hasError('maxDate') && complexForm.controls['birthDate'].touched" class="alert alert-danger" i18n>The birth date can't be greated than current date</div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group radioCustom">
-            <label for="gender">Gender</label>
-            <label class="radio-inline">
-              <input type="radio" name="gender" value="MALE" [formControl]="complexForm.controls['gender']"/> M
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="gender" value="FEMALE" [formControl]="complexForm.controls['gender']"/> F
-            </label>
+          <div class="col-md-6">
+            <div class="form-group radioCustom">
+              <label for="gender">Gender</label>
+              <label class="radio-inline">
+                <input type="radio" name="gender" value="MALE" [formControl]="complexForm.controls['gender']"/> M
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="gender" value="FEMALE" [formControl]="complexForm.controls['gender']"/> F
+              </label>
+            </div>
           </div>
         </div>
 
-        <div class="clearfix"></div>
         
-        <div class="col-lg-3 col-lg-offset-6 col-md-6">
-          <a class="btn btn-danger btn-block" routerLink="/smart-cities" routerLinkActive="active" > Cancel </a>&nbsp;
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <button type="submit" class="btn btn-smart btn-block" [disabled]="!complexForm.valid" i18n  > Save </button>
-        </div>
 
-        <div class="col-md-12">
-          <p>Data marked with * are required</p>
+        <div class="row">
+          <div class="col-lg-3 offset-lg-6 col-md-6">
+            <a class="btn btn-danger btn-block" routerLink="/smart-cities" routerLinkActive="active" > Cancel </a>&nbsp;
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <button type="submit" class="btn btn-smart btn-block" [disabled]="!complexForm.valid" i18n  > Save </button>
+          </div>
         </div>
         
+
+        <div class="row">
+          <div class="col-md-12">
+            <p>Data marked with * are required</p>
+          </div>
+        </div>
+
         <div class="clearfix"></div>
 
-        <div class="col-lg-3 col-lg-offset-9 col-md-offset-6 col-md-6">
+        <div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <a class="btn btn-smart btn-block" routerLink="/smart-cities/user-account/address" routerLinkActive="active"> Add address</a>
+            <button class="btn btn-smart btn-block" routerLink="/smart-cities/user-account/address" routerLinkActive="active"> Add address</button>
           </div>
         </div>
 
@@ -103,7 +110,6 @@
             </table>
           </div>
         </div>
-      </div>
     </form>
   </div>
 </div>
