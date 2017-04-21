@@ -9,6 +9,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+import { role } from '../../../core/models/role';
+
 import { IdentityUser, TokenInfo } from '../../models/identity-user';
 
 const base_rest_path = '/security';
@@ -39,7 +41,7 @@ export class LoginService {
         identityUser.date = new Date();
         localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
         return identityUser;
-      } else { //This case never happend
+      } else { // This case never happend
         this.deleteToken();
         return null;
       }
@@ -55,7 +57,7 @@ export class LoginService {
 
     if (token) {
       const requestOptions: RequestOptions = this.buildRequestOptions(token);
-      this.deleteToken(); //We delete token from local storage
+      this.deleteToken(); // We delete token from local storage
 
       return this.http.delete(logout_url, requestOptions)
         .map((res) => {
@@ -76,18 +78,22 @@ export class LoginService {
   }
 
   isLoggedIn(): boolean {
+    return this.checkToken();
+  }
+
+  private checkToken() {
     const identityUser: IdentityUser = this.getLoggedUser();
 
     if (identityUser && identityUser.date && identityUser.tokenInfo && identityUser.tokenInfo.time) {
       const renewTime = identityUser.tokenInfo.time / 2;
       const currentDate = new Date();
-      const tokenTime = (currentDate.getTime() - new Date(identityUser.date).getTime()) / 1000; //Logged time in seconds
+      const tokenTime = (currentDate.getTime() - new Date(identityUser.date).getTime()) / 1000; // Logged time in seconds
 
       if (tokenTime > identityUser.tokenInfo.time) {
         return false;
       } else {
         if (tokenTime > renewTime) {
-          //TODO: Refresh token
+          // TODO: Refresh token
         }
         return true;
       }
@@ -95,6 +101,33 @@ export class LoginService {
       return false;
     }
   }
+
+  isUser(): boolean {
+    return this.checkRole(role.USER);
+  }
+
+  isAdmin(): boolean {
+    return this.checkRole(role.ADMIN);
+  }
+
+  isSA(): boolean {
+    return this.checkRole(role.SA);
+  }
+
+  isTransportAdmin(): boolean {
+    return this.checkRole(role.TRANSPORT_ADMIN);
+  }
+
+  checkRole(roleToCompare: role): boolean {
+    if (this.checkToken()) {
+      const identityUser: IdentityUser = this.getLoggedUser();
+      if (identityUser.roles && identityUser.roles.indexOf(role[roleToCompare])  > -1) {
+            return true;
+      };
+    }
+    return false;
+  }
+
 
   // isLoggedIn(): Observable<boolean> {
   //   const token: string = this.getToken();
@@ -129,7 +162,7 @@ export class LoginService {
     }
   }
 
-  private buildRequestOptions(token: string):RequestOptions {
+  private buildRequestOptions(token: string): RequestOptions {
     const headers: Headers = new Headers();
     headers.append(constants.authTokenKey, token);
 

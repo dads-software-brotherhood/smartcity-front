@@ -4,24 +4,32 @@
  <div class="row">
     <div class="col-md-12">
     
-      <hr class="title-hr">
-       <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-      <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
-    </div>
+     
+       <!-- Modal-->
+        <modal-popup [(visible)]="modShowDialog" title="Smart Cities Message">
+          {{errorMessage}}
+        <hr>
+        <textarea *ngIf="includeText"   type="text"  class="form-control"> </textarea>
+        <hr *ngIf="includeText">
+        <button *ngIf="!modIsConfirm" type="button"  class="btn btn-danger" data-dismiss="modal" (click)="modShowDialog = false">Accept</button>
+         <button *ngIf="modIsConfirm" type="button"  class="btn btn-primary" data-dismiss="modal" (click)="redirect()">Accept</button>
+        
+        </modal-popup>
+        <!-- ************************************************* -->
       <div class="row">
           
            <div class="col-md-6">
           <div class="form-group">
             <label for="">Name</label>
             <input type="text" [formControl]="adminUserRegisterForm.controls['name']" [(ngModel)]="userModel.name" class="form-control" placeholder="Name"/>
-            <div *ngIf="adminUserRegisterForm.controls['name'].hasError('required') && adminUserRegisterForm.controls['name'].touched" class="alert alert-danger">Data Required *</div>
+            <div *ngIf="adminUserRegisterForm.controls['name'].hasError('required') && adminUserRegisterForm.controls['name'].touched" class="alert alert-danger">The name is required.</div>
           </div>
           </div>
           <div class="col-md-6">
           <div class="form-group">
             <label for="">Family Name</label>
             <input type="text" [formControl]="adminUserRegisterForm.controls['familyName']" [(ngModel)]="userModel.familyName" class="form-control" placeholder="familyname"/>
-            <div *ngIf="adminUserRegisterForm.controls['familyName'].hasError('required') && adminUserRegisterForm.controls['familyName'].touched" class="alert alert-danger">Data Required *</div>
+            <div *ngIf="adminUserRegisterForm.controls['familyName'].hasError('required') && adminUserRegisterForm.controls['familyName'].touched" class="alert alert-danger">The family name is required.</div>
           </div>
         </div>
         
@@ -33,8 +41,8 @@
           <div class="form-group">
             <label for="">email</label>
             <input type="text" ng-model="email" [formControl]="adminUserRegisterForm.controls['email']"  [(ngModel)]="userModel.email"  class="form-control" placeholder="Email"/>
-            <div *ngIf="adminUserRegisterForm.controls['email'].hasError('required') && adminUserRegisterForm.controls['email'].touched" class="alert alert-danger" i18n>Data Required *</div>
-            <div *ngIf="adminUserRegisterForm.controls['email'].hasError('email') && adminUserRegisterForm.controls['email'].touched" class="alert alert-danger" i18n>Email does not have a valid structure</div>
+            <div *ngIf="adminUserRegisterForm.controls['email'].hasError('required') && adminUserRegisterForm.controls['email'].touched" class="alert alert-danger" i18n>The email is required.</div>
+            <div *ngIf="adminUserRegisterForm.controls['email'].hasError('email') && adminUserRegisterForm.controls['email'].touched" class="alert alert-danger" i18n>Please enter a valid email address.</div>
             
           </div>
         </div>
@@ -45,7 +53,7 @@
                 <option *ngFor="let role of roles" [ngValue]="role.name">{{role.name}}</option>
               </select>
               <input type="hidden" name="roleid" id="role_id" value="" />
-              <div *ngIf="adminUserRegisterForm.controls['role'].hasError('required') && adminUserRegisterForm.controls['role'].touched" class="alert alert-danger">Data Required *</div>
+              <div *ngIf="adminUserRegisterForm.controls['role'].hasError('required') && adminUserRegisterForm.controls['role'].touched" class="alert alert-danger">The Role is required.</div>
           </div>
         </div>
          

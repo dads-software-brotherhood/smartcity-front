@@ -1,61 +1,66 @@
-<nav class="navbar navbar-dark bg-inverse navbar-fixed-top topnav">
-    <div class="collapse navbar-toggleable-xs clearfix text-center">
+<div class="pos-f-t fixed-top header">
+    <nav class="navbar navbar-inverse navbar-toggleable-md topnav">
+        <button class="btn btn-default" id="toggle-sidebar" type="button" (click)="toggleSidebar()">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
         <a class="navbar-brand" [routerLink]="['/smart-cities']">Smart Cities</a>
+        <div class="collapse navbar-collapse">
 
-        <ul class="nav navbar-nav top-nav navbar-right pull-xs-right top-right-nav">
-            <li class="dropdown nav-item" ngbDropdown>
-                <!-- <div class="dropdown"> -->
-                <a href="javascript:;" id="name2" class="nav-link dropdown-toggle info-number" ngbDropdownToggle>
-                    <i class="fa fa-bell"></i><span class="label-pill">9+</span> <b class="caret"></b><span class="sr-only">(current)</span>
-                </a>
-                <ul class="dropdown-menu alert-dropdown" aria-labelledby="name2">
-                    <li>
-                        <a href="javascript:;" class="dropdown-item">Traffic alerts</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" class="dropdown-item">Health alerts</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" class="dropdown-item">Pollutation alerts</a>
-                    </li>
-                    <li class="dropdown-divider"></li>
-                    <li>
-                        <a href="http://207.249.127.180:8080/#/notifications" target="_new" class="dropdown-item">View All</a>
-                    </li>
-                </ul>
-                <!-- </div> -->
-            </li>
-            <li class="dropdown nav-item" ngbDropdown>
-                <a href="javascript:;" id="single-button" class="nav-link dropdown-toggle" ngbDropdownToggle>
-                    {{ identityUser.name }} <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="single-button">
-                    <li>
-                        <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-account/profile">User profile</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-account/health-profile">Health profile</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-vehicle/vehicles">Vehicles</a>
-                    </li>
-                    <li class="dropdown-submenu">
-                        <a tabindex="-1" class="dropdown-item">Settings</a>
+            <ul class="navbar-nav ml-auto mt-2 mt-md-0">
+                <li class="dropdown nav-item" ngbDropdown>
+                    <!-- <div class="dropdown"> -->
+                    <a href="javascript:;" id="name2" class="nav-link dropdown-toggle info-number" ngbDropdownToggle>
+                        <i class="fa fa-bell"></i><span class="label-pill">9+</span> <b class="caret"></b><span class="sr-only">(current)</span>
+                    </a>
+                    <ul class="dropdown-menu alert-dropdown" aria-labelledby="name2">
+                        <li>
+                            <a href="javascript:;" class="dropdown-item">Traffic alerts</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="dropdown-item">Health alerts</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="dropdown-item">Pollutation alerts</a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a href="http://207.249.127.180:8080/#/notifications" target="_new" class="dropdown-item">View All</a>
+                        </li>
+                    </ul>
+                    <!-- </div> -->
+                </li>
+                <li class="dropdown nav-item" ngbDropdown>
+                    <a href="javascript:;" id="single-button" class="nav-link dropdown-toggle" ngbDropdownToggle>
+                        {{ identityUser.name }}<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="single-button">
+                        <li>
+                            <a  class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-account/profile">User profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="javascript:;" secured routerLink="/smart-cities/user-account/health-profile">Health profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-vehicle/vehicles">Vehicles</a>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" class="dropdown-item">Settings</a>
 
-                        <ul class="dropdown-menu pull-left">
-                            <li><a href="javascript:;" routerLink="/smart-cities/user-account/credentials" class="dropdown-item">Change your password</a></li>
-                            <li><a href="javascript:;" routerLink="/smart-cities/user-account/close-account" class="dropdown-item">Cancel account</a></li>
-                        </ul>
+                            <ul class="dropdown-menu pull-left">
+                                <li><a href="javascript:;" routerLink="/smart-cities/user-account/credentials" class="dropdown-item">Change your password</a></li>
+                                <li><a href="javascript:;" routerLink="/smart-cities/user-account/close-account" class="dropdown-item">Cancel account</a></li>
+                            </ul>
 
-                    </li>
-                    <li class="dropdown-divider"></li>
-                    <li>
-                        <a class="dropdown-item" href="javascript:;" (click)="logout()">
-                             Log out
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</nav>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="javascript:;" (click)="logout()">
+                                Log out
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

@@ -9,6 +9,16 @@
     <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
       <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
     </div>
+    <!-- Implementación de ventana modal -->
+        <modal-popup [(visible)]="showDialog" title="System Message">
+          {{messageModal}}
+        <hr>
+        <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
+        <hr *ngIf="includeText">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onConfirm()">Accept</button>
+        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
+        </modal-popup>
+        <!-- ************************************************* -->
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
@@ -16,45 +26,46 @@
             <input id="name"
                    [formControl]="vehicleForm.controls['name']" [(ngModel)]="vehicle.name" 
                    type="text" class="form-control" placeholder="Name"/>
-            <div *ngIf="vehicleForm.controls['name'].hasError('required') && vehicleForm.controls['name'].touched" class="alert alert-danger">Data Required *</div>
+            <div *ngIf="vehicleForm.controls['name'].hasError('required') && vehicleForm.controls['name'].touched" class="alert alert-danger">The name is required</div>
           </div>
         </div>      
         <div class="col-md-6">
           <div class="form-group">
             <label for="vehicleType">Vehicle type *</label>
-              <select id="vehicleType" [formControl]="vehicleForm.controls['vehicleType']" (change)="onVehicleTypeChange($event)" class="form-control" [(ngModel)]="vehicle.vehicleType">
-                <option *ngFor="let vehicleType of vehicleTypes" [ngValue]="vehicleType.name">{{vehicleType.name}}</option>
+              <select id="vehicleType" [formControl]="vehicleForm.controls['vehicleType']" class="form-control" [(ngModel)]="vehicle.vehicleType">
+                <option *ngFor="let vehicleType of vehicleTypes" [ngValue]="vehicleType.id">{{vehicleType.name}}</option>
               </select>
-               <div *ngIf="vehicleForm.controls['vehicleType'].hasError('required') && vehicleForm.controls['vehicleType'].touched" class="alert alert-danger">Data Required *</div>
+               <div *ngIf="vehicleForm.controls['vehicleType'].hasError('required') && vehicleForm.controls['vehicleType'].touched" class="alert alert-danger">The vehicle type is required</div>
           </div>
         </div>
+        <input type="hidden" id="hid">
         <div class="col-md-6">
           <div class="form-group">
             <label for="fuelType">Fuel type *</label>
             <select id="fuelType" [formControl]="vehicleForm.controls['fuelType']" class="form-control" [(ngModel)]="vehicle.fuelType">
                 <option *ngFor="let fuelType of fuelTypes" [ngValue]="fuelType.name">{{fuelType.name}}</option>
               </select>
-              <div *ngIf="vehicleForm.controls['fuelType'].hasError('required') && vehicleForm.controls['fuelType'].touched" class="alert alert-danger">Data Required *</div>
+              <div *ngIf="vehicleForm.controls['fuelType'].hasError('required') && vehicleForm.controls['fuelType'].touched" class="alert alert-danger">The fuel type is required</div>
           </div>
         </div>
         <div class="clearfix"></div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="brandName">Brand name *</label>
+            <label for="brandName">Brand name</label>
             <input id="brandName"
                    [formControl]="vehicleForm.controls['brandName']" [(ngModel)]="vehicle.brandName" 
-                   type="text" class="form-control" placeholder="Brand name" (keyup)="onKeyUpBrandName($event)"/>
-            <div style="display: none" id="divBrandName" class="alert alert-danger">Data Required *</div>
+                   type="text" class="form-control" placeholder="Brand name"/>
+            <div style="display: none" id="divBrandName" class="alert alert-danger">The brand name is required</div>
 
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="modelName">Model name *</label>
+            <label for="modelName">Model name</label>
             <input id="modelName"
                    [formControl]="vehicleForm.controls['modelName']" [(ngModel)]="vehicle.modelName" 
-                type="text" class="form-control" placeholder="Model name" (keyup)="onKeyUpModelName($event)"/>
-            <div style="display: none" id="divModelName" class="alert alert-danger">Data Required *</div>
+                type="text" class="form-control" placeholder="Model name"/>
+            <div style="display: none" id="divModelName" class="alert alert-danger">The model name is required</div>
 
           </div>
         </div>
@@ -83,7 +94,7 @@
         </div>
         
         
-        <div class="col-md-3 col-md-offset-6">
+        <div class="col-md-3 offset-md-6">
           <div class="form-group">
             <span class="labelHidden"></span>
             <a [routerLink]="['/smart-cities/user-vehicle/vehicles']" class="btn btn-danger btn-block" > Cancel </a>
@@ -95,11 +106,17 @@
               <button id="btnSave" [disabled]="!vehicleForm.valid" type="submit" class="btn btn-smart btn-block" > Save</button>
           </div>
         </div>
-        <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <p>&nbsp;&nbsp;&nbsp;Data marked with * are required</p>
+          </div>
+        </div>
+        <!--<div class="col-md-12">
           <div class="form-group">
             <hr class="subTitle-hr">
           </div>
         </div>
+        -->
       </div>
       
     </div>

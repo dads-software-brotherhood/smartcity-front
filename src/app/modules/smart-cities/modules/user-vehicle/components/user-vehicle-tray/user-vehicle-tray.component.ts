@@ -11,19 +11,20 @@ import { VehicleService } from '../../../../../../core/services/vehicle/vehicle.
 })
 export class UserVehicleTrayComponent implements OnInit {
 
-  errorMessage: string;
-  vehicles: Vehicle[] = [];
-  Objvehicle = new Vehicle();
-  sum: number = 0; //variable que se utiliza para contabilizar el total de columnas que tiene la tabla
-                   //para utilizar en las busquedas.
+  private vehicles: Vehicle[] = [];
+  private Objvehicle = new Vehicle();
+
+  //variable que se utiliza para contabilizar el total de columnas que tiene la tabla
+  //para utilizar en las busquedas.
+  private sum: number = 0; 
   
   //Variables utilizadas para mostrar la ventana modal, isConfirm=true (Muestra 2 botones Aceptar, Cancelar),
   //isConfirm=false (Muestra solo un botón Aceptar), messageModal (Mensaje que muestra la ventana Modal),
   //includeText (Se utiliza para mostrar un textArea o no)
-  showDialog: boolean;
-  isConfirm: boolean;
-  messageModal: string;
-  includeText: boolean;
+  private showDialog: boolean;
+  private isConfirm: boolean;
+  private messageModal: string;
+  private includeText: boolean;
 
   constructor(private _service: VehicleService, private _router: Router ) { 
   }
@@ -31,87 +32,114 @@ export class UserVehicleTrayComponent implements OnInit {
   ngOnInit() {  
     try
     { 
-    this.bindTable();
-    this.sum = this.getTotalCols(); //asignar a variable "sum" el valor del número total de columnas en la tabla
-    this.isConfirm = true;
-    this.includeText = false;
-    this.messageModal = "Are you sure to delete this register of his vehicle?";
+      this.bindTable();
+      this.isConfirm = true;
+      this.messageModal = "Are you sure to delete this record?";
+      //asignar a variable "sum" el valor del número total de columnas en la tabla
+      this.sum = this.getTotalCols(); 
+      this.includeText = false;
     }
-    catch(e){this.errorMessage="An error occurred while loading the vehicle list";}
+    catch(e)
+    {
+      this.setValuesModal("An error occurred while loading the vehicle list", true, false);
+    }
   }
-
-  bindTable() { //// Bind vehicles Grid
+  
+  //Metodo que se utiliza para el llenado de la tabla con los datos de los vehiculos
+  //registrados.
+  bindTable() { 
     try
     {
-    this._service.getAll().subscribe(
-      vehicles => { this.vehicles = vehicles;
-          this.vehicles.forEach(function(item, index){
-              item.index = index.toString();
-            });
-  },
-      error => this.errorMessage = <any>error
-    );
-  }
-  catch(e){throw e;}
+      this._service.getAll().subscribe(vehicles => { this.vehicles = vehicles;
+      this.vehicles.forEach(function(item, index){
+        item.index = index.toString();});
+      }, error => this.messageModal = <any>error);
+    }
+    catch(e)
+    {
+      throw e;
+    }
   }
 
+  //Metodo que se llama cuando se confirma la eliminación del registro
   confirmDelete() {
-      try
-      {
-           this.showDialog = false; /// Close dialog
-           this._service.delete(this.Objvehicle.index)
-             .then(res => true,
-                error =>  this.errorMessage = <any>error);
-           location.reload();
+    try
+    {
+        if(this.isConfirm)
+        {
+          this._service.delete(this.Objvehicle.index).subscribe(
+            (res) => {
+              this.setValuesModal("Are you sure to delete this record?", false, true);
+              this.bindTable();
+            },
+            (error) => {
+              this.setValuesModal("An error occurred while deleting the registry", true, false);
+            });
+        }
+        else
+          this.showDialog = false;
       }
-      catch(e){this.errorMessage="An error occurred while deleting the registry";}
+      catch(e){}
     }
 
+    //Metodo que se utiliza para contabilizar el número total de columnas de la tabla que muestra
+    //los registros de vehiculos quitando las columnas donde se encuentren los botones editrar y
+    //eliminar, lo que regresa este metodo se asigna a una variable que se utiliza para las busquedas.
     getTotalCols(){
       try
       {
-      var table = document.getElementById("myTable");
-      var trs = document.getElementsByTagName("tr");
-      var trFirst = trs[0];
-      var tds = trFirst.getElementsByTagName('th');
-      for(var i=0;i<tds.length;i++){
+        var table = document.getElementById("myTable");
+        var trs = document.getElementsByTagName("tr");
+        var trFirst = trs[0];
+        var tds = trFirst.getElementsByTagName('th');
+        for(var i=0;i<tds.length;i++){
           this.sum = this.sum + 1;
-      }
-      return this.sum - 2; //se resta 2 para no tomar en cuenta las ultimas 2 columnas de la tabla (botón editar y eliminar)
+        }
+        //se resta 2 para no tomar en cuenta las ultimas 2 columnas de la tabla (botón editar y eliminar)
+        return this.sum - 2;
       }
       catch(e){throw e;}
     }
 
+    //Metodo que se llama cada que se escribe en la caja de texto de busqueda, se utiliza para filtrar 
+    //datos en la tabla
     FilterData() {
-    // Declare variables 
       var input, filter, table, tr, td, i, j;
-      
       try
       {
-      input = document.getElementById("myInput");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myTable");
-      tr = table.getElementsByTagName("tr");
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
 
-    // Loop through all table rows and columns, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
-        for(j = 0; j< this.sum; j++)
-        {
-        td = tr[i].getElementsByTagName("td")[j];
-          if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {            
+        //Hacer un bucle a través de todas las filas y columnas de la tabla y 
+        //ocultar las que no coinciden con la consulta
+        for (i = 0; i < tr.length; i++) {
+          for(j = 0; j< this.sum; j++)
+          {
+            td = tr[i].getElementsByTagName("td")[j];
+            if (td) {
+              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {            
                tr[i].style.display = "";
                break;
             }
-            else {
+            else
               tr[i].style.display = "none";
             }
           }
-
         }
       }
+      catch(e)
+      {
+        this.setValuesModal("An error occurred while search a vehicle", true, false);
+      }
     }
-    catch(e){this.errorMessage="An error occurred while performing the search";}
+
+    setValuesModal(message: string, show: boolean, confirm: boolean)
+    {
+      this.isConfirm = confirm;
+      this.messageModal = message;
+      this.showDialog = show;
     }
 
 }

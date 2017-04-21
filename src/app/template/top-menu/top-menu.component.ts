@@ -15,11 +15,18 @@ export class TopMenuComponent implements OnInit {
 
   identityUser: IdentityUser;
 
+  isAdmin:            boolean;
+  isSA:               boolean;
+  isTransportAdmin:   boolean;
+
   constructor(private loginService: LoginService, private router: Router) {
   }
 
   ngOnInit() {
     this.identityUser = this.loginService.getLoggedUser();
+    this.isAdmin = this.loginService.isAdmin();
+    this.isSA = this.loginService.isSA();
+    this.isTransportAdmin = this.loginService.isTransportAdmin();
   }
 
   logout() {
@@ -29,5 +36,10 @@ export class TopMenuComponent implements OnInit {
       }
     );
   }
+
+  toggleSidebar() {
+      const dom: any = document.querySelector('body');
+      dom.classList.toggle('push-right');
+    }
 
 }

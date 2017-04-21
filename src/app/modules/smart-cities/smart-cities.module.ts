@@ -23,6 +23,9 @@ import { PublicTransportDetailComponent } from './components/public-transport/pu
 
 import { UserManagerModule } from './modules/user-manager/user-manager.module';
 import { UserVehicleModule } from './modules/user-vehicle/user-vehicle.module';
+import { GroupModule } from './modules/group/group.module';
+import { VehicleTypeModule } from './modules/vehicle-type/vehicle-type.module';
+
 
 @NgModule({
   imports: [
@@ -37,13 +40,15 @@ import { UserVehicleModule } from './modules/user-vehicle/user-vehicle.module';
     TemplateModule,
     UserManagerModule,
     UserVehicleModule,
+    GroupModule,
+    VehicleTypeModule,
     ModalPopupModule
   ],
   declarations: [
     SmartCitiesComponent,
     HomeSmartCitiesComponent,
     PublicTransportComponent,
-    PublicTransportDetailComponent
+    PublicTransportDetailComponent,
   ],
   exports: [
     SmartCitiesComponent

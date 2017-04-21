@@ -15,8 +15,8 @@
         <hr>
         <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
         <hr *ngIf="includeText">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDelete()">Yes</button>
-        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">No</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDelete()">Accept</button>
+        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
         </modal-popup>
         <!-- ************************************************* -->
 
@@ -29,7 +29,7 @@
         <div class="col-md-3 ">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <a [routerLink]="['/smart-cities/user-vehicle/vehicle', '']" type="submit" class="btn btn-smart btn-block" > Add </a>
+            <button [routerLink]="['/smart-cities/user-vehicle/vehicle', '']" type="submit" class="btn btn-smart btn-block" > Add </button>
           </div>
         </div>
         <div class="col-md-12">
@@ -56,7 +56,7 @@
       <tbody>
           <tr *ngFor="let vehicle of vehicles | paginate: { itemsPerPage: 4, currentPage: p }">
               <td>{{vehicle.name}}</td>
-              <td>{{vehicle.vehicleType}}</td>
+              <td>{{vehicle.vehicleType.name}}</td>
               <td>{{vehicle.vehiclPlateIdentifier}}</td>
               <td>{{vehicle.brandName}}</td>
               <td>{{vehicle.modelName}}</td>

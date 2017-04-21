@@ -25,8 +25,8 @@
         <div class="form-group">
           <label >Allergy symptoms</label>
         </div>
-        <div class="clearfix"></div>
-          <div class="col-md-6" *ngFor="let symptom of allergySymptoms">
+        <div class="row">
+          <div class="col-md-4" *ngFor="let symptom of allergySymptoms">
             <div class="form-check" >
               <label class="form-check-label">
                 <input class="form-check-input symptom" [checked]="hhealthProfile?.allergySymptoms.includes(symptom)" name="symptom" type="checkbox" value="{{symptom}}">
@@ -34,16 +34,17 @@
               </label>
             </div>
           </div>
+
+        </div>
       </div>
     </div>
   </div>
+
   <div class="col-md-12" [hidden]="!(healthProfile.healthState == 'Asthma')">
-    <div class="row">
-      <div class="col-md-12">
       <div class="form-group">
-          <label >Asthma level</label>
-        </div>
-        <div class="clearfix"></div>
+        <label >Asthma level</label>
+      </div>
+      <div class="row">
         <div class="col-sm-2">
           <img *ngIf="!healthProfile.asthmaLevel" src="../../assets/img/asthma-level-1.svg" style="max-height: 280px" class="img-fluid center-block"/>
           <img *ngIf="healthProfile.asthmaLevel" src="../../assets/img/asthma-level-{{healthProfile.asthmaLevel}}.svg" style="max-height: 280px" class="img-fluid center-block"/>
@@ -121,15 +122,15 @@
             </div>
           </div>    
         </div>
-      </div>
     </div>
   </div>
-  <div class="col-md-12">
-    <div class="col-md-3 col-md-offset-9">
+
+  <div class="clearfix"></div>
+
+    <div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
       <div class="form-group">
-        <a  class="btn btn-smart btn-block" (click)="save()"> Save </a>
+        <button class="btn btn-smart btn-block" (click)="save()"> Save </button>
       </div>
     </div>
-  </div>
 
 </div>
