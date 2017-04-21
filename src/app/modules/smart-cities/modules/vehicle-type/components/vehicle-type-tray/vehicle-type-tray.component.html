@@ -26,7 +26,7 @@
         <div class="col-md-3 ">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <a [routerLink]="['/smart-cities']" type="submit" class="btn btn-smart btn-block" > Add </a>
+            <a [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', '']" type="submit" class="btn btn-smart btn-block" > Add </a>
           </div>
         </div>
         <div class="col-md-12">
@@ -50,7 +50,7 @@
           <tr *ngFor="let vehicleType of vehicleTypes | paginate: { itemsPerPage: 4, currentPage: p }">
               <td>{{vehicleType.name}}</td>
               <td>
-                <a [routerLink]="['/smart-cities']" 
+                <a [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', vehicleType.id]" 
                   class="btn btn-smart" ngbtooltip="Edit" placement="top">
                   <i aria-hidden="true" class="fa fa-pencil"></i>
                 </a>

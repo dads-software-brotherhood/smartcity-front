@@ -15,8 +15,8 @@
         <hr>
         <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
         <hr *ngIf="includeText">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onConfirm()">Yes</button>
-        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">No</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onConfirm()">Accept</button>
+        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
         </modal-popup>
         <!-- ************************************************* -->
       <div class="row">
@@ -106,11 +106,17 @@
               <button id="btnSave" [disabled]="!vehicleForm.valid" type="submit" class="btn btn-smart btn-block" > Save</button>
           </div>
         </div>
-        <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <p>&nbsp;&nbsp;&nbsp;Data marked with * are required</p>
+          </div>
+        </div>
+        <!--<div class="col-md-12">
           <div class="form-group">
             <hr class="subTitle-hr">
           </div>
         </div>
+        -->
       </div>
       
     </div>

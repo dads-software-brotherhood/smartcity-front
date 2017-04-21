@@ -37,7 +37,8 @@ export class VehicleTypeTrayComponent implements OnInit {
     this.includeText = false;
     this.messageModal = "Are you sure to delete this record?";
     }
-    catch(e){this.errorMessage="An error occurred while loading the vehicle list";} 
+    catch(e){
+      this.setValuesModal("An error occurred while loading the vehicle type list", true, false);} 
   }
 
   bindTable() { //// Bind vehicles Grid
@@ -53,13 +54,17 @@ export class VehicleTypeTrayComponent implements OnInit {
   confirmDelete() {
       try
       {
-           this.showDialog = false; /// Close dialog
-           this._service.delete(this.ObjvehicleType.id)
-             .then(res => true,
-                error =>  this.errorMessage = <any>error);
-           location.reload();
+            this.showDialog = false;
+            // this._service.delete(this.ObjvehicleType.id).subscribe(
+            // (res) => {
+            //   this.setValuesModal("Are you sure to delete this record?", false, true);
+            //   this.bindTable();
+            // },
+            // (error) => {
+            //   this.setValuesModal("An error occurred while deleting the registry", true, false);
+            // });
       }
-      catch(e){this.errorMessage="An error occurred while deleting the registry";}
+      catch(e){}
     }
 
     getTotalCols(){
@@ -106,8 +111,16 @@ export class VehicleTypeTrayComponent implements OnInit {
         }
       }
     }
-    catch(e){this.errorMessage="An error occurred while performing the search";}
+    catch(e){
+      this.setValuesModal("An error occurred while performing the search", true, false);
+    }
     }
 
+setValuesModal(message: string, show: boolean, confirm: boolean)
+{
+      this.isConfirm = confirm;
+      this.messageModal = message;
+      this.showDialog = show;
+}
   
 }

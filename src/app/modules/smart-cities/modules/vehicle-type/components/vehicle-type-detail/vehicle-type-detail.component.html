@@ -1,0 +1,65 @@
+ <form [formGroup]="vehicleTypeForm" (ngSubmit)="save(vehicleTypeForm.value,vehicleTypeForm.valid)">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{title}}</h2>
+      <hr class="title-hr">
+      <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      <p class="text-xs-center"><strong>{{successMessage}}</strong></p>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
+    </div>
+    <!-- Implementación de ventana modal -->
+        <modal-popup [(visible)]="showDialog" title="System Message">
+          {{messageModal}}
+        <hr>
+        <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
+        <hr *ngIf="includeText">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onConfirm()">Yes</button>
+        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">No</button>
+        </modal-popup>
+        <!-- ************************************************* -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input id="name"
+                   [formControl]="vehicleTypeForm.controls['name']" [(ngModel)]="vehicleType.name" 
+                   type="text" class="form-control" placeholder="Name"/>
+            <div *ngIf="vehicleTypeForm.controls['name'].hasError('required') && vehicleTypeForm.controls['name'].touched" class="alert alert-danger">The name is required</div>
+          </div>
+        </div>      
+        <div class="col-md-6">
+          <div class="form-group">
+              <input type="checkbox" id="includeBrandModel" [formControl]="vehicleTypeForm.controls['includeBrandModel']"
+                    [(ngModel)]="vehicleType.includeBrandModel"/>&nbsp;Include Brand and Model?
+          </div>
+        </div>
+        <div class="col-md-3 col-md-offset-6">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <a [routerLink]="['/smart-cities/vehicle-type/vehicleType']" class="btn btn-danger btn-block" > Cancel </a>
+          </div>
+        </div>
+        <div class="col-md-3 ">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+              <button id="btnSave" [disabled]="!vehicleTypeForm.valid" type="submit" class="btn btn-smart btn-block" > Save</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p>&nbsp;&nbsp;&nbsp;Data marked with * are required</p>
+          </div>
+        </div>
+        <!--<div class="col-md-12">
+          <div class="form-group">
+            <hr class="subTitle-hr">
+          </div>
+        </div>
+        -->
+      </div>
+      
+    </div>
+  </div>
+  </form>

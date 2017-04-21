@@ -9,6 +9,7 @@ import { CustomValidators } from 'ng2-validation';
 import { UserModel } from '../../../../../../core/models/user-model';
 import { UserService } from '../../../../../../core/services/user-service/user-service.service';
 import { LoginService } from 'app/core/services/login/login.service';
+import { IdentityUser } from '../../../../../../core/models/identity-user';
 require ('zone.js');
 
 @Component({
@@ -29,11 +30,23 @@ export class UserManagerTrayComponent implements OnInit {
   private loggedRol:string;
   private rol:string;
   private warningMessage:String;
-  //Modal
+
+   identityUser: IdentityUser;
+
+  isAdmin:            boolean;
+  isSA:               boolean;
+  isTransportAdmin:   boolean;
+  //Prompt
   private showDialog: boolean;
   isConfirm: boolean;
   messageModal: string;
   includeText: boolean;
+  //Modal
+  private modShowDialog: boolean;
+  modIsConfirm: boolean=false;
+  modMessageModal: string;
+  modIncludeText: boolean=false;
+
   constructor(private _service: UserService,private fb: FormBuilder,private fm: FormBuilder,   
               private router: Router, private loginService: LoginService,
               private route: ActivatedRoute) { 
@@ -56,13 +69,26 @@ export class UserManagerTrayComponent implements OnInit {
               }
 
   ngOnInit() {
-   this.rol="SA";
-    this.getAll();
+     this.getAll();
      this.isConfirm = true;
     this.includeText = true;
     this.messageModal = "Are you sure to delete this user?";
-   // this.loggedRol = this.loginService.getLoggedUser().roles.toString();
-    //console.log(this.loginService.getLoggedUser());
+   
+    if(this.loginService.getLoggedUser().roles[0]!=null || this.loginService.getLoggedUser().roles[0]!=undefined)
+    {
+       this.rol=this.loginService.getLoggedUser().roles[0];
+       if (this.rol=="USER" || this.rol== "TRANSPORT_ADMIN")
+       {
+          this.router.navigate(["/smart-cities"]);
+       }
+    }
+    else{
+      this.router.navigate(["/smart-cities"]);
+    }
+
+  
+   
+   
   }
   bindTable()
   {
@@ -88,7 +114,8 @@ export class UserManagerTrayComponent implements OnInit {
               this.userCanDel(this.rol, this.users);      
                
             }).catch(err=>{
-              this.errorMessage="Search cannot display any coincidences";            
+              this.modShowDialog=true;
+              this.modMessageModal="Information not found";            
             });
     
 
@@ -111,7 +138,7 @@ export class UserManagerTrayComponent implements OnInit {
               item.canDel=true;
             }   
           });
-          console.log(this.users);
+         
   }
 
   getAll(){
@@ -122,11 +149,16 @@ export class UserManagerTrayComponent implements OnInit {
      this._service.getAll().subscribe(
       users => { this.users = users;
         this.userCanDel(this.rol, users);
+        console.log(users);
          
        
           
   },
-      (error) => this.warningMessage = "No data to display"
+      (error) => {
+
+        this.modShowDialog=true;
+              this.modMessageModal="Information not found";  
+      }
     );
   }
   
@@ -147,18 +179,20 @@ export class UserManagerTrayComponent implements OnInit {
   deleteUser(){
     //this.showDialog = false; /// Close dialog
     
-    this.warningMessage=null;
-    this.errorMessage=null;
-     var x = $("#_message").val();
-    
-     this._user.message = x;
+       
+     this._user.message = $("#_message").val();;
+      this.showDialog=false;
+       this.modShowDialog=true;
       this._service.delete(this._user)
             .then(form => 
             {
-              //this.bindTable();
-               location.reload();       
+             
+              this.modMessageModal="User deleted successfully!!";  
+               this.getAll();       
             }).catch(res=>{
-              this.errorMessage="Error deleting user. Please try later.";            
+             
+              this.modMessageModal="Error deleting user. Please try later.";  
+                         
             });
   }
 
