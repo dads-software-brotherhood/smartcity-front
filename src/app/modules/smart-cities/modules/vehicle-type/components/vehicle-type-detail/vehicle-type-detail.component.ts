@@ -27,7 +27,7 @@ export class VehicleTypeDetailComponent implements OnInit {
   isConfirm: boolean;
   messageModal: string;
   includeText: boolean;
-  id: string;
+  id: number = 0;
   valido: boolean = true;
 
   constructor(private fb: FormBuilder,   
@@ -66,9 +66,12 @@ export class VehicleTypeDetailComponent implements OnInit {
             this.includeText = false;
             this.messageModal = "";
             this.sub = this.route.params.subscribe(params => {
-                this.id = params["id"];
+                if(params["id"] == "")
+                    this.id = 0;
+                else
+                    this.id = Number(params["id"]);
             })
-            if (this.id != "") { //// Based on id decide Title add/edit
+            if (this.id > 0) { //// Based on id decide Title add/edit
                 this.title = "Edit User Vehicle";
                 this.getVehicleTypeData();
             } 
@@ -102,8 +105,11 @@ export class VehicleTypeDetailComponent implements OnInit {
     {
     if(isValid)
     {
-        if(this.id == "")
-        {  
+        if(this.id == 0)
+        { 
+             if(form.includeBrandModel == undefined)
+                form.includeBrandModel = false;
+                
              this._serviceVehicleType.insert(form).subscribe(
              (res) => {
                         this.messageModal = "Your record is successfully registered!";

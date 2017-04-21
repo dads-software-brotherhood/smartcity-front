@@ -36,7 +36,7 @@ export class UserVehicleDetailComponent implements OnInit {
   private includeText: boolean;
 
   private valido: boolean = false;
-  private vehicleTypeId: string = "";
+  private vehicleTypeId: number = 0;
 
   constructor(private fb: FormBuilder,
               private router: Router,

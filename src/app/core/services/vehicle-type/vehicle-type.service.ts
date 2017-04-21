@@ -37,11 +37,11 @@ export class VehicleTypeService {
     return this.remoteConnectionService.postAsObservable(this.buildVehicleTypeUrl(), JSON.stringify(vehicleTypesModel), constants.contentTypeJson);
   }
 
-  update(vehicleTypesModel: VehicleType, id: string): Observable<any> {
+  update(vehicleTypesModel: VehicleType, id: number): Observable<any> {
     return this.remoteConnectionService.putAsObservable(this.buildVehicleTypeUrl() + id, JSON.stringify(vehicleTypesModel), constants.contentTypeJson);
   }
 
-  delete(id: string) {
+  delete(id: number) {
     return this.remoteConnectionService.deleteAsObservable(this.buildVehicleTypeUrl() + id);
   }
 
