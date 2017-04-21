@@ -54,15 +54,15 @@ export class VehicleTypeTrayComponent implements OnInit {
   confirmDelete() {
       try
       {
-            //this.showDialog = false;
-            this._service.delete(this.ObjvehicleType.id).subscribe(
-            (res) => {
-              this.setValuesModal("Are you sure to delete this record?", false, true);
-              this.bindTable();
-            },
-            (error) => {
-              this.setValuesModal("An error occurred while deleting the registry", true, false);
-            });
+            this.showDialog = false;
+            // this._service.delete(this.ObjvehicleType.id).subscribe(
+            // (res) => {
+            //   this.setValuesModal("Are you sure to delete this record?", false, true);
+            //   this.bindTable();
+            // },
+            // (error) => {
+            //   this.setValuesModal("An error occurred while deleting the registry", true, false);
+            // });
       }
       catch(e){}
     }
