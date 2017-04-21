@@ -73,7 +73,7 @@ export class UserManagerTrayComponent implements OnInit {
      this.isConfirm = true;
     this.includeText = true;
     this.messageModal = "Are you sure to delete this user?";
-    console.log(this.loginService.getLoggedUser());
+   
     if(this.loginService.getLoggedUser().roles[0]!=null || this.loginService.getLoggedUser().roles[0]!=undefined)
     {
        this.rol=this.loginService.getLoggedUser().roles[0];
@@ -179,18 +179,18 @@ export class UserManagerTrayComponent implements OnInit {
   deleteUser(){
     //this.showDialog = false; /// Close dialog
     
-    this.warningMessage=null;
-    this.errorMessage=null;
-     var x = $("#_message").val();
-    
-     this._user.message = x;
+       
+     this._user.message = $("#_message").val();;
+      this.showDialog=false;
+       this.modShowDialog=true;
       this._service.delete(this._user)
             .then(form => 
             {
-              //this.bindTable();
-               location.reload();       
+             
+              this.modMessageModal="User deleted successfully!!";  
+               this.getAll();       
             }).catch(res=>{
-              this.modShowDialog=true;
+             
               this.modMessageModal="Error deleting user. Please try later.";  
                          
             });

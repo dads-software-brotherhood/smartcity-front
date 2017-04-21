@@ -4,10 +4,18 @@
  <div class="row">
     <div class="col-md-12">
     
-      <hr class="title-hr">
-       <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-      <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
-    </div>
+     
+       <!-- Modal-->
+        <modal-popup [(visible)]="modShowDialog" title="Smart Cities Message">
+          {{errorMessage}}
+        <hr>
+        <textarea *ngIf="includeText"   type="text"  class="form-control"> </textarea>
+        <hr *ngIf="includeText">
+        <button *ngIf="!modIsConfirm" type="button"  class="btn btn-danger" data-dismiss="modal" (click)="modShowDialog = false">Accept</button>
+         <button *ngIf="modIsConfirm" type="button"  class="btn btn-primary" data-dismiss="modal" (click)="redirect()">Accept</button>
+        
+        </modal-popup>
+        <!-- ************************************************* -->
       <div class="row">
           
            <div class="col-md-6">
