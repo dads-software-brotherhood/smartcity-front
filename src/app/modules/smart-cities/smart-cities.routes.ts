@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { SmartCitiesComponent } from './index';
 import { UserAccountRoutes } from './modules/user-account/index';
-import { NotificationTrayRoutes } from './modules/notification-tray/index';
+import { NotificationRoutes } from './modules/notification/index';
 
 import { HomeSmartCitiesComponent } from './components/home-smart-cities/home-smart-cities.component';
 
@@ -25,7 +25,7 @@ export const SmartCitiesRoutes: Routes = [
       { path: 'transport/:id', component: PublicTransportDetailComponent, canActivate: [ LoggedInGuard ]},
       { path: '', component: HomeSmartCitiesComponent, canActivate: [ LoggedInGuard ]},
       ... UserAccountRoutes,
-      ... NotificationTrayRoutes,
+      ... NotificationRoutes,
       ... UserManagerRoutes,
       ... UserVehicleRoutes,
       ... GroupRoutes,
