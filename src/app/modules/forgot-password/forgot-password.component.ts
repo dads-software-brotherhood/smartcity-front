@@ -38,21 +38,18 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   submitForm(form: any) {
-    this.showDialog = false;
-    this.showErrorDialog = false;
-
     this.forgotPasswordSubs = this.recoveryPasswordService.forgotPassword(form.email).subscribe(
       (res) => {
-        this.showMessage('Message\nA verification token will be sent to your mailbox. Once you have received the token, you will be able to choose a new password for your account');
+        this.showMessage('A verification token will be sent to your mailbox. Once you have received the token, you will be able to choose a new password for your account');
       },
       (error) => {
-        this.showErrorMessage('Error\nThere was a communication error, please try later.');
+        this.showErrorMessage('There was a communication error, please try later.');
         console.error(error);
       }
     );
   }
 
-   showMessage(message: string) {
+  private showMessage(message: string) {
     this.messageModal = message;
     this.showDialog = true;
   }
