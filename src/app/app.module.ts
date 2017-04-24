@@ -25,6 +25,7 @@ import { VehicleService } from './core/services/vehicle/vehicle.service';
 import { VehicleTypeService } from './core/services/vehicle-type/vehicle-type.service';
 import { GroupService } from './core/services/group/group.service';
 import { NotificationTypeService } from './core/services/notification-type/notification-type.service';
+import { AlertService } from './core/services/alert/alert.service';
 import { UserService } from './core/services/user-service/user-service.service';
 import { CountryService } from './core/services/country/country.service';
 import { RegionService } from './core/services/region/region.service';
@@ -72,6 +73,7 @@ import { appRoutes } from './app.routes';
     GroupService,
     VehicleTypeService,
     NotificationTypeService,
+    AlertService,
     CountryService,
     RegionService,
     LocalityService,

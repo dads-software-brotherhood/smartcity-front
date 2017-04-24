@@ -83,14 +83,14 @@
           </tr>
       </thead>
       <tbody>
-          <tr>
-              <td>Av. Insurgentes Sur 738, Col del Valle Nte, Ciudad de México, CDMX</td>
-              <td>Pollution</td>
-              <td>12/04/2017 20:45:28</td>
-              <td>Very Bad</td>
-              <td>Se presentan niveles muy elevados de contaminación, tome sus precausiones.</td>
+          <tr *ngFor="let alert of alerts | paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>{{alert.locationDescription}}</td>
+              <td>{{alert.alertType}}</td>
+              <td>{{alert.dataTime}}</td>
+              <td>{{alert.severity}}</td>
+              <td>{{alert.description}}</td>
               <td>
-                <button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top"></button>
+                <button *ngIf="isUser" aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top"></button>
               </td>
           </tr>
       </tbody>

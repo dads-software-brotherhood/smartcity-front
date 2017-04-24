@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { RouterLink, Router} from '@angular/router';
+import { Alert } from '../../../../../../core/models/alert';
+import { AlertService } from '../../../../../../core/services/alert/alert.service';
+import { LoginService } from '../../../../../../core/services/login/login.service';
 
 @Component({
   selector: 'user-vehicle-tray',
@@ -16,14 +19,19 @@ export class NotificationTrayComponent implements OnInit {
   private isConfirm: boolean;
   private messageModal: string;
   private includeText: boolean;
+  private alerts: Alert[] = [];
+  private Objalert = new Alert();
+  
+  private isUser: boolean = false;
 
-  constructor(private _router: Router ) { 
+  constructor(private _service: AlertService, private _loginService: LoginService, private _router: Router ) { 
   }
 
   ngOnInit() {  
     try
     { 
       this.bindTable();
+      this.isUser = this._loginService.isUser();
       this.isConfirm = true;
       this.messageModal = "";
       this.includeText = false;
@@ -39,6 +47,8 @@ export class NotificationTrayComponent implements OnInit {
   bindTable() { 
     try
     {
+      this._service.getAll().subscribe(alerts => { this.alerts = alerts;
+      }, error => this.messageModal = <any>error);
     }
     catch(e)
     {
