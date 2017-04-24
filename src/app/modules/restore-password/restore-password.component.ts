@@ -22,6 +22,10 @@ export class RestorePasswordComponent implements OnInit, OnDestroy {
   private validTokenSubs: any;
   private restorePasswordSubs: any;
 
+  showDialog: boolean;
+  showErrorDialog: boolean;
+  messageModal: string;
+
   constructor(private recoveryPasswordService: RecoveryPasswordService,
       private route: ActivatedRoute,
       private router: Router,
@@ -43,8 +47,7 @@ export class RestorePasswordComponent implements OnInit, OnDestroy {
           console.log('token valid');
         },
         (error) => {
-          alert('Your token is invalid');
-          this.router.navigate(constants.logoutRoute);
+          this.showMessage('Your token is invalid');
         });
     });
   }
@@ -66,13 +69,26 @@ export class RestorePasswordComponent implements OnInit, OnDestroy {
 
     this.restorePasswordSubs = this.recoveryPasswordService.restorePassword(this.token, form.password).subscribe(
       (res) => {
-        alert('Message\nYour password has been successfully changed');
-        this.router.navigate(constants.logoutRoute);
+        this.showMessage('Your password has been successfully changed');
       },
       (error) => {
-        alert('Error communicating with server');
+        this.showErrorMessage('Error communicating with server');
       }
     );
+  }
+
+  showMessage(message: string) {
+    this.messageModal = message;
+    this.showDialog = true;
+  }
+
+  private showErrorMessage(message: string) {
+    this.messageModal = message;
+    this.showErrorDialog = true;
+  }
+
+  onContinue() {
+    this.router.navigate(constants.logoutRoute);
   }
 
 }

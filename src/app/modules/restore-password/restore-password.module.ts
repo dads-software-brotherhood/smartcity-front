@@ -8,6 +8,7 @@ import { RestorePasswordComponent } from './restore-password.component';
 
 // Elementos del template
 import { TemplateModule } from '../../template/template.module';
+import { ModalPopupModule  } from '../../usable-component/modal-popup/modalpopup.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { TemplateModule } from '../../template/template.module';
     ReactiveFormsModule,
     NgbModule,
     RouterModule,
-    TemplateModule
+    TemplateModule,
+    ModalPopupModule
   ],
   declarations: [RestorePasswordComponent],
   exports: [RestorePasswordComponent]

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { SmartCitiesComponent } from './index';
 import { UserAccountRoutes } from './modules/user-account/index';
-import { NotificationTrayRoutes } from './modules/notification-tray/index';
+import { NotificationRoutes } from './modules/notification/index';
 
 import { HomeSmartCitiesComponent } from './components/home-smart-cities/home-smart-cities.component';
 
@@ -13,6 +13,7 @@ import { PublicTransportDetailComponent } from './components/public-transport/pu
 import { UserManagerRoutes } from './modules/user-manager/index';
 import { UserVehicleRoutes } from './modules/user-vehicle/index';
 import { GroupRoutes } from './modules/group/index';
+import { VehicleTypesRoutes } from './modules/vehicle-type/index';
 
 export const SmartCitiesRoutes: Routes = [
   {
@@ -24,10 +25,11 @@ export const SmartCitiesRoutes: Routes = [
       { path: 'transport/:id', component: PublicTransportDetailComponent, canActivate: [ LoggedInGuard ]},
       { path: '', component: HomeSmartCitiesComponent, canActivate: [ LoggedInGuard ]},
       ... UserAccountRoutes,
-      ... NotificationTrayRoutes,
+      ... NotificationRoutes,
       ... UserManagerRoutes,
       ... UserVehicleRoutes,
-      ... GroupRoutes
+      ... GroupRoutes,
+      ... VehicleTypesRoutes
     ]
   }
 ];

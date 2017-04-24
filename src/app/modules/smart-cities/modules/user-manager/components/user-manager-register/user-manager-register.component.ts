@@ -23,11 +23,17 @@ export class UserManagerRegisterComponent implements OnInit {
   userService:UserService;
   private userRoles: any[];
   private roles: any[];
-  private errorMessage: string;
+  errorMessage: string;
   private rol: string;
   private userModel:UserModel[]=[];
   private  registerSubs: any;
   //private vehicle = new UserModel();
+
+  //Modal
+  private modShowDialog: boolean;
+  modIsConfirm: boolean=false;
+ 
+  modIncludeText: boolean=false;
 
   constructor(private fb: FormBuilder,   
               private router: Router,
@@ -47,15 +53,27 @@ export class UserManagerRegisterComponent implements OnInit {
     
      //this.identityUser = this.loginService.getLoggedUser();
     //this.rol= this.identityUser.roles[0].toString(); 
-      this.rol="ADMIN";
+     if(this.loginService.getLoggedUser().roles[0]!=null || this.loginService.getLoggedUser().roles[0]!=undefined)
+    {
+       this.rol=this.loginService.getLoggedUser().roles[0];
+       if (this.rol=="USER" || this.rol== "TRANSPORT_ADMIN")
+       {
+          this.router.navigate(["/smart-cities"]);
+       }
+    }
+    else{
+      this.router.navigate(["/smart-cities"]);
+    }
+
+    
       
   }
 
   getRoles() {
     let roles: any[] = [];
     var index;// = array.indexOf(5);
-    this.rol="SA";
-    console.log(this.rol);
+    
+   
     //Get name-value pairs from VehicleTypeEnum
     let rolesEnumList = EnumEx.getNamesAndValues(role);
 
@@ -87,48 +105,31 @@ export class UserManagerRegisterComponent implements OnInit {
 save(form, isValid: boolean) {
           //console.log(form);
           //console.log("Hola");
-          
+            this.modShowDialog=true;
          this.registerSubs = this._service.register(form).subscribe(
       (res) => {
         //alert('Message\nThe token has been sent to your mail, please check your tray');
-        this.router.navigate(["/smart-cities/user-manager/user-manager-tray"]);
+      this.modIsConfirm=true;
+         this.errorMessage="User registered successfully";
+       
       },
       (error) => {
+       ;
         if (error.status && error.status == 409) {
+           
                this.errorMessage="The email is already in use.";
         } else {
+          
          this.errorMessage="An error has ocurred sendind user information. Please try again later";
         }
       }
     );
           
-          // this._service.insert(form).then(res=>{
-          //   //var mess:String = res.tostring();
-          //   if(res == "Success")
-          //   {
-          //      this.router.navigate(["/smart-cities/user-manager/user-manager-tray"]);
-          //   }
-            
-            
-          //  } ).catch(err=> {
-              
-          //    console.log(<any>err);
-
-          //    if(err == "409")
-          //  {
-             
-          //     this.errorMessage="This email: "+ form.email +" is already registered";
-          //  }else
-          //  this.errorMessage="An error has ocurred sendind user information. Please try again later";}
-          // );
-            
          
-           
-               // .then(form => this.userModel.push(form),
-                 //                   error =>  this.errorMessage = <any>error);
-         
-                
-        //this.router.navigate(["/smart-cities/user-manager/user-manager-tray"]);
-    }
+  }
+  redirect()
+  {
+       this.router.navigate(["/smart-cities/user-manager/user-manager-tray"]);
+  }
  
 }

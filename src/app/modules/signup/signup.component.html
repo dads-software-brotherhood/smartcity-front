@@ -1,7 +1,7 @@
 <div class="login-page">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-4 col-lg-offset-4">
+      <div class="col-lg-4 push-lg-4 col-md-8 push-md-2">
         <div class="row">
           <div class="col-md-12">
             <h1> USER REGISTRATION </h1>
@@ -22,7 +22,7 @@
                           <input type="email" class="form-control" id="email" placeholder="Email" [formControl]="complexForm.controls['email']">
                         </div>
                         <div *ngIf="complexForm.controls['email'].hasError('required') && complexForm.controls['email'].touched" class="alert alert-danger" i18n>The email is required</div>
-                        <div *ngIf="complexForm.controls['email'].hasError('email') && complexForm.controls['email'].touched" class="alert alert-danger" i18n>Email does not have a valid structure</div>
+                        <div *ngIf="complexForm.controls['email'].hasError('email') && complexForm.controls['email'].touched" class="alert alert-danger" i18n>Please enter a valid email address</div>
                       </div>
                     </div>
                     <div class="col-lg-12">
@@ -47,12 +47,12 @@
                         <div *ngIf="complexForm.controls['confirmPassword'].hasError('equalTo') && complexForm.controls['confirmPassword'].touched" class="alert alert-danger" i18n>Password don’t match.</div>
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                       <div class="form-group">
                         <a class="btn btn-danger btn-block" routerLink="/"> Cancel </a>
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                       <div class="form-group">
                         <button class="btn btn-smart btn-block" [disabled]="!complexForm.valid"> Save </button>
                       </div>
@@ -76,3 +76,15 @@
   </div>
 
 </div>
+
+<modal-popup [(visible)]="showDialog" title="System Message">
+  {{messageModal}}
+  <hr/>
+  <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onContinue()">Accept</button>
+</modal-popup>
+
+<modal-popup [(visible)]="showErrorDialog" title="Error Message">
+  {{messageModal}}
+  <hr/>
+  <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="showErrorDialog = false">Accept</button>
+</modal-popup>

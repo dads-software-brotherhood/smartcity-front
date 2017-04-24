@@ -1,20 +1,30 @@
+<div role="alert" class="alert alert-warning text-center">
+  <h2>Cancel account</h2>
+    Are you sure? Cancelling your account implies the deletion of all your data.<br>
+    <b>This action is permanent</b>
+</div>
 
-  <div role="alert" class="alert alert-warning text-center">
-    <h2>Cancel account</h2>
-      Are you sure? Cancelling your account implies the deletion of all your data.<br>
-      This action is permanent
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <a class="btn btn-block btn-danger" routerLink="/smart-cities" routerLinkActive="active">Cancel</a>
+    </div>
   </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <button class="btn btn-block btn-smart" (click)="cancelAccount()">Accept</button>
+    </div>
+  </div>
+</div>
 
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <a href="" class="btn btn-block btn-danger">Cancel</a>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <a href="" class="btn btn-block btn-smart">Accept</a>
-      </div>
-    </div>
-    
-  </div>
+<modal-popup [(visible)]="showDialog" title="System Message">
+  {{messageModal}}
+  <hr/>
+  <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onContinue()">Accept</button>
+</modal-popup>
+
+<modal-popup [(visible)]="showErrorDialog" title="Error Message">
+  {{messageModal}}
+  <hr/>
+  <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="showErrorDialog = false">Accept</button>
+</modal-popup>

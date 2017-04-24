@@ -5,10 +5,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import { SignupComponent } from './signup.component';
-import { AccountVerificationComponent } from './account-verification.component'
+import { AccountVerificationComponent } from './account-verification.component';
 
 // Elementos del template
 import { TemplateModule } from '../../template/template.module';
+import { ModalPopupModule  } from '../../usable-component/modal-popup/modalpopup.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { TemplateModule } from '../../template/template.module';
     ReactiveFormsModule,
     NgbModule,
     RouterModule,
-    TemplateModule
+    TemplateModule,
+    ModalPopupModule
   ],
   declarations: [
     SignupComponent,

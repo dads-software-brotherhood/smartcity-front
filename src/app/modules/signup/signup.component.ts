@@ -19,6 +19,10 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   private registerSubs: any;
 
+  showDialog: boolean;
+  showErrorDialog: boolean;
+  messageModal: string;
+
   constructor(private signupService: SignupService, private router: Router, fb: FormBuilder) {
     const password: FormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
@@ -47,17 +51,30 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     this.registerSubs = this.signupService.register(form.value.email, form.value.password).subscribe(
       (res) => {
-        alert('Message\nThe token has been sent to your mail, please check your tray');
-        this.router.navigate(constants.logoutRoute);
+        this.showMessage('The token has been sent to your mail, please check your tray');
       },
       (error) => {
-        if (error.status && error.status == 409) {
-          alert('Error\nEmail already registered');
+        if (error.status && error.status === 409) {
+          this.showErrorMessage('The email is already in use');
         } else {
-          alert('Error\nThere was a communication error, please try later.')
+          this.showErrorMessage('There was a communication error, please try later.');
         }
       }
     );
+  }
+
+  showMessage(message: string) {
+    this.messageModal = message;
+    this.showDialog = true;
+  }
+
+  private showErrorMessage(message: string) {
+    this.messageModal = message;
+    this.showErrorDialog = true;
+  }
+
+  onContinue() {
+    this.router.navigate(constants.logoutRoute);
   }
 
 }

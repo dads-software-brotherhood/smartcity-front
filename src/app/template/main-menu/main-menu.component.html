@@ -1,6 +1,4 @@
-<button class="btn btn-default" id="toggle-sidebar" type="button" (click)="eventCalled()">
-    <i class="fa fa-bars" aria-hidden="true"></i>
-</button>
+
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
 
     <ul class="list-group userMainMenu">
@@ -54,7 +52,7 @@
           <span class="iBlock"><i class="fa fa-map" aria-hidden="true"></i></span> Maps
         </a>
 
-        <a href="http://207.249.127.180:8080/#/notifications" target="_new" class="list-group-item">
+        <a  routerLink="/smart-cities/notification/notification-tray" routerLinkActive="active" class="list-group-item">
             <span class="iBlock"><i class="fa fa-bell" aria-hidden="true"></i></span> Notifications
         </a>
 

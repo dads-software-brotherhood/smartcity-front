@@ -15,7 +15,7 @@ import { TemplateModule } from '../../template/template.module';
 
 // Submodulos
 import { UserAccountModule } from './modules/user-account/user-account.module';
-import { NotificationTrayModule } from './modules/notification-tray/notification-tray.module';
+import { NotificationModule } from './modules/notification/notification.module';
 
 import { ModalPopupModule  } from '../../usable-component/modal-popup/modalpopup.module';
 import { PublicTransportComponent } from './components/public-transport/public-transport.component';
@@ -24,6 +24,7 @@ import { PublicTransportDetailComponent } from './components/public-transport/pu
 import { UserManagerModule } from './modules/user-manager/user-manager.module';
 import { UserVehicleModule } from './modules/user-vehicle/user-vehicle.module';
 import { GroupModule } from './modules/group/group.module';
+import { VehicleTypeModule } from './modules/vehicle-type/vehicle-type.module';
 
 
 @NgModule({
@@ -35,11 +36,12 @@ import { GroupModule } from './modules/group/group.module';
     FormsModule,
     ReactiveFormsModule,
     UserAccountModule,
-    NotificationTrayModule,
+    NotificationModule,
     TemplateModule,
     UserManagerModule,
     UserVehicleModule,
     GroupModule,
+    VehicleTypeModule,
     ModalPopupModule
   ],
   declarations: [

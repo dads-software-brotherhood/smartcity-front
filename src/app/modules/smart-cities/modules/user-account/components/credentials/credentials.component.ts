@@ -10,6 +10,8 @@ import { LoginService } from '../../../../../../core/services/login/login.servic
 import { ChangePassword } from '../../../../../../core/models/change-password';
 import { IdentityUser } from '../../../../../../core/models/identity-user';
 
+import { constants } from '../../../../../../core/common/constants';
+
 @Component({
   selector: 'app-credentials',
   templateUrl: './credentials.component.html',
@@ -20,7 +22,15 @@ export class CredentialsComponent implements OnInit {
   identityUser: IdentityUser;
   complexForm: FormGroup;
 
-  constructor(private userProfileService: UserProfileService, private loginService: LoginService, private fb: FormBuilder, private router: Router) {
+  showDialog: boolean;
+  showConfirmDialog: boolean;
+  showErrorDialog: boolean;
+  messageModal: string;
+
+  form: any;
+
+  constructor(private userProfileService: UserProfileService, private loginService: LoginService,
+      private fb: FormBuilder, private router: Router) {
     const passwordFormControl = new FormControl(null, [Validators.required, Validators.minLength(8)]);
 
     this.complexForm = fb.group({
@@ -35,22 +45,47 @@ export class CredentialsComponent implements OnInit {
   }
 
   submitForm(form: any) {
+    this.form = form;
+    this.showConfirmMessage('Are you sure you want to edit this information?');
+  }
+
+  private showMessage(message: string) {
+    this.messageModal = message;
+    this.showDialog = true;
+  }
+
+  private showConfirmMessage(message: string) {
+    this.messageModal = message;
+    this.showConfirmDialog = true;
+  }
+
+  private showErrorMessage(message: string) {
+    this.messageModal = message;
+    this.showErrorDialog = true;
+  }
+
+  onContinue() {
+    this.router.navigate([constants.defaultLoggedRoute]);
+  }
+
+  onConfirm() {
+    this.showConfirmDialog = false;
+
     const changePassword: ChangePassword = new ChangePassword();
 
-    changePassword.original_password = form.oldPassword;
-    changePassword.password = form.password;
+    changePassword.original_password = this.form.oldPassword;
+    changePassword.password = this.form.password;
 
     this.userProfileService.changePassword(changePassword).subscribe(
       (res) => {
-        alert('All OK');
-        this.router.navigate(['/smart-cities']);
+        this.showMessage('The information was successfully saved');
       },
       (error) => {
         console.error(error);
         if (error && error.status && error.status === 500) {
-          alert('Bad password');
+          this.showErrorMessage('Invalid old password');
         } else {
-          alert('Unexpected Rrror')
+          this.showErrorMessage('There was a communication error, please try later.');
         }
       }
     );

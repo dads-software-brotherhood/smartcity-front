@@ -1,0 +1,110 @@
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Notifications</h2>
+      <hr class="title-hr">
+      <div class="row">
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
+        </div>
+         <!-- Implementación de ventana modal -->
+        <modal-popup [(visible)]="showDialog" title="System Message">
+          {{messageModal}}
+        <hr>
+        <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
+        <hr *ngIf="includeText">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDelete()">Accept</button>
+        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
+        </modal-popup>
+        <!-- ************************************************* -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="typeAlert">Type alert</label>
+            <select id="typeAlert" class="form-control">
+                <option value="0">All</option>
+                <option value="1">Pollution</option>
+                <option value="2">Accidents</option>
+                <option value="3">Asthma attacks</option>
+                <option value="4">Pollen</option>
+                <option value="5">Traffic</option>
+                <option value="6">Weather conditions</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="severity">Severity</label>
+            <select id="severity" class="form-control">
+                <option value="0">Low</option>
+                <option value="1">Medium</option>
+                <option value="2">High</option>
+                <option value="3">Good</option>
+                <option value="4">Regular</option>
+                <option value="5">Bad</option>
+                <option value="6">Very bad</option>
+                <option value="7">Extremely bad</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="alertDate">Date</label>
+            <input class="form-control" type="date" id="alertDate" placeholder="yyyy-mm-dd"/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <button class="btn btn-smart btn-block" > Clear </button>
+          </div>
+        </div>
+         <div class="col-md-3">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <button class="btn btn-smart btn-block" > Search </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table id="myTable" class="table ">
+      <thead class="thead-default">
+          <tr>
+              <th>Location</th>
+              <th>Alert</th>
+              <th>Date</th>
+              <th>Severity</th>
+              <th>Description</th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let alert of alerts | paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>{{alert.locationDescription}}</td>
+              <td>{{alert.alertType}}</td>
+              <td>{{alert.dataTime}}</td>
+              <td>{{alert.severity}}</td>
+              <td>{{alert.description}}</td>
+              <td>
+                <button *ngIf="isUser" aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top"></button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+            
+          </div>
+
+
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
