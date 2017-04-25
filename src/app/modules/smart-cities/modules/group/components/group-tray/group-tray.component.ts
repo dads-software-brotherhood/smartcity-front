@@ -46,7 +46,7 @@ export class GroupTrayComponent implements OnInit {
     this._service.getAll().subscribe(
       groups => { this.groups = groups;
   },
-      error => this.errorMessage = <any>error
+      error => this.errorMessage = "An error occurred while performing the search"
     );
   }
   catch(e){throw e;}
@@ -59,7 +59,7 @@ export class GroupTrayComponent implements OnInit {
            this.showDialog = false; /// Close dialog
            this._service.delete(this.Objgroup.id)
              .then(res => true,
-                error =>  this.errorMessage = <any>error);
+                error =>  this.errorMessage = "An error occurred while performing the search");
            location.reload();
       }
       catch(e){this.errorMessage="An error occurred while deleting the registry";}

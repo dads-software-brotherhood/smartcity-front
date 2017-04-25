@@ -1,5 +1,5 @@
 export class Group {
-  id: string;
+  id: number;
   type: string;
   group: string
   dateCreated: Date;

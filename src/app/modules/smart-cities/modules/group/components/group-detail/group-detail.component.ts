@@ -17,7 +17,7 @@ import { NotificationTypeService } from '../../../../../../core/services/notific
 
 export class GroupDetailComponent implements OnInit {
   public groupForm: FormGroup;
-  public groupId: string;
+  public groupId: number;
   public title: string;
   private groupTypes: any[];
   private allNotificationTypes: NotificationType[];
@@ -55,7 +55,7 @@ export class GroupDetailComponent implements OnInit {
         this.groupId = params["id"];
       })
 
-      if (this.groupId != "") { //// Based on id decide Title add/edit
+      if (this.groupId != 0) { //// Based on id decide Title add/edit
         this.title = "Edit User Group"
         this.getGroupData();
       }
@@ -116,7 +116,6 @@ export class GroupDetailComponent implements OnInit {
     this.messageModal = null;
     this.errorMessage = null;
     var valido = false;
-    console.log("Save");
     try {
       var selectedNotifications = [];
       $('input:checkbox:checked.notification').map(function () {
@@ -124,11 +123,13 @@ export class GroupDetailComponent implements OnInit {
       });
       if (this.group.group != null && this.group.group.trim() != "" && selectedNotifications.length > 0) {
         this.group.notificationIds = selectedNotifications;
-        if (this.groupId == "") {
+        console.log(this.groupId == 0);
+        if (this.groupId == 0) {
           this._service.insert(this.group).then(form => {
             console.log(form);
             if (form.notificationIds != undefined) {
               this.group = form;
+              this.groupId = this.group.id;
               this.messageModal = "Your record was successfully registered!";
               this.showDialog = true;
             }

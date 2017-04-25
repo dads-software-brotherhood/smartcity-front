@@ -30,7 +30,7 @@ export class GroupService {
   //   .catch(this.handleError);
   // }
 
-  loadById(id: string): Promise<Group> {
+  loadById(id: number): Promise<Group> {
     const requestOptions: RequestOptions = this.buildRequestOptions();
 
     return this.http.get(groupUrl + '/' + id, requestOptions).toPromise()
@@ -62,7 +62,7 @@ export class GroupService {
     .catch(this.handleError);
   }
 
-  delete(id: string): Promise<boolean> {
+  delete(id: number): Promise<boolean> {
     const requestOptions: RequestOptions = this.buildRequestOptions();
 
     return this.http.delete(groupUrl + '/' + id, requestOptions).toPromise()
