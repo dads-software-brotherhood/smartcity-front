@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HealthProfileService } from 'app/core/services/user-profile/health-profile.service';
 import { LoginService } from 'app/core/services/login/login.service';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { HealthProfile } from 'app/core/models/health-profile';
 @Component({
@@ -33,7 +32,7 @@ export class HealthProfileComponent implements OnInit {
                                 ];
   healthProfile : HealthProfile;
 
-  constructor(private fb: FormBuilder,private healthProfileService :HealthProfileService, private loginService: LoginService) { 
+  constructor(private healthProfileService :HealthProfileService, private loginService: LoginService) { 
 
     this.healthProfile = new HealthProfile();
     this.healthProfile.healthState = "Good";
