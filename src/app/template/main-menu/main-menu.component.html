@@ -44,10 +44,6 @@
           <span class="iBlock"><i class="fa fa-home" aria-hidden="true"></i></span> Home
         </a>
 
-        <a routerLink="/smart-cities" routerLinkActive="active" class="list-group-item" *ngIf="isSA || isAdmin">
-          <span class="iBlock"><i class="fa fa-users" aria-hidden="true"></i></span> Groups
-        </a>
-
         <a href="http://207.249.121.43/cdmx2/" target="_blank" class="list-group-item">
           <span class="iBlock"><i class="fa fa-map" aria-hidden="true"></i></span> Maps
         </a>
@@ -56,7 +52,7 @@
             <span class="iBlock"><i class="fa fa-bell" aria-hidden="true"></i></span> Notifications
         </a>
 
-        <a routerLink="/smart-cities/group/groups" routerLinkActive="active" class="list-group-item" >
+        <a routerLink="/smart-cities/group/groups" routerLinkActive="active" class="list-group-item" *ngIf="isSA || isAdmin">
           <span class="iBlock"><i class="fa fa-users" aria-hidden="true"></i></span> Groups
         </a>
 
