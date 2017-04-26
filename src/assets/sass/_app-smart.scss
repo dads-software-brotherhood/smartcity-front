@@ -460,6 +460,7 @@ a:hover{
 }
 
 .nested-menu2 {
+
     .list-group-item {
         cursor: pointer;
     }
@@ -468,7 +469,7 @@ a:hover{
     }
     ul.submenu {
         height: 0;
-        display: none;
+        list-style:none;
     }
     ul.submenu1 {
         height: 0;
@@ -476,6 +477,7 @@ a:hover{
     }
     & .expand {
         ul.submenu {
+            margin-left: -40px; 
             list-style-type: none;
             height: auto;
             display: block;
