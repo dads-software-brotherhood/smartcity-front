@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Http, Headers, Response, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -18,6 +18,8 @@ const baseGetAlertUrl = environment.backend_sdk;
 @Injectable()
 export class AlertService {
 
+  private url: string;
+
   constructor(private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { }
 
    getAll(): Observable<Array<Alert>> {
@@ -30,6 +32,43 @@ export class AlertService {
         return [];
       });
   }
+
+  getAllByPage(page: string, size: string): Observable<Array<Alert>> {
+    this.url = this.buildAlertUrl() + 'page/' + page + '/' + size;
+    return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+  }
+
+  getAllByTypeAlert(type: string, page: string, size: string): Observable<Array<Alert>> {
+    this.url = this.buildAlertUrl() + 'type/' + type + '/page/' + page + '/items/' + size;
+    return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+  }
+
+  getAllByTypeSubTypeAlert(type: string, subtype: string, page: string, size: string): Observable<Array<Alert>> {
+    this.url = this.buildAlertUrl() + 'type/' + type + '/subtype/' + subtype + '/page/' + page + '/items/' + size;
+    return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+  }
+
 
   private buildAlertUrl() {
     return baseGetAlertUrl + '/alerts/';

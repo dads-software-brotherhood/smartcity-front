@@ -30,6 +30,8 @@ export class NotificationTrayComponent implements OnInit {
   private notifications: NotificationType[] = [];
   
   private isUser: boolean = false;
+  private page: string;
+  private total: number;
 
   constructor(private _service: AlertService, private _loginService: LoginService, 
               private _router: Router, private _notificationService: NotificationTypeService) { 
@@ -38,9 +40,9 @@ export class NotificationTrayComponent implements OnInit {
   ngOnInit() {  
     try
     { 
+      this.total = 20;
       this.getNotification();
-      this.severities = this.getSeverity();
-      this.bindTable();
+      this.bindTable('0', '10');
       this.isUser = this._loginService.isUser();
       this.isConfirm = true;
       this.messageModal = "";
@@ -54,18 +56,12 @@ export class NotificationTrayComponent implements OnInit {
   
   //Metodo que se utiliza para el llenado de la tabla con los datos de las notificaciones
   //registradas.
-  bindTable() { 
+  bindTable(page: string, size: string) { 
     try
     {
-      let severityIndex: number = 0;
-      this._service.getAll().subscribe(
+      this._service.getAllByPage(page, size).subscribe(
         (res) => { 
           this.alerts = res;
-          for(let i=0; i < this.alerts.length; i++)
-          {
-            severityIndex = this.alerts[i].severity - 1;
-            this.alerts[i].severityDesc = this.severities[severityIndex].name;
-          }
         },
         (error) => {
             this.messageModal = error;
@@ -77,20 +73,21 @@ export class NotificationTrayComponent implements OnInit {
     }
   }
 
-  getSeverity() {
+  pageChanged(page: number)
+  {
+    let pagina: string;
+    pagina = (page-1).toString();
+    this.page = page.toString();
+    console.log(this.page);
+    console.log(pagina);
+    console.log(page);
+    this.bindTable(pagina, '10');
+  }
+
+  getSubTypeAlert() {
     try
     {
-        let value: number;
-        let severities: any[] = [];
-        //Obtener pares nombre-valor de SeverityEnum
-        let severityEnumList = EnumEx.getNamesAndValues(Severity);
-        //Convertir los nombres-valores a Severity[]
-        severityEnumList.forEach(pair => {
-          value = pair.value + 1;
-          let severity = { 'id': value.toString(), 'name': pair.name };
-            severities.push(severity);
-        });
-        return severities;
+        
     }
     catch(e){throw e;}
 }

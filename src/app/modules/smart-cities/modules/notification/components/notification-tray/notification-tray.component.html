@@ -64,19 +64,19 @@
       <thead class="thead-default">
           <tr>
               <th>Location</th>
-              <th>Alert</th>
+              <th>Type alert</th>
+              <th>Subtype alert</th>
               <th>Date</th>
-              <th>Severity</th>
               <th>Description</th>
               <th></th>
           </tr>
       </thead>
       <tbody>
-          <tr *ngFor="let alert of alerts | paginate: { itemsPerPage: 10, currentPage: p }">
+          <tr *ngFor="let alert of alerts | paginate: { itemsPerPage: 10, currentPage: page, totalItems: total }">
               <td>{{alert.locationDescription}}</td>
               <td>{{alert.alertType}}</td>
-              <td>{{alert.dataTime}}</td>
-              <td>{{alert.severityDesc}}</td>
+              <td>{{alert.subtypeAlert}}</td>
+              <td>{{alert.dateTime}}</td>
               <td>{{alert.description}}</td>
               <td>
                 <button *ngIf="isUser" aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top"></button>
@@ -91,7 +91,8 @@
         </div>
         <div class="col-md-12">
           <div class="form-group">
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls (pageChange)="pageChanged($event)">
+            </pagination-controls>
           </div>
         </div>
       </div>

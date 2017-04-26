@@ -2,26 +2,24 @@ export class Alert{
     id: string;
     type: string;
     alertType: string;
+    subtypeAlert: string;
     locationDescription: string;
-    dataTime: string;
-    severity: number;
+    dateTime: string;
     description: string;
     refUser: string;
     refDevice: string;
-    severityDesc: string;
 
-    constructor(id?: string, type?: string, alertType?: string, locationDescription?: string,
-                dataTime?: string, severity?: number, description?: Date, refUser?: string,
-                refDevice?: string, severityDesc?: string) 
+    constructor(id?: string, type?: string, alertType?: string, subtypeAlert?: string, locationDescription?: string,
+                dateTime?: string, description?: Date, refUser?: string,
+                refDevice?: string) 
     {
         this.id = id;
         this.type = type;
         this.alertType = alertType;
         this.locationDescription = locationDescription;
-        this.dataTime = dataTime;
-        this.severity = severity;
+        this.dateTime = dateTime;
+        this.subtypeAlert = subtypeAlert;
         this.refUser = refUser;
         this.refDevice = refDevice;
-        this.severityDesc = severityDesc;
     }
 }
