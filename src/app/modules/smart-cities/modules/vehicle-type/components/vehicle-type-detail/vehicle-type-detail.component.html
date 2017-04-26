@@ -44,7 +44,7 @@
         <div class="col-md-3 ">
           <div class="form-group">
             <span class="labelHidden"></span>
-              <button id="btnSave" [disabled]="!vehicleTypeForm.valid" type="submit" class="btn btn-smart btn-block" > Save</button>
+              <button id="btnSave" *ngIf="isPermitted" [disabled]="!vehicleTypeForm.valid" type="submit" class="btn btn-smart btn-block" > Save</button>
           </div>
         </div>
         <div class="row">
