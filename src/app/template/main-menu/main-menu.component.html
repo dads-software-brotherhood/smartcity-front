@@ -10,7 +10,7 @@
                     <li>
                         <a routerLink="/smart-cities/user-account/profile" routerLinkActive="active"><span> User profile</span></a>
                     </li>
-                    <li *ngIf="isUser"> 
+                    <li *ngIf="isUser">
                         <a routerLink="/smart-cities/user-account/health-profile" routerLinkActive="active"><span> Health profile</span></a>
                     </li>
                     <a class="<list-gro></list-gro>up-item lgiCustom" (click)="addExpandSubClass('sMenu2')">
@@ -54,24 +54,14 @@
                         </a>
                     </li>
                     <li>
-                        <a routerLink="/smart-cities/user-account/health-profile" routerLinkActive="active"><span> Health profile</span></a>
+                        <a routerLink="/smart-cities/user-account/health-profile" routerLinkActive="active">
+                            <span class="iBlock"><i class="fa fa-check-square-o" aria-hidden="true"></i></span> Rules
+                        </a>
                     </li>
-                    <a class="list-group-item lgiCustom" (click)="addExpandSubClass('sMenu2')">
-                        Settings <span class="fa fa-chevron-down pull-right"></span>
-                    </a>
-                    <li class="nested" [ngClass]="{'expand1' : showSetting === 'sMenu2' }">
-                        <ul class="submenu1">
-                            <li>
-                                <a routerLink="/smart-cities/user-account/credentials" routerLinkActive="active"><span>Change Your Password</span></a>
-                            </li>
-
-                            <li>
-                                <a routerLink="/smart-cities/user-account/close-account" routerLinkActive="active"><span>Cancel Account</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a routerLinkActive="active" (click)="logout()"><span>Log Out</span></a>
+                    <li *ngIf="isSA">
+                        <a routerLink="/smart-cities/user-manager/user-manager-tray" routerLinkActive="active" class="list-group-item">
+                            <span class="iBlock"><i class="fa fa-user" aria-hidden="true"></i></span> User
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -94,14 +84,33 @@
         <a routerLinkActive="active" class="list-group-item" *ngIf="isUser">
             <span class="iBlock"><i class="fa fa-bus" aria-hidden="true"></i></span> Transport
         </a>
-
-        <a routerLink="/smart-cities/transports" routerLinkActive="active" class="list-group-item" *ngIf="isSA || isTransportAdmin">
-            <span class="iBlock"><i class="fa fa-bus" aria-hidden="true"></i></span> Transport
+        <a routerLink="/smart-cities/transports" routerLinkActive="active" class="list-group-item" *ngIf="isSA || isAdmin">
+            <span class="iBlock"><i class="fa fa-wifi" aria-hidden="true"></i></span> Data Context
         </a>
 
-        <a routerLink="/smart-cities/user-manager/user-manager-tray" routerLinkActive="active" class="list-group-item" *ngIf="isSA || isAdmin">
-            <span class="iBlock"><i class="fa fa-bus" aria-hidden="true"></i></span> User Manager
-        </a>
+
+        <div class="nested-menu2" *ngIf="isSA || isTransportAdmin">
+            <a class="list-group-item" (click)="addExpandClass('sMenu2')">
+                <span class="iBlock"><i class="fa fa-bus" aria-hidden="true"></i></span> Transport <span class="fa fa-chevron-down pull-right"></span>
+            </a>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'sMenu2' }">
+                <ul class="submenu">
+                    <li>
+                        <a routerLinkActive="active" class="list-group-item" >
+                            <span class="iBlock"><i class="fa fa-car" aria-hidden="true"></i></span> Private transport
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/smart-cities/transports" routerLinkActive="active" class="list-group-item" >
+                            <span class="iBlock"><i class="fa fa-train" aria-hidden="true"></i></span> Public Transport
+                        </a>
+                    </li>
+                    
+                </ul>
+            </li>
+
+        </div>
+
 
 
     </ul>
