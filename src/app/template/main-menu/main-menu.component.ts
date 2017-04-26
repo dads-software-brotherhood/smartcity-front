@@ -22,6 +22,7 @@ export class MainMenuComponent implements OnInit {
   isAdmin:            boolean;
   isSA:               boolean;
   isTransportAdmin:   boolean;
+  isUser:             boolean;
 
   constructor(private loginService: LoginService, private router: Router) { }
 
@@ -50,6 +51,7 @@ export class MainMenuComponent implements OnInit {
     this.isAdmin = this.loginService.isAdmin();
     this.isSA = this.loginService.isSA();
     this.isTransportAdmin = this.loginService.isTransportAdmin();
+    this.isUser = this.loginService.isUser();
   }
 
   logout() {
