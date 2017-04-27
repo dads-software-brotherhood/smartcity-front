@@ -35,6 +35,7 @@ export class NotificationTrayComponent implements OnInit {
   private page: number;
   private total: number;
   private element: any;
+  private alertType: string;
 
   notificationId: number = -1;
   subNotificationId: number = -1;
@@ -100,12 +101,32 @@ export class NotificationTrayComponent implements OnInit {
     }
   }
 
+   getAlertsByAlertType(type: string, page: string, size: string) { 
+    try
+    {
+      this._service.getAllByTypeAlert(type, page, size).subscribe(
+        (res) => { 
+          this.alerts = res;
+        },
+        (error) => {
+            this.messageModal = error;
+        });
+    }
+    catch(e)
+    {
+      throw e;
+    }
+  }
+
   pageChanged(page: number)
   {
     let pagina: string;
     pagina = (page-1).toString();
     this.page = page;
-    this.bindTable(pagina, '10');
+    if(this.notificationId < 0 && this.subNotificationId < 0)
+      this.bindTable(pagina, '10');
+    else if(this.notificationId > 0 && this.subNotificationId < 0)
+      this.getAlertsByAlertType(this.alertType, pagina, '10');
   }
 
   onNotificationTypeChange(val)
@@ -123,6 +144,16 @@ export class NotificationTrayComponent implements OnInit {
           else
             this.element.disabled = true;     
         }
+    }
+    catch(e){
+      this.setValuesModal("An error occurred while search Subtype alert", true, false);
+    }
+  }
+
+  onSubNotificationChange(val){
+    try
+    {
+        this.subNotificationId = val;
     }
     catch(e){
       this.setValuesModal("An error occurred while search Subtype alert", true, false);
@@ -191,7 +222,20 @@ export class NotificationTrayComponent implements OnInit {
     onSearch(){     
       try
       {
-        
+        var selectNotification, selectSubNotification, index;
+        selectNotification = <HTMLSelectElement>document.getElementById("notificationType");
+        selectSubNotification = <HTMLSelectElement>document.getElementById("subNotification");
+        this.alerts = [];
+        if(this.notificationId > 0 && this.subNotificationId <= 0)
+        {
+            index = selectNotification.options.selectedIndex;
+            this.alertType = selectNotification.options[index].innerText;
+            this.getAlertsByAlertType(this.alertType, '0', '10');
+        }
+        else if(this.notificationId > 0 && this.subNotificationId > 0)
+        {
+
+        }
       }
       catch(e)
       {

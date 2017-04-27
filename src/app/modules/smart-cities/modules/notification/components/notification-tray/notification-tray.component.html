@@ -30,7 +30,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="subNotification">Subtype Alert</label>
-            <select id="subNotification" class="form-control" [formControl]="Form.controls['subNotification']">
+            <select id="subNotification" class="form-control" [formControl]="Form.controls['subNotification']" (ngModelChange)="onSubNotificationChange($event)">
               <option value="-1" disabled>Select</option>
               <option *ngFor="let subNotification of subNotifications"  value="{{ subNotification.id }}">{{ subNotification.name }}</option>>
             </select>
