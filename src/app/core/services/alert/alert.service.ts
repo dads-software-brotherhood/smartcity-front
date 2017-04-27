@@ -34,7 +34,7 @@ export class AlertService {
   }
 
   getAllByPage(page: string, size: string): Observable<Array<Alert>> {
-    this.url = this.buildAlertUrl() + 'page/' + page + '/' + size;
+    this.url = this.buildAlertUrl() + 'page/' + page + '/items/' + size;
     return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
       .map((res: Response) => {
         return res.json();

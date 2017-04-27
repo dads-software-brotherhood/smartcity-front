@@ -4,9 +4,12 @@ import { Alert } from '../../../../../../core/models/alert';
 import { NotificationType } from '../../../../../../core/models/notification-type';
 import { AlertService } from '../../../../../../core/services/alert/alert.service';
 import { LoginService } from '../../../../../../core/services/login/login.service';
-import { Severity } from '../../../../../../core/models/severity';
+import { SubNotification } from '../../../../../../core/models/sub-notification';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { CustomValidators } from 'ng2-validation';
 import { EnumEx } from '../../../../../../core/models/EnumEx';
 import { NotificationTypeService } from '../../../../../../core/services/notification-type/notification-type.service';
+import { SubNotificationService } from '../../../../../../core/services/sub-notification/sub-notification.service';
 
 
 @Component({
@@ -25,16 +28,33 @@ export class NotificationTrayComponent implements OnInit {
   private messageModal: string;
   private includeText: boolean;
   private alerts: Alert[] = [];
-  private severities: any[] = [];
-  private Objalert = new Alert();
+  private subNotifications: SubNotification[] = [];
   private notifications: NotificationType[] = [];
   
   private isUser: boolean = false;
-  private page: string;
+  private page: number;
   private total: number;
+  private element: any;
+
+  notificationId: number = -1;
+  subNotificationId: number = -1;
+  Form: FormGroup;
 
   constructor(private _service: AlertService, private _loginService: LoginService, 
-              private _router: Router, private _notificationService: NotificationTypeService) { 
+              private _router: Router, private _notificationService: NotificationTypeService,
+              private _subNotificationService: SubNotificationService, private fb: FormBuilder) { 
+              this.prepareForm();
+  }
+
+  private prepareForm() {
+    this.Form = this.fb.group({
+      'notificationType': this.buildSelectRequiredFormControl(this.notificationId),
+      'subNotification': this.buildSelectRequiredFormControl(this.subNotificationId)
+    });
+  }
+
+  private buildSelectRequiredFormControl(value?: any): FormControl {
+    return new FormControl(value);
   }
 
   ngOnInit() {  
@@ -47,6 +67,13 @@ export class NotificationTrayComponent implements OnInit {
       this.isConfirm = true;
       this.messageModal = "";
       this.includeText = false;
+
+      this.element = document.getElementById('subNotification');
+      this.element = (<HTMLSelectElement>this.element);
+      if(this.element != null)
+      {
+        this.element.disabled = true;
+      }
     }
     catch(e)
     {
@@ -77,17 +104,41 @@ export class NotificationTrayComponent implements OnInit {
   {
     let pagina: string;
     pagina = (page-1).toString();
-    this.page = page.toString();
-    console.log(this.page);
-    console.log(pagina);
-    console.log(page);
+    this.page = page;
     this.bindTable(pagina, '10');
   }
 
-  getSubTypeAlert() {
+  onNotificationTypeChange(val)
+  {
+     try
+    {
+        this.getSubTypeAlert(val);
+        this.notificationId = val;
+        this.subNotificationId = -1;
+        this.prepareForm();
+        if(this.element != null)
+        {
+          if(val > 0)
+            this.element.disabled = false;
+          else
+            this.element.disabled = true;     
+        }
+    }
+    catch(e){
+      this.setValuesModal("An error occurred while search Subtype alert", true, false);
+    }
+  }
+
+  getSubTypeAlert(idNotification: number) {
     try
     {
-        
+        this._subNotificationService.getByNotificationId(idNotification).subscribe(
+        (res) => { 
+          this.subNotifications = res;
+        },
+        (error) => {
+            this.messageModal = error;
+        });
     }
     catch(e){throw e;}
 }
@@ -120,23 +171,31 @@ export class NotificationTrayComponent implements OnInit {
     }
 
     OnClear(){
-      var selectNotification, selectSeverity, inputDate;
+      var inputDate, selectSubNotification;
       try
       {
-        selectNotification = document.getElementById("notificationType");
-        selectSeverity = document.getElementById("severity");
-        inputDate = document.getElementById("alertDate");
-
-        if(selectNotification != null && selectSeverity != null && inputDate != null)
-        {
-          (<HTMLSelectElement>selectNotification).options.selectedIndex = 0;
-          (<HTMLSelectElement>selectSeverity).options.selectedIndex = 0;
-          (<HTMLInputElement>inputDate).value = "";
-          (<HTMLInputElement>inputDate).placeholder = "yyyy-mm-dd";
-        }
+        selectSubNotification = <HTMLSelectElement>document.getElementById("subNotification");
+        inputDate = <HTMLInputElement>document.getElementById("alertDate");
+        inputDate.value = "";
+        inputDate.placeholder = "yyyy-mm-dd";
+        this.notificationId = -1;
+        this.subNotificationId = -1;
+        this.prepareForm();
+        selectSubNotification.disabled = true;
       }
       catch(e){
           this.setValuesModal("An error occurred while clearing the search controls", true, false);
+      }
+    }
+
+    onSearch(){     
+      try
+      {
+        
+      }
+      catch(e)
+      {
+        this.setValuesModal("An error occurred while searching data", true, false);
       }
     }
 

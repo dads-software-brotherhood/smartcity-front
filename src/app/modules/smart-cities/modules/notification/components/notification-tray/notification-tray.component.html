@@ -1,5 +1,6 @@
+<form [formGroup]="Form">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12">   
       <h2>Notifications</h2>
       <hr class="title-hr">
       <div class="row">
@@ -19,19 +20,20 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="notificationType">Type alert</label>
-            <select id="notificationType" class="form-control">
+            <select id="notificationType" class="form-control" [formControl]="Form.controls['notificationType']" (ngModelChange)="onNotificationTypeChange($event)">
                 <option value="-1">Select...</option>
-                <option *ngFor="let notification of notifications" [ngValue]="notification.id">{{notification.name}}</option>
+                <option value="0">All</option>
+                <option *ngFor="let notification of notifications" value="{{ notification.id }}">{{notification.name}}</option>
               </select>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="severity">Severity</label>
-            <select id="severity" class="form-control">
-              <option value="-1">Select...</option>
-                <option *ngFor="let severity of severities" [ngValue]="severity.value">{{severity.name}}</option>
-              </select>
+            <label for="subNotification">Subtype Alert</label>
+            <select id="subNotification" class="form-control" [formControl]="Form.controls['subNotification']">
+              <option value="-1" disabled>Select</option>
+              <option *ngFor="let subNotification of subNotifications"  value="{{ subNotification.id }}">{{ subNotification.name }}</option>>
+            </select>
           </div>
         </div>
       </div>
@@ -52,7 +54,7 @@
          <div class="col-md-3">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <button class="btn btn-smart btn-block" > Search </button>
+            <button class="btn btn-smart btn-block" (click)="onSearch()" > Search </button>
           </div>
         </div>
       </div>
@@ -98,3 +100,4 @@
       </div>
     </div>
   </div>
+</form>
