@@ -21,7 +21,7 @@
           <div class="form-group">
             <label for="notificationType">Type alert</label>
             <select id="notificationType" class="form-control" [formControl]="Form.controls['notificationType']" (ngModelChange)="onNotificationTypeChange($event)">
-                <option value="-1">Select...</option>
+                <option value="-1">All</option>
                 <option *ngFor="let notification of notifications" value="{{ notification.id }}">{{notification.name}}</option>
               </select>
           </div>

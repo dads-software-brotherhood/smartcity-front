@@ -22,7 +22,7 @@ export class AlertService {
 
   constructor(private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { }
 
-   getAll(): Observable<Array<Alert>> {
+  getAll(): Observable<Array<Alert>> {
     return this.remoteConnectionService.getAsObservable(this.buildAlertUrl(), null, null, null)
       .map((res: Response) => {
         return res.json();
@@ -68,8 +68,8 @@ export class AlertService {
         return [];
       });
   }
-     
-   getAllByAlertDate(type: string, date: string, page: string, size: string): Observable<Array<Alert>> {
+
+  getAllByAlertDate(type: string, date: string, page: string, size: string): Observable<Array<Alert>> {
     this.url = this.buildAlertUrl() + 'type/' + type + '/date/' + date + '/page/' + page + '/items/' + size;
     return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
       .map((res: Response) => {
@@ -79,9 +79,9 @@ export class AlertService {
         console.log(error);
         return [];
       });
-   }
+  }
 
-   getAllByTypeSubTypeAlertDate(type: string, subtype: string, date: string, page: string, size: string): Observable<Array<Alert>> {
+  getAllByTypeSubTypeAlertDate(type: string, subtype: string, date: string, page: string, size: string): Observable<Array<Alert>> {
     this.url = this.buildAlertUrl() + 'type/' + type + '/subtype/' + subtype + '/date/' + date + '/page/' + page + '/items/' + size;
     return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
       .map((res: Response) => {
@@ -91,7 +91,7 @@ export class AlertService {
         console.log(error);
         return [];
       });
-   }
+  }
 
   private buildAlertUrl() {
     return baseGetAlertUrl + '/alerts/';

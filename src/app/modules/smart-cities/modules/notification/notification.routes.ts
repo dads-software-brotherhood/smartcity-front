@@ -9,7 +9,7 @@ export const NotificationRoutes: Routes = [
     component: NotificationComponent,
     canActivate: [ LoggedInGuard ],
     children: [
-      { path: 'notification-tray', component: NotificationTrayComponent, canActivate: [ LoggedInGuard ]}
+      { path: 'notification-tray/:id', component: NotificationTrayComponent, canActivate: [ LoggedInGuard ]}
     ]
   }
 ];

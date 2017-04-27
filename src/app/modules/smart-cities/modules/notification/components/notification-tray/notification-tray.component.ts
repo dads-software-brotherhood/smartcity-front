@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Alert } from '../../../../../../core/models/alert';
 import { NotificationType } from '../../../../../../core/models/notification-type';
 import { AlertService } from '../../../../../../core/services/alert/alert.service';
@@ -30,22 +30,28 @@ export class NotificationTrayComponent implements OnInit {
   private objNotification: NotificationType;
   private notifications: NotificationType[] = [];
   private subNotifications: any[] = [];
-  // tslint:disable-next-line:no-inferrable-types
-  private isUser: boolean = false;
   private page: number;
   private total: number;
   private element: any;
   private isAll: boolean;
   private isSearch: boolean;
+  private param: string;
 
   notificationId: string;
   subNotificationId: string;
   dateId: string;
   Form: FormGroup;
 
+  initPage: string;
+  initSize: string;
+  initValue: string;
+
   constructor(private _service: AlertService, private _loginService: LoginService,
     private _router: Router, private _notificationService: NotificationTypeService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder, private route: ActivatedRoute) {
+      this.initPage = '0';
+      this.initSize = '10';
+      this.initValue = '-1';
   }
 
   private prepareForm() {
@@ -63,27 +69,45 @@ export class NotificationTrayComponent implements OnInit {
   ngOnInit() {
     try {
       this.total = 20;
-      this.notificationId = '-1';
-      this.subNotificationId = '-1';
-      this.dateId = '';
+      this.route.params.subscribe(params => { this.param = params['id']; });
+      this.element = document.getElementById('subNotification');
+      this.element = (<HTMLSelectElement>this.element);
       this.getNotification();
-      this.bindTable('0', '10');
-      this.isAll = true;
-      this.isSearch = false;
-      this.isUser = this._loginService.isUser();
+      this.setPage(this.param);
       this.isConfirm = true;
       this.messageModal = '';
       this.includeText = false;
-
-      this.element = document.getElementById('subNotification');
-      this.element = (<HTMLSelectElement>this.element);
-      if (this.element != null) {
-        this.element.disabled = true;
-      }
-      this.prepareForm();
     }catch (e) {
       this.setValuesModal(this.messageModal, true, false);
     }
+  }
+
+  setPage(id: string) {
+    if (id !== '0') {
+      this.getAlertsByAlertType(id, this.initPage, this.initSize);
+      this.notificationId = id;
+      // this.objNotification = new NotificationType();
+      // for (let i = 0; i < this.notifications.length; i++) {
+      //   if (this.notifications[i].id === id) {
+      //     this.objNotification = this.notifications[i];
+      //     break;
+      //   }
+      // }
+      // this.subNotifications = this.objNotification.subnotifications;
+      this.isAll = false;
+      this.isSearch = true;
+    } else {
+      this.bindTable(this.initPage, this.initSize);
+      this.notificationId = this.initValue;
+      this.isAll = true;
+      this.isSearch = false;
+    }
+    this.subNotificationId = this.initValue;
+    this.dateId = '';
+    if (this.element != null) {
+        this.element.disabled = true;
+    }
+      this.prepareForm();
   }
 
   // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
@@ -150,12 +174,30 @@ export class NotificationTrayComponent implements OnInit {
     }
   }
 
+  // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
+  // registradas por tipo de alerta y fecha
+  getAlertsByAlertDate(type: string, date: string, page: string, size: string) {
+    try {
+      this._service.getAllByAlertDate(type, date, page, size).subscribe(
+        (res) => {
+          this.alerts = res;
+        },
+        (error) => {
+          this.messageModal = error;
+        });
+    }catch (e) {
+      throw e;
+    }
+  }
+
+
   // Metodo que se utiliza para llenar el combo de Tipos de Alerta
   getNotification() {
     try {
       this._notificationService.getAll().subscribe(
         (res) => {
           this.notifications = res;
+          this.setPage(this.param);
         },
         (error) => {
           this.messageModal = error;
@@ -170,16 +212,20 @@ export class NotificationTrayComponent implements OnInit {
     pagina = (page - 1).toString();
     this.page = page;
     if (this.isAll) {
-      this.bindTable(pagina, '10');
-    if (this.isSearch && this.notificationId !== '-1' && this.subNotificationId === '-1' && this.dateId === '') {
-      this.getAlertsByAlertType(this.notificationId, pagina, '10');
-    }
-    if (this.isSearch && this.notificationId !== '-1' && this.subNotificationId !== '-1' && this.dateId === '') {
-      this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, pagina, '10');
-    }
-    if (this.isSearch && this.notificationId !== '-1' && this.subNotificationId !== '-1' && this.dateId !== '') {
-        this.getAlertsByAlertSubAlertDate(this.notificationId, this.subNotificationId, this.dateId, pagina, '10');
-    }
+      this.bindTable(pagina, this.initSize);
+    } else if (this.isSearch && this.notificationId !== this.initValue
+               && this.subNotificationId === this.initValue && this.dateId === '') {
+      this.getAlertsByAlertType(this.notificationId, pagina, this.initSize);
+    } else if (this.isSearch && this.notificationId !== this.initValue
+               && this.subNotificationId !== this.initValue && this.dateId === '') {
+      this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, pagina, this.initSize);
+    } else if (this.isSearch && this.notificationId !== this.initValue
+                && this.subNotificationId !== this.initValue && this.dateId !== '') {
+        this.getAlertsByAlertSubAlertDate(this.notificationId, this.subNotificationId,
+                                          this.dateId, pagina, this.initSize);
+    } else if (this.isSearch && this.notificationId !== this.initValue
+                && this.subNotificationId === this.initValue && this.dateId !== '') {
+        this.getAlertsByAlertDate(this.notificationId, this.dateId, pagina, this.initSize);
     }
   }
 
@@ -193,18 +239,20 @@ export class NotificationTrayComponent implements OnInit {
           break;
         }
       }
-      this.subNotifications = [];
       this.subNotifications = this.objNotification.subnotifications;
       this.notificationId = val;
-      this.subNotificationId = '-1';
-      this.prepareForm();
+      this.subNotificationId = this.initValue;
       if (this.element != null) {
-        if (val !== '-1') {
+        if (val !== this.initValue) {
           this.element.disabled = false;
         } else {
           this.element.disabled = true;
+          this.isAll = true;
+          this.dateId = '';
+          this.isSearch = false;
         }
       }
+      this.prepareForm();
     } catch (e) {
       this.setValuesModal('An error occurred while search Subtype alert', true, false);
     }
@@ -243,14 +291,14 @@ export class NotificationTrayComponent implements OnInit {
       inputDate = <HTMLInputElement>document.getElementById('alertDate');
       inputDate.value = '';
       inputDate.placeholder = 'yyyy-mm-dd';
-      this.notificationId = '-1';
-      this.subNotificationId = '-1';
+      this.notificationId = this.initValue;
+      this.subNotificationId = this.initValue;
       this.dateId = '';
       this.prepareForm();
       this.element.disabled = true;
       this.isAll = true;
       this.isSearch = false;
-      this.bindTable('0', '10');
+      this.bindTable(this.initPage, this.initSize);
     } catch (e) {
       this.setValuesModal('An error occurred while clearing the search controls', true, false);
     }
@@ -259,16 +307,31 @@ export class NotificationTrayComponent implements OnInit {
   // Evento que se lanza cuando se realiza una busqueda con el botón search
   onSearch() {
     try {
-      this.isAll = false;
-      this.isSearch = true;
-
-      if (this.notificationId !== '-1' && this.subNotificationId === '-1' && this.dateId === '') {
-          this.getAlertsByAlertType(this.notificationId, '0', '10');
-      } else if (this.notificationId !== '-1' && this.subNotificationId !== '-1' && this.dateId === '') {
-          this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, '0', '10');
-      } else if (this.notificationId !== '-1' && this.subNotificationId !== '-1' && this.dateId !== '') {
-          this.getAlertsByAlertSubAlertDate(this.notificationId, this.subNotificationId, this.dateId, '0', '10');
+      if(this.notificationId !== this.initValue) {
+        this.isAll = false;
+        this.isSearch = true;
+      } else {
+        this.isAll = true;
+        this.isSearch = false;
       }
+
+      if (this.notificationId !== this.initValue && this.subNotificationId === this.initValue
+          && this.dateId === '') {
+          this.getAlertsByAlertType(this.notificationId, this.initPage, this.initSize);
+      } else if (this.notificationId !== this.initValue && this.subNotificationId !== this.initValue
+                 && this.dateId === '') {
+          this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, this.initPage, this.initSize);
+      } else if (this.notificationId !== this.initValue && this.subNotificationId !== this.initValue
+                 && this.dateId !== '') {
+          this.getAlertsByAlertSubAlertDate(this.notificationId, this.subNotificationId,
+                                            this.dateId, this.initPage, this.initSize);
+      } else if (this.notificationId !== this.initValue
+                && this.subNotificationId === this.initValue && this.dateId !== '') {
+          this.getAlertsByAlertDate(this.notificationId, this.dateId, this.initPage, this.initSize);
+      } else if (this.isAll) {
+          this.bindTable(this.initPage, this.initSize);
+      }
+
     } catch (e) {
       this.setValuesModal('An error occurred while searching data', true, false);
     }
