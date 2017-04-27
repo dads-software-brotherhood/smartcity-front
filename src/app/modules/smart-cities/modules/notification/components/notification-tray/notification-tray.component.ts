@@ -82,7 +82,7 @@ export class NotificationTrayComponent implements OnInit {
     }
   }
   
-  //Metodo que se utiliza para el llenado de la tabla con los datos de las notificaciones
+  //Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
   //registradas.
   bindTable(page: string, size: string) { 
     try
@@ -101,6 +101,8 @@ export class NotificationTrayComponent implements OnInit {
     }
   }
 
+   //Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
+  //registradas por tipo de alerta
    getAlertsByAlertType(type: string, page: string, size: string) { 
     try
     {
@@ -118,6 +120,37 @@ export class NotificationTrayComponent implements OnInit {
     }
   }
 
+  //Metodo que se utiliza para llenar el combo de Tipos de Alerta
+  getNotification() {
+     try
+      {
+        this._notificationService.getAll().subscribe(
+        (res) => {
+            this.notifications = res;
+        },
+        (error) => {
+            this.messageModal = error;
+        });
+      }
+      catch(e){ throw e;}
+}
+
+ //Metodo que se utiliza para llenar el combo de Sub-Tipos de Alerta
+ getSubTypeAlert(idNotification: number) {
+    try
+    {
+        this._subNotificationService.getByNotificationId(idNotification).subscribe(
+        (res) => { 
+          this.subNotifications = res;
+        },
+        (error) => {
+            this.messageModal = error;
+        });
+    }
+    catch(e){throw e;}
+}
+
+  //Evento que se lanza cuando se cambia de pagina en el paginador
   pageChanged(page: number)
   {
     let pagina: string;
@@ -129,6 +162,7 @@ export class NotificationTrayComponent implements OnInit {
       this.getAlertsByAlertType(this.alertType, pagina, '10');
   }
 
+  //Evento que se lanza cuando se cambia de elemento en el combo de Tipo de Alerta
   onNotificationTypeChange(val)
   {
      try
@@ -150,6 +184,7 @@ export class NotificationTrayComponent implements OnInit {
     }
   }
 
+  //Evento que se lanza cuando se cambia de elemento en el combo de Sub-Tipo de Alerta
   onSubNotificationChange(val){
     try
     {
@@ -159,34 +194,6 @@ export class NotificationTrayComponent implements OnInit {
       this.setValuesModal("An error occurred while search Subtype alert", true, false);
     }
   }
-
-  getSubTypeAlert(idNotification: number) {
-    try
-    {
-        this._subNotificationService.getByNotificationId(idNotification).subscribe(
-        (res) => { 
-          this.subNotifications = res;
-        },
-        (error) => {
-            this.messageModal = error;
-        });
-    }
-    catch(e){throw e;}
-}
-
-  getNotification() {
-     try
-      {
-        this._notificationService.getAll().subscribe(
-        (res) => {
-            this.notifications = res;
-        },
-        (error) => {
-            this.messageModal = error;
-        });
-      }
-      catch(e){ throw e;}
-}
 
   //Metodo que se llama cuando se confirma la eliminación del registro
   confirmDelete() {
@@ -225,7 +232,6 @@ export class NotificationTrayComponent implements OnInit {
         var selectNotification, selectSubNotification, index;
         selectNotification = <HTMLSelectElement>document.getElementById("notificationType");
         selectSubNotification = <HTMLSelectElement>document.getElementById("subNotification");
-        this.alerts = [];
         if(this.notificationId > 0 && this.subNotificationId <= 0)
         {
             index = selectNotification.options.selectedIndex;
