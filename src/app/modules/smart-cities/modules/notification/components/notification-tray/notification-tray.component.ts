@@ -1,18 +1,17 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { RouterLink, Router} from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { Alert } from '../../../../../../core/models/alert';
 import { NotificationType } from '../../../../../../core/models/notification-type';
 import { AlertService } from '../../../../../../core/services/alert/alert.service';
 import { LoginService } from '../../../../../../core/services/login/login.service';
-import { SubNotification } from '../../../../../../core/models/sub-notification';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { EnumEx } from '../../../../../../core/models/EnumEx';
 import { NotificationTypeService } from '../../../../../../core/services/notification-type/notification-type.service';
-import { SubNotificationService } from '../../../../../../core/services/sub-notification/sub-notification.service';
 
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'user-vehicle-tray',
   templateUrl: './notification-tray.component.html',
   styleUrls: ['./notification-tray.component.sass'],
@@ -20,240 +19,265 @@ import { SubNotificationService } from '../../../../../../core/services/sub-noti
 })
 export class NotificationTrayComponent implements OnInit {
 
-  //Variables utilizadas para mostrar la ventana modal, isConfirm=true (Muestra 2 botones Aceptar, Cancelar),
-  //isConfirm=false (Muestra solo un botón Aceptar), messageModal (Mensaje que muestra la ventana Modal),
-  //includeText (Se utiliza para mostrar un textArea o no)
+  // Variables utilizadas para mostrar la ventana modal, isConfirm=true (Muestra 2 botones Aceptar, Cancelar),
+  // isConfirm=false (Muestra solo un botón Aceptar), messageModal (Mensaje que muestra la ventana Modal),
+  // includeText (Se utiliza para mostrar un textArea o no)
   private showDialog: boolean;
   private isConfirm: boolean;
   private messageModal: string;
   private includeText: boolean;
   private alerts: Alert[] = [];
-  private subNotifications: SubNotification[] = [];
+  private objNotification: NotificationType;
   private notifications: NotificationType[] = [];
-  
+  private subNotifications: any[] = [];
+  // tslint:disable-next-line:no-inferrable-types
   private isUser: boolean = false;
   private page: number;
   private total: number;
   private element: any;
-  private alertType: string;
+  private isAll: boolean;
+  private isSearch: boolean;
 
-  notificationId: number = -1;
-  subNotificationId: number = -1;
+  notificationId: string;
+  subNotificationId: string;
+  dateId: string;
   Form: FormGroup;
 
-  constructor(private _service: AlertService, private _loginService: LoginService, 
-              private _router: Router, private _notificationService: NotificationTypeService,
-              private _subNotificationService: SubNotificationService, private fb: FormBuilder) { 
-              this.prepareForm();
+  constructor(private _service: AlertService, private _loginService: LoginService,
+    private _router: Router, private _notificationService: NotificationTypeService,
+    private fb: FormBuilder) {
   }
 
   private prepareForm() {
     this.Form = this.fb.group({
-      'notificationType': this.buildSelectRequiredFormControl(this.notificationId),
-      'subNotification': this.buildSelectRequiredFormControl(this.subNotificationId)
+      'notificationType': this.buildFormControl(this.notificationId),
+      'subNotification': this.buildFormControl(this.subNotificationId),
+      'alertDate': this.buildFormControl(this.dateId)
     });
   }
 
-  private buildSelectRequiredFormControl(value?: any): FormControl {
+  private buildFormControl(value?: any): FormControl {
     return new FormControl(value);
   }
 
-  ngOnInit() {  
-    try
-    { 
+  ngOnInit() {
+    try {
       this.total = 20;
+      this.notificationId = '-1';
+      this.subNotificationId = '-1';
+      this.dateId = '';
       this.getNotification();
       this.bindTable('0', '10');
+      this.isAll = true;
+      this.isSearch = false;
       this.isUser = this._loginService.isUser();
       this.isConfirm = true;
-      this.messageModal = "";
+      this.messageModal = '';
       this.includeText = false;
 
       this.element = document.getElementById('subNotification');
       this.element = (<HTMLSelectElement>this.element);
-      if(this.element != null)
-      {
+      if (this.element != null) {
         this.element.disabled = true;
       }
-    }
-    catch(e)
-    {
+      this.prepareForm();
+    }catch (e) {
       this.setValuesModal(this.messageModal, true, false);
     }
   }
-  
-  //Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
-  //registradas.
-  bindTable(page: string, size: string) { 
-    try
-    {
+
+  // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
+  // registradas.
+  bindTable(page: string, size: string) {
+    try {
       this._service.getAllByPage(page, size).subscribe(
-        (res) => { 
-          this.alerts = res;
-        },
-        (error) => {
-            this.messageModal = error;
-        });
-    }
-    catch(e)
-    {
-      throw e;
-    }
-  }
-
-   //Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
-  //registradas por tipo de alerta
-   getAlertsByAlertType(type: string, page: string, size: string) { 
-    try
-    {
-      this._service.getAllByTypeAlert(type, page, size).subscribe(
-        (res) => { 
-          this.alerts = res;
-        },
-        (error) => {
-            this.messageModal = error;
-        });
-    }
-    catch(e)
-    {
-      throw e;
-    }
-  }
-
-  //Metodo que se utiliza para llenar el combo de Tipos de Alerta
-  getNotification() {
-     try
-      {
-        this._notificationService.getAll().subscribe(
         (res) => {
-            this.notifications = res;
+          this.alerts = res;
         },
         (error) => {
-            this.messageModal = error;
+          this.messageModal = error;
         });
-      }
-      catch(e){ throw e;}
-}
-
- //Metodo que se utiliza para llenar el combo de Sub-Tipos de Alerta
- getSubTypeAlert(idNotification: number) {
-    try
-    {
-        this._subNotificationService.getByNotificationId(idNotification).subscribe(
-        (res) => { 
-          this.subNotifications = res;
-        },
-        (error) => {
-            this.messageModal = error;
-        });
+    }catch (e) {
+      throw e;
     }
-    catch(e){throw e;}
-}
+  }
 
-  //Evento que se lanza cuando se cambia de pagina en el paginador
-  pageChanged(page: number)
-  {
+  // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
+  // registradas por tipo de alerta
+  getAlertsByAlertType(type: string, page: string, size: string) {
+    try {
+      this._service.getAllByTypeAlert(type, page, size).subscribe(
+        (res) => {
+          this.alerts = res;
+        },
+        (error) => {
+          this.messageModal = error;
+        });
+    }catch (e) {
+      throw e;
+    }
+  }
+
+  // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
+  // registradas por tipo de alerta y sub-tipo de alerta
+  getAlertsByAlertAndEvent(type: string, subType: string, page: string, size: string) {
+    try {
+      this._service.getAllByTypeSubTypeAlert(type, subType, page, size).subscribe(
+        (res) => {
+          this.alerts = res;
+        },
+        (error) => {
+          this.messageModal = error;
+        });
+    }catch (e) {
+      throw e;
+    }
+  }
+
+  // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
+  // registradas por tipo de alerta, sub-tipo de alerta y fecha
+  getAlertsByAlertSubAlertDate(type: string, subType: string, date: string, page: string, size: string) {
+    try {
+      this._service.getAllByTypeSubTypeAlertDate(type, subType, date, page, size).subscribe(
+        (res) => {
+          this.alerts = res;
+        },
+        (error) => {
+          this.messageModal = error;
+        });
+    }catch (e) {
+      throw e;
+    }
+  }
+
+  // Metodo que se utiliza para llenar el combo de Tipos de Alerta
+  getNotification() {
+    try {
+      this._notificationService.getAll().subscribe(
+        (res) => {
+          this.notifications = res;
+        },
+        (error) => {
+          this.messageModal = error;
+        });
+    }catch (e) { throw e; }
+  }
+
+  // Evento que se lanza cuando se cambia de pagina en el paginador
+  pageChanged(page: number) {
     let pagina: string;
-    pagina = (page-1).toString();
+
+    pagina = (page - 1).toString();
     this.page = page;
-    if(this.notificationId < 0 && this.subNotificationId < 0)
+    if (this.isAll) {
       this.bindTable(pagina, '10');
-    else if(this.notificationId > 0 && this.subNotificationId < 0)
-      this.getAlertsByAlertType(this.alertType, pagina, '10');
+    if (this.isSearch && this.notificationId !== '-1' && this.subNotificationId === '-1' && this.dateId === '') {
+      this.getAlertsByAlertType(this.notificationId, pagina, '10');
+    }
+    if (this.isSearch && this.notificationId !== '-1' && this.subNotificationId !== '-1' && this.dateId === '') {
+      this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, pagina, '10');
+    }
+    if (this.isSearch && this.notificationId !== '-1' && this.subNotificationId !== '-1' && this.dateId !== '') {
+        this.getAlertsByAlertSubAlertDate(this.notificationId, this.subNotificationId, this.dateId, pagina, '10');
+    }
+    }
   }
 
-  //Evento que se lanza cuando se cambia de elemento en el combo de Tipo de Alerta
-  onNotificationTypeChange(val)
-  {
-     try
-    {
-        this.getSubTypeAlert(val);
-        this.notificationId = val;
-        this.subNotificationId = -1;
-        this.prepareForm();
-        if(this.element != null)
-        {
-          if(val > 0)
-            this.element.disabled = false;
-          else
-            this.element.disabled = true;     
+  // Evento que se lanza cuando se cambia de elemento en el combo de Tipo de Alerta
+  onNotificationTypeChange(val) {
+    try {
+      this.objNotification = new NotificationType();
+      for (let i = 0; i < this.notifications.length; i++) {
+        if (this.notifications[i].id === val) {
+          this.objNotification = this.notifications[i];
+          break;
         }
-    }
-    catch(e){
-      this.setValuesModal("An error occurred while search Subtype alert", true, false);
+      }
+      this.subNotifications = [];
+      this.subNotifications = this.objNotification.subnotifications;
+      this.notificationId = val;
+      this.subNotificationId = '-1';
+      this.prepareForm();
+      if (this.element != null) {
+        if (val !== '-1') {
+          this.element.disabled = false;
+        } else {
+          this.element.disabled = true;
+        }
+      }
+    } catch (e) {
+      this.setValuesModal('An error occurred while search Subtype alert', true, false);
     }
   }
 
-  //Evento que se lanza cuando se cambia de elemento en el combo de Sub-Tipo de Alerta
-  onSubNotificationChange(val){
-    try
-    {
-        this.subNotificationId = val;
-    }
-    catch(e){
-      this.setValuesModal("An error occurred while search Subtype alert", true, false);
+  // Evento que se lanza cuando se cambia de elemento en el combo de Sub-Tipo de Alerta
+  onSubNotificationChange(val) {
+    try {
+      this.subNotificationId = val;
+    } catch (e) {
+      this.setValuesModal('An error occurred while search Subtype alert', true, false);
     }
   }
 
-  //Metodo que se llama cuando se confirma la eliminación del registro
+  onChangeDate(val) {
+    try {
+      this.dateId = val;
+    } catch (e) {
+      this.setValuesModal('An error occurred while search Subtype alert', true, false);
+    }
+  }
+
+  // Metodo que se llama cuando se confirma la eliminación del registro
   confirmDelete() {
-    try
-    {
-        if(this.isConfirm)
-        {
-        }
-        else
-          this.showDialog = false;
-      }
-      catch(e){ throw e;}
-    }
+    try {
+      if (this.isConfirm) {
+      } else {
+        this.showDialog = false; }
+    } catch (e) { throw e; }
+  }
 
-    OnClear(){
-      var inputDate, selectSubNotification;
-      try
-      {
-        selectSubNotification = <HTMLSelectElement>document.getElementById("subNotification");
-        inputDate = <HTMLInputElement>document.getElementById("alertDate");
-        inputDate.value = "";
-        inputDate.placeholder = "yyyy-mm-dd";
-        this.notificationId = -1;
-        this.subNotificationId = -1;
-        this.prepareForm();
-        selectSubNotification.disabled = true;
-      }
-      catch(e){
-          this.setValuesModal("An error occurred while clearing the search controls", true, false);
-      }
+  // Evento que se lanza cuando se reestablecen los criterios de busqueda con el botón clear
+  OnClear() {
+    let inputDate;
+    try {
+      inputDate = <HTMLInputElement>document.getElementById('alertDate');
+      inputDate.value = '';
+      inputDate.placeholder = 'yyyy-mm-dd';
+      this.notificationId = '-1';
+      this.subNotificationId = '-1';
+      this.dateId = '';
+      this.prepareForm();
+      this.element.disabled = true;
+      this.isAll = true;
+      this.isSearch = false;
+      this.bindTable('0', '10');
+    } catch (e) {
+      this.setValuesModal('An error occurred while clearing the search controls', true, false);
     }
+  }
 
-    onSearch(){     
-      try
-      {
-        var selectNotification, selectSubNotification, index;
-        selectNotification = <HTMLSelectElement>document.getElementById("notificationType");
-        selectSubNotification = <HTMLSelectElement>document.getElementById("subNotification");
-        if(this.notificationId > 0 && this.subNotificationId <= 0)
-        {
-            index = selectNotification.options.selectedIndex;
-            this.alertType = selectNotification.options[index].innerText;
-            this.getAlertsByAlertType(this.alertType, '0', '10');
-        }
-        else if(this.notificationId > 0 && this.subNotificationId > 0)
-        {
+  // Evento que se lanza cuando se realiza una busqueda con el botón search
+  onSearch() {
+    try {
+      this.isAll = false;
+      this.isSearch = true;
 
-        }
+      if (this.notificationId !== '-1' && this.subNotificationId === '-1' && this.dateId === '') {
+          this.getAlertsByAlertType(this.notificationId, '0', '10');
+      } else if (this.notificationId !== '-1' && this.subNotificationId !== '-1' && this.dateId === '') {
+          this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, '0', '10');
+      } else if (this.notificationId !== '-1' && this.subNotificationId !== '-1' && this.dateId !== '') {
+          this.getAlertsByAlertSubAlertDate(this.notificationId, this.subNotificationId, this.dateId, '0', '10');
       }
-      catch(e)
-      {
-        this.setValuesModal("An error occurred while searching data", true, false);
-      }
+    } catch (e) {
+      this.setValuesModal('An error occurred while searching data', true, false);
     }
+  }
 
-    setValuesModal(message: string, show: boolean, confirm: boolean)
-    {
-      this.isConfirm = confirm;
-      this.messageModal = message;
-      this.showDialog = show;
-    }
+  setValuesModal(message: string, show: boolean, confirm: boolean) {
+    this.isConfirm = confirm;
+    this.messageModal = message;
+    this.showDialog = show;
+  }
 
 }

@@ -2,14 +2,14 @@ export class Alert{
     id: string;
     type: string;
     alertType: string;
-    subtypeAlert: string;
+    eventObserved: string;
     locationDescription: string;
     dateTime: string;
     description: string;
     refUser: string;
     refDevice: string;
 
-    constructor(id?: string, type?: string, alertType?: string, subtypeAlert?: string, locationDescription?: string,
+    constructor(id?: string, type?: string, alertType?: string, eventObserved?: string, locationDescription?: string,
                 dateTime?: string, description?: Date, refUser?: string,
                 refDevice?: string) 
     {
@@ -18,7 +18,7 @@ export class Alert{
         this.alertType = alertType;
         this.locationDescription = locationDescription;
         this.dateTime = dateTime;
-        this.subtypeAlert = subtypeAlert;
+        this.eventObserved = eventObserved;
         this.refUser = refUser;
         this.refDevice = refDevice;
     }

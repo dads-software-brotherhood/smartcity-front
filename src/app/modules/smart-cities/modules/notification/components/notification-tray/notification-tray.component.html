@@ -22,7 +22,6 @@
             <label for="notificationType">Type alert</label>
             <select id="notificationType" class="form-control" [formControl]="Form.controls['notificationType']" (ngModelChange)="onNotificationTypeChange($event)">
                 <option value="-1">Select...</option>
-                <option value="0">All</option>
                 <option *ngFor="let notification of notifications" value="{{ notification.id }}">{{notification.name}}</option>
               </select>
           </div>
@@ -32,7 +31,7 @@
             <label for="subNotification">Subtype Alert</label>
             <select id="subNotification" class="form-control" [formControl]="Form.controls['subNotification']" (ngModelChange)="onSubNotificationChange($event)">
               <option value="-1" disabled>Select</option>
-              <option *ngFor="let subNotification of subNotifications"  value="{{ subNotification.id }}">{{ subNotification.name }}</option>>
+              <option *ngFor="let subNotification of subNotifications"  value="{{ subNotification }}">{{ subNotification }}</option>>
             </select>
           </div>
         </div>
@@ -42,7 +41,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="alertDate">Date</label>
-            <input class="form-control" type="date" id="alertDate" placeholder="yyyy-mm-dd"/>
+            <input class="form-control" type="date" id="alertDate" [formControl]="Form.controls['alertDate']" 
+                   placeholder="yyyy-mm-dd" (ngModelChange)="onChangeDate($event)"/>
           </div>
         </div>
         <div class="col-md-3">
@@ -66,8 +66,8 @@
       <thead class="thead-default">
           <tr>
               <th>Location</th>
-              <th>Type alert</th>
-              <th>Subtype alert</th>
+              <th>Alert</th>
+              <th>Event</th>
               <th>Date</th>
               <th>Description</th>
               <th></th>
@@ -77,7 +77,7 @@
           <tr *ngFor="let alert of alerts | paginate: { itemsPerPage: 10, currentPage: page, totalItems: total }">
               <td>{{alert.locationDescription}}</td>
               <td>{{alert.alertType}}</td>
-              <td>{{alert.subtypeAlert}}</td>
+              <td>{{alert.eventObserved}}</td>
               <td>{{alert.dateTime}}</td>
               <td>{{alert.description}}</td>
               <td>
