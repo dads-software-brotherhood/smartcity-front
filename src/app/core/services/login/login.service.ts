@@ -13,14 +13,16 @@ import { role } from '../../../core/models/role';
 
 import { IdentityUser, TokenInfo } from '../../models/identity-user';
 
-const base_rest_path = '/security';
-const login_url = environment.backend_sdk + base_rest_path + '/login';
-const logout_url = environment.backend_sdk + base_rest_path + '/logout';
-const valid_token_url = environment.backend_sdk + base_rest_path + '/valid-token';
-const refresh_token_url = environment.backend_sdk + base_rest_path + '/refresh-token';
+const base_rest_path = environment.backend_sdk + '/security';
+const login_url = base_rest_path + '/login';
+const logout_url = base_rest_path + '/logout';
+const valid_token_url = base_rest_path + '/valid-token';
+const refresh_token_url = base_rest_path + '/refresh-token';
 
 @Injectable()
 export class LoginService {
+
+  inRefresh: boolean;
 
   constructor(private http: Http) {}
 
@@ -38,8 +40,7 @@ export class LoginService {
       const identityUser: IdentityUser = res.json();
 
       if (identityUser) {
-        identityUser.date = new Date();
-        localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
+        this.saveToken(identityUser);
         return identityUser;
       } else { // This case never happend
         this.deleteToken();
@@ -50,6 +51,28 @@ export class LoginService {
       this.deleteToken();
       return null;
     });
+  }
+
+  private refreshToken(tokenInfo: TokenInfo) {
+    if (!this.inRefresh) {
+      this.inRefresh = true;
+
+      const requestOptions: RequestOptions = this.buildRequestOptions(tokenInfo.token);
+
+      this.http.post(refresh_token_url, null, requestOptions).subscribe(
+        (res: Response) => {
+          const identityUser: IdentityUser = this.getLoggedUser();
+          identityUser.tokenInfo = res.json();
+          this.saveToken(identityUser);
+          this.inRefresh = false;
+        },
+        (error: any) => {
+          console.error('Error at refresh token');
+          console.error(error);
+          this.inRefresh = false;
+        }
+      );
+    }
   }
 
   logout(): Observable<boolean> {
@@ -65,12 +88,18 @@ export class LoginService {
           return true;
         })
         .catch((error) => {
+          console.error('Error at logout');
           console.log(error);
           return null;
         });
     } else {
       return null;
     }
+  }
+
+  private saveToken(identityUser: IdentityUser) {
+    identityUser.date = new Date();
+    localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
   }
 
   private deleteToken() {
@@ -92,8 +121,8 @@ export class LoginService {
       if (tokenTime > identityUser.tokenInfo.time) {
         return false;
       } else {
-        if (tokenTime > renewTime) {
-          // TODO: Refresh token
+        if (tokenTime > renewTime || true) {
+          // this.refreshToken(identityUser.tokenInfo);
         }
         return true;
       }
@@ -128,20 +157,14 @@ export class LoginService {
     return false;
   }
 
-
-  // isLoggedIn(): Observable<boolean> {
-  //   const token: string = this.getToken();
-
-  //   if (token) {
-  //     const requestOptions: RequestOptions = this.buildRequestOptions(token);
-  //     return this.http.get(valid_token_url, requestOptions)
-  //             .map((res: Response) => {
-  //               return true;
-  //             });
-  //   } else {
-  //     return null;
-  //   }
-  // }
+  getObservableUser(): Observable<IdentityUser> {
+    const tmp: string = localStorage.getItem(constants.tokenInfoName);
+    if (tmp) {
+      return JSON.parse(tmp);
+    } else {
+      return null;
+    }
+  }
 
   getLoggedUser(): IdentityUser {
     const tmp: string = localStorage.getItem(constants.tokenInfoName);
@@ -160,6 +183,12 @@ export class LoginService {
     } else {
       return null;
     }
+  }
+
+  updateName(name: string) {
+    const identityUser: IdentityUser = this.getLoggedUser();
+    identityUser.name = name;
+    localStorage.setItem(constants.tokenInfoName, JSON.stringify(identityUser));
   }
 
   private buildRequestOptions(token: string): RequestOptions {

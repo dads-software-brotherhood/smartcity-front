@@ -110,7 +110,7 @@ export class ProfileComponent implements OnInit {
 
     this.userProfileService.updateUserProfile(this.userProfile).subscribe(
       (res) => {
-        this.loginService.getLoggedUser().name = this.userProfile.name + ' ' + this.userProfile.familyName; // TODO: Rev menu compoennt
+        this.loginService.updateName(this.userProfile.name + ' ' + this.userProfile.familyName); // TODO: Rev menu compoennt
         this.redirect = true;
         this.showMessage('The information was successfully saved');
       },
