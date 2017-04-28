@@ -15,7 +15,7 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
 
   private paramsSubs: any;
 
-  showTokenError: boolean = false;
+  showTokenError: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router, private signupService: SignupService) { }
 

@@ -12,21 +12,27 @@
         <hr>
         <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
         <hr *ngIf="includeText">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDelete()">Yes</button>
-        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">No</button>
+        <div class="row">
+          <div class="col">
+            <button *ngIf="isConfirm" type="button" class="btn btn-danger" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="confirmDelete()">Accept</button>
+          </div>
+        </div>
         </modal-popup>
         <!-- ************************************************* -->
 
         <div class="col-md-6">
           <div class="form-group">
             <label for="inlineFormInputGroup">Search</label>
-            <input id="myInput" type="text" class="form-control" placeholder="Search..."/>
+            <input id="myInput" type="text" (keyup)="FilterData()" class="form-control" placeholder="Search..."/>
           </div>
         </div>
         <div class="col-md-3 ">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <a [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', '']" type="submit" class="btn btn-smart btn-block" > Add </a>
+            <a *ngIf="isPermitted" [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', '']" type="submit" class="btn btn-smart btn-block" > Add </a>
           </div>
         </div>
         <div class="col-md-12">
@@ -50,7 +56,7 @@
           <tr *ngFor="let vehicleType of vehicleTypes | paginate: { itemsPerPage: 4, currentPage: p }">
               <td>{{vehicleType.name}}</td>
               <td>
-                <a [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', vehicleType.id]" 
+                <a *ngIf="isPermitted" [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', vehicleType.id]" 
                   class="btn btn-smart" ngbtooltip="Edit" placement="top">
                   <i aria-hidden="true" class="fa fa-pencil"></i>
                 </a>
@@ -59,7 +65,7 @@
                 <!--<a class="btn btn-danger" ngbtooltip="Edit" placement="top">
                   <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objvehicle=vehicle"> </i>
                 </a>-->
-                <button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top" (click)="showDialog=true;ObjvehicleType=vehicleType"></button>
+                <!--<button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top" (click)="showDialog=true;ObjvehicleType=vehicleType"></button>-->
               </td>
           </tr>
       </tbody>

@@ -459,6 +459,50 @@ a:hover{
     }
 }
 
+.nested-menu2 {
+
+    .list-group-item {
+        cursor: pointer;
+    }
+    .nested {
+        list-style-type: none;
+    }
+    ul.submenu {
+        height: 0;
+        list-style:none;
+    }
+    ul.submenu1 {
+        height: 0;
+        display: none;
+    }
+    & .expand {
+        ul.submenu {
+            margin-left: -40px; 
+            list-style-type: none;
+            height: auto;
+            display: block;
+            li {
+                a {
+                    color: #FFF;
+                    padding: 10px;
+                    display: block;
+                }
+            }
+        }
+    }
+    & .expand1 {
+        ul.submenu1 {
+            list-style-type: none;
+            display: block;
+            height: auto;
+            margin-left: -40px; 
+        }
+    }
+    .lgiCustom{
+        padding: 10px 20px 10px 10px;
+    }
+}
+
 .spinner {
     position: fixed !important;
     top: 50%;

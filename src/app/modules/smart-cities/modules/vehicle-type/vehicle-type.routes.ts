@@ -6,15 +6,16 @@ import { VehicleTypeTrayComponent } from './components/vehicle-type-tray/vehicle
 import { VehicleTypeDetailComponent } from './components/vehicle-type-detail/vehicle-type-detail.component';
 
 import { LoggedInGuard } from '../../../../core/services/login/logged-in.guard';
+import { LoggedInAdminGuard } from '../../../../core/services/login/logged-in-admin.guard';
 
 export const VehicleTypesRoutes: Routes = [
   {
     path: 'vehicle-type',
     component: VehicleTypeComponent,
-    canActivate: [ LoggedInGuard ],
+    canActivate: [ LoggedInGuard, LoggedInAdminGuard ],
     children: [
-       { path: 'vehicleType', component: VehicleTypeTrayComponent, canActivate: [ LoggedInGuard ]},
-       { path: 'vehicleTypeDetail/:id', component: VehicleTypeDetailComponent, canActivate: [ LoggedInGuard ]},
+       { path: 'vehicleType', component: VehicleTypeTrayComponent, canActivate: [ LoggedInGuard, LoggedInAdminGuard ]},
+       { path: 'vehicleTypeDetail/:id', component: VehicleTypeDetailComponent, canActivate: [ LoggedInGuard, LoggedInAdminGuard ]},
     ]
   }
 ];

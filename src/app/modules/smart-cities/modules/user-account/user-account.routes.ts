@@ -9,7 +9,6 @@ import { HealthProfileComponent } from './components/health-profile/health-profi
 import { AddressComponent } from './components/address/address.component';
 
 import { LoggedInGuard } from '../../../../core/services/login/logged-in.guard';
-import { LoggedInAdmin } from '../../../../core/services/login/logged-in-admin.guard';
 
 export const UserAccountRoutes: Routes = [
   {

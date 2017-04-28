@@ -28,7 +28,16 @@ export class ProfileComponent implements OnInit {
 
   private currentDate: Date = new Date();
 
-  constructor(private userProfileService: UserProfileService, private loginService: LoginService, private fb: FormBuilder, private router: Router) {
+  private index: string;
+
+  showDialog: boolean;
+  showConfirmDialog: boolean;
+  showErrorDialog: boolean;
+  messageModal: string;
+  redirect: boolean;
+
+  constructor(private userProfileService: UserProfileService, private loginService: LoginService, private fb: FormBuilder,
+      private router: Router) {
     this.userProfile.addresses = [];
     this.complexForm = this.fb.group({
       'name': this.buildNameFormControl(),
@@ -101,31 +110,60 @@ export class ProfileComponent implements OnInit {
 
     this.userProfileService.updateUserProfile(this.userProfile).subscribe(
       (res) => {
-        this.loginService.getLoggedUser().name = this.userProfile.name + ' ' + this.userProfile.familyName;
-        alert('The information was successfully saved');
-        this.router.navigate([constants.defaultLoggedRoute]);
+        this.loginService.updateName(this.userProfile.name + ' ' + this.userProfile.familyName); // TODO: Rev menu compoennt
+        this.redirect = true;
+        this.showMessage('The information was successfully saved');
       },
       (error) => {
         console.error(error);
-        alert('Error...');
+        this.showErrorMessage('There was a communication error, please try later.');
       }
     );
   }
 
   confirmDelete(index: string) {
-    if (confirm('¿Estas seguro? ' + index)) {
-      this.userProfileService.deleteAddress(index).subscribe(
-        (res) => {
-          this.userProfile.addresses.splice(Number(index), 1);
-          this.fixIndexAddress();
-          alert('The information was successfully saved');
-        },
-        (error) => {
-          console.error(error);
-          alert('Error');
-        }
-      );
+    this.index = index;
+    this.showConfirmMessage('Are you sure to delete this record?');
+  }
+
+  private showMessage(message: string) {
+    this.messageModal = message;
+    this.showDialog = true;
+  }
+
+  private showConfirmMessage(message: string) {
+    this.messageModal = message;
+    this.showConfirmDialog = true;
+  }
+
+  private showErrorMessage(message: string) {
+    this.messageModal = message;
+    this.showErrorDialog = true;
+  }
+
+  onContinue() {
+    if (this.redirect) {
+      this.router.navigate(constants.defaultLoggedRoute);
+    } else {
+      this.showDialog = false;
     }
+  }
+
+  onDelete() {
+    this.showConfirmDialog = false;
+
+    this.userProfileService.deleteAddress(this.index).subscribe(
+      (res) => {
+        this.userProfile.addresses.splice(Number(this.index), 1);
+        this.fixIndexAddress();
+        this.redirect = false;
+        this.showMessage('Your record is successfully deleted!');
+      },
+      (error) => {
+        console.error(error);
+        this.showErrorMessage('There was a communication error, please try later.');
+      }
+    );
   }
 
 }

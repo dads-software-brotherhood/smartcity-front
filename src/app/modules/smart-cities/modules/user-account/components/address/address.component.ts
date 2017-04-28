@@ -37,6 +37,10 @@ export class AddressComponent implements OnInit {
 
   complexForm: FormGroup;
 
+  showDialog: boolean;
+  showErrorDialog: boolean;
+  messageModal: string;
+
   constructor(private userProfileService: UserProfileService,
       private countryService: CountryService,
       private regionService: RegionService,
@@ -96,7 +100,7 @@ export class AddressComponent implements OnInit {
     });
   }
 
-private loadAddress() {
+  private loadAddress() {
     if (! this.address) {
       this.address = new Address();
     }
@@ -109,7 +113,7 @@ private loadAddress() {
 
     this.loadCountries();
 
-}
+  }
 
   private loadCountries() {
     this.countryService.getAll().subscribe(
@@ -123,7 +127,7 @@ private loadAddress() {
         if (this.countryId !== -1) {
           this.loadRegions();
         } else {
-          this.prepareComplexForm();    
+          this.prepareComplexForm();
         }
       }
     );
@@ -210,18 +214,17 @@ private loadAddress() {
         );
       }
     } else {
-      alert('Unexpected error');
+      this.showErrorMessage('There was a communication error, please try later.');
     }
   }
 
   private allOk() {
-    alert('The information was successfully saved');
-    this.router.navigate(['/smart-cities/user-account/profile']);
+    this.showMessage('The information was successfully saved');
   }
 
   private error(error: any) {
     console.error(error);
-    alert('Error');
+    this.showErrorMessage('There was a communication error, please try later.');
   }
 
   private findLocality(id: number): Locality {
@@ -234,6 +237,20 @@ private loadAddress() {
     console.log('Not found locality ID: ' + id);
 
     return null;
+  }
+
+  showMessage(message: string) {
+    this.messageModal = message;
+    this.showDialog = true;
+  }
+
+  private showErrorMessage(message: string) {
+    this.messageModal = message;
+    this.showErrorDialog = true;
+  }
+
+  onContinue() {
+    this.router.navigate(['/smart-cities/user-account/profile']);
   }
 
 }

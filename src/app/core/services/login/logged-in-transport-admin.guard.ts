@@ -3,13 +3,13 @@ import { CanActivate } from '@angular/router';
 import { LoginService } from './login.service';
 
 @Injectable()
-export class LoggedInTransportAdmin implements CanActivate {
+export class LoggedInTransportAdminGuard implements CanActivate {
 
   constructor(private loginService: LoginService) {
   }
 
   canActivate() {
-    return this.loginService.isTransportAdmin();
+    return this.loginService.isTransportAdmin() || this.loginService.isSA();
   }
 
 }

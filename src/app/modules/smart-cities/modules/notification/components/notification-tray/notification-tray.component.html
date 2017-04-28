@@ -1,0 +1,110 @@
+<form [formGroup]="Form">
+  <div class="row">
+    <div class="col-md-12">   
+      <h2>Notifications</h2>
+      <hr class="title-hr">
+      <div class="row">
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
+        </div>
+         <!-- Implementación de ventana modal -->
+        <modal-popup [(visible)]="showDialog" title="System Message">
+          {{messageModal}}
+        <hr>
+        <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
+        <hr *ngIf="includeText">
+        <div class="row">
+          <div class="col">
+            <button *ngIf="isConfirm" type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="confirmDelete()">Accept</button>
+          </div>
+          
+        </div>
+        </modal-popup>
+        <!-- ************************************************* -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="notificationType">Type alert</label>
+            <select id="notificationType" class="form-control" [formControl]="Form.controls['notificationType']" (ngModelChange)="onNotificationTypeChange($event)">
+                <option value="-1">All</option>
+                <option *ngFor="let notification of notifications" value="{{ notification.id }}">{{notification.name}}</option>
+              </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="subNotification">Subtype Alert</label>
+            <select id="subNotification" class="form-control" [formControl]="Form.controls['subNotification']" (ngModelChange)="onSubNotificationChange($event)">
+              <option value="-1" disabled>Select</option>
+              <option *ngFor="let subNotification of subNotifications"  value="{{ subNotification }}">{{ subNotification }}</option>>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="alertDate">Date</label>
+            <input class="form-control" type="date" id="alertDate" [formControl]="Form.controls['alertDate']" 
+                   placeholder="yyyy-mm-dd" (ngModelChange)="onChangeDate($event)"/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <button class="btn btn-smart btn-block" (click)="OnClear()" > Clear </button>
+          </div>
+        </div>
+         <div class="col-md-3">
+          <div class="form-group">
+            <span class="labelHidden"></span>
+            <button class="btn btn-smart btn-block" (click)="onSearch()" > Search </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table id="myTable" class="table ">
+      <thead class="thead-default">
+          <tr>
+              <th>Location</th>
+              <th>Alert</th>
+              <th>Event</th>
+              <th>Date</th>
+              <th>Description</th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let alert of alerts | paginate: { itemsPerPage: 10, currentPage: page, totalItems: total }">
+              <td>{{alert.locationDescription}}</td>
+              <td>{{alert.alertType}}</td>
+              <td>{{alert.eventObserved}}</td>
+              <td>{{alert.dateTime}}</td>
+              <td>{{alert.description}}</td>
+              <td>
+                <button *ngIf="isUser" aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top"></button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+            
+          </div>
+
+
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <pagination-controls (pageChange)="pageChanged($event)">
+            </pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

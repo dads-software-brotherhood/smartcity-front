@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,6 +18,10 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   complexForm: FormGroup;
   private forgotPasswordSubs: any;
 
+  showDialog: boolean;
+  showErrorDialog: boolean;
+  messageModal: string;
+
   constructor(private recoveryPasswordService: RecoveryPasswordService, private router: Router, fb: FormBuilder) {
     this.complexForm = fb.group({
       'email': [null, [Validators.required, CustomValidators.email]]
@@ -36,16 +40,27 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   submitForm(form: any) {
     this.forgotPasswordSubs = this.recoveryPasswordService.forgotPassword(form.email).subscribe(
       (res) => {
-        alert('Message\nA verification token will be sent to your mailbox. Once you have received the token, you will be able to choose a new password for your account');
-
-        this.router.navigate(constants.logoutRoute);
+        this.showMessage('A verification token will be sent to your mailbox. Once you have received the token, you will be able to choose a new password for your account');
       },
       (error) => {
-        alert('Error\nThere was a communication error, please try later.');
-
+        this.showErrorMessage('There was a communication error, please try later.');
         console.error(error);
       }
     );
+  }
+
+  private showMessage(message: string) {
+    this.messageModal = message;
+    this.showDialog = true;
+  }
+
+  private showErrorMessage(message: string) {
+    this.messageModal = message;
+    this.showErrorDialog = true;
+  }
+
+  onContinue() {
+    this.router.navigate(constants.logoutRoute);
   }
 
 }

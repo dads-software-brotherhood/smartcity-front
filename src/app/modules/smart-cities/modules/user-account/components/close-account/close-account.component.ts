@@ -13,6 +13,10 @@ import { constants } from '../../../../../../core/common/constants';
 })
 export class CloseAccountComponent implements OnInit {
 
+  showDialog: boolean;
+  showErrorDialog: boolean;
+  messageModal: string;
+
   constructor(private userProfileService: UserProfileService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
@@ -20,19 +24,32 @@ export class CloseAccountComponent implements OnInit {
 
   cancelAccount() {
     if (this.loginService.isSA() || this.loginService.getLoggedUser().username === 'idm') {
-      alert('Can\'t delete a SA account');
+      this.showErrorMessage('Can\'t delete a SA account');
     } else {
       this.userProfileService.cancelAccount().subscribe(
         (res) => {
-          alert('Your account has been successfully deleted');
-          this.router.navigate([constants.defaultLoggedRoute]);
+          this.showMessage('Your account has been successfully deleted');
         },
         (error) => {
           console.error(error);
-          alert('Can\'t cancel the account, try again later')
+          this.showErrorMessage('Can\'t cancel the account, try again later');
         }
       );
     }
+  }
+
+  private showMessage(message: string) {
+    this.messageModal = message;
+    this.showDialog = true;
+  }
+
+  private showErrorMessage(message: string) {
+    this.messageModal = message;
+    this.showErrorDialog = true;
+  }
+
+  onContinue() {
+    this.router.navigate(constants.logoutRoute);
   }
 
 }

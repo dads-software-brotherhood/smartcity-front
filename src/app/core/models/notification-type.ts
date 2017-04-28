@@ -1,4 +1,5 @@
 export class NotificationType {
-  id: number;
+  id: string;
   name: string;
+  subnotifications:string[]
 }

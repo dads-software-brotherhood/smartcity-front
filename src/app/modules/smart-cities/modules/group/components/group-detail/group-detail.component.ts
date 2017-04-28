@@ -17,16 +17,13 @@ import { NotificationTypeService } from '../../../../../../core/services/notific
 
 export class GroupDetailComponent implements OnInit {
   public groupForm: FormGroup;
-  public groupId: string;
+  public groupId: number;
   public title: string;
   private groupTypes: any[];
   private allNotificationTypes: NotificationType[];
-  private errorMessage: string;
-  private successMessage: string;
   private group = new Group();
-
+  errorMessage: string;
   showDialog: boolean;
-  isConfirm: boolean;
   messageModal: string;
   includeText: boolean;
 
@@ -43,20 +40,22 @@ export class GroupDetailComponent implements OnInit {
         "group": [null, Validators.required]
       })
     }
-    catch (e) { this.errorMessage = "Error occurred while loading group data" }
+    catch (e) { 
+      this.messageModal = "Error occurred while loading group data";
+      this.showDialog = true;
+   }
   }
 
   private sub: any;
 
   ngOnInit() {
     try {
-      this.isConfirm = false;
       this.includeText = false;
       this.sub = this.route.params.subscribe(params => {
         this.groupId = params["id"];
       })
 
-      if (this.groupId != "") { //// Based on id decide Title add/edit
+      if (this.groupId != 0) { //// Based on id decide Title add/edit
         this.title = "Edit User Group"
         this.getGroupData();
       }
@@ -65,7 +64,10 @@ export class GroupDetailComponent implements OnInit {
         this.getAllNotificationTypes();
       }
     }
-    catch (e) { this.errorMessage = "Error occurred while loading group data" }
+    catch (e) { 
+      this.messageModal = "Error occurred while loading group data";
+      this.showDialog = true;
+    }
   }
 
   getGroupData() {
@@ -75,7 +77,7 @@ export class GroupDetailComponent implements OnInit {
           this.group = group;
           this.getAllNotificationTypes()
         },
-        error => this.errorMessage = <any>error
+        error => {this.messageModal = <any>error; this.showDialog = true;}
       );
     }
     catch (e) { throw e; }
@@ -98,7 +100,7 @@ export class GroupDetailComponent implements OnInit {
         notificationTypes => {
           this.allNotificationTypes = notificationTypes;
         },
-        error => this.errorMessage = <any>error
+        error => {this.messageModal = <any>error; this.showDialog = true;}
       );
     }
     catch (e) {
@@ -111,37 +113,41 @@ export class GroupDetailComponent implements OnInit {
 
 
   save() {
+    this.messageModal = null;
     this.errorMessage = null;
-    this.successMessage = null;
     var valido = false;
-    console.log("Save");
     try {
       var selectedNotifications = [];
       $('input:checkbox:checked.notification').map(function () {
         selectedNotifications.push(this.value)
       });
-      if (this.group.group.trim() != "" && selectedNotifications.length > 0) {
+      if (this.group.group != null && this.group.group.trim() != "" && selectedNotifications.length > 0) {
         this.group.notificationIds = selectedNotifications;
-        if (this.groupId == "") {
+        console.log(this.groupId == 0);
+        if (this.groupId == 0) {
           this._service.insert(this.group).then(form => {
             console.log(form);
             if (form.notificationIds != undefined) {
               this.group = form;
-              this.successMessage = "Your record was successfully registered!";
+              this.groupId = this.group.id;
+              this.messageModal = "Your record was successfully registered!";
+              this.showDialog = true;
             }
 
           },
-            error => this.errorMessage = <any>error);
+            error => {this.messageModal = <any>error; this.showDialog = true;}
+            );
 
         }
         else {
           this._service.update(this.group).then(form => {
             if (form) {
-              this.successMessage = "Your record was successfully registered!";
+              this.messageModal = "Your record was successfully registered!";
+              this.showDialog = true;
             }
 
           },
-            error => this.errorMessage = <any>error);
+            error => {this.messageModal = <any>error; this.showDialog = true;});
         }
 
       }
@@ -151,7 +157,10 @@ export class GroupDetailComponent implements OnInit {
 
     }
     catch (e)
-    { this.errorMessage = "Error occurred while saving group data"; }
+    { 
+      this.messageModal = "Error occurred while saving group data"; 
+      this.showDialog = true;
+    }
   }
 
   onConfirm() {

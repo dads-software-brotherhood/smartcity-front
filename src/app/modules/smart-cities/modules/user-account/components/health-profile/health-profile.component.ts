@@ -13,6 +13,8 @@ export class HealthProfileComponent implements OnInit {
 
   idUser : string;
   errorMessage : string;
+  messageModal : string;
+  showDialog : boolean;
   successMessage : string;
   healthStates : string[] = ["Good", "Allergy", "Asthma"];
   allergySymptoms : string[] = ["nasal congestion", 
@@ -67,7 +69,7 @@ export class HealthProfileComponent implements OnInit {
 
   save(){
     this.errorMessage = null;
-    this.successMessage = null;
+    this.messageModal = null;
     let valido = true;
 
     if (this.healthProfile.healthState == "Good")
@@ -114,7 +116,8 @@ export class HealthProfileComponent implements OnInit {
                 if (healthProfile.healthState != undefined )
                   {
                     console.log("saved");
-                    this.successMessage = "Your health profile was successfully saved!!";
+                    this.messageModal = "Your health profile was successfully saved!!";
+                    this.showDialog = true;
                     this.fillChecks();
                   }
                 }

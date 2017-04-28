@@ -37,10 +37,10 @@
                         <li>
                             <a  class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-account/profile">User profile</a>
                         </li>
-                        <li>
+                        <li *ngIf="isUser">
                             <a class="dropdown-item" href="javascript:;" secured routerLink="/smart-cities/user-account/health-profile">Health profile</a>
                         </li>
-                        <li>
+                        <li *ngIf="isUser">
                             <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-vehicle/vehicles">Vehicles</a>
                         </li>
                         <li class="dropdown-submenu">
@@ -48,7 +48,7 @@
 
                             <ul class="dropdown-menu pull-left">
                                 <li><a href="javascript:;" routerLink="/smart-cities/user-account/credentials" class="dropdown-item">Change your password</a></li>
-                                <li><a href="javascript:;" routerLink="/smart-cities/user-account/close-account" class="dropdown-item">Cancel account</a></li>
+                                <li *ngIf="isUser"><a href="javascript:;" routerLink="/smart-cities/user-account/close-account" class="dropdown-item">Cancel account</a></li>
                             </ul>
 
                         </li>

@@ -47,9 +47,9 @@ export class UserManagerTrayComponent implements OnInit {
   modMessageModal: string;
   modIncludeText: boolean=false;
 
-  constructor(private _service: UserService,private fb: FormBuilder,private fm: FormBuilder,   
+  constructor(private _service: UserService,private fb: FormBuilder,private fm: FormBuilder,
               private router: Router, private loginService: LoginService,
-              private route: ActivatedRoute) { 
+              private route: ActivatedRoute) {
                  this.roles = this.getRoles();
                 this.UserTrayForm = fb.group({ //// Make Model driven form
                       "name": [null, Validators.required],
@@ -57,14 +57,14 @@ export class UserManagerTrayComponent implements OnInit {
                       "email": [null],
                       "role": [null],
                       "message":[null],
-                      "canDel":[null]                    
-                      
+                      "canDel":[null]
+
                   })
                   this.Modal = fm.group({ //// Make Model driven form
-                      
+
                       "message":[null, Validators.required]
-                                        
-                      
+
+
                   })
               }
 
@@ -73,32 +73,16 @@ export class UserManagerTrayComponent implements OnInit {
      this.isConfirm = true;
     this.includeText = true;
     this.messageModal = "Are you sure to delete this user?";
-   
-    if(this.loginService.getLoggedUser().roles[0]!=null || this.loginService.getLoggedUser().roles[0]!=undefined)
-    {
-       this.rol=this.loginService.getLoggedUser().roles[0];
-       if (this.rol=="USER" || this.rol== "TRANSPORT_ADMIN")
-       {
-          this.router.navigate(["/smart-cities"]);
-       }
-    }
-    else{
-      this.router.navigate(["/smart-cities"]);
-    }
-
-  
-   
-   
   }
   bindTable()
   {
-      
+
 
   }
   getBy()
   {
-      
-   
+
+
     this.errorMessage=null;
      this._user.name=$("#name").val();
       this._user.familyName=$("#familyname").val();
@@ -106,29 +90,29 @@ export class UserManagerTrayComponent implements OnInit {
       this._user.role=$("#role").val();
     console.log(this._user);
       this._service.getBy(this._user)
-            .then(res => 
+            .then(res =>
             {
              this.users=res;
              console.log(this.users);
-             
-              this.userCanDel(this.rol, this.users);      
-               
+
+              this.userCanDel(this.rol, this.users);
+
             }).catch(err=>{
               this.modShowDialog=true;
-              this.modMessageModal="Information not found";            
+              this.modMessageModal="Information not found";
             });
-    
+
 
   }
   userCanDel(rol:string, arr:UserModel[]){
      arr.forEach(function(item)
           {
-            
+
             if(item.role == "ADMIN" && rol=="ADMIN")
             {
               item.canDel=false;
             }
-            else 
+            else
             if(rol=="ADMIN" && item.role!="ADMIN")
             {
                 item.canDel=true;
@@ -136,32 +120,32 @@ export class UserManagerTrayComponent implements OnInit {
             if(rol=="SA")
             {
               item.canDel=true;
-            }   
+            }
           });
-         
+
   }
 
   getAll(){
-    
+
     this.warningMessage=null;
     this.errorMessage=null;
-   
+
      this._service.getAll().subscribe(
       users => { this.users = users;
         this.userCanDel(this.rol, users);
         console.log(users);
-         
-       
-          
+
+
+
   },
       (error) => {
 
         this.modShowDialog=true;
-              this.modMessageModal="Information not found";  
+              this.modMessageModal="Information not found";
       }
     );
   }
-  
+
     getRoles() {
     let roles: any[] = [];
     let rolesEnumList = EnumEx.getNamesAndValues(role);
@@ -172,27 +156,27 @@ export class UserManagerTrayComponent implements OnInit {
         {
           roles.push(role);
         }
-        
+
     });
     return roles;
 }
   deleteUser(){
     //this.showDialog = false; /// Close dialog
-    
-       
+
+
      this._user.message = $("#_message").val();;
       this.showDialog=false;
        this.modShowDialog=true;
       this._service.delete(this._user)
-            .then(form => 
+            .then(form =>
             {
-             
-              this.modMessageModal="User deleted successfully!!";  
-               this.getAll();       
+
+              this.modMessageModal="User deleted successfully!!";
+               this.getAll();
             }).catch(res=>{
-             
-              this.modMessageModal="Error deleting user. Please try later.";  
-                         
+
+              this.modMessageModal="Error deleting user. Please try later.";
+
             });
   }
 
@@ -200,7 +184,7 @@ export class UserManagerTrayComponent implements OnInit {
   {
     this.getAll();
     this.UserTrayForm.reset();
-   
-     
+
+
   }
 }
