@@ -45,4 +45,9 @@ export class TopMenuComponent implements OnInit {
       dom.classList.toggle('push-right');
     }
 
+    onChangeLocation(val) {
+      this.router.navigate(['/smart-cities/notification/notification-tray/' + val]);
+      location.reload();
+    }
+
 }

@@ -14,17 +14,17 @@
                     </a>
                     <ul class="dropdown-menu alert-dropdown" aria-labelledby="name2">
                         <li>
-                            <a href="javascript:;" class="dropdown-item">Traffic alerts</a>
+                            <a href="javascript:;" (click)="onChangeLocation('TrafficJam')" class="dropdown-item">Traffic alerts</a>
                         </li>
                         <li>
-                            <a href="javascript:;" class="dropdown-item">Health alerts</a>
+                            <a href="javascript:;" (click)="onChangeLocation('AsthmaAttacks')" class="dropdown-item">Health alerts</a>
                         </li>
                         <li>
-                            <a href="javascript:;" class="dropdown-item">Pollutation alerts</a>
+                            <a href="javascript:;" (click)="onChangeLocation('Pollutions')" class="dropdown-item">Pollutation alerts</a>
                         </li>
                         <li class="dropdown-divider"></li>
                         <li>
-                            <a href="http://207.249.127.180:8080/#/notifications" target="_new" class="dropdown-item">View All</a>
+                            <a href="javascript:;" (click)="onChangeLocation('0')" target="_new" class="dropdown-item">View All</a>
                         </li>
                     </ul>
                     <!-- </div> -->

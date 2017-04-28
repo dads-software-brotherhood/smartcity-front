@@ -62,4 +62,9 @@ export class MainMenuComponent implements OnInit {
     );
   }
 
+  onChangeLocation(val) {
+    this.router.navigate(['/smart-cities/notification/notification-tray/' + val]);
+      location.reload();
+  }
+
 }

@@ -84,7 +84,7 @@
         </div>
 
 
-        <a routerLink="/smart-cities/notification/notification-tray/0" routerLinkActive="active" class="list-group-item" *ngIf="isUser">
+        <a (click)="onChangeLocation(0)" routerLinkActive="active" class="list-group-item" *ngIf="isUser">
             <span class="iBlock"><i class="fa fa-bell" aria-hidden="true"></i></span> Alerts
         </a>
         <a routerLinkActive="active" class="list-group-item" *ngIf="isUser">
