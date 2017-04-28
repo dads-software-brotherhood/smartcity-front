@@ -17,8 +17,14 @@
         <hr>
         <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
         <hr *ngIf="includeText">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDelete()">Delete</button>
-        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">No</button>
+        <div class="row">
+          <div class="col">
+            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="confirmDelete()">Delete</button>
+          </div>
+          <div class="col">
+            <button *ngIf="isConfirm" type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="showDialog = false">No</button>
+          </div>
+        </div>
       </modal-popup>
       <!-- ************************************************* -->
 

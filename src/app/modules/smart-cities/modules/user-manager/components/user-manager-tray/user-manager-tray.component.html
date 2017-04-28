@@ -20,9 +20,15 @@
         <textarea *ngIf="includeText" [formControl]="Modal.controls['message']" id="_message" type="text"  class="form-control"> </textarea>
         <div *ngIf="Modal.controls['message'].hasError('required') && Modal.controls['message'].touched" class="alert alert-danger">Comment Required *</div>
         <hr *ngIf="includeText">
-        <button type="button" [disabled]="!Modal.valid" class="btn btn-danger" data-dismiss="modal" (click)="deleteUser()">Accept</button>
+        <div class="row">
+          <div class="col">
+            <button *ngIf="isConfirm" type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
+          </div>
+          <div class="col">
+            <button type="button" [disabled]="!Modal.valid" class="btn btn-smart btn-block" data-dismiss="modal" (click)="deleteUser()">Accept</button>
+          </div>
+        </div>
 
-        <button *ngIf="isConfirm" type="button" class="btn btn-primary" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
         </modal-popup>
         <!-- ************************************************* -->
         <!-- Modal-->
@@ -31,7 +37,7 @@
         <hr>
         <textarea *ngIf="includeText"   type="text"  class="form-control"> </textarea>
         <hr *ngIf="includeText">
-        <button type="button"  class="btn btn-danger" data-dismiss="modal" (click)="modShowDialog = false">Accept</button>
+        <button type="button"  class="btn btn-smart btn-block" data-dismiss="modal" (click)="modShowDialog = false">Accept</button>
 
         
         </modal-popup>
