@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { CustomValidators } from 'ng2-validation';
 import { EnumEx } from '../../../../../../core/models/EnumEx';
 import { NotificationTypeService } from '../../../../../../core/services/notification-type/notification-type.service';
+import { Paginable } from '../../../../../../core/common/paginable';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class NotificationTrayComponent implements OnInit {
   private isAll: boolean;
   private isSearch: boolean;
   private param: string;
+  private instance: Paginable;
 
   notificationId: string;
   subNotificationId: string;
@@ -68,7 +70,6 @@ export class NotificationTrayComponent implements OnInit {
 
   ngOnInit() {
     try {
-      this.total = 20;
       this.route.params.subscribe(params => { this.param = params['id']; });
       this.element = document.getElementById('subNotification');
       this.element = (<HTMLSelectElement>this.element);
@@ -116,7 +117,9 @@ export class NotificationTrayComponent implements OnInit {
     try {
       this._service.getAllByPage(page, size).subscribe(
         (res) => {
-          this.alerts = res;
+          this.instance = new Paginable().deserialize(res);
+          this.alerts = this.instance.content;
+          this.total = this.instance.totalElements;
         },
         (error) => {
           this.messageModal = error;
@@ -132,7 +135,9 @@ export class NotificationTrayComponent implements OnInit {
     try {
       this._service.getAllByTypeAlert(type, page, size).subscribe(
         (res) => {
-          this.alerts = res;
+          this.instance = new Paginable().deserialize(res);
+          this.alerts = this.instance.content;
+          this.total = this.instance.totalElements;
         },
         (error) => {
           this.messageModal = error;
@@ -148,7 +153,9 @@ export class NotificationTrayComponent implements OnInit {
     try {
       this._service.getAllByTypeSubTypeAlert(type, subType, page, size).subscribe(
         (res) => {
-          this.alerts = res;
+          this.instance = new Paginable().deserialize(res);
+          this.alerts = this.instance.content;
+          this.total = this.instance.totalElements;
         },
         (error) => {
           this.messageModal = error;
@@ -164,7 +171,9 @@ export class NotificationTrayComponent implements OnInit {
     try {
       this._service.getAllByTypeSubTypeAlertDate(type, subType, date, page, size).subscribe(
         (res) => {
-          this.alerts = res;
+          this.instance = new Paginable().deserialize(res);
+          this.alerts = this.instance.content;
+          this.total = this.instance.totalElements;
         },
         (error) => {
           this.messageModal = error;
@@ -180,7 +189,9 @@ export class NotificationTrayComponent implements OnInit {
     try {
       this._service.getAllByAlertDate(type, date, page, size).subscribe(
         (res) => {
-          this.alerts = res;
+          this.instance = new Paginable().deserialize(res);
+          this.alerts = this.instance.content;
+          this.total = this.instance.totalElements;
         },
         (error) => {
           this.messageModal = error;
@@ -197,7 +208,6 @@ export class NotificationTrayComponent implements OnInit {
       this._notificationService.getAll().subscribe(
         (res) => {
           this.notifications = res;
-          this.setPage(this.param);
         },
         (error) => {
           this.messageModal = error;

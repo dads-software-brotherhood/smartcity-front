@@ -20,7 +20,7 @@ export class AlertService {
 
   private url: string;
 
-  constructor(private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { }
+  constructor(private http: Http, private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { }
 
   getAll(): Observable<Array<Alert>> {
     return this.remoteConnectionService.getAsObservable(this.buildAlertUrl(), null, null, null)
@@ -36,7 +36,7 @@ export class AlertService {
   getAllByPage(page: string, size: string): Observable<Array<Alert>> {
     this.url = this.buildAlertUrl() + 'page/' + page + '/items/' + size;
     return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
-      .map((res: Response) => {
+    .map((res: Response) => {
         return res.json();
       })
       .catch((error) => {
@@ -96,4 +96,5 @@ export class AlertService {
   private buildAlertUrl() {
     return baseGetAlertUrl + '/alerts/';
   }
+
 }
