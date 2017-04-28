@@ -33,9 +33,9 @@ import { LocalityService } from './core/services/locality/locality.service';
 import { SignupService } from './core/services/signup/signup.service';
 // Guards para los routes
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
-import { LoggedInAdmin } from './core/services/login/logged-in-admin.guard';
-import { LoggedInSA} from './core/services/login/logged-in-sa.guard';
-import { LoggedInTransportAdmin} from './core/services/login/logged-in-transport-admin.guard';
+import { LoggedInAdminGuard } from './core/services/login/logged-in-admin.guard';
+import { LoggedInSAGuard } from './core/services/login/logged-in-sa.guard';
+import { LoggedInTransportAdminGuard } from './core/services/login/logged-in-transport-admin.guard';
 
 
 // Rutas
@@ -66,9 +66,9 @@ import { appRoutes } from './app.routes';
     RecoveryPasswordService,
     UserProfileService,
     LoggedInGuard,
-    LoggedInAdmin,
-    LoggedInSA,
-    LoggedInTransportAdmin,
+    LoggedInAdminGuard,
+    LoggedInSAGuard,
+    LoggedInTransportAdminGuard,
     VehicleService,
     GroupService,
     VehicleTypeService,
