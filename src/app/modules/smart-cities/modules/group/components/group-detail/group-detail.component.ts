@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { GroupService } from '../../../../../../core/services/group/group.service';
 import { NotificationTypeService } from '../../../../../../core/services/notification-type/notification-type.service';
+import {NgbPanelChangeEvent} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   templateUrl: './group-detail.component.html',
@@ -85,7 +86,6 @@ export class GroupDetailComponent implements OnInit {
 
   fillChecks() {
     $('input:checkbox.notification').prop('checked', false);
-    console.log(this.group.notificationIds);
     if (this.group.notificationIds != null) {
       this.group.notificationIds.forEach(function (symp) {
         $('input[value="' + symp + '"]:checkbox.notification').prop('checked', true);
@@ -166,5 +166,10 @@ export class GroupDetailComponent implements OnInit {
   onConfirm() {
     this.router.navigate(["/smart-cities/group/groups"]);
   }
+
+  public beforeChange(event) {
+    console.log(event);
+    event.stopPropagation();
+  };
 
 }

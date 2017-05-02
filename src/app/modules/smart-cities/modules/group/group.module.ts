@@ -4,6 +4,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2PaginationModule } from 'ng2-pagination';
+import { BrowserModule } from '@angular/platform-browser';
+import { JsonpModule } from '@angular/http';
 
 import { GroupComponent } from './group.component';
 import { GroupTrayComponent } from './components/group-tray/group-tray.component';
@@ -13,12 +15,15 @@ import { ModalPopupModule  } from '../../../../usable-component/modal-popup/moda
 @NgModule({
   imports: [
     CommonModule,
+    BrowserModule,
+    ReactiveFormsModule,
     NgbModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
     Ng2PaginationModule,
-    ModalPopupModule
+    ModalPopupModule,
+    JsonpModule
   ],
   declarations: [
     GroupComponent,
