@@ -6,8 +6,8 @@
         <a class="navbar-brand" [routerLink]="['/smart-cities']">Smart Cities</a>
         <div class="collapse navbar-collapse">
 
-            <ul class="navbar-nav ml-auto mt-2 mt-md-0">
-                <li class="dropdown nav-item" ngbDropdown>
+            <ul class="navbar-nav ml-auto mt-2 mt-md-0" >
+                <li class="dropdown nav-item" ngbDropdown *ngIf="isUser">
                     <!-- <div class="dropdown"> -->
                     <a href="javascript:;" id="name2" class="nav-link dropdown-toggle info-number" ngbDropdownToggle>
                         <i class="fa fa-bell"></i><span class="label-pill">9+</span> <b class="caret"></b><span class="sr-only">(current)</span>
