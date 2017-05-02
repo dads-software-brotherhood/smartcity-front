@@ -13,12 +13,12 @@ import { Paginable } from '../../../../../../core/common/paginable';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'notification-tray',
-  templateUrl: './notification-tray.component.html',
-  styleUrls: ['./notification-tray.component.sass'],
+  selector: 'notification-user-tray',
+  templateUrl: './notification-user-tray.component.html',
+  styleUrls: ['./notification-user-tray.component.sass'],
 
 })
-export class NotificationTrayComponent implements OnInit {
+export class NotificationUserTrayComponent implements OnInit {
 
   // Variables utilizadas para mostrar la ventana modal, isConfirm=true (Muestra 2 botones Aceptar, Cancelar),
   // isConfirm=false (Muestra solo un botón Aceptar), messageModal (Mensaje que muestra la ventana Modal),
@@ -85,7 +85,7 @@ export class NotificationTrayComponent implements OnInit {
 
   setPage(id: string) {
     if (id !== '0') {
-      this.getAlertsByAlertType(id, this.initPage, this.initSize);
+      this.getAlertsByUserAlertType(id, this.initPage, this.initSize);
       this.notificationId = id;
       // this.objNotification = new NotificationType();
       // for (let i = 0; i < this.notifications.length; i++) {
@@ -115,7 +115,7 @@ export class NotificationTrayComponent implements OnInit {
   // registradas.
   bindTable(page: string, size: string) {
     try {
-      this._service.getAllByPage(page, size).subscribe(
+      this._service.getAllEventsByUserAlert(page, size).subscribe(
         (res) => {
           this.instance = new Paginable().deserialize(res);
           this.alerts = this.instance.content;
@@ -131,9 +131,9 @@ export class NotificationTrayComponent implements OnInit {
 
   // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
   // registradas por tipo de alerta
-  getAlertsByAlertType(type: string, page: string, size: string) {
+  getAlertsByUserAlertType(type: string, page: string, size: string) {
     try {
-      this._service.getAllByTypeAlert(type, page, size).subscribe(
+      this._service.getAllEventsByUserTypeAlert(type, page, size).subscribe(
         (res) => {
           this.instance = new Paginable().deserialize(res);
           this.alerts = this.instance.content;
@@ -149,9 +149,9 @@ export class NotificationTrayComponent implements OnInit {
 
   // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
   // registradas por tipo de alerta y sub-tipo de alerta
-  getAlertsByAlertAndEvent(type: string, subType: string, page: string, size: string) {
+  getAlertsByUserAlertAndEvent(type: string, subType: string, page: string, size: string) {
     try {
-      this._service.getAllByTypeSubTypeAlert(type, subType, page, size).subscribe(
+      this._service.getAllEventsByUserTypeSubTypeAlert(type, subType, page, size).subscribe(
         (res) => {
           this.instance = new Paginable().deserialize(res);
           this.alerts = this.instance.content;
@@ -167,9 +167,9 @@ export class NotificationTrayComponent implements OnInit {
 
   // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
   // registradas por tipo de alerta, sub-tipo de alerta y fecha
-  getAlertsByAlertSubAlertDate(type: string, subType: string, date: string, page: string, size: string) {
+  getAlertsByuserAlertSubAlertDate(type: string, subType: string, date: string, page: string, size: string) {
     try {
-      this._service.getAllByTypeSubTypeAlertDate(type, subType, date, page, size).subscribe(
+      this._service.getAllEventsByUserDateTypeSubTypeAlert(type, subType, date, page, size).subscribe(
         (res) => {
           this.instance = new Paginable().deserialize(res);
           this.alerts = this.instance.content;
@@ -185,9 +185,9 @@ export class NotificationTrayComponent implements OnInit {
 
   // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
   // registradas por tipo de alerta y fecha
-  getAlertsByAlertDate(type: string, date: string, page: string, size: string) {
+  getAlertsByUserAlertDate(type: string, date: string, page: string, size: string) {
     try {
-      this._service.getAllByAlertDate(type, date, page, size).subscribe(
+      this._service.getAllEventsByUserDateTypeAlert(type, date, page, size).subscribe(
         (res) => {
           this.instance = new Paginable().deserialize(res);
           this.alerts = this.instance.content;
@@ -225,17 +225,17 @@ export class NotificationTrayComponent implements OnInit {
       this.bindTable(pagina, this.initSize);
     } else if (this.isSearch && this.notificationId !== this.initValue
                && this.subNotificationId === this.initValue && this.dateId === '') {
-      this.getAlertsByAlertType(this.notificationId, pagina, this.initSize);
+      this.getAlertsByUserAlertType(this.notificationId, pagina, this.initSize);
     } else if (this.isSearch && this.notificationId !== this.initValue
                && this.subNotificationId !== this.initValue && this.dateId === '') {
-      this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, pagina, this.initSize);
+      this.getAlertsByUserAlertAndEvent(this.notificationId, this.subNotificationId, pagina, this.initSize);
     } else if (this.isSearch && this.notificationId !== this.initValue
                 && this.subNotificationId !== this.initValue && this.dateId !== '') {
-        this.getAlertsByAlertSubAlertDate(this.notificationId, this.subNotificationId,
+        this.getAlertsByuserAlertSubAlertDate(this.notificationId, this.subNotificationId,
                                           this.dateId, pagina, this.initSize);
     } else if (this.isSearch && this.notificationId !== this.initValue
                 && this.subNotificationId === this.initValue && this.dateId !== '') {
-        this.getAlertsByAlertDate(this.notificationId, this.dateId, pagina, this.initSize);
+        this.getAlertsByUserAlertDate(this.notificationId, this.dateId, pagina, this.initSize);
     }
   }
 
@@ -317,7 +317,7 @@ export class NotificationTrayComponent implements OnInit {
   // Evento que se lanza cuando se realiza una busqueda con el botón search
   onSearch() {
     try {
-      if(this.notificationId !== this.initValue) {
+      if (this.notificationId !== this.initValue) {
         this.isAll = false;
         this.isSearch = true;
       } else {
@@ -327,17 +327,17 @@ export class NotificationTrayComponent implements OnInit {
 
       if (this.notificationId !== this.initValue && this.subNotificationId === this.initValue
           && this.dateId === '') {
-          this.getAlertsByAlertType(this.notificationId, this.initPage, this.initSize);
+          this.getAlertsByUserAlertType(this.notificationId, this.initPage, this.initSize);
       } else if (this.notificationId !== this.initValue && this.subNotificationId !== this.initValue
                  && this.dateId === '') {
-          this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, this.initPage, this.initSize);
+          this.getAlertsByUserAlertAndEvent(this.notificationId, this.subNotificationId, this.initPage, this.initSize);
       } else if (this.notificationId !== this.initValue && this.subNotificationId !== this.initValue
                  && this.dateId !== '') {
-          this.getAlertsByAlertSubAlertDate(this.notificationId, this.subNotificationId,
+          this.getAlertsByuserAlertSubAlertDate(this.notificationId, this.subNotificationId,
                                             this.dateId, this.initPage, this.initSize);
       } else if (this.notificationId !== this.initValue
                 && this.subNotificationId === this.initValue && this.dateId !== '') {
-          this.getAlertsByAlertDate(this.notificationId, this.dateId, this.initPage, this.initSize);
+          this.getAlertsByUserAlertDate(this.notificationId, this.dateId, this.initPage, this.initSize);
       } else if (this.isAll) {
           this.bindTable(this.initPage, this.initSize);
       }

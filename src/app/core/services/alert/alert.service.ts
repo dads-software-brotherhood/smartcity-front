@@ -19,6 +19,8 @@ const baseGetAlertUrl = environment.backend_sdk;
 export class AlertService {
 
   private url: string;
+  private loginServ: LoginService;
+  private urlUserNotification: string;
 
   constructor(private http: Http, private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { }
 
@@ -93,8 +95,86 @@ export class AlertService {
       });
   }
 
+  getAllEventsByUserAlert(page: string, size: string): Observable<Array<Alert>> {
+    this.url = this.buildAlertEventsUrl() + '/page/' + page + '/items/' + size;
+    console.log(this.url);
+    return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+  }
+
+  getAllEventsByUserTypeAlert(type: string, page: string, size: string): Observable<Array<Alert>> {
+    this.url = this.buildAlertEventsUrl() + '/type/' + type + '/page/' + page + '/items/' + size;
+    return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+  }
+
+  getAllEventsByUserDateTypeAlert(type: string, date: string, page: string, size: string): Observable<Array<Alert>> {
+    this.url = this.buildAlertEventsUrl() + '/type/' + type + '/date/' + date + '/page/' + page + '/items/' + size;
+    return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+  }
+
+   getAllEventsByUserTypeSubTypeAlert(type: string, subtype: string, page: string, size: string): Observable<Array<Alert>> {
+    this.url = this.buildAlertEventsUrl() + '/type/' + type + '/subtype/' + subtype + '/page/' + page + '/items/' + size;
+    return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+  }
+
+  getAllEventsByUserDateTypeSubTypeAlert(type: string, subtype: string, date: string, 
+                                         page: string, size: string): Observable<Array<Alert>> {
+    this.url = this.buildAlertEventsUrl() + '/type/' + type + '/subtype/' + subtype + '/date/' + date + '/page/' + page + '/items/' + size;
+    return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+  }
+
+  getAllEventsByUserDateAlert(date: string, page: string, size: string): Observable<Array<Alert>> {
+    this.url = this.buildAlertEventsUrl() + '/date/' + date + '/page/' + page + '/items/' + size;
+    return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+  }
+
   private buildAlertUrl() {
     return baseGetAlertUrl + '/alerts/';
   }
 
+  private buildAlertEventsUrl() {
+    return baseGetAlertUrl + '/alerts/my-events/' + this.loginService.getLoggedUser().id;
+  }
+// tslint:disable-next-line:eofline
 }

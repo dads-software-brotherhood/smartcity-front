@@ -7,6 +7,7 @@ import { Ng2PaginationModule } from 'ng2-pagination';
 
 import { NotificationComponent } from './notification.component';
 import { NotificationTrayComponent } from './components/notification-tray/notification-tray.component';
+import { NotificationUserTrayComponent } from './components/notification-user-tray/notification-user-tray.component';
 import { ModalPopupModule  } from '../../../../usable-component/modal-popup/modalpopup.module';
 
 @NgModule({
@@ -19,7 +20,7 @@ import { ModalPopupModule  } from '../../../../usable-component/modal-popup/moda
     Ng2PaginationModule,
     ModalPopupModule
   ],
-  declarations: [NotificationComponent, NotificationTrayComponent],
-  exports: [NotificationTrayComponent]
+  declarations: [NotificationComponent, NotificationTrayComponent, NotificationUserTrayComponent],
+  exports: [NotificationTrayComponent, NotificationUserTrayComponent]
 })
 export class NotificationModule { }
