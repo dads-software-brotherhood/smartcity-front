@@ -4,5 +4,6 @@ export const constants = {
   tokenInfoName: 'token-info',
   defaultLoggedRoute: ['smart-cities'],
   logoutRoute: ['/'],
+  loginRoute: ['/login'],
   contentTypeJson: 'application/json'
 }
