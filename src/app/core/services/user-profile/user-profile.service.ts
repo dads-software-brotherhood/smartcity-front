@@ -24,7 +24,7 @@ export class UserProfileService {
 
   public getUserProfile(): Observable<UserProfile> {
     return this.remoteConnectionService.getAsObservable(this.buildProfileUrl())
-      .map((res : Response) => res = res.json());
+      .map((res: Response) => res = res.json());
   }
 
   public updateUserProfile(userProfile: UserProfile): Observable<any> {
@@ -55,7 +55,7 @@ export class UserProfileService {
     return this.remoteConnectionService.postAsObservable(changePasswordPath, JSON.stringify(changePassword), constants.contentTypeJson);
   }
 
-  public cancelAccount():Observable<any> {
+  public cancelAccount(): Observable<any> {
     const url: string = this.buildProfileUrl();
     return this.remoteConnectionService.deleteAsObservable(url);
   }

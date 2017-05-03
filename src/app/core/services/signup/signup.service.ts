@@ -20,7 +20,7 @@ export class SignupService {
     const payload = {
       'username': username,
       'password' : password
-    }
+    };
 
     return this.remoteConnectionService.postAsObservable(registerUrl, JSON.stringify(payload), constants.contentTypeJson);
   }

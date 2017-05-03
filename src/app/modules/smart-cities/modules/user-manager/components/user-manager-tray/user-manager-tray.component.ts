@@ -1,10 +1,10 @@
-import { Component, OnInit,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EnumEx } from '../../../../../../core/models/EnumEx';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router';
 import { role } from '../../../../../../core/models/role';
-//import { roleId } from '../../../../../../core/models/role-id';
+// import { roleId } from '../../../../../../core/models/role-id';
 import { CustomValidators } from 'ng2-validation';
 import { UserModel } from '../../../../../../core/models/user-model';
 import { UserService } from '../../../../../../core/services/user-service/user-service.service';
@@ -18,117 +18,108 @@ require ('zone.js');
   styleUrls: ['./user-manager-tray.component.sass']
 })
 export class UserManagerTrayComponent implements OnInit {
-  public UserTrayForm : FormGroup;
-   public Modal : FormGroup;
+  public UserTrayForm: FormGroup;
+  public Modal: FormGroup;
   private roles: any[];
   private users: UserModel[] = [];
-    private users_: UserModel[] = [];
+  private users_: UserModel[] = [];
   private _user: UserModel= new UserModel();
   private errorMessage: string;
-  private successMessage:string;
-  private  canDel:boolean=false;
-  private loggedRol:string;
-  private rol:string;
-  private warningMessage:String;
+  private successMessage: string;
+  private  canDel = false;
+  private loggedRol: string;
+  private rol: string;
+  private warningMessage: String;
 
    identityUser: IdentityUser;
 
   isAdmin:            boolean;
   isSA:               boolean;
   isTransportAdmin:   boolean;
-  //Prompt
+  // Prompt
   private showDialog: boolean;
   isConfirm: boolean;
   messageModal: string;
   includeText: boolean;
-  //Modal
+  // Modal
   private modShowDialog: boolean;
-  modIsConfirm: boolean=false;
+  modIsConfirm = false;
   modMessageModal: string;
-  modIncludeText: boolean=false;
+  modIncludeText = false;
 
-  constructor(private _service: UserService,private fb: FormBuilder,private fm: FormBuilder,
+  constructor(private _service: UserService, private fb: FormBuilder, private fm: FormBuilder,
               private router: Router, private loginService: LoginService,
               private route: ActivatedRoute) {
                  this.roles = this.getRoles();
                 this.UserTrayForm = fb.group({ //// Make Model driven form
-                      "name": [null, Validators.required],
-                      "familyname": [null],
-                      "email": [null],
-                      "role": [null],
-                      "message":[null],
-                      "canDel":[null]
+                      'name': [null, Validators.required],
+                      'familyname': [null],
+                      'email': [null],
+                      'role': [null],
+                      'message': [null],
+                      'canDel': [null]
 
-                  })
+                  });
                   this.Modal = fm.group({ //// Make Model driven form
 
-                      "message":[null, Validators.required]
+                      'message': [null, Validators.required]
 
 
-                  })
+                  });
               }
 
   ngOnInit() {
-     this.getAll();
-     this.isConfirm = true;
+    this.getAll();
+    this.isConfirm = true;
     this.includeText = true;
-    this.messageModal = "Are you sure to delete this user?";
+    this.messageModal = 'Are you sure to delete this user?';
   }
-  bindTable()
-  {
 
-
+  bindTable() {
   }
-  getBy()
-  {
 
-
-    this.errorMessage=null;
-     this._user.name=$("#name").val();
-      this._user.familyName=$("#familyname").val();
-      this._user.email=$("#email").val();
-      this._user.role=$("#role").val();
+  getBy() {
+    this.errorMessage = null;
+    this._user.name = $('#name').val();
+    this._user.familyName = $('#familyname').val();
+    this._user.email = $('#email').val();
+    this._user.role = $('#role').val();
     console.log(this._user);
       this._service.getBy(this._user)
-            .then(res =>
-            {
-             this.users=res;
+            .then(res => {
+             this.users = res;
              console.log(this.users);
 
               this.userCanDel(this.rol, this.users);
 
-            }).catch(err=>{
-              this.modShowDialog=true;
-              this.modMessageModal="Information not found";
+            }).catch(err => {
+              this.modShowDialog = true;
+              this.modMessageModal = 'Information not found';
             });
 
 
   }
-  userCanDel(rol:string, arr:UserModel[]){
+
+  userCanDel(rol: string, arr: UserModel[]) {
      arr.forEach(function(item)
           {
 
-            if(item.role == "ADMIN" && rol=="ADMIN")
-            {
-              item.canDel=false;
+            if (item.role === 'ADMIN' && rol === 'ADMIN') {
+              item.canDel = false;
+            } else if ( rol === 'ADMIN' && item.role !== 'ADMIN') {
+                item.canDel = true;
             }
-            else
-            if(rol=="ADMIN" && item.role!="ADMIN")
-            {
-                item.canDel=true;
-            }
-            if(rol=="SA")
-            {
-              item.canDel=true;
+
+            if (rol === 'SA') {
+              item.canDel = true;
             }
           });
-
   }
 
-  getAll(){
+  getAll() {
 
-    this.warningMessage=null;
-    this.errorMessage=null;
+    this.warningMessage = null;
+    this.errorMessage = null;
 
      this._service.getAll().subscribe(
       users => { this.users = users;
@@ -140,51 +131,44 @@ export class UserManagerTrayComponent implements OnInit {
   },
       (error) => {
 
-        this.modShowDialog=true;
-              this.modMessageModal="Information not found";
+        this.modShowDialog = true;
+        this.modMessageModal = 'Information not found';
       }
     );
   }
 
     getRoles() {
-    let roles: any[] = [];
-    let rolesEnumList = EnumEx.getNamesAndValues(role);
-    //Convert name-value pairs to VehicleType[]
+    const roles: any[] = [];
+    const rolesEnumList = EnumEx.getNamesAndValues(role);
+
+    // Convert name-value pairs to VehicleType[]
     rolesEnumList.forEach(pair => {
-        let role = { 'id': pair.value.toString(), 'name': pair.name };
-        if(role.name!="SA")
-        {
+        const role = {'id': pair.value.toString(), 'name': pair.name };
+        if (role.name !== 'SA') {
           roles.push(role);
         }
-
     });
     return roles;
-}
-  deleteUser(){
-    //this.showDialog = false; /// Close dialog
+  }
 
+  deleteUser() {
+    // this.showDialog = false; /// Close dialog
 
-     this._user.message = $("#_message").val();;
-      this.showDialog=false;
-       this.modShowDialog=true;
-      this._service.delete(this._user)
-            .then(form =>
-            {
-
-              this.modMessageModal="User deleted successfully!!";
+    this._user.message = $('#_message').val();
+    this.showDialog = false;
+    this.modShowDialog = true;
+    this._service.delete(this._user)
+            .then(form => {
+              this.modMessageModal = 'User deleted successfully!!';
                this.getAll();
-            }).catch(res=>{
-
-              this.modMessageModal="Error deleting user. Please try later.";
-
+            }).catch(res => {
+              this.modMessageModal = 'Error deleting user. Please try later.';
             });
   }
 
-  clear()
-  {
+  clear() {
     this.getAll();
     this.UserTrayForm.reset();
-
-
   }
+
 }

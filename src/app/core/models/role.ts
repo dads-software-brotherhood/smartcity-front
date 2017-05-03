@@ -1,7 +1,6 @@
 export enum role {
-  SA, 
+  SA,
   ADMIN,
   TRANSPORT_ADMIN,
   USER
-  
 }

@@ -6,4 +6,4 @@ export const constants = {
   logoutRoute: ['/'],
   loginRoute: ['/login'],
   contentTypeJson: 'application/json'
-}
+};
