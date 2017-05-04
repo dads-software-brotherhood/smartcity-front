@@ -1,5 +1,5 @@
 export enum FuelType {
-  GASOLINE, 
+  GASOLINE,
   PETROL,
   DIESEL,
   ELECTRIC,
@@ -10,5 +10,5 @@ export enum FuelType {
   ETHANOL,
   HYBRID_ELECTRIC_PETROL,
   HYBRID_ELECTRIC_DIESEL,
-  OTHER
-}
+  // tslint:disable-next-line:eofline
+  OTHER }

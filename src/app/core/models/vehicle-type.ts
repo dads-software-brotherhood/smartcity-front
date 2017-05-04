@@ -5,7 +5,6 @@ export class VehicleType {
   includeBrandModel: boolean;
   dateCreated?: Date;
   dateModified?: Date;
-  
   constructor(id?: number, name?: string, includeBrandModel?: boolean, dateCreated?: Date, dateModified?: Date) {
     this.id = id;
     this.name = name;

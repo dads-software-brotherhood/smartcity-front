@@ -34,11 +34,13 @@ export class VehicleTypeService {
   }
 
   insert(vehicleTypesModel: VehicleType): Observable<any> {
-    return this.remoteConnectionService.postAsObservable(this.buildVehicleTypeUrl(), JSON.stringify(vehicleTypesModel), constants.contentTypeJson);
+    return this.remoteConnectionService.postAsObservable(this.buildVehicleTypeUrl(),
+    JSON.stringify(vehicleTypesModel), constants.contentTypeJson);
   }
 
   update(vehicleTypesModel: VehicleType, id: number): Observable<any> {
-    return this.remoteConnectionService.putAsObservable(this.buildVehicleTypeUrl() + id, JSON.stringify(vehicleTypesModel), constants.contentTypeJson);
+    return this.remoteConnectionService.putAsObservable(this.buildVehicleTypeUrl() + id,
+    JSON.stringify(vehicleTypesModel), constants.contentTypeJson);
   }
 
   delete(id: number) {
@@ -48,6 +50,5 @@ export class VehicleTypeService {
   private buildVehicleTypeUrl() {
     return vehicleTypesUrl + '/vehicletype/';
   }
-
-  
+// tslint:disable-next-line:eofline
 }

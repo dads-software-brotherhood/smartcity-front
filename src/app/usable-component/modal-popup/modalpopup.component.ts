@@ -1,10 +1,11 @@
 import {Component, OnInit, Input,
-        Output, OnChanges, EventEmitter, trigger, state, style, animate, transition} from '@angular/core'
+        Output, OnChanges, EventEmitter, trigger, state, style, animate, transition} from '@angular/core';
 
 @Component({
+    // tslint:disable-next-line:component-selector
     selector: 'modal-popup',
     templateUrl: './modalpopup.template.html',
-    styleUrls:['./modalpopup.component.css'],
+    styleUrls: ['./modalpopup.component.css'],
     // styles:
     animations: [
         trigger('animation', [
@@ -21,8 +22,7 @@ import {Component, OnInit, Input,
 
 export class ModalPopupComponent implements OnInit {
     @Input() closable = true;
-    @Input() title :string;
-    
+    @Input() title: string;
     @Input() visible: boolean;
     @Input() isConfirm: boolean;
     @Input() messageModal: string;
@@ -36,5 +36,5 @@ export class ModalPopupComponent implements OnInit {
         this.visible = false;
         this.visibleChange.emit(this.visible);
     }
-
+// tslint:disable-next-line:eofline
 }

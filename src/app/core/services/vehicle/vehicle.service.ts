@@ -22,7 +22,7 @@ export class VehicleService {
   loginServ: LoginService;
   private url: string;
 
-  constructor(private http: Http, private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { 
+  constructor(private http: Http, private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) {
   }
 
   getAll(): Observable<Array<Vehicle>> {
@@ -41,7 +41,7 @@ export class VehicleService {
   }
 
   update(vehicle: Vehicle, id: string): Observable<any> {
-    return this.remoteConnectionService.putAsObservable(this.buildByIdUserUrl() + '/' + id, JSON.stringify(vehicle), 
+    return this.remoteConnectionService.putAsObservable(this.buildByIdUserUrl() + '/' + id, JSON.stringify(vehicle),
                                                         constants.contentTypeJson);
   }
 

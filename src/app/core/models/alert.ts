@@ -1,4 +1,4 @@
-export class Alert{
+export class Alert {
     id: string;
     type: string;
     alertType: string;
@@ -11,8 +11,7 @@ export class Alert{
 
     constructor(id?: string, type?: string, alertType?: string, eventObserved?: string, locationDescription?: string,
                 dateTime?: string, description?: Date, refUser?: string,
-                refDevice?: string) 
-    {
+                refDevice?: string) {
         this.id = id;
         this.type = type;
         this.alertType = alertType;
@@ -22,4 +21,5 @@ export class Alert{
         this.refUser = refUser;
         this.refDevice = refDevice;
     }
+// tslint:disable-next-line:eofline
 }

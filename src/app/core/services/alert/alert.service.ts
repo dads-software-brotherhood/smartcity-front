@@ -144,7 +144,7 @@ export class AlertService {
       });
   }
 
-  getAllEventsByUserDateTypeSubTypeAlert(type: string, subtype: string, date: string, 
+  getAllEventsByUserDateTypeSubTypeAlert(type: string, subtype: string, date: string,
                                          page: string, size: string): Observable<Array<Alert>> {
     this.url = this.buildAlertEventsUrl() + '/type/' + type + '/subtype/' + subtype + '/date/' + date + '/page/' + page + '/items/' + size;
     return this.remoteConnectionService.getAsObservable(this.url, null, null, null)

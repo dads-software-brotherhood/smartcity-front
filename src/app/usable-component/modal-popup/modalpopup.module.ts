@@ -20,4 +20,5 @@ import { ModalPopupComponent  } from './modalpopup.component';
     ModalPopupComponent
   ]
 })
+// tslint:disable-next-line:eofline
 export class ModalPopupModule { }

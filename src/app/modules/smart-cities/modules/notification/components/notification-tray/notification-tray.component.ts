@@ -84,25 +84,25 @@ export class NotificationTrayComponent implements OnInit {
   }
 
   setPage(id: string) {
-    if (id !== '0') {
-      this.getAlertsByAlertType(id, this.initPage, this.initSize);
-      this.notificationId = id;
-      // this.objNotification = new NotificationType();
-      // for (let i = 0; i < this.notifications.length; i++) {
-      //   if (this.notifications[i].id === id) {
-      //     this.objNotification = this.notifications[i];
-      //     break;
-      //   }
-      // }
-      // this.subNotifications = this.objNotification.subnotifications;
-      this.isAll = false;
-      this.isSearch = true;
-    } else {
+    // if (id !== '0') {
+    //   this.getAlertsByAlertType(id, this.initPage, this.initSize);
+    //   this.notificationId = id;
+    //   // this.objNotification = new NotificationType();
+    //   // for (let i = 0; i < this.notifications.length; i++) {
+    //   //   if (this.notifications[i].id === id) {
+    //   //     this.objNotification = this.notifications[i];
+    //   //     break;
+    //   //   }
+    //   // }
+    //   // this.subNotifications = this.objNotification.subnotifications;
+    //   this.isAll = false;
+    //   this.isSearch = true;
+    // } else {
       this.bindTable(this.initPage, this.initSize);
       this.notificationId = this.initValue;
       this.isAll = true;
       this.isSearch = false;
-    }
+    // }
     this.subNotificationId = this.initValue;
     this.dateId = '';
     if (this.element != null) {
@@ -313,11 +313,10 @@ export class NotificationTrayComponent implements OnInit {
       this.setValuesModal('An error occurred while clearing the search controls', true, false);
     }
   }
-
   // Evento que se lanza cuando se realiza una busqueda con el botón search
   onSearch() {
     try {
-      if(this.notificationId !== this.initValue) {
+      if (this.notificationId !== this.initValue) {
         this.isAll = false;
         this.isSearch = true;
       } else {
