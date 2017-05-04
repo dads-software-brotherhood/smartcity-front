@@ -18,7 +18,7 @@ import { ModalPopupModule  } from '../../../../usable-component/modal-popup/moda
     Ng2PaginationModule,
     ModalPopupModule
   ],
-  declarations:  [UserManagerComponent,UserManagerRegisterComponent,UserManagerTrayComponent],
-  exports: [UserManagerComponent,UserManagerRegisterComponent,UserManagerTrayComponent]
+  declarations: [UserManagerComponent, UserManagerRegisterComponent, UserManagerTrayComponent],
+  exports: [UserManagerComponent, UserManagerRegisterComponent, UserManagerTrayComponent]
 })
 export class UserManagerModule { }

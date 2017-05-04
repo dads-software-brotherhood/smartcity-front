@@ -23,6 +23,7 @@ const refresh_token_url = base_rest_path + '/refresh-token';
 export class LoginService {
 
   inRefresh: boolean;
+  redirectUrl: string;
 
   constructor(private http: Http) {}
 

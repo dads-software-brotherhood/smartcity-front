@@ -16,49 +16,57 @@ export class RemoteConnectionService extends RemoteUtils {
       super(loginService);
     }
 
-    public getAsObservable(url: string, playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Observable<any> {
+    public getAsObservable(url: string, playload?: any, contentType?: string,
+        params?: URLSearchParams, extraHeaders?: Headers): Observable<any> {
       const requestOptions: RequestOptions = this.buildRequestOptions(playload, contentType, params, extraHeaders);
 
       return this.http.get(url, requestOptions);
     }
 
-    public getAsPromise(url: string, playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Promise<any> {
+    public getAsPromise(url: string, playload?: any, contentType?: string,
+        params?: URLSearchParams, extraHeaders?: Headers): Promise<any> {
       const requestOptions: RequestOptions = this.buildRequestOptions(playload, contentType, params, extraHeaders);
 
       return this.http.get(url, requestOptions).toPromise();
     }
 
-    public postAsObservable(url: string, playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Observable<any> {
+    public postAsObservable(url: string, playload?: any, contentType?: string,
+        params?: URLSearchParams, extraHeaders?: Headers): Observable<any> {
       const requestOptions: RequestOptions = this.buildRequestOptions(null, contentType, params, extraHeaders);
 
       return this.http.post(url, playload, requestOptions);
     }
 
-    public postAsPromise(url: string, playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Promise<any> {
+    public postAsPromise(url: string, playload?: any, contentType?: string,
+        params?: URLSearchParams, extraHeaders?: Headers): Promise<any> {
       const requestOptions: RequestOptions = this.buildRequestOptions(null, contentType, params, extraHeaders);
 
       return this.http.post(url, playload, requestOptions).toPromise();
     }
 
-    public putAsObservable(url: string, playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Observable<any> {
+    public putAsObservable(url: string, playload?: any, contentType?: string,
+        params?: URLSearchParams, extraHeaders?: Headers): Observable<any> {
       const requestOptions: RequestOptions = this.buildRequestOptions(null, contentType, params, extraHeaders);
 
       return this.http.put(url, playload, requestOptions);
     }
 
-    public putAsPromise(url: string, playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Promise<any> {
+    public putAsPromise(url: string, playload?: any, contentType?: string,
+        params?: URLSearchParams, extraHeaders?: Headers): Promise<any> {
       const requestOptions: RequestOptions = this.buildRequestOptions(null, contentType, params, extraHeaders);
 
       return this.http.put(url, playload, requestOptions).toPromise();
     }
 
-    public deleteAsObservable(url: string, playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Observable<any> {
+    public deleteAsObservable(url: string, playload?: any, contentType?: string,
+        params?: URLSearchParams, extraHeaders?: Headers): Observable<any> {
       const requestOptions: RequestOptions = this.buildRequestOptions(playload, contentType, params, extraHeaders);
 
       return this.http.delete(url, requestOptions);
     }
 
-    public deleteAsPromise(url: string, playload?: any, contentType?: string, params?: URLSearchParams, extraHeaders?: Headers): Promise<any> {
+    public deleteAsPromise(url: string, playload?: any, contentType?: string,
+        params?: URLSearchParams, extraHeaders?: Headers): Promise<any> {
       const requestOptions: RequestOptions = this.buildRequestOptions(playload, contentType, params, extraHeaders);
 
       return this.http.delete(url, requestOptions).toPromise();
