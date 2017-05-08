@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <h4>User data</h4>
+    <h4>Register / Edit User <small> (Data marked with * are required) </small> </h4>
     <hr class="subTitle-hr">
     <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
         <div class="row">
@@ -50,68 +50,70 @@
 
         <div class="row">
           <div class="col-lg-3 offset-lg-6 col-md-6">
-            <a class="btn btn-danger btn-block" routerLink="/smart-cities" routerLinkActive="active" > Cancel </a>&nbsp;
+            <div class="form-group">
+              <a class="btn btn-danger btn-block" routerLink="/smart-cities" routerLinkActive="active" > Cancel </a>&nbsp;            
+            </div>
           </div>
           <div class="col-lg-3 col-md-6">
-            <button type="submit" class="btn btn-smart btn-block" [disabled]="!complexForm.valid" i18n  > Save </button>
+            <div class="form-group">
+              <button type="submit" class="btn btn-smart btn-block" [disabled]="!complexForm.valid" i18n  > Save </button>
+            </div>
           </div>
         </div>
 
+        <div class="clearfix"></div>
 
         <div class="row">
           <div class="col-md-12">
-            <p>Data marked with * are required</p>
+            <hr class="subTitle-hr">
+          </div>
+          <div class="col-md-12">
+            <p>Green Route can help you to determine the best route to follow to reach a destination, so you could add some favorite addresses to generate in a simple way a route, for instance to your work or home.</p>
           </div>
         </div>
 
         <div class="clearfix"></div>
 
-        <div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
-          <div class="form-group">
-            <span class="labelHidden"></span>
-            <button class="btn btn-smart btn-block" routerLink="/smart-cities/user-account/address" routerLinkActive="active"> Add address</button>
-          </div>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="col-lg-12" *ngIf="userProfile.addresses && userProfile.addresses.length != 0"  >
-          <div class="table-responsive">
-            <table class="table">
-              <thead class="thead-default">
-                <tr>
-                  <th>Address</th>
-                  <th>Type</th>
-                  <th>Favorite</th>
-                  <th class="head-btn"></th>
-                  <th class="head-btn"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let address of userProfile.addresses  | paginate: { itemsPerPage: 4, currentPage: p }">
-                  <td>{{ address.street }}, {{ address.locality.name }}, <span *ngIf="address.postalCode" >{{ address.postalCode }}, </span> {{ address.locality.region.name }}, {{ address.locality.region.country.name }} </td>
-                  <td>{{ address.addressType }}</td>
-                  <td><span class="fa fa-star" *ngIf="address.favorite"></span></td>
-                  <td>
-                    <a class="btn btn-smart" placement="top" ngbTooltip="Edit" routerLink="/smart-cities/user-account/address/{{ address.index }}" routerLinkActive="active">
-                      <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </a>
-                  </td>
-                  <td>
-                    <a class="btn btn-danger" placement="top" ngbTooltip="Delete" (click)="confirmDelete(address.index)">
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="3">
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
+        <div class="row">
+          <div class="col-lg-12" >
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-default">
+                  <tr>
+                    <th>Address</th>
+                    <th>Type</th>
+                    <th>Favorite</th>
+                    <th colspan="2" class="head-btn">
+                      <button class="btn btn-smart btn-block btn-sm" routerLink="/smart-cities/user-account/address" routerLinkActive="active"> Add address</button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="userProfile.addresses && userProfile.addresses.length != 0" >
+                  <tr *ngFor="let address of userProfile.addresses  | paginate: { itemsPerPage: 4, currentPage: p }">
+                    <td>{{ address.street }}, {{ address.locality.name }}, <span *ngIf="address.postalCode" >{{ address.postalCode }}, </span> {{ address.locality.region.name }}, {{ address.locality.region.country.name }} </td>
+                    <td>{{ address.addressType }}</td>
+                    <td><span class="fa fa-star" *ngIf="address.favorite"></span></td>
+                    <td>
+                      <a class="btn btn-smart" placement="top" ngbTooltip="Edit" routerLink="/smart-cities/user-account/address/{{ address.index }}" routerLinkActive="active">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <a class="btn btn-danger" placement="top" ngbTooltip="Delete" (click)="confirmDelete(address.index)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3">
+                      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </div>
         </div>
     </form>
