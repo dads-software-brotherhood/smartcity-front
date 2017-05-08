@@ -81,6 +81,8 @@
               <thead class="thead-default">
                 <tr>
                   <th>Address</th>
+                  <th>Type</th>
+                  <th>Favorite</th>
                   <th class="head-btn"></th>
                   <th class="head-btn"></th>
                 </tr>
@@ -88,6 +90,8 @@
               <tbody>
                 <tr *ngFor="let address of userProfile.addresses  | paginate: { itemsPerPage: 4, currentPage: p }">
                   <td>{{ address.street }}, {{ address.locality.name }}, <span *ngIf="address.postalCode" >{{ address.postalCode }}, </span> {{ address.locality.region.name }}, {{ address.locality.region.country.name }} </td>
+                  <td>{{ address.addressType }}</td>
+                  <td><span class="fa fa-star" *ngIf="address.favorite"></span></td>
                   <td>
                     <a class="btn btn-smart" placement="top" ngbTooltip="Edit" routerLink="/smart-cities/user-account/address/{{ address.index }}" routerLinkActive="active">
                       <i class="fa fa-pencil" aria-hidden="true"></i>
