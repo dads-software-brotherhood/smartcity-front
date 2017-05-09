@@ -74,7 +74,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
             this.element = document.getElementById('subNotification');
             this.element = (<HTMLSelectElement>this.element);
             this.setPage(this.param);
-            this.getNotification();
+            // this.getNotification();
             this.isConfirm = true;
             this.messageModal = '';
             this.includeText = false;
@@ -129,17 +129,18 @@ export class NotificationAllUserTrayComponent implements OnInit {
         }
     }
 
-     bindTableAux(page: string, size: string) {
+    bindTableAux(page: string, size: string) {
         try {
             this._service.getAllByUser(page, size).subscribe(
                 (res) => {
                     this.instance = new Paginable().deserialize(res);
                     this.alertsAux = this.instance.content;
-                     if (this.alertsAux.length > 0) {
-                        this.endInterval = this.alertsAux.length;
-                    } else {
-                        this.endInterval = -1;
-                    }
+                    this.getNotification();
+                    //  if (this.alertsAux.length > 0) {
+                    //     this.endInterval = this.alertsAux.length;
+                    // } else {
+                    //     this.endInterval = -1;
+                    // }
                 },
                 (error) => {
                     this.messageModal = error;
@@ -149,12 +150,30 @@ export class NotificationAllUserTrayComponent implements OnInit {
         }
     }
 
+    getDateNow() {
+        const today: Date = new Date();
+        let dd: string = today.getDate().toString();
+        let mm: string = (today.getMonth() + 1).toString(); // January is 0!
+        const yyyy: string = today.getFullYear().toString();
+        let fecha: string;
+
+        if (Number(dd) < 10) {
+            dd = '0' + dd;
+        } if (Number(mm) < 10) {
+            mm = '0' + mm;
+        }
+        fecha = yyyy + '-' + mm + '-' + dd;
+        return fecha;
+    }
+
 
     // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
     // registradas por tipo de alerta
     getAlertsByAlertType(type: string, page: string, size: string) {
         try {
-            this._service.getAllByTypeAlert(type, page, size).subscribe(
+            let date: string;
+            date = this.getDateNow();
+            this._service.getAllByAlertDate(type, date, page, size).subscribe(
                 (res) => {
                     this.instance = new Paginable().deserialize(res);
                     this.alerts = this.instance.content;
@@ -172,7 +191,9 @@ export class NotificationAllUserTrayComponent implements OnInit {
     // registradas por tipo de alerta y sub-tipo de alerta
     getAlertsByAlertAndEvent(type: string, subType: string, page: string, size: string) {
         try {
-            this._service.getAllByTypeSubTypeAlert(type, subType, page, size).subscribe(
+            let date: string;
+            date = this.getDateNow();
+            this._service.getAllByTypeSubTypeAlertDate(type, subType, date, page, size).subscribe(
                 (res) => {
                     this.instance = new Paginable().deserialize(res);
                     this.alerts = this.instance.content;
@@ -189,25 +210,25 @@ export class NotificationAllUserTrayComponent implements OnInit {
     // Metodo que se utiliza para llenar el combo de Tipos de Alerta
     getNotification() {
         try {
-            let intervalo;
+            // let intervalo;
             this._notificationService.getAll().subscribe(
                 (res) => {
-                    intervalo = setInterval(() => {
-                        if (this.alertsAux.length > 0) {
-                            clearInterval(intervalo);
-                            for (let i = 0; i < res.length; i++) {
-                                for (let j = 0; j < this.alertsAux.length; j++) {
-                                    if (res[i].id === this.alertsAux[j].alertType) {
-                                        this.notifications.push(res[i]);
-                                        break;
-                                    }
+                    // intervalo = setInterval(() => {
+                    if (this.alertsAux.length > 0) {
+                        // clearInterval(intervalo);
+                        for (let i = 0; i < res.length; i++) {
+                            for (let j = 0; j < this.alertsAux.length; j++) {
+                                if (res[i].id === this.alertsAux[j].alertType) {
+                                    this.notifications.push(res[i]);
+                                    break;
                                 }
                             }
                         }
-                        if (this.alertsAux.length <= 0 && this.endInterval === 0) {
-                            clearInterval(intervalo);
-                        }
-                    }, 1000);
+                    }
+                    //     if (this.alertsAux.length <= 0 && this.endInterval === 0) {
+                    //         clearInterval(intervalo);
+                    //     }
+                    // }, 1000);
                 },
                 (error) => {
                     this.messageModal = error;
