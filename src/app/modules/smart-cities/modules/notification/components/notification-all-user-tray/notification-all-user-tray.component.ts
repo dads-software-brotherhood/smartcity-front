@@ -28,6 +28,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
     private messageModal: string;
     private includeText: boolean;
     private alerts: Alert[] = [];
+    private alertsAux: Alert[] = [];
     private objNotification: NotificationType;
     private notifications: NotificationType[] = [];
     private subNotifications: any[] = [];
@@ -38,6 +39,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
     private isSearch: boolean;
     private param: string;
     private instance: Paginable;
+    private endInterval: number = -1;
 
     notificationId: string;
     subNotificationId: string;
@@ -82,8 +84,8 @@ export class NotificationAllUserTrayComponent implements OnInit {
     }
 
     setPage(id: string) {
+        this.bindTableAux(this.initPage, this.initSize);
         if (id !== '0') {
-            // this.bindTable(this.initPage, this.initSize);
             this.getAlertsByAlertType(id, this.initPage, this.initSize);
             this.notificationId = id;
             // this.objNotification = new NotificationType();
@@ -126,6 +128,27 @@ export class NotificationAllUserTrayComponent implements OnInit {
             throw e;
         }
     }
+
+     bindTableAux(page: string, size: string) {
+        try {
+            this._service.getAllByUser(page, size).subscribe(
+                (res) => {
+                    this.instance = new Paginable().deserialize(res);
+                    this.alertsAux = this.instance.content;
+                     if (this.alertsAux.length > 0) {
+                        this.endInterval = this.alertsAux.length;
+                    } else {
+                        this.endInterval = -1;
+                    }
+                },
+                (error) => {
+                    this.messageModal = error;
+                });
+        } catch (e) {
+            throw e;
+        }
+    }
+
 
     // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
     // registradas por tipo de alerta
@@ -170,16 +193,19 @@ export class NotificationAllUserTrayComponent implements OnInit {
             this._notificationService.getAll().subscribe(
                 (res) => {
                     intervalo = setInterval(() => {
-                        if (this.alerts.length > 0) {
+                        if (this.alertsAux.length > 0) {
                             clearInterval(intervalo);
                             for (let i = 0; i < res.length; i++) {
-                                for (let j = 0; j < this.alerts.length; j++) {
-                                    if (res[i].id === this.alerts[j].alertType) {
+                                for (let j = 0; j < this.alertsAux.length; j++) {
+                                    if (res[i].id === this.alertsAux[j].alertType) {
                                         this.notifications.push(res[i]);
                                         break;
                                     }
                                 }
                             }
+                        }
+                        if (this.alertsAux.length <= 0 && this.endInterval === 0) {
+                            clearInterval(intervalo);
                         }
                     }, 1000);
                 },

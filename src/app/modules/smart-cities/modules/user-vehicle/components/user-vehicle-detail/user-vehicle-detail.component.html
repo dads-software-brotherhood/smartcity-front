@@ -39,7 +39,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="vehicleType">Vehicle type *</label>
-              <select id="vehicleType" [formControl]="vehicleForm.controls['vehicleType']" class="form-control" [(ngModel)]="vehicle.vehicleType">
+              <select id="vehicleType" [formControl]="vehicleForm.controls['vehicleType']" (change)="onChangeVehicleType($event)" class="form-control" [(ngModel)]="vehicle.vehicleType">
                 <option *ngFor="let vehicleType of vehicleTypes" [ngValue]="vehicleType.id">{{vehicleType.name}}</option>
               </select>
                <div *ngIf="vehicleForm.controls['vehicleType'].hasError('required') && vehicleForm.controls['vehicleType'].touched" class="alert alert-danger">The vehicle type is required</div>
