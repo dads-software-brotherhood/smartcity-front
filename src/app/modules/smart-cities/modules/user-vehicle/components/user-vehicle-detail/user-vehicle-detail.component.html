@@ -1,7 +1,7 @@
   <form [formGroup]="vehicleForm" (ngSubmit)="save(vehicleForm.value,vehicleForm.valid)">
   <div class="row">
     <div class="col-md-12">
-      <h2>{{title}}</h2>
+      <h2>{{title}} <small> (Data marked with * are required) </small> </h2>
       <hr class="title-hr">
       <div *ngIf="successMessage" class="alert alert-success" role="alert">
       <p class="text-xs-center"><strong>{{successMessage}}</strong></p>
@@ -111,11 +111,6 @@
           <div class="form-group">
             <span class="labelHidden"></span>
               <button id="btnSave" [disabled]="!vehicleForm.valid" type="submit" class="btn btn-smart btn-block" > Save</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <p>&nbsp;&nbsp;&nbsp;Data marked with * are required</p>
           </div>
         </div>
         <!--<div class="col-md-12">
