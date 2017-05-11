@@ -123,31 +123,44 @@ export class GroupDetailComponent implements OnInit {
       });
       if (this.group.group != null && this.group.group.trim() != "" && selectedNotifications.length > 0) {
         this.group.notificationIds = selectedNotifications;
-        console.log(this.groupId == 0);
         if (this.groupId == 0) {
           this._service.insert(this.group).then(form => {
-            console.log(form);
             if (form.notificationIds != undefined) {
               this.group = form;
               this.groupId = this.group.id;
               this.messageModal = "Your record was successfully registered!";
-              this.showDialog = true;
             }
+            else
+            {
+              this.messageModal = "Not saved. " + form.error;
+            }
+            this.showDialog = true;
 
           },
-            error => {this.messageModal = <any>error; this.showDialog = true;}
+            error => {
+              this.messageModal = 'Unexpected error'; 
+              this.showDialog = true;
+            }
             );
 
         }
         else {
           this._service.update(this.group).then(form => {
-            if (form) {
-              this.messageModal = "Your record was successfully registered!";
-              this.showDialog = true;
-            }
 
+            if (form.notificationIds != undefined) {
+              this.messageModal = "Your record was successfully registered!";
+            }
+            else
+            {
+              this.messageModal = "Not saved. " + form.error;
+            }
+            this.showDialog = true;
           },
-            error => {this.messageModal = <any>error; this.showDialog = true;});
+            error => {
+              console.log(error);
+              this.messageModal = 'Unexpected error'; 
+              this.showDialog = true;
+            });
         }
 
       }
@@ -167,9 +180,14 @@ export class GroupDetailComponent implements OnInit {
     this.router.navigate(["/smart-cities/group/groups"]);
   }
 
-  public beforeChange(event) {
+  private beforeChange(event) {
     console.log(event);
     event.stopPropagation();
   };
+
+  private enableSave()
+  {
+    return !(this.group.group && $('input:checkbox:checked.notification').length > 0);
+  }
 
 }

@@ -59,7 +59,7 @@ export class GroupTrayComponent implements OnInit {
            this.showDialog = false; /// Close dialog
            this._service.delete(this.Objgroup.id)
              .then(res => true,
-                error =>  this.errorMessage = "An error occurred while performing the search");
+                error =>  this.errorMessage = "An error occurred while deleting the registry");
            location.reload();
       }
       catch(e){this.errorMessage="An error occurred while deleting the registry";}
