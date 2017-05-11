@@ -140,9 +140,14 @@
 
   <div class="clearfix"></div>
 
-    <div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
+    <div class="col-md-3 offset-md-6">
       <div class="form-group">
-        <button class="btn btn-smart btn-block" (click)="save()"> Save </button>
+        <a [routerLink]="['/smart-cities']" class="btn btn-danger btn-block" > Cancel </a>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <button [disabled]="enableSave()" class="btn btn-smart btn-block" (click)="save()"> Save </button>
       </div>
     </div>
 
@@ -153,6 +158,6 @@
   <hr>
   <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
   <hr *ngIf="includeText">
-  <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Close</button>
+  <a [routerLink]="['/smart-cities']" class="btn btn-danger btn-block" > Close </a>
 </modal-popup>
 <!-- ************************************************* -->

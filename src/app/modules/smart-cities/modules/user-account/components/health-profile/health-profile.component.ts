@@ -127,4 +127,12 @@ export class HealthProfileComponent implements OnInit {
 
   }
 
+  private enableSave()
+  {
+    return !(this.healthProfile.healthState == "Good" || 
+            (this.healthProfile.healthState == "Allergy" && $('input:checkbox:checked.symptom').length > 0) ||
+            (this.healthProfile.healthState == "Asthma" && this.healthProfile.asthmaLevel) 
+            );
+  }
+
 }
