@@ -11,6 +11,7 @@ import { LoginService } from '../../../../../../core/services/login/login.servic
   styleUrls: ['./vehicle-type-tray.component.sass'],
 
 })
+
 export class VehicleTypeTrayComponent implements OnInit {
 
   private vehicleTypes: VehicleType[] = [];
