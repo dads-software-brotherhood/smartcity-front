@@ -32,7 +32,6 @@ export class VehicleTypeTrayComponent implements OnInit {
   constructor(private _service: VehicleTypeService, private _router: Router, private _loginService: LoginService) {
   }
 
-
   ngOnInit() {
     try {
       this.bindTable();

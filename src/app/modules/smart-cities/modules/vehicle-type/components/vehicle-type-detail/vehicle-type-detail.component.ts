@@ -13,6 +13,7 @@ import { LoginService } from '../../../../../../core/services/login/login.servic
     styleUrls: ['./vehicle-type-detail.component.sass'],
 
 })
+
 export class VehicleTypeDetailComponent implements OnInit {
     public vehicleTypeForm: FormGroup;
     private title: string;
