@@ -43,8 +43,8 @@ export class VehicleTypeService {
     JSON.stringify(vehicleTypesModel), constants.contentTypeJson);
   }
 
-  delete(id: number) {
-    return this.remoteConnectionService.deleteAsObservable(this.buildVehicleTypeUrl() + id);
+  delete(id: number, type: string) {
+    return this.remoteConnectionService.deleteAsObservable(this.buildVehicleTypeUrl() + id + '/type/' + type);
   }
 
   private buildVehicleTypeUrl() {

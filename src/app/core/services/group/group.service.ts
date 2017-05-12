@@ -46,7 +46,7 @@ export class GroupService {
     .catch(this.handleError);
   }
 
-  insert(group: Group): Promise<Group> {
+  insert(group: Group): Promise<any> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
 
     return this.http.post(groupUrl, JSON.stringify(group), requestOptions).toPromise()
@@ -54,11 +54,11 @@ export class GroupService {
     .catch(this.handleError);
   }
 
-  update(group: Group): Promise<boolean> {
+  update(group: Group): Promise<any> {
     const requestOptions: RequestOptions = this.buildRequestOptions('application/json');
 
     return this.http.put(groupUrl + '/' + group.id, JSON.stringify(group), requestOptions).toPromise()
-    .then((res: Response) => {return true;})
+    .then(this.extractData)
     .catch(this.handleError);
   }
 
@@ -106,6 +106,7 @@ export class GroupService {
   private handleError (error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
+    console.log(error);
     if (error instanceof Response) {
       const body = error.json() || '';
       const err = body.error || JSON.stringify(body);

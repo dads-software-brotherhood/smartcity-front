@@ -32,7 +32,7 @@
         <div class="col-md-3 ">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <a *ngIf="isPermitted" [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', '']" type="submit" class="btn btn-smart btn-block" > Add </a>
+            <a [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', '']" type="submit" class="btn btn-smart btn-block" > Add </a>
           </div>
         </div>
         <div class="col-md-12">
@@ -56,7 +56,7 @@
           <tr *ngFor="let vehicleType of vehicleTypes | paginate: { itemsPerPage: 4, currentPage: p }">
               <td>{{vehicleType.name}}</td>
               <td>
-                <a *ngIf="isPermitted" [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', vehicleType.id]" 
+                <a [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', vehicleType.id]" 
                   class="btn btn-smart" ngbtooltip="Edit" placement="top">
                   <i aria-hidden="true" class="fa fa-pencil"></i>
                 </a>
@@ -65,7 +65,7 @@
                 <!--<a class="btn btn-danger" ngbtooltip="Edit" placement="top">
                   <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objvehicle=vehicle"> </i>
                 </a>-->
-                <!--<button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top" (click)="showDialog=true;ObjvehicleType=vehicleType"></button>-->
+                <button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top" (click)="showDialog=true;ObjvehicleType=vehicleType"></button>
               </td>
           </tr>
       </tbody>

@@ -56,6 +56,7 @@ export class AddressComponent implements OnInit {
       'countryId': this.buildSelectRequiredFormControl(this.countryId),
       'regionId': this.buildSelectRequiredFormControl(this.regionId),
       'localityId': this.buildSelectRequiredFormControl(this.localityId),
+      'favorite': this.buildSimpleFormControl(this.address.favorite),
       'addressType': this.buildSimpleFormControl(this.address.addressType),
       'street': this.buildRequiredFormControl(this.address.street),
       'postalCode': this.buildSimpleFormControl(this.address.postalCode)
@@ -188,6 +189,7 @@ export class AddressComponent implements OnInit {
     this.address.addressType = form.addressType;
     this.address.postalCode = form.postalCode;
     this.address.street = form.street;
+    this.address.favorite = form.favorite;
     this.address.locality = this.findLocality(form.localityId);
 
     if (this.address.locality) {

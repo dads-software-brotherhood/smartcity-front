@@ -13,12 +13,13 @@ export class Vehicle {
   fuelType: FuelType;
   fuelConsumption: number;
   vehiclPlateIdentifier?: string;
+  type: string;
   dateModified?: Date;
   datecreated?: Date;
 
   constructor(index?: string, name?: string, description?: string, vehicleType?: VehicleType,
               brandName?: string, modelName?: string, vehicleModelDate?: Date, fuelType?: FuelType,
-              fuelConsumption?: number, vehiclPlateIdentifier?: string, dateModified?: Date,
+              fuelConsumption?: number, vehiclPlateIdentifier?: string, type?: string, dateModified?: Date,
               dateCreated?: Date) {
     this.index = index;
     this.name = name;
@@ -30,6 +31,7 @@ export class Vehicle {
     this.fuelType = fuelType;
     this.fuelConsumption = fuelConsumption;
     this.vehiclPlateIdentifier = vehiclPlateIdentifier;
+    this.type = type;
     this.dateModified = dateModified;
     this.datecreated = dateCreated;
   }

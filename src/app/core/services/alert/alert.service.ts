@@ -47,6 +47,18 @@ export class AlertService {
       });
   }
 
+  getAllByUser(page: string, size: string): Observable<Array<Alert>> {
+    this.url = this.buildAlertUrl() + 'user/' + this.loginService.getLoggedUser().id + '/page/' + page + '/items/' + size;
+    return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
+    .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+  }
+
   getAllByTypeAlert(type: string, page: string, size: string): Observable<Array<Alert>> {
     this.url = this.buildAlertUrl() + 'type/' + type + '/page/' + page + '/items/' + size;
     return this.remoteConnectionService.getAsObservable(this.url, null, null, null)

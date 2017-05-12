@@ -26,6 +26,7 @@ export class UserVehicleDetailComponent implements OnInit {
     private vehiclesCharge: Vehicle[] = [];
     private successMessage: string;
     private vehicle = new Vehicle();
+    private type: string;
 
     // Variables utilizadas para mostrar la ventana modal, isConfirm=true (Muestra 2 botones Aceptar, Cancelar),
     // isConfirm=false (Muestra solo un botón Aceptar), messageModal (Mensaje que muestra la ventana Modal),
@@ -97,6 +98,13 @@ export class UserVehicleDetailComponent implements OnInit {
         } catch (e) {
             this.setValuesModal('Error occurred while loading vehicle data', true);
         }
+    }
+
+    onChangeVehicleType(event) {
+        let indice: number;
+        indice = 0;
+        indice = event.srcElement.selectedIndex;
+        this.type = event.srcElement.options[indice].innerText;
     }
 
     // Metodo que se utiliza para llenar los datos del vehiculo cuando se esta en modo de
@@ -221,6 +229,7 @@ export class UserVehicleDetailComponent implements OnInit {
 
                 if (this.valido) {
                     form.vehicleType = this.vehicle.vehicleType;
+                    form.type = this.type.trim();
 
                     if (this.index === '') {
                         this._service.insert(form).subscribe(

@@ -11,6 +11,7 @@ import { LoginService } from '../../../../../../core/services/login/login.servic
   styleUrls: ['./vehicle-type-tray.component.sass'],
 
 })
+
 export class VehicleTypeTrayComponent implements OnInit {
 
   private vehicleTypes: VehicleType[] = [];
@@ -53,15 +54,20 @@ export class VehicleTypeTrayComponent implements OnInit {
 
   confirmDelete() {
     try {
-      this.showDialog = false;
-      // this._service.delete(this.ObjvehicleType.id).subscribe(
-      // (res) => {
-      //   this.setValuesModal("Are you sure to delete this record?", false, true);
-      //   this.bindTable();
-      // },
-      // (error) => {
-      //   this.setValuesModal("An error occurred while deleting the registry", true, false);
-      // });
+      if (this.isConfirm) {
+        this.showDialog = false;
+        this._service.delete(this.ObjvehicleType.id, this.ObjvehicleType.name.trim()).subscribe(
+        (res) => {
+          this.setValuesModal('Are you sure to delete this record?', false, true);
+          this.bindTable();
+        },
+        (error) => {
+          this.setValuesModal('This record can not delete, because is in use', true, false);
+        });
+      } else {
+        this.showDialog = false;
+        this.isConfirm = true;
+      }
     } catch (e) { }
   }
 
