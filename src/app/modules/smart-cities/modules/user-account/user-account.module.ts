@@ -13,6 +13,8 @@ import { CloseAccountComponent } from './components/close-account/close-account.
 import { HealthProfileComponent } from './components/health-profile/health-profile.component';
 import { AddressComponent } from './components/address/address.component';
 
+import { UserAccountGroupComponent } from './components/user-account-group/user-account-group.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -29,10 +31,11 @@ import { AddressComponent } from './components/address/address.component';
     CloseAccountComponent,
     UserAccountComponent,
     HealthProfileComponent,
-    AddressComponent
+    AddressComponent,
+    UserAccountGroupComponent
   ],
   exports: [
-    ProfileComponent, CredentialsComponent, CloseAccountComponent, UserAccountComponent
+    ProfileComponent, CredentialsComponent, CloseAccountComponent, UserAccountComponent,UserAccountGroupComponent
   ]
 })
 export class UserAccountModule { }

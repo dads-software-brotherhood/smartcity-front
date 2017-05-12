@@ -7,6 +7,7 @@ import { CredentialsComponent } from './components/credentials/credentials.compo
 import { ProfileComponent } from './components/profile/profile.component';
 import { HealthProfileComponent } from './components/health-profile/health-profile.component';
 import { AddressComponent } from './components/address/address.component';
+import {UserAccountGroupComponent} from './components/user-account-group/user-account-group.component';
 
 import { LoggedInGuard } from '../../../../core/services/login/logged-in.guard';
 
@@ -21,7 +22,8 @@ export const UserAccountRoutes: Routes = [
       { path: 'profile', component: ProfileComponent, canActivate: [ LoggedInGuard ]},
       { path: 'address', component: AddressComponent, canActivate: [ LoggedInGuard ]},
       { path: 'address/:index', component: AddressComponent, canActivate: [ LoggedInGuard ]},
-      { path: 'health-profile', component: HealthProfileComponent, canActivate: [ LoggedInGuard ]}
+      { path: 'health-profile', component: HealthProfileComponent, canActivate: [ LoggedInGuard ]},
+      { path: 'user-group', component: UserAccountGroupComponent, canActivate: [LoggedInGuard]}
     ]
   }
 ];

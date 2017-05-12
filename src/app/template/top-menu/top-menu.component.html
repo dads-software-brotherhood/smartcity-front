@@ -15,27 +15,27 @@
                     <ul class="dropdown-menu alert-dropdown" aria-labelledby="name2">
                         <li class="dropdown-item" style="pointer-events: none;"> Alerts </li>
                         <li class="dropdown-divider"></li>
-                        <li>
+                        <li *ngIf="isAccidents">
                             <a href="javascript:;" class="dropdown-item"> Accidents <span class="red">(1)</span></a>
                         </li>
-                        <li>
+                        <li *ngIf="isAsthma">
                             <a href="javascript:;" class="dropdown-item"> Asthma attacks <span class="red">(1)</span></a>
                         </li>
-                        <li>
+                        <li *ngIf="isPollutation">
                             <a href="javascript:;" class="dropdown-item"> Pollutation <span class="red">(1)</span></a>
                         </li>
-                        <li>
+                        <li *ngIf="isPollen">
                             <a href="javascript:;" class="dropdown-item"> Pollen <span class="red">(1)</span></a>
                         </li>
-                        <li>
+                        <li *ngIf="isTraffic">
                             <a href="javascript:;" class="dropdown-item"> Traffic <span class="red">(1)</span></a>
                         </li>
-                        <li>
+                        <li *ngIf="isWeather">
                             <a href="javascript:;" class="dropdown-item"> Weather <span class="red">(1)</span></a>
                         </li>
                         <li class="dropdown-divider"></li>
                         <li>
-                            <a href="javascript:;" target="_new" class="dropdown-item">View All</a>
+                            <a href="javascript:;" (click)="onChangeLocation(0)" target="_new" class="dropdown-item">View All</a>
                         </li>
                     </ul>
                     <!-- </div> -->
@@ -52,7 +52,7 @@
                             <a class="dropdown-item" href="javascript:;" secured routerLink="/smart-cities/user-account/health-profile">Health profile</a>
                         </li>
                         <li *ngIf="isUser">
-                            <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-vehicle/vehicles">Vehicles</a>
+                            <a class="dropdown-item" href="javascript:;" routerLink="/smart-cities/user-vehicle/vehicles">Vehicle profile</a>
                         </li>
                         <li class="dropdown-submenu">
                             <a tabindex="-1" class="dropdown-item">Settings</a>

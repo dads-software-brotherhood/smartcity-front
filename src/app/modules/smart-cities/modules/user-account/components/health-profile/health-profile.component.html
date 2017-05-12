@@ -1,3 +1,7 @@
+<h2>
+  Health profile
+</h2>
+<hr class="title-hr">
 <div class="row">
   <div class="col-md-12">
     <div *ngIf="successMessage" class="alert alert-success" role="alert">
@@ -6,8 +10,17 @@
     <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
       <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
     </div>
-    <h4>Health data</h4>
+    <h4>Register / edit health data</h4>
     <hr class="subTitle-hr">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <p>The objective of Green Route is to help the final user to determine the best route to follow to reach a destination, taking into account your health condition. Please, we invite you to indicate your current health status, this information will be used to generate a route according you health condition.</p>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
@@ -127,9 +140,14 @@
 
   <div class="clearfix"></div>
 
-    <div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
+    <div class="col-md-3 offset-md-6">
       <div class="form-group">
-        <button class="btn btn-smart btn-block" (click)="save()"> Save </button>
+        <a [routerLink]="['/smart-cities']" class="btn btn-danger btn-block" > Cancel </a>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <button [disabled]="enableSave()" class="btn btn-smart btn-block" (click)="save()"> Save </button>
       </div>
     </div>
 
@@ -140,6 +158,6 @@
   <hr>
   <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
   <hr *ngIf="includeText">
-  <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Close</button>
+  <a [routerLink]="['/smart-cities']" class="btn btn-danger btn-block" > Close </a>
 </modal-popup>
 <!-- ************************************************* -->

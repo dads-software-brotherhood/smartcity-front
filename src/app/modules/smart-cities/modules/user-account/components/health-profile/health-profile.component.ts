@@ -17,18 +17,18 @@ export class HealthProfileComponent implements OnInit {
   showDialog : boolean;
   successMessage : string;
   healthStates : string[] = ["Good", "Allergy", "Asthma"];
-  allergySymptoms : string[] = ["nasal congestion", 
-                                "sinus pressure, which may cause facial pain", 
-                                "runny nose",
-                                "itchy, watery eyes",
-                                "scratchy throat",
-                                "cough",
-                                "swollen, bluish-colored skin beneath the eyes",
-                                "decreased sense of taste or smell",
-                                "increased asthmatic reaction",
-                                "conjunctivitis",
-                                "pruritus",
-                                "peratoconjunctivitis"
+  allergySymptoms : string[] = ["Nasal congestion", 
+                                "Sinus pressure, which may cause facial pain", 
+                                "Runny nose",
+                                "Itchy, watery eyes",
+                                "Scratchy throat",
+                                "Cough",
+                                "Swollen, bluish-colored skin beneath the eyes",
+                                "Decreased sense of taste or smell",
+                                "Increased asthmatic reaction",
+                                "Conjunctivitis",
+                                "Pruritus",
+                                "Peratoconjunctivitis"
                                 ];
   healthProfile : HealthProfile;
 
@@ -125,6 +125,14 @@ export class HealthProfileComponent implements OnInit {
 
     }
 
+  }
+
+  private enableSave()
+  {
+    return !(this.healthProfile.healthState == "Good" || 
+            (this.healthProfile.healthState == "Allergy" && $('input:checkbox:checked.symptom').length > 0) ||
+            (this.healthProfile.healthState == "Asthma" && this.healthProfile.asthmaLevel) 
+            );
   }
 
 }

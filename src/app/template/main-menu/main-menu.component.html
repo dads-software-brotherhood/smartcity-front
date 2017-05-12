@@ -42,7 +42,7 @@
         <a routerLink="/smart-cities" routerLinkActive="active" class="list-group-item">
             <span class="iBlock"><i class="fa fa-home" aria-hidden="true"></i></span> Home
         </a>
-        <a routerLinkActive="active" class="list-group-item" *ngIf="isUser">
+        <a routerLinkActive="active" (click)="onChangeLocation(0)" class="list-group-item" *ngIf="isUser">
             <span class="iBlock"><i class="fa fa-bell" aria-hidden="true"></i></span> Alerts
         </a>
         <a routerLink="/smart-cities/notification/notification-tray/0" routerLinkActive="active" class="list-group-item" *ngIf="isAdmin">
@@ -67,11 +67,6 @@
                     <li *ngIf="isSA">
                         <a routerLink="/smart-cities/user-manager/user-manager-tray" routerLinkActive="active">
                             <span class="iBlock"><i class="fa fa-user" aria-hidden="true"></i></span> User
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLinkActive="active" *ngIf="isSA">
-                            <span class="iBlock"><i class="fa fa-car" aria-hidden="true"></i></span> Private transport
                         </a>
                     </li>
                     <li>

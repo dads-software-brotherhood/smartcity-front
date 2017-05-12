@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-12">
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      <p class="text-xs-center"><strong>{{successMessage}}</strong></p>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="row">
+    <div class="card-block">
+    <ngb-accordion #acc="ngbAccordion">
+
+      <ngb-panel *ngFor="let group of groups">
+        <template ngbPanelTitle>
+          <span>{{group.group}}</span>
+        </template>
+        <template ngbPanelContent>
+          <div  class="row" *ngFor="let notification of group.notificationIds; let i = index">
+            <div class="col-md-3">{{notification}}</div>
+            <div class="col-md-9"style="text-align:right" *ngIf="i==0">Subscribe<input [(ngModel)]="group.subscribed" type="checkbox" /></div>
+          </div>
+        </template>
+      </ngb-panel>
+    </ngb-accordion>
+
+
+  </div>
+
+
+</div>
+
+<div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
+  <div class="form-group">
+    <button class="btn btn-smart btn-block" (click)="save()"> Save </button>
+  </div>
+</div>
+
+<!-- Implementación de ventana modal -->
+<modal-popup [(visible)]="showDialog" title="System Message">
+  {{messageModal}}
+  <hr>
+  <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
+  <hr *ngIf="includeText">
+  <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Close</button>
+</modal-popup>
+<!-- ************************************************* -->
