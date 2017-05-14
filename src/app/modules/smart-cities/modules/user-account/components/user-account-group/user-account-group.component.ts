@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Compiler } from '@angular/core';
 
 import { LoginService } from 'app/core/services/login/login.service';
 import { GroupProfileService } from 'app/core/services/user-profile/group-profile.service';
@@ -35,17 +35,17 @@ export class UserAccountGroupComponent implements OnInit {
   isConfirm: boolean;
   includeText: boolean;
 
-  constructor(private groupProfileService: GroupProfileService, private loginService: LoginService) {
+  constructor(private groupProfileService: GroupProfileService, private loginService: LoginService, private _compiler: Compiler) {
 
 
     this.groups = new Array<GroupProfile>();
 
     this.idUser = this.loginService.getLoggedUser().id;
-    this.groupProfileService.loadById(this.idUser).subscribe(groups => {this.groups = groups; });
+    this.groupProfileService.loadById(this.idUser).subscribe(groups => { this.groups = groups; });
 
-    }
-      
-  
+  }
+
+
 
 
   ngOnInit() {
@@ -73,21 +73,22 @@ export class UserAccountGroupComponent implements OnInit {
     catch (e) { throw e; }
   }
 
-  save(){
+  save() {
     this.groupsCheck = new Array<GroupProfile>();
     this.errorMessage = null;
     this.messageModal = null;
     this.groupProfileService
       .patch(this.idUser, this.groups)
-        .then(groups => {
-          this.groupsCheck = groups;
-          this.errorMessage = 'Your group/groups are successfully saved!!';
-          //this.showDialog = true;
-         /* } else {
-             this.messageModal = 'Your group/groups are not successfully saved!!';
-             this.showDialog = true;
-          }*/
-        });
+      .then(groups => {
+        this.groupsCheck = groups;
+        this.errorMessage = 'Your group/groups are successfully saved!!';
+        location.reload();
+        //this.showDialog = true;
+        /* } else {
+            this.messageModal = 'Your group/groups are not successfully saved!!';
+            this.showDialog = true;
+         }*/
+      });
 
   }
 }
