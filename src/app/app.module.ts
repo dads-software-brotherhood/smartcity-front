@@ -37,6 +37,7 @@ import { LoggedInGuard } from './core/services/login/logged-in.guard';
 import { LoggedInAdminGuard } from './core/services/login/logged-in-admin.guard';
 import { LoggedInSAGuard } from './core/services/login/logged-in-sa.guard';
 import { LoggedInTransportAdminGuard } from './core/services/login/logged-in-transport-admin.guard';
+import { LoggedInUserGuard } from './core/services/login/logged-in-user.guard';
 
 
 // Rutas
@@ -67,6 +68,7 @@ import { appRoutes } from './app.routes';
     RecoveryPasswordService,
     UserProfileService,
     LoggedInGuard,
+    LoggedInUserGuard,
     LoggedInAdminGuard,
     LoggedInSAGuard,
     LoggedInTransportAdminGuard,

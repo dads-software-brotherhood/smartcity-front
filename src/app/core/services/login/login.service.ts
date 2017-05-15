@@ -21,10 +21,10 @@ const refresh_token_url = base_rest_path + '/refresh-token';
 
 @Injectable()
 export class LoginService {
-
+  roles: role;
   inRefresh: boolean;
   redirectUrl: string;
-
+  
   constructor(private http: Http) {}
 
   login(email: string, password: string): Observable<IdentityUser> {
@@ -133,7 +133,7 @@ export class LoginService {
   }
 
   isUser(): boolean {
-    return this.checkRole(role.USER);
+       return this.checkRole(role.USER);
   }
 
   isAdmin(): boolean {
