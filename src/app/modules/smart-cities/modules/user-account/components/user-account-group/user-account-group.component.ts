@@ -80,9 +80,15 @@ export class UserAccountGroupComponent implements OnInit {
     this.groupProfileService
       .patch(this.idUser, this.groups)
       .then(groups => {
-        this.groupsCheck = groups;
-        this.errorMessage = 'Your group/groups are successfully saved!!';
-        location.reload();
+        if(JSON.stringify(groups) === JSON.stringify(this.groups)){
+          this.groupsCheck = groups;
+          this.errorMessage = 'Your group/groups are successfully saved!!';
+          location.reload();
+        }
+        else
+        {
+          this.errorMessage = 'Your group/groups weren\'t saved!!';
+        }
         //this.showDialog = true;
         /* } else {
             this.messageModal = 'Your group/groups are not successfully saved!!';
