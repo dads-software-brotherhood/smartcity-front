@@ -168,7 +168,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
         try {
             let date: string;
             date = this.getDateNow();
-            this._service.getAllByAlertDate(type, date, page, size).subscribe(
+            this._service.getAllByTypeAlert(type, page, size).subscribe(
                 (res) => {
                     this.instance = new Paginable().deserialize(res);
                     this.alerts = this.instance.content;
@@ -188,7 +188,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
         try {
             let date: string;
             date = this.getDateNow();
-            this._service.getAllByTypeSubTypeAlertDate(type, subType, date, page, size).subscribe(
+            this._service.getAllByTypeSubTypeAlert(type, subType, page, size).subscribe(
                 (res) => {
                     this.instance = new Paginable().deserialize(res);
                     this.alerts = this.instance.content;
