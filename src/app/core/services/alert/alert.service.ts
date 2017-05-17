@@ -109,7 +109,6 @@ export class AlertService {
 
   getAllEventsByUserAlert(page: string, size: string): Observable<Array<Alert>> {
     this.url = this.buildAlertEventsUrl() + '/page/' + page + '/items/' + size;
-    console.log(this.url);
     return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
       .map((res: Response) => {
         return res.json();

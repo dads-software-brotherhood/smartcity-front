@@ -136,11 +136,6 @@ export class NotificationAllUserTrayComponent implements OnInit {
                     this.instance = new Paginable().deserialize(res);
                     this.alertsAux = this.instance.content;
                     this.getNotification();
-                    //  if (this.alertsAux.length > 0) {
-                    //     this.endInterval = this.alertsAux.length;
-                    // } else {
-                    //     this.endInterval = -1;
-                    // }
                 },
                 (error) => {
                     this.messageModal = error;
@@ -225,6 +220,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
                             }
                         }
                     }
+                    this.alertsAux = [];
                     //     if (this.alertsAux.length <= 0 && this.endInterval === 0) {
                     //         clearInterval(intervalo);
                     //     }

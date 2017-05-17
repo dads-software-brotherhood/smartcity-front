@@ -28,6 +28,7 @@ export class NotificationUserTrayComponent implements OnInit {
   private messageModal: string;
   private includeText: boolean;
   private alerts: Alert[] = [];
+  private alertsAux: Alert[] = [];
   private objNotification: NotificationType;
   private notifications: NotificationType[] = [];
   private subNotifications: any[] = [];
@@ -51,9 +52,9 @@ export class NotificationUserTrayComponent implements OnInit {
   constructor(private _service: AlertService, private _loginService: LoginService,
     private _router: Router, private _notificationService: NotificationTypeService,
     private fb: FormBuilder, private route: ActivatedRoute) {
-      this.initPage = '0';
-      this.initSize = '10';
-      this.initValue = '-1';
+    this.initPage = '0';
+    this.initSize = '10';
+    this.initValue = '-1';
   }
 
   private prepareForm() {
@@ -73,13 +74,30 @@ export class NotificationUserTrayComponent implements OnInit {
       this.route.params.subscribe(params => { this.param = params['id']; });
       this.element = document.getElementById('subNotification');
       this.element = (<HTMLSelectElement>this.element);
-      this.getNotification();
+      this.bindTableAux(this.initPage, this.initSize);
       this.setPage(this.param);
       this.isConfirm = true;
       this.messageModal = '';
       this.includeText = false;
-    }catch (e) {
+    } catch (e) {
       this.setValuesModal(this.messageModal, true, false);
+    }
+  }
+
+  bindTableAux(page: string, size: string) {
+    try {
+      this._service.getAllByUser(page, size).subscribe(
+        (res) => {
+          this.instance = new Paginable().deserialize(res);
+          this.alertsAux = this.instance.content;
+          console.log(this.alertsAux);
+          this.getNotification();
+        },
+        (error) => {
+          this.messageModal = error;
+        });
+    } catch (e) {
+      throw e;
     }
   }
 
@@ -98,17 +116,17 @@ export class NotificationUserTrayComponent implements OnInit {
     //   this.isAll = false;
     //   this.isSearch = true;
     // } else {
-      this.bindTable(this.initPage, this.initSize);
-      this.notificationId = this.initValue;
-      this.isAll = true;
-      this.isSearch = false;
+    this.bindTable(this.initPage, this.initSize);
+    this.notificationId = this.initValue;
+    this.isAll = true;
+    this.isSearch = false;
     // }
     this.subNotificationId = this.initValue;
     this.dateId = '';
     if (this.element != null) {
-        this.element.disabled = true;
+      this.element.disabled = true;
     }
-      this.prepareForm();
+    this.prepareForm();
   }
 
   // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
@@ -124,7 +142,7 @@ export class NotificationUserTrayComponent implements OnInit {
         (error) => {
           this.messageModal = error;
         });
-    }catch (e) {
+    } catch (e) {
       throw e;
     }
   }
@@ -142,7 +160,7 @@ export class NotificationUserTrayComponent implements OnInit {
         (error) => {
           this.messageModal = error;
         });
-    }catch (e) {
+    } catch (e) {
       throw e;
     }
   }
@@ -160,7 +178,7 @@ export class NotificationUserTrayComponent implements OnInit {
         (error) => {
           this.messageModal = error;
         });
-    }catch (e) {
+    } catch (e) {
       throw e;
     }
   }
@@ -178,7 +196,7 @@ export class NotificationUserTrayComponent implements OnInit {
         (error) => {
           this.messageModal = error;
         });
-    }catch (e) {
+    } catch (e) {
       throw e;
     }
   }
@@ -196,7 +214,7 @@ export class NotificationUserTrayComponent implements OnInit {
         (error) => {
           this.messageModal = error;
         });
-    }catch (e) {
+    } catch (e) {
       throw e;
     }
   }
@@ -207,12 +225,23 @@ export class NotificationUserTrayComponent implements OnInit {
     try {
       this._notificationService.getAll().subscribe(
         (res) => {
-          this.notifications = res;
+          // this.notifications = res;
+          if (this.alertsAux.length > 0) {
+            for (let i = 0; i < res.length; i++) {
+              for (let j = 0; j < this.alertsAux.length; j++) {
+                if (res[i].id === this.alertsAux[j].alertType) {
+                  this.notifications.push(res[i]);
+                  break;
+                }
+              }
+            }
+          }
+          this.alertsAux = [];
         },
         (error) => {
           this.messageModal = error;
         });
-    }catch (e) { throw e; }
+    } catch (e) { throw e; }
   }
 
   // Evento que se lanza cuando se cambia de pagina en el paginador
@@ -224,18 +253,18 @@ export class NotificationUserTrayComponent implements OnInit {
     if (this.isAll) {
       this.bindTable(pagina, this.initSize);
     } else if (this.isSearch && this.notificationId !== this.initValue
-               && this.subNotificationId === this.initValue && this.dateId === '') {
+      && this.subNotificationId === this.initValue && this.dateId === '') {
       this.getAlertsByUserAlertType(this.notificationId, pagina, this.initSize);
     } else if (this.isSearch && this.notificationId !== this.initValue
-               && this.subNotificationId !== this.initValue && this.dateId === '') {
+      && this.subNotificationId !== this.initValue && this.dateId === '') {
       this.getAlertsByUserAlertAndEvent(this.notificationId, this.subNotificationId, pagina, this.initSize);
     } else if (this.isSearch && this.notificationId !== this.initValue
-                && this.subNotificationId !== this.initValue && this.dateId !== '') {
-        this.getAlertsByuserAlertSubAlertDate(this.notificationId, this.subNotificationId,
-                                          this.dateId, pagina, this.initSize);
+      && this.subNotificationId !== this.initValue && this.dateId !== '') {
+      this.getAlertsByuserAlertSubAlertDate(this.notificationId, this.subNotificationId,
+        this.dateId, pagina, this.initSize);
     } else if (this.isSearch && this.notificationId !== this.initValue
-                && this.subNotificationId === this.initValue && this.dateId !== '') {
-        this.getAlertsByUserAlertDate(this.notificationId, this.dateId, pagina, this.initSize);
+      && this.subNotificationId === this.initValue && this.dateId !== '') {
+      this.getAlertsByUserAlertDate(this.notificationId, this.dateId, pagina, this.initSize);
     }
   }
 
@@ -290,7 +319,8 @@ export class NotificationUserTrayComponent implements OnInit {
     try {
       if (this.isConfirm) {
       } else {
-        this.showDialog = false; }
+        this.showDialog = false;
+      }
     } catch (e) { throw e; }
   }
 
@@ -326,20 +356,20 @@ export class NotificationUserTrayComponent implements OnInit {
       }
 
       if (this.notificationId !== this.initValue && this.subNotificationId === this.initValue
-          && this.dateId === '') {
-          this.getAlertsByUserAlertType(this.notificationId, this.initPage, this.initSize);
+        && this.dateId === '') {
+        this.getAlertsByUserAlertType(this.notificationId, this.initPage, this.initSize);
       } else if (this.notificationId !== this.initValue && this.subNotificationId !== this.initValue
-                 && this.dateId === '') {
-          this.getAlertsByUserAlertAndEvent(this.notificationId, this.subNotificationId, this.initPage, this.initSize);
+        && this.dateId === '') {
+        this.getAlertsByUserAlertAndEvent(this.notificationId, this.subNotificationId, this.initPage, this.initSize);
       } else if (this.notificationId !== this.initValue && this.subNotificationId !== this.initValue
-                 && this.dateId !== '') {
-          this.getAlertsByuserAlertSubAlertDate(this.notificationId, this.subNotificationId,
-                                            this.dateId, this.initPage, this.initSize);
+        && this.dateId !== '') {
+        this.getAlertsByuserAlertSubAlertDate(this.notificationId, this.subNotificationId,
+          this.dateId, this.initPage, this.initSize);
       } else if (this.notificationId !== this.initValue
-                && this.subNotificationId === this.initValue && this.dateId !== '') {
-          this.getAlertsByUserAlertDate(this.notificationId, this.dateId, this.initPage, this.initSize);
+        && this.subNotificationId === this.initValue && this.dateId !== '') {
+        this.getAlertsByUserAlertDate(this.notificationId, this.dateId, this.initPage, this.initSize);
       } else if (this.isAll) {
-          this.bindTable(this.initPage, this.initSize);
+        this.bindTable(this.initPage, this.initSize);
       }
 
     } catch (e) {
