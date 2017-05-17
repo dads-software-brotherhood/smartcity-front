@@ -19,7 +19,7 @@ import { RemoteConnectionService } from '../remote-connection/remote-connection.
 
 const userProfileUrl = environment.backend_sdk + '/user-profile';
 const groupProfileUrl = '/groups';
-const notitificationProfileUrl = '/notifications';
+
 @Injectable()
 export class GroupProfileService extends RemoteUtils {
   observable: Observable<NotificationType[]>;
@@ -28,18 +28,8 @@ export class GroupProfileService extends RemoteUtils {
     super(loginService);
   }
 
-  loadNotificationById(id: string): Observable<Array<NotificationType>> {
-    const requestOptions: RequestOptions = this.buildRequestOptions();
-    return this.remoteConnectionService.getAsObservable(this.buildNotificationByIdUrl(id))
-    .map((res: Response) => {
-         return res.json();
-      })
-   .catch(this.handleError);
-  }
-
   loadById(id: string): Observable<GroupProfile[]> {
     const requestOptions: RequestOptions = this.buildRequestOptions();
-  
     return this.remoteConnectionService.getAsObservable(this.buildByIdUrl(id))
     .map((res: Response) => {
         return res.json();
@@ -73,8 +63,6 @@ patch(id: string, groups: Array<GroupProfile>): Promise<Array<GroupProfile>> {
     return userProfileUrl + '/' + id + groupProfileUrl;
   }
 
-   private buildNotificationByIdUrl(id: string) {
-    return userProfileUrl + '/' + id + notitificationProfileUrl;
-  }
+  
 
 }

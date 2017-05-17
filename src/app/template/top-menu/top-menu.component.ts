@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../core/services/login/login.service';
 import { IdentityUser } from '../../core/models/identity-user';
 import { NotificationType } from '../../core/models/notification-type';
-import { GroupProfileService } from 'app/core/services/user-profile/group-profile.service';
+import { NotificationTypeService }  from 'app/core/services/notification-type/notification-type.service';
 
 import { constants } from '../../core/common/constants';
 
@@ -29,7 +29,7 @@ export class TopMenuComponent implements OnInit {
   isTraffic:          boolean;
   isWeather:          boolean;
 
-  constructor(private loginService: LoginService, private router: Router,private groupProfileService: GroupProfileService) {
+  constructor(private loginService: LoginService, private router: Router,private notificationTypeService: NotificationTypeService) {
   }
 
   ngOnInit() {
@@ -39,11 +39,10 @@ export class TopMenuComponent implements OnInit {
     this.isTransportAdmin = this.loginService.isTransportAdmin();
     this.isUser = this.loginService.isUser();
     this.notifications = new Array<NotificationType>();
-  
     if (this.isUser) {
       this.idUser = this.identityUser.id;
-        this.groupProfileService
-        .loadNotificationById(this.idUser).subscribe(
+        this.notificationTypeService
+        .loadNotificationByUserId(this.idUser).subscribe(
           notifications => {
             this.notifications = notifications;
             //Setting here for javascript asynchrone
