@@ -39,11 +39,11 @@
 </div>
 
 <!-- Implementación de ventana modal -->
-<modal-popup [(visible)]="showDialog" title="System Message">
+<modal-popup [(visible)]="showDialog" title="Group">
   {{messageModal}}
   <hr>
   <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
   <hr *ngIf="includeText">
-  <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Close</button>
+  <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="reloadPage()">Close</button>
 </modal-popup>
 <!-- ************************************************* -->

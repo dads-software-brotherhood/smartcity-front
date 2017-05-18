@@ -77,17 +77,20 @@ export class UserAccountGroupComponent implements OnInit {
     this.groupsCheck = new Array<GroupProfile>();
     this.errorMessage = null;
     this.messageModal = null;
+    this.showDialog = false;
     this.groupProfileService
       .patch(this.idUser, this.groups)
       .then(groups => {
         if(JSON.stringify(groups) === JSON.stringify(this.groups)){
-          this.groupsCheck = groups;
-          this.errorMessage = 'Your group/groups are successfully saved!!';
-          location.reload();
+         // this.groupsCheck = groups;
+         this.showDialog = true;
+          this.messageModal = 'The information was successfuly saved';
+         
         }
         else
         {
-          this.errorMessage = 'Your group/groups weren\'t saved!!';
+          this.showDialog = true;
+          this.messageModal = 'Your group/groups weren\'t saved!!';
         }
         //this.showDialog = true;
         /* } else {
@@ -96,5 +99,9 @@ export class UserAccountGroupComponent implements OnInit {
          }*/
       });
 
+  }
+
+  reloadPage(){
+    location.reload();
   }
 }

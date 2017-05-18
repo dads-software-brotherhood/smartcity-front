@@ -9,7 +9,8 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 
 import { LoginService } from '../core/services/login/login.service';
-
+//pipes
+import { AlertsPipe } from '../core/common/alerts.pipe';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { LoginService } from '../core/services/login/login.service';
   declarations: [
     FooterComponent,
     MainMenuComponent,
-    TopMenuComponent
+    TopMenuComponent,
+    AlertsPipe
   ],
   exports: [
     FooterComponent,
