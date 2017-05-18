@@ -90,7 +90,7 @@ export class NotificationUserTrayComponent implements OnInit {
         (res) => {
           this.instance = new Paginable().deserialize(res);
           this.alertsAux = this.instance.content;
-          console.log(this.alertsAux);
+          // console.log(this.alertsAux);
           this.getNotification();
         },
         (error) => {
