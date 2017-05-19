@@ -16,6 +16,7 @@ import { UserManagerRoutes } from './modules/user-manager/index';
 import { UserVehicleRoutes } from './modules/user-vehicle/index';
 import { GroupRoutes } from './modules/group/index';
 import { VehicleTypesRoutes } from './modules/vehicle-type/index';
+import { TransportScheduleRoutes } from './modules/transport-schedule/index';
 
 export const SmartCitiesRoutes: Routes = [
   {
@@ -31,7 +32,8 @@ export const SmartCitiesRoutes: Routes = [
       ... UserManagerRoutes,
       ... UserVehicleRoutes,
       ... GroupRoutes,
-      ... VehicleTypesRoutes
+      ... VehicleTypesRoutes,
+      ... TransportScheduleRoutes
     ]
   }
 ];

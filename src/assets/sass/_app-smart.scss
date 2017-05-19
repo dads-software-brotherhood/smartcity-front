@@ -564,10 +564,14 @@ a:hover{
 }
 .title-hr, .subTitle-hr{
     margin-top: 0px; 
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 .subTitle-hr{
      border-top: $hr-border-width solid $brand-sidebar;
+}
+h4{
+    font-size: 1rem !important;
+    font-weight: bold;
 }
 .head-btn{
     width: 12%;
@@ -697,4 +701,108 @@ footer{
 .text-center{
     text-align: center !important;
 }
+.table-schedule{
+    text-align: center;
+    thead th{
+        text-align: center;
+        border: none;
+        &:first-child{
+            text-align: left;
+        }
+    }
+    td{
+        vertical-align: middle;
+        border: none;
+    &:first-child{
+        text-align: left;
+    }
+    }
+}
+.time-picker{
+    table{
+        width: 100%;
+        min-width: 140px;
+        display: table;
+            tr{
+            &:hover{
+            background-color: transparent !important;
+            }
+        }
+        td{
+            border: none !important;
+            padding: 2px;
+        }
+    }
+    .btn-link {
+       color: #00d3de !important;
+    }
+    .form-control{
+        padding: 0.3rem 0.75rem;
+    }
+}
 
+/*no more table*/
+
+@media only screen and (max-width: 800px) {
+    /* Force table to not be like tables anymore */
+    .no-more-tables table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+        display: block;
+    }
+    .time-picker{
+        table{
+            display: table;
+        }
+        tbody{
+            display: table-row-group;
+        }
+        tr{
+            display: table-row;
+            border: none !important;
+        }
+        td{
+            display: table-cell;
+        }
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    .no-more-tables thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .no-more-tables tr { border: 1px solid #ccc; }
+
+    .no-more-tables td {
+        /* Behave like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        white-space: normal;
+        text-align:left;
+    }
+
+    .no-more-tables td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align:left;
+        font-weight: bold;
+    }
+
+    /*
+    Label the data
+    */
+    .no-more-tables td:before { content: attr(data-title); }
+}

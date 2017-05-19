@@ -1,0 +1,213 @@
+<h2>Add transport schedule</h2>
+<hr class="title-hr">
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label>Route name *</label>
+      <input type="text" class="form-control" placeholder="Route name" id="routeName" />
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col">
+    <div class="no-more-tables">
+      <table class="table table-schedule table-hover">
+        <thead>
+          <tr>
+            <th>Weekdays</th>
+            <th>Active / inactive</th>
+            <th>Departure time</th>
+            <th>Arrival time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-title="Weekdays">Monday *</td>
+            <td data-title="Active / inactive">
+              <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </td>
+            <td data-title="Departure time">
+              <ngb-timepicker [(ngModel)]="mondayDepartureTime" class="time-picker"></ngb-timepicker>
+            </td>
+            <td data-title="Arrival time">
+              <ngb-timepicker [(ngModel)]="mondayArrivalTime" class="time-picker"></ngb-timepicker>
+            </td>
+          </tr>
+          <tr>
+            <td data-title="Weekdays">Tuesday *</td>
+            <td data-title="Active / inactive">
+              <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </td>
+            <td data-title="Departure time">
+              <ngb-timepicker [(ngModel)]="tuesdayDepartureTime" class="time-picker"></ngb-timepicker>
+            </td>
+            <td data-title="Arrival time">
+              <ngb-timepicker [(ngModel)]="tuesdayArrivalTime" class="time-picker"></ngb-timepicker>
+            </td>
+          </tr>
+          <tr>
+            <td data-title="Weekdays">Wednesday *</td>
+            <td data-title="Active / inactive">
+              <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </td>
+            <td data-title="Departure time">
+              <ngb-timepicker [(ngModel)]="wednesdayDepartureTime" class="time-picker"></ngb-timepicker>
+            </td>
+            <td data-title="Arrival time">
+              <ngb-timepicker [(ngModel)]="wednesdayArrivalTime" class="time-picker"></ngb-timepicker>
+            </td>
+          </tr>
+          <tr>
+            <td data-title="Weekdays">Thursday *</td>
+            <td data-title="Active / inactive">
+              <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </td>
+            <td data-title="Departure time">
+              <ngb-timepicker [(ngModel)]="thursdayDepartureTime" class="time-picker"></ngb-timepicker>
+            </td>
+            <td data-title="Arrival time">
+              <ngb-timepicker [(ngModel)]="thursdayArrivalTime" class="time-picker"></ngb-timepicker>
+            </td>
+          </tr>
+          <tr>
+            <td data-title="Weekdays">Friday *</td>
+            <td data-title="Active / inactive">
+              <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </td>
+            <td data-title="Departure time">
+              <ngb-timepicker [(ngModel)]="fridayDepartureTime" class="time-picker"></ngb-timepicker>
+            </td>
+            <td data-title="Arrival time">
+              <ngb-timepicker [(ngModel)]="fridayArrivalTime" class="time-picker"></ngb-timepicker>
+            </td>
+          </tr>
+          <tr>
+            <td data-title="Weekdays">Saturday *</td>
+            <td data-title="Active / inactive">
+              <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </td>
+            <td data-title="Departure time">
+              <ngb-timepicker [(ngModel)]="saturdayDepartureTime" class="time-picker"></ngb-timepicker>
+            </td>
+            <td data-title="Arrival time">
+              <ngb-timepicker [(ngModel)]="saturdayArrivalTime" class="time-picker"></ngb-timepicker>
+            </td>
+          </tr>
+          <tr>
+            <td data-title="Weekdays">Sunday *</td>
+            <td data-title="Active / inactive">
+              <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </td>
+            <td data-title="Departure time">
+              <ngb-timepicker [(ngModel)]="sundayDepartureTime" class="time-picker"></ngb-timepicker>
+            </td>
+            <td data-title="Arrival time">
+              <ngb-timepicker [(ngModel)]="sundayArrivalTime" class="time-picker"></ngb-timepicker>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label>Frequency *</label>
+      <div class="row">
+        <div class="col">
+          <select class="form-control">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="col">
+          <select class="form-control">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label>Agency *</label>
+      <select class="form-control">
+        <option>Rutas Lopez</option>
+        <option>Ruta 25</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label>URL</label>
+      <input type="url" class="form-control">
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Timezone</label>
+      <input type="url" class="form-control">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Language</label>
+      <input type="url" class="form-control">
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-3 offset-lg-6 col-md-6">
+    <div class="form-group">
+      <button class="btn btn-danger btn-block active" > Cancel </button> 
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="form-group">
+      <button class="btn btn-smart btn-block"> Save </button>
+    </div>
+  </div>
+</div>
+
