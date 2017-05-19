@@ -64,7 +64,7 @@
                             <span class="iBlock"><i class="fa fa-check-square-o" aria-hidden="true"></i></span> Rules
                         </a>
                     </li>
-                    <li *ngIf="isSA">
+                    <li *ngIf="isSA || isAdmin">
                         <a routerLink="/smart-cities/user-manager/user-manager-tray" routerLinkActive="active">
                             <span class="iBlock"><i class="fa fa-user" aria-hidden="true"></i></span> User
                         </a>
