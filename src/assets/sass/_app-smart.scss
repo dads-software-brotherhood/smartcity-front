@@ -562,6 +562,11 @@ a:hover{
     display: block;
     height: 33px;
 }
+@media (max-width: 768px){
+    .labelHidden{
+        display: none;
+    }
+}
 .title-hr, .subTitle-hr{
     margin-top: 0px; 
     margin-bottom: 30px;
