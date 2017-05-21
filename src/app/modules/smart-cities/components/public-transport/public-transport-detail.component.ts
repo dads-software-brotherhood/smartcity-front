@@ -6,11 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PublicTransportDetailComponent implements OnInit {
 
-  category = {
-    publicTransport: false,
-    privateTransport: false,
-    municipalTransport: false
-  };
+  dateModified;
+  dateCreated;
 
   constructor() { }
 

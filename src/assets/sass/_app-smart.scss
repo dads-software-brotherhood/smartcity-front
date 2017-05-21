@@ -745,7 +745,9 @@ footer{
         padding: 0.3rem 0.75rem;
     }
 }
-
+.d-inline-block{
+    max-width: 250px;
+}
 /*no more table*/
 
 @media only screen and (max-width: 800px) {

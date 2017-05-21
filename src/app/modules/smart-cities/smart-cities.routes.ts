@@ -25,7 +25,7 @@ export const SmartCitiesRoutes: Routes = [
     canActivate: [ LoggedInGuard ],
     children: [
       { path: 'transports', component: PublicTransportComponent, canActivate: [ LoggedInGuard, LoggedInAdminGuard ]},
-      { path: 'transport/:id', component: PublicTransportDetailComponent, canActivate: [ LoggedInGuard, LoggedInAdminGuard ]},
+      { path: 'transport', component: PublicTransportDetailComponent, canActivate: [ LoggedInGuard, LoggedInAdminGuard ]},
       { path: '', component: HomeSmartCitiesComponent, canActivate: [ LoggedInGuard ]},
       ... UserAccountRoutes,
       ... NotificationRoutes,

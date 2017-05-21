@@ -373,7 +373,7 @@ $btn-box-shadow:                 inset 0 1px 0 rgba($white,.15), 0 1px 1px rgba(
 $btn-focus-box-shadow:           0 0 0 2px rgba($brand-primary, .25) !default;
 $btn-active-box-shadow:          inset 0 3px 5px rgba($black,.125) !default;
 
-$btn-smart-color:                #fff !default;
+$btn-smart-color:                #fff !important;
 $btn-smart-bg:                   $brand-bluelight !default;
 $btn-smart-border:               $btn-smart-bg !default;
 
@@ -397,7 +397,7 @@ $btn-warning-color:              $white !default;
 $btn-warning-bg:                 $brand-warning !default;
 $btn-warning-border:             $btn-warning-bg !default;
 
-$btn-danger-color:               $white !default;
+$btn-danger-color:               $white !important;
 $btn-danger-bg:                  $brand-danger !default;
 $btn-danger-border:              $btn-danger-bg !default;
 
