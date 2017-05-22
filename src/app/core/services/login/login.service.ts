@@ -24,7 +24,7 @@ export class LoginService {
   roles: role;
   inRefresh: boolean;
   redirectUrl: string;
-  
+
   constructor(private http: Http) {}
 
   login(email: string, password: string): Observable<IdentityUser> {
