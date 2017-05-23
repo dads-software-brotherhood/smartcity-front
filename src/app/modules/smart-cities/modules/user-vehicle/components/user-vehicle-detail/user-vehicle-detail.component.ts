@@ -65,7 +65,8 @@ export class UserVehicleDetailComponent implements OnInit {
             'vehiclPlateIdentifier': this.buildSimpleFormControl(this.vehicle.vehiclPlateIdentifier),
             'vehicleType': this.buildRequiredFormControl(this.vehicleTypeId),
             'fuelType': this.buildRequiredFormControl(this.vehicle.fuelType),
-            'fuelConsumption': this.buildSimpleFormControl(this.vehicle.fuelConsumption)
+            'fuelConsumption': this.buildSimpleFormControl(this.vehicle.fuelConsumption),
+            'favorite': this.buildSimpleFormControl(this.vehicle.favorite)
         });
     }
 
@@ -114,6 +115,7 @@ export class UserVehicleDetailComponent implements OnInit {
             this._service.getAll().subscribe(
                 (res) => {
                     this.vehicle = res[this.index];
+                    this.type = this.vehicle.type;
                     this.getVehicleTypes();
                 },
                 (error) => {
@@ -230,6 +232,9 @@ export class UserVehicleDetailComponent implements OnInit {
                 if (this.valido) {
                     form.vehicleType = this.vehicle.vehicleType;
                     form.type = this.type.trim();
+                    if (form.favorite === undefined || form.favorite === null) {
+                        form.favorite = false;
+                    }
 
                     if (this.index === '') {
                         this._service.insert(form).subscribe(
