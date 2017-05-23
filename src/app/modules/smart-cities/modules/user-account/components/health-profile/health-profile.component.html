@@ -10,7 +10,7 @@
     <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
       <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
     </div>
-    <h4>Register / edit health data</h4>
+    <h4>Register / Edit health data (Data marked with * are required)</h4>
     <hr class="subTitle-hr">
 
     <div class="row">
@@ -158,6 +158,6 @@
   <hr>
   <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
   <hr *ngIf="includeText">
-  <a [routerLink]="['/smart-cities']" class="btn btn-danger btn-block" > Close </a>
+  <a [routerLink]="['/smart-cities']" class="btn btn-smart btn-block" > Accept </a>
 </modal-popup>
 <!-- ************************************************* -->

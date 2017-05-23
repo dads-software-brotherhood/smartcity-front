@@ -27,6 +27,7 @@ export class GroupDetailComponent implements OnInit {
   showDialog: boolean;
   messageModal: string;
   includeText: boolean;
+  hasChecked: boolean = false;
 
   constructor(private fb: FormBuilder,
     private router: Router,
@@ -76,7 +77,9 @@ export class GroupDetailComponent implements OnInit {
       this._service.loadById(this.groupId).then(
         group => {
           this.group = group;
-          this.getAllNotificationTypes()
+          this.getAllNotificationTypes();
+          this.hasChecked = this.group.notificationIds.length > 0;
+
         },
         error => {this.messageModal = <any>error; this.showDialog = true;}
       );
@@ -128,7 +131,7 @@ export class GroupDetailComponent implements OnInit {
             if (form.notificationIds != undefined) {
               this.group = form;
               this.groupId = this.group.id;
-              this.messageModal = "Your record was successfully registered!";
+              this.messageModal = "Your record is successfully registered!";
             }
             else
             {
@@ -148,7 +151,7 @@ export class GroupDetailComponent implements OnInit {
           this._service.update(this.group).then(form => {
 
             if (form.notificationIds != undefined) {
-              this.messageModal = "Your record was successfully registered!";
+              this.messageModal = "Your record is successfully registered!";
             }
             else
             {
@@ -185,9 +188,15 @@ export class GroupDetailComponent implements OnInit {
     event.stopPropagation();
   };
 
+  private afterChange(event) {
+    this.hasChecked = $('input:checkbox:checked.notification').length > 0;
+  };
+
+  
+
   private enableSave()
   {
-    return !(this.group.group && $('input:checkbox:checked.notification').length > 0);
+    return !(this.group.group && this.hasChecked);
   }
 
 }

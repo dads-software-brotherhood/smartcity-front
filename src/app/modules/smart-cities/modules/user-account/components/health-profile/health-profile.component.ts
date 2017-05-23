@@ -116,7 +116,7 @@ export class HealthProfileComponent implements OnInit {
                 if (healthProfile.healthState != undefined )
                   {
                     console.log("saved");
-                    this.messageModal = "Your health profile was successfully saved!!";
+                    this.messageModal = "The information was successfully saved!!";
                     this.showDialog = true;
                     this.fillChecks();
                   }
