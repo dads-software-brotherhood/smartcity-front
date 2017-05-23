@@ -21,7 +21,7 @@ export class GroupTrayComponent implements OnInit {
   //isConfirm=false (Muestra solo un botón Aceptar), messageModal (Mensaje que muestra la ventana Modal),
   //includeText (Se utiliza para mostrar un textArea o no)
   showDialog: boolean;
-  isConfirm: boolean;
+  isConfirm: boolean = false;
   messageModal: string;
   includeText: boolean;
 
@@ -33,9 +33,7 @@ export class GroupTrayComponent implements OnInit {
     { 
     this.bindTable();
     this.sum = this.getTotalCols(); //asignar a variable "sum" el valor del número total de columnas en la tabla
-    this.isConfirm = true;
     this.includeText = false;
-    this.messageModal = "Are you sure to delete this register of his group?";
     }
     catch(e){this.errorMessage="An error occurred while loading the group list";}
   }
@@ -58,9 +56,23 @@ export class GroupTrayComponent implements OnInit {
       {
            this.showDialog = false; /// Close dialog
            this._service.delete(this.Objgroup.id)
-             .then(res => true,
+             .then(res => {
+               if(res === true)
+               {
+                  this.isConfirm = false;
+                  this.messageModal = "Your record is successfully deleted!"
+                  this.showDialog = true;
+                  let index = this.groups.indexOf(this.Objgroup);
+                  this.groups.splice(index, 1);   
+               }
+               else
+               {
+                  this.isConfirm = false;
+                  this.messageModal = "An error occurred while deleting the registry"
+                  this.showDialog = true;
+               }
+             },
                 error =>  this.errorMessage = "An error occurred while deleting the registry");
-           location.reload();
       }
       catch(e){this.errorMessage="An error occurred while deleting the registry";}
     }

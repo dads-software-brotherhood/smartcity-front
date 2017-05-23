@@ -17,12 +17,18 @@
         <hr>
         <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
         <hr *ngIf="includeText">
-        <div class="row">
+        <div class="row" *ngIf="isConfirm" >
           <div class="col">
-            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="confirmDelete()">Delete</button>
+            <button  type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
           </div>
           <div class="col">
-            <button *ngIf="isConfirm" type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="showDialog = false">No</button>
+            <button  type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="confirmDelete()">Accept</button>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="!isConfirm" >
+          <div class="col">
+            <button  type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="showDialog = false">Accept</button>
           </div>
         </div>
       </modal-popup>
@@ -69,7 +75,7 @@
                   <!--<a class="btn btn-danger" ngbtooltip="Edit" placement="top">
                   <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objgroup=group"> </i>
                 </a>-->
-                  <button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top" (click)="showDialog=true;Objgroup=group;"></button>
+                  <button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top" (click)="messageModal = 'Are you sure to delete this register of his group?';isConfirm=true;showDialog=true;Objgroup=group;"></button>
                 </td>
               </tr>
             </tbody>

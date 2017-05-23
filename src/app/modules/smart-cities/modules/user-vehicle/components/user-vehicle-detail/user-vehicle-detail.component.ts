@@ -235,7 +235,7 @@ export class UserVehicleDetailComponent implements OnInit {
                         this._service.insert(form).subscribe(
                             (res) => {
                                 this.valido = true;
-                                this.setValuesModal('Your record is successfully registered!', true);
+                                this.setValuesModal('The information was successfully saved!', true);
                             },
                             (error) => {
                                 this.valido = false;
@@ -247,7 +247,7 @@ export class UserVehicleDetailComponent implements OnInit {
                         this._service.update(form, this.index).subscribe(
                             (res) => {
                                 this.valido = true;
-                                this.setValuesModal('Your record is successfully modified!', true);
+                                this.setValuesModal('The information was successfully modified!', true);
                             },
                             (error) => {
                                 this.valido = false;

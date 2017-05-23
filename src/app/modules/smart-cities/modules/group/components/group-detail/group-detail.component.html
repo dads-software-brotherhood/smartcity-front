@@ -25,7 +25,7 @@
         <ngb-panel *ngFor="let notification of allNotificationTypes">
           <template ngbPanelTitle>
             <label class="form-check-label">
-                <input (click)="beforeChange($event)" class="form-check-input notification" name="notification" type="checkbox" [checked]="group.notificationIds != null && group.notificationIds?.indexOf(notification.id) !== -1"  value="{{notification.id}}">
+                <input (click)="beforeChange($event)" (change)="afterChange($event)" class="form-check-input notification" name="notification" type="checkbox" [checked]="group.notificationIds != null && group.notificationIds?.indexOf(notification.id) !== -1"  value="{{notification.id}}">
                 {{notification.name}}
               </label>
 
@@ -65,6 +65,6 @@
   <hr>
   <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
   <hr *ngIf="includeText">
-  <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Close</button>
+  <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="showDialog = false">Accept</button>
 </modal-popup>
 <!-- ************************************************* -->

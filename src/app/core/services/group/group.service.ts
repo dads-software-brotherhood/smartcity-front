@@ -66,7 +66,9 @@ export class GroupService {
     const requestOptions: RequestOptions = this.buildRequestOptions();
 
     return this.http.delete(groupUrl + '/' + id, requestOptions).toPromise()
-    .then((res: Response) => {return true;})
+    .then((res: Response) => {
+      return res.status == 202;
+    })
     .catch(this.handleError);
   }
 
@@ -110,7 +112,7 @@ export class GroupService {
     if (error instanceof Response) {
       const body = error.json() || '';
       const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      errMsg = `${err}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
