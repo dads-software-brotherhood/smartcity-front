@@ -99,7 +99,17 @@
             [formControl]="vehicleForm.controls['description']" [(ngModel)]="vehicle.description"  class="form-control" placeholder="Description"> </textarea>
           </div>
         </div>
-        
+
+         <div class="col-md-6">
+          <div class="form-group">
+            <label for="favorite" class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="favorite" [formControl]="vehicleForm.controls['favorite']" 
+              [(ngModel)]="vehicle.favorite" />
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">Favorite</span>
+            </label>
+          </div>
+         </div>
         
         <div class="col-md-3 offset-md-6">
           <div class="form-group">

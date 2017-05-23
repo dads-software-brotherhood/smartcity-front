@@ -63,6 +63,7 @@
               <th>Plate identifier</th>
               <th>Brand name</th>
               <th>Model name</th>
+              <th>Favorite</th>
               <th></th>
               <th></th>
           </tr>
@@ -74,6 +75,7 @@
               <td>{{vehicle.vehiclPlateIdentifier}}</td>
               <td>{{vehicle.brandName}}</td>
               <td>{{vehicle.modelName}}</td>
+              <td><span class="fa fa-star" *ngIf="vehicle.favorite"></span></td>
               <td>
                 <a [routerLink]="['/smart-cities/user-vehicle/vehicle', vehicle.index]" 
                   class="btn btn-smart" ngbtooltip="Edit" placement="top">
