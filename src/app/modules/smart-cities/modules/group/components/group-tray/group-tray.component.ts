@@ -60,7 +60,7 @@ export class GroupTrayComponent implements OnInit {
                if(res === true)
                {
                   this.isConfirm = false;
-                  this.messageModal = "Your record is successfully deleted!"
+                  this.messageModal = "Your record was successfully deleted!"
                   this.showDialog = true;
                   let index = this.groups.indexOf(this.Objgroup);
                   this.groups.splice(index, 1);   
