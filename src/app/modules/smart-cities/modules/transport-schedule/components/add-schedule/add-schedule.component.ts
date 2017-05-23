@@ -48,7 +48,7 @@ export class AddScheduleComponent implements OnInit {
     this.transportSchedule.weekDays = weekDays;
 
     this.complexForm = this.fb.group({
-      'routeName': new FormControl(null, [Validators.required]),
+      'routeName': new FormControl(null, [Validators.required, Validators.maxLength(150)]),
       'frequency': new FormControl(null, [Validators.required]),
       'idAgency': new FormControl('-1', [CustomValidators.notEqual('-1')]),
     });
@@ -59,6 +59,7 @@ export class AddScheduleComponent implements OnInit {
       this.complexForm.addControl(weekDay.nameAsString + '-arrival', new FormControl(null, Validators.required));
     }
 
+    this.complexForm.addControl('count', new FormControl(7, CustomValidators.notEqual('0')));
 
   }
 
@@ -104,10 +105,47 @@ export class AddScheduleComponent implements OnInit {
       this.complexForm.controls[tmp + '-departure'].reset({ value: null, disabled: true });
       this.complexForm.controls[tmp + '-arrival'].reset({ value: null, disabled: true });
     }
+
+    let count = 0;
+
+    for ( let weekDay of this.transportSchedule.weekDays ) {
+      if (this.complexForm.controls[ weekDay.nameAsString + '-active' ].value) {
+        count++;
+      }
+    }
+
+    this.complexForm.controls['count'].setValue(count + '');
+
   }
 
   submitForm(form: any) {
+    this.transportSchedule.routeName = form.routeName;
 
+    for ( let agency of this.agencies ) {
+      if ( agency.id === form.idAgency ) {
+        this.transportSchedule.agency = agency;
+      }
+    }
+
+    if (this.transportSchedule.agency === null) {
+      console.error('Can\'t find agency');
+    }
+
+    this.transportSchedule.frequency = form.frequency;
+
+    for ( let weekDay of this.transportSchedule.weekDays ) {
+      weekDay.active = form[weekDay.nameAsString + '-active'];
+      if (weekDay.active) {
+        weekDay.arrivalTime = form[weekDay.nameAsString + '-active'];
+        weekDay.departureTime = form[weekDay.nameAsString + '-departure'];
+      } else {
+        weekDay.arrivalTime = null;
+        weekDay.departureTime = null;
+      }
+    }
+
+    // TODO: persist
+    console.log(this.transportSchedule);
   }
 
 }

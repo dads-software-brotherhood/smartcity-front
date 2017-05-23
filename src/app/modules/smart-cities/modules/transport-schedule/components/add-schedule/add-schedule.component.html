@@ -7,6 +7,8 @@
       <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['routeName'].valid && complexForm.controls['routeName'].touched}">
         <label for="routeName">Route name *</label>
         <input id="routeName" type="text" class="form-control" placeholder="Route name" [formControl]="complexForm.controls['routeName']" />
+        <div *ngIf="complexForm.controls['routeName'].hasError('required') && complexForm.controls['routeName'].touched" class="alert alert-danger" i18n>All fields marked with an asterisk are required.</div>
+        <div *ngIf="complexForm.controls['routeName'].hasError('maxlength') && complexForm.controls['routeName'].touched" class="alert alert-danger" i18n>The field "Route name" will have a length of 150 alphanumerical characters</div>
       </div>
     </div>
   </div>
@@ -21,8 +23,8 @@
             <tr>
               <th>Weekdays</th>
               <th>Active / inactive</th>
-              <th>Departure time</th>
-              <th>Arrival time</th>
+              <th>Departure time *</th>
+              <th>Arrival time *</th>
             </tr>
           </thead>
           <tbody>
@@ -35,10 +37,12 @@
                 </label>
               </td>
               <td data-title="Departure time">
-                <ngb-timepicker [formControl]="complexForm.controls[ weekDay.nameAsString + '-departure']" class="time-picker" ></ngb-timepicker>
+                <ngb-timepicker [formControl]="complexForm.controls[ weekDay.nameAsString + '-departure']" class="time-picker" [ngClass]="{'has-danger':!complexForm.controls[weekDay.nameAsString + '-departure'].valid && complexForm.controls[weekDay.nameAsString + '-departure'].touched}" ></ngb-timepicker>
+                <div *ngIf="complexForm.controls[weekDay.nameAsString + '-departure'].hasError('required') && complexForm.controls[ weekDay.nameAsString + '-departure'].touched" class="alert alert-danger" i18n>All fields marked with an asterisk are required.</div>
               </td>
               <td data-title="Arrival time">
-                <ngb-timepicker [formControl]="complexForm.controls[ weekDay.nameAsString + '-arrival']" class="time-picker" ></ngb-timepicker>
+                <ngb-timepicker [formControl]="complexForm.controls[ weekDay.nameAsString + '-arrival']" class="time-picker"  [ngClass]="{'has-danger':!complexForm.controls[weekDay.nameAsString + '-arrival'].valid && complexForm.controls[weekDay.nameAsString + '-arrival'].touched}" ></ngb-timepicker>
+                <div *ngIf="complexForm.controls[weekDay.nameAsString + '-arrival'].hasError('required') && complexForm.controls[ weekDay.nameAsString + '-arrival'].touched" class="alert alert-danger" i18n>All fields marked with an asterisk are required.</div>
               </td>
             </tr>
           </tbody>
@@ -46,6 +50,12 @@
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <input type="hidden" [formControl]="complexForm.controls['count']" />
+    <div *ngIf="complexForm.controls['count'].hasError('notEqual')" class="alert alert-danger col-md-12" i18n>All fields marked with an asterisk are required.</div>
+  </div>
+
 
   <div class="row">
     <div class="col">
@@ -57,6 +67,7 @@
              [formControl]="complexForm.controls['frequency']"></ngb-timepicker>
           </div>
         </div>
+        <div *ngIf="complexForm.controls['frequency'].hasError('required') && complexForm.controls['frequency'].touched" class="alert alert-danger" i18n>All fields marked with an asterisk are required.</div>
       </div>
     </div>
   </div>
@@ -69,6 +80,7 @@
           <option value="-1" disabled >Select</option>
           <option *ngFor="let agency of agencies" value="{{ agency.id }}" >{{ agency.name }}</option>
         </select>
+        <div *ngIf="complexForm.controls['idAgency'].hasError('notEqual') && complexForm.controls['idAgency'].touched" class="alert alert-danger" i18n>All fields marked with an asterisk are required.</div>
       </div>
     </div>
   </div>
