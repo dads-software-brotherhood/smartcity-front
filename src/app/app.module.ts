@@ -31,7 +31,10 @@ import { CountryService } from './core/services/country/country.service';
 import { RegionService } from './core/services/region/region.service';
 import { LocalityService } from './core/services/locality/locality.service';
 import { SignupService } from './core/services/signup/signup.service';
-import {GroupProfileService} from './core/services/user-profile/group-profile.service';
+import { GroupProfileService } from './core/services/user-profile/group-profile.service';
+import { AgencyService } from './core/services/public-transport/agency.service';
+import { TransportScheduleService } from './core/services/public-transport/transport-schedule.service';
+
 // Guards para los routes
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
 import { LoggedInAdminGuard } from './core/services/login/logged-in-admin.guard';
@@ -82,7 +85,9 @@ import { appRoutes } from './app.routes';
     LocalityService,
     SignupService,
     UserService,
-    GroupProfileService
+    GroupProfileService,
+    AgencyService,
+    TransportScheduleService
   ],
   bootstrap: [AppComponent]
 })
