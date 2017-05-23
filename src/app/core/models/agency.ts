@@ -3,5 +3,5 @@ export class Agency {
   name: string;
   url?: string;
   timezone?: string;
-  languaje?: string;
+  language?: string;
 }

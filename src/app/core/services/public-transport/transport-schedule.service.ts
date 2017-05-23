@@ -22,4 +22,16 @@ export class TransportScheduleService {
   public getAll(): Observable<Array<TransportSchedule>> {
     return this.remoteConnectionService.getAsObservable(baseGetUserUrl);
   }
+
+  public insert(transportSchedule: TransportSchedule): Observable<any> {
+    return this.remoteConnectionService.postAsObservable(baseGetUserUrl, JSON.stringify(transportSchedule), constants.contentTypeJson)
+      .map((res: Response) => res = res.json());
+  }
+
+  public update(transportSchedule: TransportSchedule): Observable<any> {
+    const url = baseGetUserUrl + '/' + transportSchedule.id;
+    return this.remoteConnectionService.postAsObservable(url, JSON.stringify(transportSchedule), constants.contentTypeJson)
+      .map((res: Response) => res = res.json());
+  }
+
 }

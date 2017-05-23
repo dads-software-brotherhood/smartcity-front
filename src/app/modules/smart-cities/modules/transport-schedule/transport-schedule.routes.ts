@@ -14,6 +14,7 @@ export const TransportScheduleRoutes: Routes = [
     canActivate: [ LoggedInGuard ],
     children: [
       { path: 'add-schedule', component: AddScheduleComponent, canActivate: [ LoggedInGuard ]},
+      { path: 'add-schedule/:id', component: AddScheduleComponent, canActivate: [ LoggedInGuard ]},
       { path: 'search-schedule', component: SearchScheduleComponent, canActivate: [ LoggedInGuard ]},
     ]
   }
