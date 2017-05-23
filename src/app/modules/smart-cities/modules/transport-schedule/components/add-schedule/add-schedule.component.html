@@ -1,200 +1,114 @@
 <h2>Add transport schedule</h2>
 <hr class="title-hr">
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label>Route name *</label>
-      <input type="text" class="form-control" placeholder="Route name" id="routeName" />
+
+<form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
+  <div class="row">
+    <div class="col">
+      <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['routeName'].valid && complexForm.controls['routeName'].touched}">
+        <label for="routeName">Route name *</label>
+        <input id="routeName" type="text" class="form-control" placeholder="Route name" [formControl]="complexForm.controls['routeName']" />
+      </div>
     </div>
   </div>
-</div>
 
+  <!-- TABLA -->
 
-<div class="row">
-  <div class="col">
-    <div class="no-more-tables">
-      <table class="table table-schedule table-hover">
-        <thead>
-          <tr>
-            <th>Weekdays</th>
-            <th>Active / inactive</th>
-            <th>Departure time</th>
-            <th>Arrival time</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-title="Weekdays">Monday *</td>
-            <td data-title="Active / inactive">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input">
-                <span class="custom-control-indicator"></span>
-              </label>
-            </td>
-            <td data-title="Departure time">
-              <ngb-timepicker [(ngModel)]="mondayDepartureTime" class="time-picker"></ngb-timepicker>
-            </td>
-            <td data-title="Arrival time">
-              <ngb-timepicker [(ngModel)]="mondayArrivalTime" class="time-picker"></ngb-timepicker>
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Weekdays">Tuesday *</td>
-            <td data-title="Active / inactive">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input">
-                <span class="custom-control-indicator"></span>
-              </label>
-            </td>
-            <td data-title="Departure time">
-              <ngb-timepicker [(ngModel)]="tuesdayDepartureTime" class="time-picker"></ngb-timepicker>
-            </td>
-            <td data-title="Arrival time">
-              <ngb-timepicker [(ngModel)]="tuesdayArrivalTime" class="time-picker"></ngb-timepicker>
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Weekdays">Wednesday *</td>
-            <td data-title="Active / inactive">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input">
-                <span class="custom-control-indicator"></span>
-              </label>
-            </td>
-            <td data-title="Departure time">
-              <ngb-timepicker [(ngModel)]="wednesdayDepartureTime" class="time-picker"></ngb-timepicker>
-            </td>
-            <td data-title="Arrival time">
-              <ngb-timepicker [(ngModel)]="wednesdayArrivalTime" class="time-picker"></ngb-timepicker>
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Weekdays">Thursday *</td>
-            <td data-title="Active / inactive">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input">
-                <span class="custom-control-indicator"></span>
-              </label>
-            </td>
-            <td data-title="Departure time">
-              <ngb-timepicker [(ngModel)]="thursdayDepartureTime" class="time-picker"></ngb-timepicker>
-            </td>
-            <td data-title="Arrival time">
-              <ngb-timepicker [(ngModel)]="thursdayArrivalTime" class="time-picker"></ngb-timepicker>
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Weekdays">Friday *</td>
-            <td data-title="Active / inactive">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input">
-                <span class="custom-control-indicator"></span>
-              </label>
-            </td>
-            <td data-title="Departure time">
-              <ngb-timepicker [(ngModel)]="fridayDepartureTime" class="time-picker"></ngb-timepicker>
-            </td>
-            <td data-title="Arrival time">
-              <ngb-timepicker [(ngModel)]="fridayArrivalTime" class="time-picker"></ngb-timepicker>
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Weekdays">Saturday *</td>
-            <td data-title="Active / inactive">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input">
-                <span class="custom-control-indicator"></span>
-              </label>
-            </td>
-            <td data-title="Departure time">
-              <ngb-timepicker [(ngModel)]="saturdayDepartureTime" class="time-picker"></ngb-timepicker>
-            </td>
-            <td data-title="Arrival time">
-              <ngb-timepicker [(ngModel)]="saturdayArrivalTime" class="time-picker"></ngb-timepicker>
-            </td>
-          </tr>
-          <tr>
-            <td data-title="Weekdays">Sunday *</td>
-            <td data-title="Active / inactive">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input">
-                <span class="custom-control-indicator"></span>
-              </label>
-            </td>
-            <td data-title="Departure time">
-              <ngb-timepicker [(ngModel)]="sundayDepartureTime" class="time-picker"></ngb-timepicker>
-            </td>
-            <td data-title="Arrival time">
-              <ngb-timepicker [(ngModel)]="sundayArrivalTime" class="time-picker"></ngb-timepicker>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="row">
+    <div class="col">
+      <div class="no-more-tables">
+        <table class="table table-schedule table-hover">
+          <thead>
+            <tr>
+              <th>Weekdays</th>
+              <th>Active / inactive</th>
+              <th>Departure time</th>
+              <th>Arrival time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let weekDay of transportSchedule.weekDays">
+              <td data-title="Weekdays">{{ weekDay.nameAsString }} *</td>
+              <td data-title="Active / inactive">
+                <label class="custom-control custom-checkbox">
+                  <input id="{{ weekDay.nameAsString }}-active" type="checkbox" class="custom-control-input" [formControl]="complexForm.controls[ weekDay.nameAsString + '-active']" (change)="changeActive($event)" >
+                  <span class="custom-control-indicator"></span>
+                </label>
+              </td>
+              <td data-title="Departure time">
+                <ngb-timepicker [formControl]="complexForm.controls[ weekDay.nameAsString + '-departure']" class="time-picker" ></ngb-timepicker>
+              </td>
+              <td data-title="Arrival time">
+                <ngb-timepicker [formControl]="complexForm.controls[ weekDay.nameAsString + '-arrival']" class="time-picker" ></ngb-timepicker>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label>Frequency *</label>
-      <div class="row">
-        <div class="col">
-          <ngb-timepicker [(ngModel)]="frequencyStart" class="time-picker"></ngb-timepicker>
-        </div>
-        <div class="col">
-          <ngb-timepicker [(ngModel)]="frequencyEnd" class="time-picker"></ngb-timepicker>
+  <div class="row">
+    <div class="col">
+      <div class="form-group" >
+        <label for="frequency">Frequency *</label>
+        <div class="row">
+          <div class="col-md-6">
+            <ngb-timepicker id="frequency" class="time-picker" [ngClass]="{'has-danger':!complexForm.controls['frequency'].valid && complexForm.controls['frequency'].touched}"
+             [formControl]="complexForm.controls['frequency']"></ngb-timepicker>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label>Agency *</label>
-      <select class="form-control">
-        <option *ngFor="let agency of agencies" value="{{ agency.id }}" >{{ agency.name }}</option>
-      </select>
+  <div class="row">
+    <div class="col">
+      <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['idAgency'].valid && complexForm.controls['idAgency'].touched}">
+        <label for="idAgency">Agency *</label>
+        <select id="idAgency" class="form-control" [formControl]="complexForm.controls['idAgency']" (change)="onChangeAgency($event)">
+          <option value="-1" disabled >Select</option>
+          <option *ngFor="let agency of agencies" value="{{ agency.id }}" >{{ agency.name }}</option>
+        </select>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label>URL</label>
-      <input type="url" class="form-control" placeholder="URL">
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label>URL</label>
+        <input type="url" class="form-control" placeholder="URL" readonly value="{{ agencySelected.url }}">
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
-      <label>Timezone</label>
-      <input type="url" class="form-control" placeholder="Timezone">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Timezone</label>
+        <input type="url" class="form-control" placeholder="Timezone" readonly value="{{ agencySelected.timezone }}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Language</label>
+        <input type="url" class="form-control" placeholder="Language" readonly value="{{ agencySelected.language }}">
+      </div>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label>Language</label>
-      <input type="url" class="form-control" placeholder="Language">
-    </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-lg-3 offset-lg-6 col-md-6">
-    <div class="form-group">
-      <button class="btn btn-danger btn-block active" > Cancel </button>
+  <div class="row">
+    <div class="col-lg-3 offset-lg-6 col-md-6">
+      <div class="form-group">
+        <button class="btn btn-danger btn-block active" > Cancel </button>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="form-group">
+        <button type="submit" class="btn btn-smart btn-block" [disabled]="!complexForm.valid" i18n > Save </button>
+      </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-6">
-    <div class="form-group">
-      <button class="btn btn-smart btn-block"> Save </button>
-    </div>
-  </div>
-</div>
+
+</form>
 

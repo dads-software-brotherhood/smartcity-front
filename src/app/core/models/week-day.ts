@@ -6,4 +6,5 @@ export class WeekDay {
   departureTime?: Time;
   arrivalTime?: Time;
   active: boolean;
+  nameAsString?: string;
 }

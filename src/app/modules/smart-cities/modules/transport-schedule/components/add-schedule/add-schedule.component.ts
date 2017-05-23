@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { CustomValidators } from 'ng2-validation';
 
 import { AgencyService } from '../../../../../../core/services/public-transport/agency.service';
+import { LoginService } from '../../../../../../core/services/login/login.service';
 
 import { Agency } from '../../../../../../core/models/agency';
 import { DayName } from '../../../../../../core/models/day-name';
@@ -21,9 +22,15 @@ export class AddScheduleComponent implements OnInit {
 
   agencies: Array<Agency> = [];
 
+  agencySelected: Agency = new Agency();
+  agencyValue: any = '-1';
+
   transportSchedule: TransportSchedule;
 
-  constructor(private agencyService: AgencyService) {
+  complexForm: FormGroup;
+
+  constructor(private agencyService: AgencyService, private loginService: LoginService, private fb: FormBuilder,
+      private router: Router) {
     this.transportSchedule = new TransportSchedule();
 
     const weekDays = new Array<WeekDay>();
@@ -40,27 +47,67 @@ export class AddScheduleComponent implements OnInit {
 
     this.transportSchedule.weekDays = weekDays;
 
+    this.complexForm = this.fb.group({
+      'routeName': new FormControl(null, [Validators.required]),
+      'frequency': new FormControl(null, [Validators.required]),
+      'idAgency': new FormControl('-1', [CustomValidators.notEqual('-1')]),
+    });
+
+    for ( let weekDay of weekDays ) {
+      this.complexForm.addControl(weekDay.nameAsString + '-active', new FormControl(weekDay.active, Validators.nullValidator));
+      this.complexForm.addControl(weekDay.nameAsString + '-departure', new FormControl(null, Validators.required));
+      this.complexForm.addControl(weekDay.nameAsString + '-arrival', new FormControl(null, Validators.required));
+    }
+
+
   }
 
   private generateWeekDay(dayName: DayName): WeekDay {
     const tmp = new WeekDay();
     tmp.dayName = dayName;
+    tmp.nameAsString = DayName[dayName];
+    tmp.active = true;
+
     return tmp;
   }
 
   ngOnInit() {
     try {
       this.agencyService.getAll().subscribe(
-        agencies => {
-          console.log(agencies);
-          this.agencies = agencies;
-        }
+        agencies => this.agencies = agencies
       );
     } catch (e) {
       this.agencies = [];
       console.error('Error at load agencies');
       console.error(e);
     }
+  }
+
+  onChangeAgency(event: any) {
+
+    const idx: number = event.target.selectedIndex - 1;
+
+    if (this.agencies.length >= 0 && idx < this.agencies.length) {
+      this.agencySelected = this.agencies[idx];
+    } else {
+      this.agencySelected = new Agency();
+    }
+  }
+
+  changeActive(event: any) {
+    const tmp = event.target.id.split('-')[0];
+
+    if (event.target.checked) {
+      this.complexForm.controls[tmp + '-departure'].reset({ value: null, disabled: false });
+      this.complexForm.controls[tmp + '-arrival'].reset({ value: null, disabled: false });
+    } else {
+      this.complexForm.controls[tmp + '-departure'].reset({ value: null, disabled: true });
+      this.complexForm.controls[tmp + '-arrival'].reset({ value: null, disabled: true });
+    }
+  }
+
+  submitForm(form: any) {
+
   }
 
 }
