@@ -123,7 +123,7 @@ export class LoginService {
         return false;
       } else {
         if (tokenTime > renewTime || true) {
-          // this.refreshToken(identityUser.tokenInfo);
+          this.refreshToken(identityUser.tokenInfo);
         }
         return true;
       }
