@@ -70,14 +70,15 @@ export class NotificationAllUserTrayComponent implements OnInit {
 
     ngOnInit() {
         try {
-            this.route.params.subscribe(params => { this.param = params['id']; });
-            this.element = document.getElementById('subNotification');
-            this.element = (<HTMLSelectElement>this.element);
-            this.setPage(this.param);
-            // this.getNotification();
-            this.isConfirm = true;
-            this.messageModal = '';
-            this.includeText = false;
+            this.route.params.subscribe(params => { this.param = params['id'];
+                this.element = document.getElementById('subNotification');
+                this.element = (<HTMLSelectElement>this.element);
+                this.setPage(this.param);
+                // this.getNotification();
+                this.isConfirm = true;
+                this.messageModal = '';
+                this.includeText = false;
+            });
         } catch (e) {
             this.setValuesModal(this.messageModal, true, false);
         }

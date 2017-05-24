@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../core/services/login/login.service';
 import { IdentityUser } from '../../core/models/identity-user';
 import { NotificationType } from '../../core/models/notification-type';
-import { NotificationTypeService }  from 'app/core/services/notification-type/notification-type.service';
+import { NotificationTypeService } from 'app/core/services/notification-type/notification-type.service';
 
 import { constants } from '../../core/common/constants';
 
@@ -29,7 +29,8 @@ export class TopMenuComponent implements OnInit {
   isTraffic:          boolean;
   isWeather:          boolean;
 
-  constructor(private loginService: LoginService, private router: Router,private notificationTypeService: NotificationTypeService) {
+  constructor(private loginService: LoginService, private router: Router,
+              private notificationTypeService: NotificationTypeService) {
   }
 
   ngOnInit() {
@@ -45,7 +46,7 @@ export class TopMenuComponent implements OnInit {
         .loadNotificationByUserId(this.idUser).subscribe(
           notifications => {
             this.notifications = notifications;
-            //Setting here for javascript asynchrone
+            // Setting here for javascript asynchrone
             this.isAccidents = this.checkNotification(this.notifications, 'Accidents');
             this.isAsthma = this.checkNotification(this.notifications, 'AsthmaAttacks');
             this.isPollutation = this.checkNotification(this.notifications, 'Pollutions');
@@ -63,7 +64,7 @@ export class TopMenuComponent implements OnInit {
       if ( notifications[i].id === notificationSearch) {
          return true;
       }
-    }  
+    }
     return false;
   }
 
@@ -82,7 +83,6 @@ export class TopMenuComponent implements OnInit {
 
     onChangeLocation(val) {
       this.router.navigate(['/smart-cities/notification/notification-all-user-tray/' + val]);
-      location.reload();
     }
 
 }
