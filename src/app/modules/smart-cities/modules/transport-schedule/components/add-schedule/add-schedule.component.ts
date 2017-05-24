@@ -3,7 +3,6 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
-import { Observable } from 'rxjs/Observable';
 
 import { AgencyService } from '../../../../../../core/services/public-transport/agency.service';
 import { TransportScheduleService } from '../../../../../../core/services/public-transport/transport-schedule.service';
