@@ -58,11 +58,11 @@ export class GroupDetailComponent implements OnInit {
       })
 
       if (this.groupId != 0) { //// Based on id decide Title add/edit
-        this.title = "Edit User Group"
+        this.title = "Edit Group"
         this.getGroupData();
       }
       else {
-        this.title = "Add User Group"
+        this.title = "Add new group"
         this.getAllNotificationTypes();
       }
     }
@@ -131,7 +131,7 @@ export class GroupDetailComponent implements OnInit {
             if (form.notificationIds != undefined) {
               this.group = form;
               this.groupId = this.group.id;
-              this.messageModal = "Your record is successfully registered!";
+              this.messageModal = "The information was successfully saved";
             }
             else
             {
@@ -151,7 +151,7 @@ export class GroupDetailComponent implements OnInit {
           this._service.update(this.group).then(form => {
 
             if (form.notificationIds != undefined) {
-              this.messageModal = "Your record is successfully registered!";
+              this.messageModal = "The information was successfully saved";
             }
             else
             {
