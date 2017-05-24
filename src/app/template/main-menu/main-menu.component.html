@@ -70,6 +70,11 @@
                         </a>
                     </li>
                     <li>
+                        <a routerLink="/smart-cities/transport-schedule/search-schedule" routerLinkActive="active" *ngIf="isSA">
+                            <span class="iBlock"><i class="fa fa-calendar" aria-hidden="true"></i></span> Transport Schedule
+                        </a>
+                    </li>
+                    <li>
                         <a routerLink="/smart-cities/transports" routerLinkActive="active" *ngIf="isSA">
                             <span class="iBlock"><i class="fa fa-train" aria-hidden="true"></i></span> Public Transport
                         </a>
@@ -85,7 +90,7 @@
         </div>
 
 
-        
+
         <a routerLink="/smart-cities/notification/notification-user-tray/0" routerLinkActive="active" class="list-group-item" *ngIf="isUser">
             <span class="iBlock"><i class="fa fa-flag" aria-hidden="true"></i></span> My Events
         </a>
@@ -113,6 +118,11 @@
                     <li>
                         <a routerLinkActive="active" *ngIf="false">
                             <span class="iBlock"><i class="fa fa-car" aria-hidden="true"></i></span> Private transport
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/smart-cities/transport-schedule/search-schedule" routerLinkActive="active">
+                            <span class="iBlock"><i class="fa fa-calendar" aria-hidden="true"></i></span> Transport Schedule
                         </a>
                     </li>
                     <li>
