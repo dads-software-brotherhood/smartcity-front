@@ -6,8 +6,8 @@
     <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
       <p class="text-xs-center"><strong>{{errorMessage}}</strong></p>
     </div>
-    <h4>{{title}}</h4>
-    <hr class="subTitle-hr">
+    <h2>{{title}}</h2>
+    <hr class="title-hr">
     <div class="row">
       <div class="col-md-12">
         <p>Now, you can create a new group of alerts for users. You must add a name and from the list of types of alerts, you must select the types of alerts that the new group will receive</p>
@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-7 col-sm-10 <col-xs-12></col-xs-12>">
+  <div class="col-md-12">
     <div class="row">
     <div class="card-block">
       <ngb-accordion #acc="ngbAccordion">
@@ -35,7 +35,7 @@
           </template>
           <template ngbPanelContent>
             <div class="row">
-              <div class="col-md-6" *ngFor="let subnotification of notification.subnotifications">
+              <div class="col-md-4" *ngFor="let subnotification of notification.subnotifications">
                 <label>
                         • {{subnotification}}
                 </label>

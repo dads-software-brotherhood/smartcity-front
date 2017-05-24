@@ -11,6 +11,7 @@
   </div>
 </div>
 
+<div class="row">
   <div class="card-block">
     <ngb-accordion #acc="ngbAccordion">
 
@@ -39,12 +40,16 @@
       </ngb-panel>
     </ngb-accordion>
   </div>
+</div>
 
-<div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
-  <div class="form-group">
-    <button class="btn btn-smart btn-block" (click)="save()"> Save </button>
+<div class="row">
+  <div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
+    <div class="form-group">
+      <button class="btn btn-smart btn-block" (click)="save()"> Save </button>
+    </div>
   </div>
 </div>
+
 
 <!-- Implementación de ventana modal -->
 <modal-popup [(visible)]="showDialog" title="Group">
