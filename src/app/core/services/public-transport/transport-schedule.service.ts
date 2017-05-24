@@ -39,8 +39,7 @@ export class TransportScheduleService {
   public update(transportSchedule: TransportSchedule): Observable<any> {
     const url = baseGetUserUrl + '/' + transportSchedule.id;
 
-    return this.remoteConnectionService.postAsObservable(url, JSON.stringify(transportSchedule), constants.contentTypeJson)
-      .map((res: Response) => res = res.json());
+    return this.remoteConnectionService.putAsObservable(url, JSON.stringify(transportSchedule), constants.contentTypeJson);
   }
 
 }

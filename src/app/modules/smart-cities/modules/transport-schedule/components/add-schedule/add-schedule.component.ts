@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
@@ -36,7 +36,8 @@ export class AddScheduleComponent implements OnInit {
   messageModal: string = null;
 
   constructor(private agencyService: AgencyService, private transportScheduleService: TransportScheduleService,
-      private loginService: LoginService, private fb: FormBuilder, private router: Router) {
+      private loginService: LoginService, private router: Router,
+      private route: ActivatedRoute, fb: FormBuilder) {
     this.transportSchedule = new TransportSchedule();
 
     const weekDays = new Array<WeekDay>();
@@ -53,13 +54,13 @@ export class AddScheduleComponent implements OnInit {
 
     this.transportSchedule.weekDays = weekDays;
 
-    this.complexForm = this.fb.group({
+    this.complexForm = fb.group({
       'routeName': new FormControl(null, [Validators.required, Validators.maxLength(150)]),
       'frequency': new FormControl(null, [Validators.required]),
       'idAgency': new FormControl('-1', [CustomValidators.notEqual('-1')]),
     });
 
-    for ( let weekDay of weekDays ) {
+    for ( const weekDay of weekDays ) {
       this.complexForm.addControl(weekDay.nameAsString + '-active', new FormControl(weekDay.active, Validators.nullValidator));
       this.complexForm.addControl(weekDay.nameAsString + '-departure', new FormControl(null, Validators.required));
       this.complexForm.addControl(weekDay.nameAsString + '-arrival', new FormControl(null, Validators.required));
@@ -79,13 +80,43 @@ export class AddScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    try {
+     try {
       this.agencyService.getAll().subscribe(
-        agencies => this.agencies = agencies
+        agencies => {
+          this.agencies = agencies;
+
+          this.route.params.subscribe((params: Params) => {
+            const id  = params['id'];
+
+            if (id) {
+              this.transportScheduleService.getById(id).subscribe(
+                schedule => {
+                  this.transportSchedule.id = schedule.id;
+                  this.transportSchedule.creatorId = schedule.creatorId;
+
+                  this.complexForm.controls['routeName'].setValue(schedule.routeName);
+                  this.complexForm.controls['frequency'].setValue(schedule.frequency);
+                  this.complexForm.controls['idAgency'].setValue(schedule.agency.id);
+
+                  for ( const weekDay of schedule.weekDays ) {
+                    this.complexForm.controls[weekDay.dayName + '-active'].setValue(weekDay.active);
+                    if (weekDay.active) {
+                      this.complexForm.controls[weekDay.dayName + '-departure'].setValue(weekDay.departureTime);
+                      this.complexForm.controls[weekDay.dayName + '-arrival'].setValue(weekDay.arrivalTime);
+                    } else {
+                      this.complexForm.controls[weekDay.dayName + '-departure'].reset({value: null, disabled: true});
+                      this.complexForm.controls[weekDay.dayName + '-arrival'].reset({value: null, disabled: true});
+                    }
+                  }
+                }
+              );
+            }
+          });
+        }
       );
     } catch (e) {
       this.agencies = [];
-      console.error('Error at load agencies');
+      console.error('Error at load data');
       console.error(e);
     }
   }
@@ -114,7 +145,7 @@ export class AddScheduleComponent implements OnInit {
 
     let count = 0;
 
-    for ( let weekDay of this.transportSchedule.weekDays ) {
+    for ( const weekDay of this.transportSchedule.weekDays ) {
       if (this.complexForm.controls[ weekDay.nameAsString + '-active' ].value) {
         count++;
       }
@@ -127,11 +158,7 @@ export class AddScheduleComponent implements OnInit {
   submitForm(form: any) {
     this.transportSchedule.routeName = form.routeName;
 
-    for ( let agency of this.agencies ) {
-      if ( agency.id === form.idAgency ) {
-        this.transportSchedule.agency = agency;
-      }
-    }
+    this.transportSchedule.agency = this.findAgency(form.idAgency);
 
     if (this.transportSchedule.agency === null) {
       console.error('Can\'t find agency');
@@ -139,7 +166,7 @@ export class AddScheduleComponent implements OnInit {
 
     this.transportSchedule.frequency = form.frequency;
 
-    for ( let weekDay of this.transportSchedule.weekDays ) {
+    for ( const weekDay of this.transportSchedule.weekDays ) {
       weekDay.active = form[weekDay.nameAsString + '-active'];
       if (weekDay.active) {
         weekDay.arrivalTime = form[weekDay.nameAsString + '-arrival'];
@@ -154,7 +181,7 @@ export class AddScheduleComponent implements OnInit {
       if (this.transportSchedule.id) {
         this.transportScheduleService.update(this.transportSchedule).subscribe(
           (res) => {
-            this.showMessage('The information was successfully saved.');
+            this.showMessage('Your record is successfully saved.');
           },
           (error) => {
             console.error(error);
@@ -164,7 +191,7 @@ export class AddScheduleComponent implements OnInit {
       } else {
         this.transportScheduleService.insert(this.transportSchedule).subscribe(
           (res) => {
-            this.showMessage('The information was successfully saved.');
+            this.showMessage('Your record is successfully saved.');
           },
           (error) => {
             console.error(error);
@@ -189,7 +216,16 @@ export class AddScheduleComponent implements OnInit {
   }
 
   onContinue() {
+    this.showDialog = false;
     this.router.navigate(['/smart-cities/transport-schedule/search-schedule']);
+  }
+
+  private findAgency(idAgency: string): Agency {
+    for (const agency of this.agencies) {
+      if (agency.id === idAgency) {
+        return agency;
+      }
+    }
   }
 
 }
