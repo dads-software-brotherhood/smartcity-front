@@ -20,6 +20,7 @@ export class UserVehicleDetailComponent implements OnInit {
     public vehicleForm: FormGroup;
     public index: string;
     public title: string;
+    public subTitle: string;
     private vehicleTypes: VehicleType[];
     private fuelTypes: any[];
     private vehicles: Vehicle[] = [];
@@ -89,10 +90,12 @@ export class UserVehicleDetailComponent implements OnInit {
                 this.index = params['id'];
             });
             if (this.index !== '') { //// Based on id decide Title add/edit
-                this.title = 'Edit User Vehicle';
+                this.title = 'Edit a means of transport';
+                this.subTitle ='You can edit a new means of transport, such as a vehicle, bicycle and motocycle.'
                 this.getVehicleData();
             } else {
-                this.title = 'Add User Vehicle';
+                this.title = 'Register a means of transport';
+                this.subTitle ='You can register a new means of transport, such as a vehicle, bicycle and motocycle.'
                 this.getVehicleTypes();
             }
 
