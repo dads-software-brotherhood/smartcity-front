@@ -20,7 +20,15 @@ export class TransportScheduleService {
   constructor(private loginService: LoginService, private remoteConnectionService: RemoteConnectionService) { }
 
   public getAll(): Observable<Array<TransportSchedule>> {
-    return this.remoteConnectionService.getAsObservable(baseGetUserUrl);
+    return this.remoteConnectionService.getAsObservable(baseGetUserUrl)
+      .map((res: Response) => res = res.json());
+  }
+
+  public getById(id: string): Observable<TransportSchedule> {
+    const url = baseGetUserUrl + '/' + id;
+
+    return this.remoteConnectionService.getAsObservable(url)
+      .map((res: Response) => res = res.json());
   }
 
   public insert(transportSchedule: TransportSchedule): Observable<any> {
@@ -30,6 +38,7 @@ export class TransportScheduleService {
 
   public update(transportSchedule: TransportSchedule): Observable<any> {
     const url = baseGetUserUrl + '/' + transportSchedule.id;
+
     return this.remoteConnectionService.postAsObservable(url, JSON.stringify(transportSchedule), constants.contentTypeJson)
       .map((res: Response) => res = res.json());
   }

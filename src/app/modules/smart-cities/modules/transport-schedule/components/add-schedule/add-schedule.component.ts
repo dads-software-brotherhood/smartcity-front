@@ -3,8 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
+import { Observable } from 'rxjs/Observable';
 
 import { AgencyService } from '../../../../../../core/services/public-transport/agency.service';
+import { TransportScheduleService } from '../../../../../../core/services/public-transport/transport-schedule.service';
 import { LoginService } from '../../../../../../core/services/login/login.service';
 
 import { Agency } from '../../../../../../core/models/agency';
@@ -29,8 +31,12 @@ export class AddScheduleComponent implements OnInit {
 
   complexForm: FormGroup;
 
-  constructor(private agencyService: AgencyService, private loginService: LoginService, private fb: FormBuilder,
-      private router: Router) {
+  showDialog = false;
+  showErrorDialog = false;
+  messageModal: string = null;
+
+  constructor(private agencyService: AgencyService, private transportScheduleService: TransportScheduleService,
+      private loginService: LoginService, private fb: FormBuilder, private router: Router) {
     this.transportSchedule = new TransportSchedule();
 
     const weekDays = new Array<WeekDay>();
@@ -136,7 +142,7 @@ export class AddScheduleComponent implements OnInit {
     for ( let weekDay of this.transportSchedule.weekDays ) {
       weekDay.active = form[weekDay.nameAsString + '-active'];
       if (weekDay.active) {
-        weekDay.arrivalTime = form[weekDay.nameAsString + '-active'];
+        weekDay.arrivalTime = form[weekDay.nameAsString + '-arrival'];
         weekDay.departureTime = form[weekDay.nameAsString + '-departure'];
       } else {
         weekDay.arrivalTime = null;
@@ -144,8 +150,46 @@ export class AddScheduleComponent implements OnInit {
       }
     }
 
-    // TODO: persist
-    console.log(this.transportSchedule);
+    try {
+      if (this.transportSchedule.id) {
+        this.transportScheduleService.update(this.transportSchedule).subscribe(
+          (res) => {
+            this.showMessage('The information was successfully saved.');
+          },
+          (error) => {
+            console.error(error);
+            this.showErrorMessage('An error occurred, try later');
+          }
+        );
+      } else {
+        this.transportScheduleService.insert(this.transportSchedule).subscribe(
+          (res) => {
+            this.showMessage('The information was successfully saved.');
+          },
+          (error) => {
+            console.error(error);
+            this.showErrorMessage('An error occurred, try later');
+          }
+        );
+      }
+    } catch (e) {
+      console.error(e);
+      this.showErrorMessage('An error occurred, try later');
+    }
+  }
+
+  private showMessage(message: string) {
+    this.messageModal = message;
+    this.showDialog = true;
+  }
+
+  private showErrorMessage(message: string) {
+    this.messageModal = message;
+    this.showErrorDialog = true;
+  }
+
+  onContinue() {
+    this.router.navigate(['/smart-cities/transport-schedule/search-schedule']);
   }
 
 }
