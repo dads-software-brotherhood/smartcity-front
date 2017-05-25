@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../core/services/login/login.service';
 import { IdentityUser } from '../../core/models/identity-user';
 import { NotificationType } from '../../core/models/notification-type';
-import { NotificationTypeService } from 'app/core/services/notification-type/notification-type.service';
+import { NotificationTypeService }  from 'app/core/services/notification-type/notification-type.service';
 
 import { constants } from '../../core/common/constants';
 
@@ -22,15 +22,15 @@ export class TopMenuComponent implements OnInit {
   isTransportAdmin:   boolean;
   isUser:             boolean;
   notifications:      Array<NotificationType>;
-  isAccidents:        boolean;
-  isAsthma:           boolean;
-  isPollutation:      boolean;
-  isPollen:           boolean;
-  isTraffic:          boolean;
-  isWeather:          boolean;
+  nAccident:          number;
+  nAsthma:            number;
+  nPollution:         number;
+  nPollen:            number;
+  nTraffic:           number;
+  nWeather:           number;
+  nCount:             number;
 
-  constructor(private loginService: LoginService, private router: Router,
-              private notificationTypeService: NotificationTypeService) {
+  constructor(private loginService: LoginService, private router: Router,private notificationTypeService: NotificationTypeService) {
   }
 
   ngOnInit() {
@@ -46,27 +46,30 @@ export class TopMenuComponent implements OnInit {
         .loadNotificationByUserId(this.idUser).subscribe(
           notifications => {
             this.notifications = notifications;
-            // Setting here for javascript asynchrone
-            this.isAccidents = this.checkNotification(this.notifications, 'Accidents');
-            this.isAsthma = this.checkNotification(this.notifications, 'AsthmaAttacks');
-            this.isPollutation = this.checkNotification(this.notifications, 'Pollutions');
-            this.isPollen = this.checkNotification(this.notifications, 'Pollen');
-            this.isTraffic = this.checkNotification(this.notifications, 'TrafficJam');
-            this.isWeather = this.checkNotification(this.notifications, 'WeatherConditions');
+            //Setting here for javascript asynchrone
+            this.nAccident = this.checkNotification(this.notifications, 'Accidents');
+            this.nAsthma = this.checkNotification(this.notifications, 'AsthmaAttacks');
+            this.nPollution = this.checkNotification(this.notifications, 'Pollutions');
+            this.nPollen = this.checkNotification(this.notifications, 'Pollen');
+            this.nTraffic = this.checkNotification(this.notifications, 'TrafficJam');
+            this.nWeather = this.checkNotification(this.notifications, 'WeatherConditions');
+            this.nCount = this.nAccident + this.nAsthma + this.nPollution + this.nPollen + this.nTraffic + this.nWeather;
           }
       );
 
     }
   }
 
-  checkNotification(notifications: Array<NotificationType>, notificationSearch: string): boolean {
+  checkNotification(notifications: Array<NotificationType>, notificationSearch: string): number {
     for (let i = 0; i < notifications.length; i++) {
       if ( notifications[i].id === notificationSearch) {
-         return true;
+         return notifications[i].count ;
       }
-    }
-    return false;
+    }  
+    return 0;
   }
+
+  
 
   logout() {
     this.loginService.logout().subscribe(
@@ -83,6 +86,7 @@ export class TopMenuComponent implements OnInit {
 
     onChangeLocation(val) {
       this.router.navigate(['/smart-cities/notification/notification-all-user-tray/' + val]);
+      location.reload();
     }
 
 }
