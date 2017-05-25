@@ -10,28 +10,28 @@
                 <li class="dropdown nav-item" ngbDropdown *ngIf="isUser">
                     <!-- <div class="dropdown"> -->
                     <a href="javascript:;" id="name2" class="nav-link dropdown-toggle info-number" ngbDropdownToggle>
-                        <i class="fa fa-bell"></i><span class="label-pill">9+</span> <b class="caret"></b><span class="sr-only">(current)</span>
+                        <i  class="fa fa-bell"></i><span *ngIf="nCount > 0" class="label-pill">{{ nCount }}+</span> <b class="caret"></b><span class="sr-only">(current)</span>
                     </a>
                     <ul class="dropdown-menu alert-dropdown" aria-labelledby="name2">
                         <li class="dropdown-item" style="pointer-events: none;"> Alerts </li>
                         <li class="dropdown-divider"></li>
-                        <li *ngIf="isAccidents">
-                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('Accidents')"> Accidents <span class="red">(1)</span></a>
+                        <li *ngIf="nAccident > 0">
+                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('Accidents')"> Accidents <span class="red">({{nAccident}})</span></a>
                         </li>
-                        <li *ngIf="isAsthma">
-                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('AsthmaAttacks')"> Asthma attacks <span class="red">(1)</span></a>
+                        <li *ngIf="nAsthma > 0">
+                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('AsthmaAttacks')"> Asthma attacks <span class="red">({{nAsthma}})</span></a>
                         </li>
-                        <li *ngIf="isPollutation">
-                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('Pollutions')"> Pollution <span class="red">(1)</span></a>
+                        <li *ngIf="nPollution > 0">
+                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('Pollutions')"> Pollution <span class="red">({{nPollution}})</span></a>
                         </li>
-                        <li *ngIf="isPollen">
-                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('Pollen')"> Pollen <span class="red">(1)</span></a>
+                        <li *ngIf="nPollen > 0">
+                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('Pollen')"> Pollen <span class="red">({{nPollen}})</span></a>
                         </li>
-                        <li *ngIf="isTraffic">
-                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('TrafficJam')"> Traffic <span class="red">(1)</span></a>
+                        <li *ngIf="nTraffic > 0">
+                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('TrafficJam')"> Traffic <span class="red">({{nTraffic}})</span></a>
                         </li>
-                        <li *ngIf="isWeather">
-                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('WeatherConditions')"> Weather <span class="red">(1)</span></a>
+                        <li *ngIf="nWeather > 0">
+                            <a href="javascript:;" class="dropdown-item" (click)="onChangeLocation('WeatherConditions')"> Weather <span class="red">({{nWeather}})</span></a>
                         </li>
                         <li class="dropdown-divider"></li>
                         <li>
