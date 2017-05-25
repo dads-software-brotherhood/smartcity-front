@@ -6,6 +6,7 @@ export class GroupProfile {
   dateCreated: Date;
   dateModified: Date;
   notificationIds: string[];
+  notificacionNames: string[];
   constructor()
   {
     this.type = "GROUP";

@@ -11,8 +11,8 @@
     </div>
   </div>
 </div>
-
-<div class="row">
+<div *ngIf="!isLoaded">Loading...</div>
+<div *ngIf="isLoaded" class="row">
   <div class="card-block">
     <ngb-accordion #acc="ngbAccordion">
 
@@ -21,7 +21,7 @@
           <span>{{group.group}}</span>
         </template>
         <template ngbPanelContent>
-          <div  class="row" *ngFor="let notification of group.notificationIds; let i = index">
+          <div  class="row" *ngFor="let notification of group.notificacionNames; let i = index">
             <div class="col-md-3">
               <div class="form-group">
                 {{notification}}
@@ -43,7 +43,7 @@
   </div>
 </div>
 
-<div class="row">
+<div *ngIf="isLoaded" class="row">
   <div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
     <div class="form-group">
       <button class="btn btn-smart btn-block" (click)="save()"> Save </button>

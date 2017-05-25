@@ -17,6 +17,7 @@ import { GroupService } from 'app/core/services/group/group.service';
 export class UserAccountGroupComponent implements OnInit {
 
   idUser: string;
+  isLoaded: boolean;
   errorMessage: string;
   messageModal: string;
   showDialog: boolean;
@@ -37,11 +38,11 @@ export class UserAccountGroupComponent implements OnInit {
 
   constructor(private groupProfileService: GroupProfileService, private loginService: LoginService, private _compiler: Compiler) {
 
-
+    this.isLoaded = false;
     this.groups = new Array<GroupProfile>();
 
     this.idUser = this.loginService.getLoggedUser().id;
-    this.groupProfileService.loadById(this.idUser).subscribe(groups => { this.groups = groups; });
+    this.groupProfileService.loadById(this.idUser).subscribe(groups => { this.groups = groups; this.isLoaded=true;});
 
   }
 
