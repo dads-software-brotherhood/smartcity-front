@@ -74,7 +74,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="">Role</label>
-           <select id="role" [formControl]="UserTrayForm.controls['role']" class="form-control">
+           <select id="role" [formControl]="UserTrayForm.controls['role']" class="form-control" [(ngModel)]="userModel.role">
                 <option *ngFor="let role of roles" [ngValue]="role.name">{{role.name}}</option>
               </select>
               
@@ -92,7 +92,7 @@
          <div class="col-md-3">
           <div class="form-group">
             <span class="labelHidden"></span>
-            <button (click)="getBy()" class="btn btn-smart btn-block" > Search </button>
+            <button (click)="getBy(UserTrayForm.value)" class="btn btn-smart btn-block" > Search </button>
           </div>
         </div>
       </div>

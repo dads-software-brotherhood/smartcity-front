@@ -30,6 +30,7 @@ export class UserManagerTrayComponent implements OnInit {
   private loggedRol: string;
   private rol: string;
   private warningMessage: String;
+  private userModel: UserModel[] = [];
 
   identityUser: IdentityUser;
 
@@ -78,12 +79,12 @@ export class UserManagerTrayComponent implements OnInit {
   bindTable() {
   }
 
-  getBy() {
+  getBy(form) {
     this.errorMessage = null;
     this._user.name = $('#name').val();
     this._user.familyName = $('#familyname').val();
     this._user.email = $('#email').val();
-    this._user.role = $('#role').val();
+    this._user.role = form.role;
     console.log(this._user);
     this._service.getBy(this._user)
       .then(res => {
