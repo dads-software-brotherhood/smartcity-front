@@ -1,8 +1,9 @@
   <form [formGroup]="vehicleForm" (ngSubmit)="save(vehicleForm.value,vehicleForm.valid)">
   <div class="row">
     <div class="col-md-12">
-      <h2>{{title}} <small> (Data marked with * are required) </small> </h2>
+      <h2>{{title}}</h2>
       <hr class="title-hr">
+      <p>{{subTitle}} (Data marked with * are required) </p>
       <div *ngIf="successMessage" class="alert alert-success" role="alert">
       <p class="text-xs-center"><strong>{{successMessage}}</strong></p>
     </div>

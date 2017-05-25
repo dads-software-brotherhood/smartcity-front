@@ -98,16 +98,13 @@
             <span class="iBlock"><i class="fa fa-users" aria-hidden="true"></i></span> Groups
         </a>
 
-        <a href="http://207.249.121.43/cdmx2/" target="_blank" class="list-group-item" *ngIf="isUser">
+        <a href="http://smartsdk-demo.citibrain.com/" target="_blank" class="list-group-item" *ngIf="isUser">
             <span class="iBlock"><i class="fa fa-map" aria-hidden="true"></i></span> Maps
         </a>
         <a href="http://routing.smartsdk.ubiwhere.com/" target="_new" class="list-group-item" *ngIf="isUser">
             <span class="iBlock"><i class="fa fa-map-marker" aria-hidden="true"></i></span> Generate Routes
         </a>
-        <a routerLinkActive="active" class="list-group-item" *ngIf="isUser">
-            <span class="iBlock"><i class="fa fa-bus" aria-hidden="true"></i></span> Transport
-        </a>
-
+        
 
         <div class="nested-menu2" *ngIf="isTransportAdmin">
             <a class="list-group-item">

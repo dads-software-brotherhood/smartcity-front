@@ -1,3 +1,6 @@
+<h2>Groups</h2>
+<hr class="title-hr">
+<p>You can received real time alerts from weather conditions, pollution, traffic, and so on from other users. If you want to receive alerts you should subscribe to a group or groups, according your preferences.</p>
 <div class="row">
   <div class="col-md-12">
     <div *ngIf="successMessage" class="alert alert-success" role="alert">
@@ -8,9 +11,9 @@
     </div>
   </div>
 </div>
-<div class="col-md-12">
-  <div class="row">
-    <div class="card-block">
+
+<div class="row">
+  <div class="card-block">
     <ngb-accordion #acc="ngbAccordion">
 
       <ngb-panel *ngFor="let group of groups">
@@ -19,27 +22,38 @@
         </template>
         <template ngbPanelContent>
           <div  class="row" *ngFor="let notification of group.notificationIds; let i = index">
-            <div class="col-md-3">{{notification}}</div>
-            <div class="col-md-9"style="text-align:right" *ngIf="i==0">Subscribe<input [(ngModel)]="group.subscribed" type="checkbox" /></div>
+            <div class="col-md-3">
+              <div class="form-group">
+                {{notification}}
+              </div>              
+            </div>
+            <div class="col-md-3" *ngIf="i==0">
+              <div class="form-group">
+                <label class="custom-control custom-checkbox">
+                  <input [(ngModel)]="group.subscribed" type="checkbox" class="custom-control-input"/>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Subscribe</span>
+                </label>
+              </div>
+            </div>
           </div>
         </template>
       </ngb-panel>
     </ngb-accordion>
-
-
-  </div>
-
-
-</div>
-
-<div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
-  <div class="form-group">
-    <button class="btn btn-smart btn-block" (click)="save()"> Save </button>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
+    <div class="form-group">
+      <button class="btn btn-smart btn-block" (click)="save()"> Save </button>
+    </div>
+  </div>
+</div>
+
 
 <!-- Implementación de ventana modal -->
-<modal-popup [(visible)]="showDialog" title="Group">
+<modal-popup [(visible)]="showDialog" title="System Message">
   {{messageModal}}
   <hr>
   <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
