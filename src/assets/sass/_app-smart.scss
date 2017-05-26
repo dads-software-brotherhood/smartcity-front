@@ -419,6 +419,7 @@ a:hover{
 .nested-menu {
     .list-group-item {
         cursor: pointer;
+        padding: 0.75rem !important;
     }
     .nested {
         list-style-type: none;
@@ -436,7 +437,9 @@ a:hover{
             list-style-type: none;
             height: auto;
             display: block;
-            border-left: 2px solid #00d3de;
+            margin-left: -35px;
+            border-right: 3px solid #00d3de;
+            font-size: 13px;
             li {
                 a {
                     color: #FFF;
@@ -813,4 +816,20 @@ footer{
     Label the data
     */
     .no-more-tables td:before { content: attr(data-title); }
+}
+.fixedNone{
+    display: none;
+}
+.fixedShow {
+    position:fixed; 
+    top:0; 
+    left:0; 
+    z-index:2; 
+    width:100%; 
+    display:block !important;
+}
+.right-chevron{
+    position: absolute;
+    right: 10px;
+    top: 15px;
 }

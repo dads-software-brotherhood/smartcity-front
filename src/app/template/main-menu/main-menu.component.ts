@@ -16,6 +16,8 @@ export class MainMenuComponent implements OnInit {
   isActive = false;
   showMenu = '';
   showSetting = '';
+  showMenuManageSite = '';
+  showMenuTransportSchedule ='';
 
   identityUser: IdentityUser;
 
@@ -43,6 +45,22 @@ export class MainMenuComponent implements OnInit {
       this.showSetting = '0';
     } else {
       this.showSetting = element;
+    }
+  }
+
+  addExpandshowMenuManageSite(element: any) {
+    if (element === this.showMenuManageSite) {
+      this.showMenuManageSite = '0';
+    } else {
+      this.showMenuManageSite = element;
+    }
+  }
+
+  addExpandshowTransportSchedule(element: any) {
+    if (element === this.showMenuTransportSchedule) {
+      this.showMenuTransportSchedule = '0';
+    } else {
+      this.showMenuTransportSchedule = element;
     }
   }
 
