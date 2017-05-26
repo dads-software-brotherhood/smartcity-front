@@ -7,29 +7,29 @@
             </a>
             <li class="nested" [ngClass]="{'expand' : showMenu === 'sMenu1' }">
                 <ul class="submenu">
-                    <li>
-                        <a routerLink="/smart-cities/user-account/profile" routerLinkActive="active"><span> User profile</span></a>
-                    </li>
-                    <li *ngIf="isUser">
-                        <a routerLink="/smart-cities/user-account/health-profile" routerLinkActive="active"><span> Health profile</span></a>
-                    </li>
-                    <a class="<list-gro></list-gro>up-item lgiCustom" (click)="addExpandSubClass('sMenu2')">
-                        Settings <span class="fa fa-chevron-down pull-right"></span>
-                    </a>
-                    <li class="nested" [ngClass]="{'expand1' : showSetting === 'sMenu2' }">
-                        <ul class="submenu1">
-                            <li>
-                                <a routerLink="/smart-cities/user-account/credentials" routerLinkActive="active"><span>Change Your Password</span></a>
-                            </li>
+                        <a routerLink="/smart-cities/user-account/profile" routerLinkActive="active" class="list-group-item"><span> User profile</span></a>
 
-                            <li>
-                                <a routerLink="/smart-cities/user-account/close-account" routerLinkActive="active"><span>Cancel Account</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a routerLinkActive="active" (click)="logout()"><span>Log Out</span></a>
-                    </li>
+                        <a *ngIf="isUser" routerLink="/smart-cities/user-account/health-profile" routerLinkActive="active" class="list-group-item"><span> Health profile</span></a>
+
+                        <a *ngIf="isUser" href="javascript:;" routerLink="/smart-cities/user-vehicle/vehicles" class="list-group-item">Vehicle profile</a>
+
+                        <a class="<list-gro></list-gro>up-item lgiCustom" (click)="addExpandSubClass('sMenu2')" class="list-group-item">
+                            Settings <span class="fa fa-chevron-down right-chevron"></span>
+                        </a>
+
+                        <li class="nested" [ngClass]="{'expand1' : showSetting === 'sMenu2' }">
+                            <ul class="submenu1">
+                                <li>
+                                    <a routerLink="/smart-cities/user-account/credentials" routerLinkActive="active"><span>Change Your Password</span></a>
+                                </li>
+
+                                <li>
+                                    <a routerLink="/smart-cities/user-account/close-account" routerLinkActive="active"><span>Cancel Account</span></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <a routerLinkActive="active" (click)="logout()" class="list-group-item"><span>Log Out</span></a>
                 </ul>
             </li>
         </div>

@@ -90,6 +90,9 @@ a:hover{
          -o-transition: all 0.2s ease-in-out;
             transition: all 0.2s ease-in-out;
     .list-group{
+        .list-group-item{
+            padding: .75rem !important;
+        }
         a{
             background: $brand-sidebar !important;
             border: 0;
@@ -221,6 +224,11 @@ a:hover{
 .userMainMenu{
     display: none;
 }
+@include media-breakpoint-down(md) {
+    .userMainMenu{
+        display: block
+    }
+}
 @media (min-width: 0){
     .navbar-toggleable-xs {
         display: block !important;
@@ -246,9 +254,6 @@ a:hover{
     }
     .top-right-nav{
         display: none;
-    }
-    .userMainMenu{
-        display: block
     }
     .navbar-brand{
         text-align: center;
