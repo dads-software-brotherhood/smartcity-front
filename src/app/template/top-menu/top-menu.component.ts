@@ -30,7 +30,7 @@ export class TopMenuComponent implements OnInit {
   nWeather:           number;
   nCount:             number;
 
-  constructor(private loginService: LoginService, private router: Router,private notificationTypeService: NotificationTypeService) {
+  constructor(private loginService: LoginService, private router: Router, private notificationTypeService: NotificationTypeService) {
   }
 
   ngOnInit() {
