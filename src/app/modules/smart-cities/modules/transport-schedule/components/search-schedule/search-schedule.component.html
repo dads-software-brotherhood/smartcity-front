@@ -1,16 +1,17 @@
 <h2>Search of transport schedule</h2>
 <hr class="title-hr">
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-6">
     <div class="form-group">
       <label for="routeName">Route name</label>
+      <span class="labelHidden hidden-md"></span>
       <input id="routeName" type="text" class="form-control" placeholder="Route name" [(ngModel)]="routeName" >
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-6">
     <div class="form-group">
-      <label for="frequency">Frequncy</label>
-      <ngb-timepicker  id="frequency" [(ngModel)]="frequency"></ngb-timepicker>
+      <label for="frequency">Frequency</label>
+      <ngb-timepicker id="frequency" [(ngModel)]="frequency" class="time-picker"></ngb-timepicker>
     </div>
   </div>
 </div>
