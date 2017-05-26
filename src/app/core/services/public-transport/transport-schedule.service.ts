@@ -26,7 +26,8 @@ export class TransportScheduleService {
       .map((res: Response) => res = res.json());
   }
 
-  public findByQueries(routeName: string, frequency: Time, idAgency: string, page: number): Observable<Paginable> {
+  public findByQueries(routeName: string, frequency: Time, idAgency: string,
+      page: number, size: number): Observable<Paginable> {
     const urLSearchParams: URLSearchParams = new URLSearchParams();
 
     if (routeName) {
@@ -46,7 +47,7 @@ export class TransportScheduleService {
       urLSearchParams.append('idAgency', idAgency);
     }
 
-    const url: string = baseGetUserUrl + '/page/' + page;
+    const url: string = baseGetUserUrl + '/page/' + page + '/' + size;
 
     return this.remoteConnectionService.getAsObservable(url, null, null, urLSearchParams)
       .map((res: Response) => res = res.json());

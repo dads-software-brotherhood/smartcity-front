@@ -63,7 +63,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let schedule of schedules">
+          <tr *ngFor="let schedule of paginable.content | paginate: { itemsPerPage: paginable.size, currentPage: paginable.number + 1, totalItems: paginable.totalElements }">
             <td>{{ schedule.routeName }}</td>
             <td>
               <span *ngIf="schedule.weekDays[0].active">
@@ -153,6 +153,13 @@
             </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="11" style="text-align: center">
+              <pagination-controls (pageChange)="onPageChanged($event)"></pagination-controls>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>

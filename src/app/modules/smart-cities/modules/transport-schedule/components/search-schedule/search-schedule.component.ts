@@ -16,12 +16,12 @@ import { TransportSchedule } from '../../../../../../core/models/transport-sched
 })
 export class SearchScheduleComponent implements OnInit {
 
-  schedules: Array<TransportSchedule>;
   agencies: Array<Agency>;
 
   routeName: string;
   frequency: Time;
   idAgency: string;
+
   paginable: Paginable;
 
   showDialog = false;
@@ -35,14 +35,24 @@ export class SearchScheduleComponent implements OnInit {
     this.routeName = null;
     this.frequency = null;
     this.idAgency = '-1';
+
+    this.resetPaginable();
+  }
+
+  private resetPaginable() {
     this.paginable = new Paginable();
+    this.paginable.content = [];
     this.paginable.number = 0;
+    this.paginable.totalElements = 0;
+    this.paginable.size = 10;
   }
 
   ngOnInit() {
     try {
       this.agencyService.getAll().subscribe(
-        agencies => this.agencies = agencies
+        agencies => {
+          this.agencies = agencies;
+        }
       );
     } catch (e) {
       this.agencies = [];
@@ -63,10 +73,9 @@ export class SearchScheduleComponent implements OnInit {
         id = this.idAgency;
       }
 
-      this.transportScheduleService.findByQueries(this.routeName, this.frequency, id, this.paginable.number).subscribe(
+      this.transportScheduleService.findByQueries(this.routeName, this.frequency, id, this.paginable.number, this.paginable.size).subscribe(
         paginable => {
           this.paginable = paginable;
-          this.schedules = paginable.content;
 
           if (showDialog && this.paginable.totalElements === 0) {
             this.showMessage('Information not found');
@@ -74,7 +83,7 @@ export class SearchScheduleComponent implements OnInit {
         }
       );
     } catch (e) {
-      this.schedules = [];
+      this.resetPaginable();
       console.error('Error at load schedules');
       console.error(e);
     }
@@ -82,6 +91,11 @@ export class SearchScheduleComponent implements OnInit {
 
   onReset() {
     this.reset();
+    this.defaultLoad(false);
+  }
+
+  onPageChanged(page: number) {
+    this.paginable.number = page - 1;
     this.defaultLoad(false);
   }
 
