@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
+import { Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -9,7 +9,9 @@ import { RemoteConnectionService } from '../remote-connection/remote-connection.
 import { environment } from '../../../../environments/environment';
 import { constants } from '../../common/constants';
 
+import { Paginable } from '../../common/paginable';
 import { TransportSchedule } from '../../models/transport-schedule';
+import { Time } from '../../models/time';
 
 const baseRestPath = '/transport-schedule';
 const baseGetUserUrl = environment.backend_sdk + baseRestPath;
@@ -21,6 +23,32 @@ export class TransportScheduleService {
 
   public getAll(): Observable<Array<TransportSchedule>> {
     return this.remoteConnectionService.getAsObservable(baseGetUserUrl)
+      .map((res: Response) => res = res.json());
+  }
+
+  public findByQueries(routeName: string, frequency: Time, idAgency: string, page: number): Observable<Paginable> {
+    const urLSearchParams: URLSearchParams = new URLSearchParams();
+
+    if (routeName) {
+      urLSearchParams.append('routeName', routeName);
+    }
+
+    if (frequency) {
+      if (frequency.hour) {
+        urLSearchParams.append('frequencyHour', frequency.hour + '');
+      }
+      if (frequency.minute) {
+        urLSearchParams.append('frequencyMinute', frequency.minute + '');
+      }
+    }
+
+    if (idAgency) {
+      urLSearchParams.append('idAgency', idAgency);
+    }
+
+    const url: string = baseGetUserUrl + '/page/' + page;
+
+    return this.remoteConnectionService.getAsObservable(url, null, null, urLSearchParams)
       .map((res: Response) => res = res.json());
   }
 

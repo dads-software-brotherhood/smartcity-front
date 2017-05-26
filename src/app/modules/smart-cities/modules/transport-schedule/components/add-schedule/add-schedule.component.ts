@@ -216,7 +216,7 @@ export class AddScheduleComponent implements OnInit {
 
   onContinue() {
     this.showDialog = false;
-    this.router.navigate(['/smart-cities/transport-schedule/search-schedule']);
+    this.router.navigate(['/smart-cities']);
   }
 
   private findAgency(idAgency: string): Agency {

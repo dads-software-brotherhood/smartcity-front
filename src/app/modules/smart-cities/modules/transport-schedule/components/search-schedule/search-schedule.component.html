@@ -3,14 +3,14 @@
 <div class="row">
   <div class="col-md-3">
     <div class="form-group">
-      <label>Route name *</label>
-      <input type="text" class="form-control" placeholder="Route name" >
+      <label for="routeName">Route name</label>
+      <input id="routeName" type="text" class="form-control" placeholder="Route name" [(ngModel)]="routeName" >
     </div>
   </div>
   <div class="col-md-3">
     <div class="form-group">
-      <label>Frequncy *</label>
-      <input type="text" class="form-control" placeholder="Frequncy" >
+      <label for="frequency">Frequncy</label>
+      <ngb-timepicker  id="frequency" [(ngModel)]="frequency"></ngb-timepicker>
     </div>
   </div>
 </div>
@@ -18,10 +18,10 @@
 <div class="row">
   <div class="col-md-6">
     <div class="form-group">
-      <label>Agency *</label>
-      <select class="form-control">
-        <option>Rutas Lopez</option>
-        <option>Ruta 25</option>
+      <label for="idAgency">Agency</label>
+      <select id="idAgency" class="form-control" [(ngModel)]="idAgency">
+        <option value="-1">select</option>
+        <option *ngFor="let agency of agencies" value="{{ agency.id }}" >{{ agency.name }}</option>
       </select>
     </div>
   </div>
@@ -29,18 +29,19 @@
   <div class="col-md-3">
     <div class="form-group">
       <span class="labelHidden hidden-md"></span>
-      <button class="btn btn-smart btn-block"> Clear </button>
+      <button class="btn btn-smart btn-block" (click)="onReset()"> Clear </button>
     </div>
   </div>
 
   <div class="col-md-3">
     <div class="form-group">
       <span class="labelHidden hidden-md"></span>
-      <button class="btn btn-smart btn-block"> Search </button>
+      <button class="btn btn-smart btn-block" (click)="performSearch()" > Search </button>
     </div>
   </div>
-
 </div>
+
+<br/><br/>
 
 <div class="row">
   <div class="col">
@@ -157,18 +158,8 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-lg-3 offset-lg-6 col-md-6">
-    <div class="form-group">
-      <span class="labelHidden hidden-md"></span>
-      <button class="btn btn-smart btn-block" routerLink="/smart-cities/transport-schedule/add-schedule" routerLinkActive="active"> Add </button>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6">
-    <div class="form-group">
-      <span class="labelHidden hidden-md"></span>
-      <button class="btn btn-danger btn-block" routerLink="/smart-cities" routerLinkActive="active"> Back </button>
-    </div>
-  </div>
-</div>
-
+<modal-popup [(visible)]="showDialog" title="System Message">
+  {{messageModal}}
+  <hr/>
+  <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="showDialog = false">Accept</button>
+</modal-popup>
