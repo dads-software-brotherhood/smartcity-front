@@ -2,7 +2,7 @@
 
     <ul class="list-group userMainMenu">
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('sMenu1')">
+            <a class="list-group-item" (click)="addExpandClass('sMenu1')" [ngClass]="{'expandMenu' : showMenu === 'sMenu1' }">
                 <span class="iBlock"><i class="fa fa-user" aria-hidden="true"></i></span> {{ identityUser.name }} <span class="fa fa-chevron-down right-chevron"></span>
             </a>
             <li class="nested" [ngClass]="{'expand' : showMenu === 'sMenu1' }">
@@ -13,7 +13,7 @@
 
                         <a *ngIf="isUser" href="javascript:;" routerLink="/smart-cities/user-vehicle/vehicles" class="list-group-item">Vehicle profile</a>
 
-                        <a class="<list-gro></list-gro>up-item lgiCustom" (click)="addExpandSubClass('sMenu2')" class="list-group-item">
+                        <a class="<list-gro></list-gro>up-item lgiCustom" (click)="addExpandSubClass('sMenu2')" [ngClass]="{'expandMenu' : showSetting === 'sMenu2' }" class="list-group-item">
                             Settings <span class="fa fa-chevron-down right-chevron"></span>
                         </a>
 
@@ -48,7 +48,7 @@
             <span class="iBlock"><i class="fa fa-bell" aria-hidden="true"></i></span> Alerts
         </a>
         <div class="nested-menu" *ngIf="isSA || isAdmin">
-            <a class="list-group-item" (click)="addExpandshowMenuManageSite('ManageSite')">
+            <a class="list-group-item" (click)="addExpandshowMenuManageSite('ManageSite')" [ngClass]="{'expandMenu' : showMenuManageSite === 'ManageSite' }">
                 <span class="iBlock"><i class="fa fa-user" aria-hidden="true"></i></span> Manage site <span class="fa fa-chevron-down right-chevron"></span>
             </a>
             <li class="nested" [ngClass]="{'expand' : showMenuManageSite === 'ManageSite' }">
@@ -67,7 +67,7 @@
 
                 </ul>
             </li>
-            
+
              <a routerLink="/smart-cities/transports" routerLinkActive="active" *ngIf="isSA" class="list-group-item">
                 <span class="iBlock"><i class="fa fa-train" aria-hidden="true"></i></span> Public Transport
             </a>
@@ -76,7 +76,7 @@
                 <span class="iBlock"><i class="fa fa-wifi" aria-hidden="true"></i></span> Devices
             </a>
 
-            <a *ngIf="isSA" class="list-group-item" (click)="addExpandshowTransportSchedule('TransportSchedule')">
+            <a *ngIf="isSA" class="list-group-item" (click)="addExpandshowTransportSchedule('TransportSchedule')" [ngClass]="{'expandMenu' : showMenuTransportSchedule === 'TransportSchedule' }">
                 <span class="iBlock"><i class="fa fa-clock-o" aria-hidden="true"></i></span>Transport Schedule <span class="fa fa-chevron-down right-chevron"></span>
             </a>
 
