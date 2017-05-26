@@ -34,6 +34,8 @@ export class AddScheduleComponent implements OnInit {
   showErrorDialog = false;
   messageModal: string = null;
 
+  edit: boolean;
+
   constructor(private agencyService: AgencyService, private transportScheduleService: TransportScheduleService,
       private loginService: LoginService, private router: Router,
       private route: ActivatedRoute, fb: FormBuilder) {
@@ -88,6 +90,8 @@ export class AddScheduleComponent implements OnInit {
             const id  = params['id'];
 
             if (id) {
+              this.edit = true;
+
               this.transportScheduleService.getById(id).subscribe(
                 schedule => {
                   this.transportSchedule.id = schedule.id;
@@ -109,6 +113,8 @@ export class AddScheduleComponent implements OnInit {
                   }
                 }
               );
+            } else {
+              this.edit = false;
             }
           });
         }
@@ -216,7 +222,16 @@ export class AddScheduleComponent implements OnInit {
 
   onContinue() {
     this.showDialog = false;
-    this.router.navigate(['/smart-cities']);
+
+    this.onBack();
+  }
+
+  onBack() {
+    if (this.edit) {
+      this.router.navigate(['/smart-cities/transport-schedule/search-schedule']);
+    } else {
+      this.router.navigate(['/smart-cities']);
+    }
   }
 
   private findAgency(idAgency: string): Agency {
