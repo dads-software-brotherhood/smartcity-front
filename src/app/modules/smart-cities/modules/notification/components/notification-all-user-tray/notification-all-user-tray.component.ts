@@ -134,6 +134,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
         try {
             this._service.getAllByUser(page, size).subscribe(
                 (res) => {
+                    this.alertsAux = [];
                     this.instance = new Paginable().deserialize(res);
                     this.alertsAux = this.instance.content;
                     this.getNotification();
@@ -207,6 +208,9 @@ export class NotificationAllUserTrayComponent implements OnInit {
     getNotification() {
         try {
             // let intervalo;
+            if  (this.notifications.length > 0) {
+                this.notifications = [];
+            }
             this._notificationService.getAll().subscribe(
                 (res) => {
                     // intervalo = setInterval(() => {
