@@ -28,7 +28,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
     private messageModal: string;
     private includeText: boolean;
     private alerts: Alert[] = [];
-    private alertsAux: Alert[] = [];
+    // private alertsAux: Alert[] = [];
     private objNotification: NotificationType;
     private notifications: NotificationType[] = [];
     private subNotifications: any[] = [];
@@ -85,7 +85,8 @@ export class NotificationAllUserTrayComponent implements OnInit {
     }
 
     setPage(id: string) {
-        this.bindTableAux(this.initPage, this.initSize);
+        // this.bindTableAux(this.initPage, this.initSize);
+        this.getNotification();
         if (id !== '0') {
             this.getAlertsByAlertType(id, this.initPage, this.initSize);
             this.notificationId = id;
@@ -130,22 +131,22 @@ export class NotificationAllUserTrayComponent implements OnInit {
         }
     }
 
-    bindTableAux(page: string, size: string) {
-        try {
-            this._service.getAllByUser(page, size).subscribe(
-                (res) => {
-                    this.alertsAux = [];
-                    this.instance = new Paginable().deserialize(res);
-                    this.alertsAux = this.instance.content;
-                    this.getNotification();
-                },
-                (error) => {
-                    this.messageModal = error;
-                });
-        } catch (e) {
-            throw e;
-        }
-    }
+    // bindTableAux(page: string, size: string) {
+    //     try {
+    //         this._service.getAllByUser(page, size).subscribe(
+    //             (res) => {
+    //                 this.alertsAux = [];
+    //                 this.instance = new Paginable().deserialize(res);
+    //                 this.alertsAux = this.instance.content;
+    //                 this.getNotification();
+    //             },
+    //             (error) => {
+    //                 this.messageModal = error;
+    //             });
+    //     } catch (e) {
+    //         throw e;
+    //     }
+    // }
 
     getDateNow() {
         const today: Date = new Date();
@@ -211,25 +212,27 @@ export class NotificationAllUserTrayComponent implements OnInit {
             if  (this.notifications.length > 0) {
                 this.notifications = [];
             }
-            this._notificationService.getAll().subscribe(
+            const identityUser = this._loginService.getLoggedUser();
+            this._notificationService.loadNotificationByUserId(identityUser.id).subscribe(
                 (res) => {
-                    // intervalo = setInterval(() => {
-                    if (this.alertsAux.length > 0) {
-                        // clearInterval(intervalo);
-                        for (let i = 0; i < res.length; i++) {
-                            for (let j = 0; j < this.alertsAux.length; j++) {
-                                if (res[i].id === this.alertsAux[j].alertType) {
-                                    this.notifications.push(res[i]);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    this.alertsAux = [];
-                    //     if (this.alertsAux.length <= 0 && this.endInterval === 0) {
-                    //         clearInterval(intervalo);
+                    // // intervalo = setInterval(() => {
+                    // if (this.alertsAux.length > 0) {
+                    //     // clearInterval(intervalo);
+                    //     for (let i = 0; i < res.length; i++) {
+                    //         for (let j = 0; j < this.alertsAux.length; j++) {
+                    //             if (res[i].id === this.alertsAux[j].alertType) {
+                    //                 this.notifications.push(res[i]);
+                    //                 break;
+                    //             }
+                    //         }
                     //     }
-                    // }, 1000);
+                    // }
+                    // this.alertsAux = [];
+                    // //     if (this.alertsAux.length <= 0 && this.endInterval === 0) {
+                    // //         clearInterval(intervalo);
+                    // //     }
+                    // // }, 1000);
+                    this.notifications = res;
                 },
                 (error) => {
                     this.messageModal = error;

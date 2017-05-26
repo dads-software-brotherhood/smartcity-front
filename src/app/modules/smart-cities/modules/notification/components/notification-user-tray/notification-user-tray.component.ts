@@ -28,7 +28,7 @@ export class NotificationUserTrayComponent implements OnInit {
   private messageModal: string;
   private includeText: boolean;
   private alerts: Alert[] = [];
-  private alertsAux: Alert[] = [];
+  // private alertsAux: Alert[] = [];
   private objNotification: NotificationType;
   private notifications: NotificationType[] = [];
   private subNotifications: any[] = [];
@@ -74,7 +74,8 @@ export class NotificationUserTrayComponent implements OnInit {
       this.route.params.subscribe(params => { this.param = params['id']; });
       this.element = document.getElementById('subNotification');
       this.element = (<HTMLSelectElement>this.element);
-      this.bindTableAux(this.initPage, this.initSize);
+      // this.bindTableAux(this.initPage, this.initSize);
+      this.getNotification();
       this.setPage(this.param);
       this.isConfirm = true;
       this.messageModal = '';
@@ -84,22 +85,22 @@ export class NotificationUserTrayComponent implements OnInit {
     }
   }
 
-  bindTableAux(page: string, size: string) {
-    try {
-      this._service.getAllByUser(page, size).subscribe(
-        (res) => {
-          this.instance = new Paginable().deserialize(res);
-          this.alertsAux = this.instance.content;
-          // console.log(this.alertsAux);
-          this.getNotification();
-        },
-        (error) => {
-          this.messageModal = error;
-        });
-    } catch (e) {
-      throw e;
-    }
-  }
+  // bindTableAux(page: string, size: string) {
+  //   try {
+  //     this._service.getAllByUser(page, size).subscribe(
+  //       (res) => {
+  //         this.instance = new Paginable().deserialize(res);
+  //         this.alertsAux = this.instance.content;
+  //         // console.log(this.alertsAux);
+  //         this.getNotification();
+  //       },
+  //       (error) => {
+  //         this.messageModal = error;
+  //       });
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // }
 
   setPage(id: string) {
     // if (id !== '0') {
@@ -223,21 +224,26 @@ export class NotificationUserTrayComponent implements OnInit {
   // Metodo que se utiliza para llenar el combo de Tipos de Alerta
   getNotification() {
     try {
-      this._notificationService.getAll().subscribe(
-        (res) => {
-          // this.notifications = res;
-          if (this.alertsAux.length > 0) {
-            for (let i = 0; i < res.length; i++) {
-              for (let j = 0; j < this.alertsAux.length; j++) {
-                if (res[i].id === this.alertsAux[j].alertType) {
-                  this.notifications.push(res[i]);
-                  break;
-                }
-              }
+      if  (this.notifications.length > 0) {
+                this.notifications = [];
             }
-          }
-          this.alertsAux = [];
-        },
+      const identityUser = this._loginService.getLoggedUser();
+            this._notificationService.loadNotificationByUserId(identityUser.id).subscribe(
+                (res) => {
+        //   // this.notifications = res;
+        //   if (this.alertsAux.length > 0) {
+        //     for (let i = 0; i < res.length; i++) {
+        //       for (let j = 0; j < this.alertsAux.length; j++) {
+        //         if (res[i].id === this.alertsAux[j].alertType) {
+        //           this.notifications.push(res[i]);
+        //           break;
+        //         }
+        //       }
+        //     }
+        //   }
+        //   this.alertsAux = [];
+        this.notifications = res;
+         },
         (error) => {
           this.messageModal = error;
         });
