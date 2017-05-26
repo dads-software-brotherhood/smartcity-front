@@ -6,9 +6,9 @@
     <div class="col">
       <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['routeName'].valid && complexForm.controls['routeName'].touched}">
         <label for="routeName">Route name *</label>
-        <input id="routeName" type="text" class="form-control" placeholder="Route name" [formControl]="complexForm.controls['routeName']" />
-        <div *ngIf="complexForm.controls['routeName'].hasError('required') && complexForm.controls['routeName'].touched" class="alert alert-danger" i18n>The "Route name" field are required.</div>
-        <div *ngIf="complexForm.controls['routeName'].hasError('maxlength') && complexForm.controls['routeName'].touched" class="alert alert-danger" i18n>The "Route name" field will have a length of 150 alphanumerical characters</div>
+        <input id="routeName" type="text" class="form-control" placeholder="Route name" [formControl]="complexForm.controls['routeName']" size="150" />
+        <div *ngIf="complexForm.controls['routeName'].hasError('required') && complexForm.controls['routeName'].touched" class="alert alert-danger" i18n>The route name is required</div>
+        <div *ngIf="complexForm.controls['routeName'].hasError('maxlength') && complexForm.controls['routeName'].touched" class="alert alert-danger" i18n>The route name field will have a maximun length of 150 alphanumerical characters</div>
       </div>
     </div>
   </div>
@@ -51,7 +51,7 @@
 
   <div class="row">
     <input type="hidden" [formControl]="complexForm.controls['count']" />
-    <div *ngIf="complexForm.controls['count'].hasError('notEqual')" class="alert alert-danger col-md-12" i18n>All fields marked with an asterisk are required.</div>
+    <div *ngIf="complexForm.controls['count'].hasError('notEqual')" class="alert alert-danger col-md-12" i18n>The weekdays are required</div>
   </div>
 
 
@@ -65,7 +65,7 @@
              [formControl]="complexForm.controls['frequency']"></ngb-timepicker>
           </div>
         </div>
-        <div *ngIf="complexForm.controls['frequency'].hasError('required') && complexForm.controls['frequency'].touched" class="alert alert-danger" i18n>The "frequency" fields are required.</div>
+        <div *ngIf="complexForm.controls['frequency'].hasError('required') && complexForm.controls['frequency'].touched" class="alert alert-danger" i18n>The frequency is required.</div>
       </div>
     </div>
   </div>
@@ -78,7 +78,7 @@
           <option value="-1" disabled >Select</option>
           <option *ngFor="let agency of agencies" value="{{ agency.id }}" >{{ agency.name }}</option>
         </select>
-        <div *ngIf="complexForm.controls['idAgency'].hasError('notEqual') && complexForm.controls['idAgency'].touched" class="alert alert-danger" i18n>You must be select a agency</div>
+        <div *ngIf="complexForm.controls['idAgency'].hasError('notEqual') && complexForm.controls['idAgency'].touched" class="alert alert-danger" i18n>The agency is required</div>
       </div>
     </div>
   </div>

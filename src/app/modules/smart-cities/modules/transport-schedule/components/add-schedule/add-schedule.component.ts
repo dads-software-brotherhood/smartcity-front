@@ -186,7 +186,7 @@ export class AddScheduleComponent implements OnInit {
       if (this.transportSchedule.id) {
         this.transportScheduleService.update(this.transportSchedule).subscribe(
           (res) => {
-            this.showMessage('Your record is successfully saved.');
+            this.showMessage('Your record is successfully modified!');
           },
           (error) => {
             console.error(error);
@@ -196,7 +196,7 @@ export class AddScheduleComponent implements OnInit {
       } else {
         this.transportScheduleService.insert(this.transportSchedule).subscribe(
           (res) => {
-            this.showMessage('Your record is successfully saved.');
+            this.showMessage('Your record is successfully registered!');
           },
           (error) => {
             console.error(error);
