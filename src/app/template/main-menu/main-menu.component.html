@@ -70,8 +70,13 @@
                         </a>
                     </li>
                     <li>
+                        <a routerLink="/smart-cities/transport-schedule/add-schedule" routerLinkActive="active" *ngIf="isSA">
+                            <span class="iBlock"><i class="fa fa-plus" aria-hidden="true"></i></span> Add Transport Schedule
+                        </a>
+                    </li>
+                    <li>
                         <a routerLink="/smart-cities/transport-schedule/search-schedule" routerLinkActive="active" *ngIf="isSA">
-                            <span class="iBlock"><i class="fa fa-calendar" aria-hidden="true"></i></span> Transport Schedule
+                            <span class="iBlock"><i class="fa fa-search" aria-hidden="true"></i></span> Search Transport Schedule
                         </a>
                     </li>
                     <li>
@@ -104,7 +109,7 @@
         <a href="http://routing.smartsdk.ubiwhere.com/" target="_new" class="list-group-item" *ngIf="isUser">
             <span class="iBlock"><i class="fa fa-map-marker" aria-hidden="true"></i></span> Generate Routes
         </a>
-        
+
 
         <div class="nested-menu2" *ngIf="isTransportAdmin">
             <a class="list-group-item">
@@ -118,8 +123,13 @@
                         </a>
                     </li>
                     <li>
+                        <a routerLink="/smart-cities/transport-schedule/add-schedule" routerLinkActive="active">
+                            <span class="iBlock"><i class="fa fa-plus" aria-hidden="true"></i></span> Add Transport Schedule
+                        </a>
+                    </li>
+                    <li>
                         <a routerLink="/smart-cities/transport-schedule/search-schedule" routerLinkActive="active">
-                            <span class="iBlock"><i class="fa fa-calendar" aria-hidden="true"></i></span> Transport Schedule
+                            <span class="iBlock"><i class="fa fa-search" aria-hidden="true"></i></span> Search Transport Schedule
                         </a>
                     </li>
                     <li>
