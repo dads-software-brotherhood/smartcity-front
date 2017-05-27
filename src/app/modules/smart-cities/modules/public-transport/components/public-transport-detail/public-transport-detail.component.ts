@@ -27,15 +27,11 @@ import { TransportSchedule } from '../../../../../../core/models/transport-sched
 })
 export class PublicTransportDetailComponent implements OnInit {
 
-  dateModified;
-  dateCreated;
-
   complexForm: FormGroup;
 
   fuelTypes: Array<PublicTransportFuelType>;
   schedules: Array<TransportSchedule>;
 
-  model: any;
   searching = false;
   searchFailed = false;
   selected = false;
@@ -57,11 +53,12 @@ export class PublicTransportDetailComponent implements OnInit {
       'modelName': [null, Validators.required],
       'passengersTotal': [null, Validators.nullValidator],
       'idFuelType': ['-1', CustomValidators.notEqual('-1')],
-      'fuelConsumption': [null, Validators.required],
-      'height': [null, Validators.required],
-      'width': [null, Validators.required],
-      'depth': [null, Validators.required],
-      'weight': [null, Validators.required],
+      'fuelConsumption': [null, Validators.nullValidator],
+      'height': [null, Validators.nullValidator],
+      'width': [null, Validators.nullValidator],
+      'depth': [null, Validators.nullValidator],
+      'weight': [null, Validators.nullValidator],
+      'model': [null, Validators.nullValidator],
       'schedulesCount': [0, CustomValidators.notEqual('0')]
     });
 
@@ -83,10 +80,12 @@ export class PublicTransportDetailComponent implements OnInit {
     text$
       .debounceTime(300)
       .distinctUntilChanged()
-      .do(() => this.searching = true)
+      .do(() => {
+        this.searching = true;
+        this.searchFailed = false;
+      })
       .switchMap(term =>
         this.searchSchedule(term)
-            .do(() => this.searchFailed = false)
             .catch(() => {
               this.searchFailed = true;
               return Observable.of([]);
@@ -105,6 +104,8 @@ export class PublicTransportDetailComponent implements OnInit {
       .map(res => {
         this.schedules = res;
 
+        this.searchFailed = res.length === 0;
+
         const tmp: Array<string> = [];
 
         for (let i = 0; i < res.length; i++) {
@@ -122,14 +123,49 @@ export class PublicTransportDetailComponent implements OnInit {
   onAddButton() {
     this.selected = false;
 
-    console.log(this.model);
+    const model = this.complexForm.controls['model'].value;
 
-    for (let i = 0; i < this.schedules.length; i++) {
-      if (this.schedules[i].routeName === this.model) {
-        console.log(this.schedules[i]);
-        break;
+    if (model) {
+      let transportSchedule: TransportSchedule = null;
+
+      for (let i = 0; i < this.schedules.length; i++) {
+        if (this.schedules[i].routeName === model) {
+          transportSchedule = this.schedules[i];
+          break;
+        }
       }
+
+      if (transportSchedule) {
+        let already = false;
+
+        for (let i = 0; i < this.publicTransport.transportSchedules.length; i++) {
+          if (this.publicTransport.transportSchedules[i].id === transportSchedule.id) {
+            already = true;
+            break;
+          }
+        }
+
+        if (!already) {
+          this.publicTransport.transportSchedules.push(transportSchedule);
+        } else {
+          console.log('Already added');
+        }
+      } else {
+        console.log('Transpor schedule not found');
+      }
+    } else {
+      console.log('Model not found');
+    }
+
+  }
+
+  onDeleteButton(index: number) {
+    if (index >= 0 && index < this.publicTransport.transportSchedules.length) {
+      this.publicTransport.transportSchedules.splice(index, 1);
     }
   }
 
+  submitForm(form: any) {
+
+  }
 }

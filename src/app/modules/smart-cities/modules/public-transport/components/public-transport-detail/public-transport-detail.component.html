@@ -1,180 +1,196 @@
 <div class="row">
   <div class="col-md-12">
-    <h2>New Transport</h2>
+    <h2>
+      <span *ngIf="!publicTransport.id">New Transport</span>
+      <span *ngIf="publicTransport.id">Edit Transport</span>
+    </h2>
     <hr class="title-hr">
 
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <label for="name">Name *</label>
-          <input id="name" type="text"  class="form-control" placeholder="Name"/>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="brandName">Brand name *</label>
-          <input id="brandName" type="text"  class="form-control" placeholder="Brand name"/>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="modelName">Model name *</label>
-          <input id="modelName" type="text"  class="form-control" placeholder="Model name"/>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="passengersTotal">Passengers total</label>
-          <input id="passengersTotal" type="text"  class="form-control" placeholder="Passengers total"/>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="fuelType">Fuel type *</label>
-          <select id="fuelType" class="form-control">
-            <option *ngFor="let fuelType of fuelTypes" value="{{ fuelType.id }}">{{ fuelType.name }}</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="fuelConsumption">Fuel consumption lts/km</label>
-          <input id="fuelConsumption" type="text"  class="form-control" placeholder="Fuel consumption lts/km"/>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="height">Height</label>
-          <input id="height" type="number"  class="form-control" placeholder="Height"/>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="width">Width</label>
-          <input id="width" type="number"  class="form-control" placeholder="Width"/>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="depth">Depth</label>
-          <input id="depth" type="text"  class="form-control" placeholder="Depth"/>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="weight">Weight</label>
-          <input id="weight" type="number"  class="form-control" placeholder="Weight"/>
-        </div>
-      </div>
-
-      <div class="col-md-3 col-sm-6">
-        <div class="form-group">
-          <label for="dateModified">Date modified</label>
-          <div class="input-group">
-            <span class="form-control">{{ publicTransport.dateModified }}</span>
+    <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
+      <div class="row">
+        <div class="col">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['name'].valid && complexForm.controls['name'].touched}">
+            <label for="name">Name *</label>
+            <input id="name" type="text"  class="form-control" placeholder="Name" [formControl]="complexForm.controls['name']"/>
+            <div *ngIf="complexForm.controls['name'].hasError('required') && complexForm.controls['name'].touched" class="alert alert-danger" i18n>The name is required</div>
           </div>
         </div>
       </div>
 
-      <div class="col-md-3 col-sm-6">
-        <div class="form-group">
-          <label for="dateCreated">Date created</label>
-          <div class="input-group">
-            <span class="form-control">{{ publicTransport.dateCreated }}</span>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['brandName'].valid && complexForm.controls['brandName'].touched}">
+            <label for="brandName">Brand name *</label>
+            <input id="brandName" type="text"  class="form-control" placeholder="Brand name" [formControl]="complexForm.controls['brandName']"/>
+            <div *ngIf="complexForm.controls['brandName'].hasError('required') && complexForm.controls['brandName'].touched" class="alert alert-danger" i18n>The brand name is required</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['modelName'].valid && complexForm.controls['modelName'].touched}">
+            <label for="modelName">Model name *</label>
+            <input id="modelName" type="text"  class="form-control" placeholder="Model name" [formControl]="complexForm.controls['modelName']"/>
+            <div *ngIf="complexForm.controls['modelName'].hasError('required') && complexForm.controls['modelName'].touched" class="alert alert-danger" i18n>The model name is required</div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="description">Description</label>
-          <input id="description" type="text"  class="form-control" placeholder="Description"/>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="passengersTotal">Passengers total</label>
+            <input id="passengersTotal" type="text"  class="form-control" placeholder="Passengers total" [formControl]="complexForm.controls['passengersTotal']"/>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['idFuelType'].valid && complexForm.controls['idFuelType'].touched}">
+            <label for="fuelType">Fuel type *</label>
+            <select id="fuelType" class="form-control" [formControl]="complexForm.controls['idFuelType']">
+              <option value="-1" disabled>select</option>
+              <option *ngFor="let fuelType of fuelTypes" value="{{ fuelType.id }}">{{ fuelType.name }}</option>
+            </select>
+            <div *ngIf="complexForm.controls['idFuelType'].hasError('notEqual') && complexForm.controls['idFuelType'].touched" class="alert alert-danger" i18n>The fuel type is required</div>
+          </div>
         </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="form-group" [class.has-danger]="searchFailed">
-          <label for="transportSchedule">Transport schedule</label>
-          <input id="typeahead-http" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" placeholder="Transport schedule search" [editable]="false" (change)="onChange()" />
-          <span *ngIf="searching">searching...</span>
-          <div class="form-control-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="fuelConsumption">Fuel consumption lts/km</label>
+            <input id="fuelConsumption" type="text"  class="form-control" placeholder="Fuel consumption lts/km" [formControl]="complexForm.controls['fuelConsumption']"/>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-6 offset-md-6">
-        <div class="form-group">
-          <button type="button" class="btn btn-smart btn-block" (click)="onAddButton()" [disabled]="!selected" >Add schedule</button>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="height">Height</label>
+            <input id="height" type="number"  class="form-control" placeholder="Height" [formControl]="complexForm.controls['height']"/>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col">
-        <div class="table-responsive">
-          <table class="table">
-            <thead class="thead-default">
-              <tr>
-                <th>Name</th>
-                <th>Route name</th>
-                <th>Weekdays</th>
-                <th>Departure time</th>
-                <th>Arrival time</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                  <a class="btn btn-danger" ngbTooltip="Delete" placement="top">
-                    <i aria-hidden="true" class="fa fa-trash"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="width">Width</label>
+            <input id="width" type="number"  class="form-control" placeholder="Width" [formControl]="complexForm.controls['width']"/>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-3 offset-md-6">
-        <div class="form-group">
-          <button type="submit" class="btn btn-smart btn-block" >Save</button>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="depth">Depth</label>
+            <input id="depth" type="text"  class="form-control" placeholder="Depth" [formControl]="complexForm.controls['depth']"/>
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <button type="submit" class="btn btn-danger btn-block" >Cancel</button>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="weight">Weight</label>
+            <input id="weight" type="number"  class="form-control" placeholder="Weight" [formControl]="complexForm.controls['weight']"/>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="form-group">
+            <label for="dateModified">Date modified</label>
+            <div class="input-group">
+              <span class="form-control">{{ publicTransport.dateModified }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="form-group">
+            <label for="dateCreated">Date created</label>
+            <div class="input-group">
+              <span class="form-control">{{ publicTransport.dateCreated }}</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input id="description" type="text"  class="form-control" placeholder="Description" [formControl]="complexForm.controls['description']"/>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group" [class.has-danger]="searchFailed">
+            <label for="transportSchedule">Transport schedule</label>
+            <input id="typeahead-http" type="text" class="form-control" [formControl]="complexForm.controls['model']" [ngbTypeahead]="search" placeholder="Transport schedule search" [editable]="false" (change)="onChange()" />
+            <span *ngIf="searching">searching...</span>
+            <div class="form-control-feedback" *ngIf="searchFailed">Sorry, transport schedule don't found</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 offset-md-6">
+          <div class="form-group">
+            <button type="button" class="btn btn-smart btn-block" (click)="onAddButton()" [disabled]="!selected" >Add schedule</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="publicTransport || publicTransport.transportSchedules">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-default">
+                <tr>
+                  <th>Route name</th>
+                  <th>Weekdays</th>
+                  <th>Frequency</th>
+                  <th>Agency</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let schedule of publicTransport.transportSchedules; let i = index">
+                  <td>{{ schedule.routeName }}</td>
+                  <td>
+                    <span *ngFor="let weekday of schedule.weekDays; let l = last">
+                      {{ weekday.dayName }}<span *ngIf="!l">, </span>
+                    </span>
+                  </td>
+                  <td>
+                    <span *ngIf="schedule.frequency.hour != 0" >{{ schedule.frequency.hour | number: '2.0' }}:</span><span>{{ schedule.frequency.minute | number: '2.0' }}</span>
+                    <span *ngIf="schedule.frequency.hour != 0" >hrs</span>
+                    <span *ngIf="schedule.frequency.hour == 0" >min</span>
+                  </td>
+                  <td>{{ schedule.agency.name }}</td>
+                  <td>
+                    <a class="btn btn-danger" ngbTooltip="Delete" placement="top" (click)="onDeleteButton(i)">
+                      <i aria-hidden="true" class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 offset-md-6">
+          <div class="form-group">
+            <button type="submit" class="btn btn-smart btn-block" [disabled]="!complexForm.valid" >Save</button>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <button type="submit" class="btn btn-danger btn-block" >Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
 
   </div>
 </div>
