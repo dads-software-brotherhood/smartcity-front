@@ -26,6 +26,18 @@ export class TransportScheduleService {
       .map((res: Response) => res = res.json());
   }
 
+  public findByRouteName(routeName: string):Observable<Array<TransportSchedule>> {
+    if (routeName == null || routeName === '') {
+      return Observable.of([]);
+    } else {
+      const urLSearchParams: URLSearchParams = new URLSearchParams();
+      urLSearchParams.append('routeName', routeName);
+
+      return this.remoteConnectionService.getAsObservable(baseGetUserUrl, null, null, urLSearchParams)
+        .map((res: Response) => res = res.json());
+    }
+  }
+
   public findByQueries(routeName: string, frequency: Time, idAgency: string,
       page: number, size: number): Observable<Paginable> {
     const urLSearchParams: URLSearchParams = new URLSearchParams();

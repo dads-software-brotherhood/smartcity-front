@@ -1,187 +1,180 @@
- <div class="row">
-    <div class="col-md-12">
-      <h2>New Transport</h2>
-      <hr class="title-hr">
-      
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <label for="">Name *</label>
-            <input type="text"  class="form-control" placeholder="Name"/>
-          </div>
+<div class="row">
+  <div class="col-md-12">
+    <h2>New Transport</h2>
+    <hr class="title-hr">
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input id="name" type="text"  class="form-control" placeholder="Name"/>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Brand name *</label>
-            <input type="text"  class="form-control" placeholder="Brand name"/>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Model name *</label>
-            <input type="text"  class="form-control" placeholder="Model name"/>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Passengers total</label>
-            <input type="text"  class="form-control" placeholder="Passengers total"/>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Fuel type *</label>
-            <select class="form-control">
-              <option>GAs</option>
-            </select>
-          </div>
-        </div>
-      </div>
-        
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Fuel consumption lts/km</label>
-            <input type="text"  class="form-control" placeholder="Fuel consumption lts/km"/>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Height</label>
-            <input type="number"  class="form-control" placeholder="Height"/>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">width</label>
-            <input type="number"  class="form-control" placeholder="width"/>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Depth</label>
-            <input type="text"  class="form-control" placeholder="Depth"/>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">weight</label>
-            <input type="number"  class="form-control" placeholder="weight"/>
-          </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6">
-          <div class="form-group">
-            <label for="">Date modified</label>
-            <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd"
-                name="dp" [(ngModel)]="dateModified" ngbDatepicker #a="ngbDatepicker">
-              <div class="input-group-addon" (click)="a.toggle()" >
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6">
-          <div class="form-group">
-            <label for="">Date created</label>
-            <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd"
-                name="dp" [(ngModel)]="dateCreated" ngbDatepicker #d="ngbDatepicker">
-              <div class="input-group-addon" (click)="d.toggle()" >
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Description</label>
-            <input type="text"  class="form-control" placeholder="Description"/>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Transport schedule</label>
-            <input type="text"  class="form-control" placeholder="Transport schedule"/>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 offset-md-6">
-          <div class="form-group">
-            <button type="submit" class="btn btn-smart btn-block" >Add schedule</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="table-responsive">
-            <table class="table">
-              <thead class="thead-default">
-                <tr>
-                  <th>Name</th>
-                  <th>Route name</th>
-                  <th>Weekdays</th>
-                  <th>Departure time</th>
-                  <th>Arrival time</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <a class="btn btn-danger" ngbTooltip="Delete" placement="top">
-                      <i aria-hidden="true" class="fa fa-trash"></i>
-                    </a>
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3 offset-md-6">
-          <div class="form-group">
-            <button type="submit" class="btn btn-smart btn-block" >Save</button>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group">
-            <button type="submit" class="btn btn-danger btn-block" >Cancel</button>
-          </div>
-        </div>
-      </div>
-
     </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="brandName">Brand name *</label>
+          <input id="brandName" type="text"  class="form-control" placeholder="Brand name"/>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="modelName">Model name *</label>
+          <input id="modelName" type="text"  class="form-control" placeholder="Model name"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="passengersTotal">Passengers total</label>
+          <input id="passengersTotal" type="text"  class="form-control" placeholder="Passengers total"/>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="fuelType">Fuel type *</label>
+          <select id="fuelType" class="form-control">
+            <option *ngFor="let fuelType of fuelTypes" value="{{ fuelType.id }}">{{ fuelType.name }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="fuelConsumption">Fuel consumption lts/km</label>
+          <input id="fuelConsumption" type="text"  class="form-control" placeholder="Fuel consumption lts/km"/>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="height">Height</label>
+          <input id="height" type="number"  class="form-control" placeholder="Height"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="width">Width</label>
+          <input id="width" type="number"  class="form-control" placeholder="Width"/>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="depth">Depth</label>
+          <input id="depth" type="text"  class="form-control" placeholder="Depth"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="weight">Weight</label>
+          <input id="weight" type="number"  class="form-control" placeholder="Weight"/>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="form-group">
+          <label for="dateModified">Date modified</label>
+          <div class="input-group">
+            <span class="form-control">{{ publicTransport.dateModified }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="form-group">
+          <label for="dateCreated">Date created</label>
+          <div class="input-group">
+            <span class="form-control">{{ publicTransport.dateCreated }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input id="description" type="text"  class="form-control" placeholder="Description"/>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group" [class.has-danger]="searchFailed">
+          <label for="transportSchedule">Transport schedule</label>
+          <input id="typeahead-http" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" placeholder="Transport schedule search" [editable]="false" (change)="onChange()" />
+          <span *ngIf="searching">searching...</span>
+          <div class="form-control-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 offset-md-6">
+        <div class="form-group">
+          <button type="button" class="btn btn-smart btn-block" (click)="onAddButton()" [disabled]="!selected" >Add schedule</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-default">
+              <tr>
+                <th>Name</th>
+                <th>Route name</th>
+                <th>Weekdays</th>
+                <th>Departure time</th>
+                <th>Arrival time</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <a class="btn btn-danger" ngbTooltip="Delete" placement="top">
+                    <i aria-hidden="true" class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 offset-md-6">
+        <div class="form-group">
+          <button type="submit" class="btn btn-smart btn-block" >Save</button>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <button type="submit" class="btn btn-danger btn-block" >Cancel</button>
+        </div>
+      </div>
+    </div>
+
   </div>
+</div>
