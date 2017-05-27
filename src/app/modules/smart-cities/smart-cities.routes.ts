@@ -9,14 +9,12 @@ import { HomeSmartCitiesComponent } from './components/home-smart-cities/home-sm
 import { LoggedInGuard } from '../../core/services/login/logged-in.guard';
 import { LoggedInAdminGuard } from '../../core/services/login/logged-in-admin.guard';
 
-import { PublicTransportComponent } from './components/public-transport/public-transport.component';
-import { PublicTransportDetailComponent } from './components/public-transport/public-transport-detail.component';
-
 import { UserManagerRoutes } from './modules/user-manager/index';
 import { UserVehicleRoutes } from './modules/user-vehicle/index';
 import { GroupRoutes } from './modules/group/index';
 import { VehicleTypesRoutes } from './modules/vehicle-type/index';
 import { TransportScheduleRoutes } from './modules/transport-schedule/index';
+import { PublicTransportRoutes } from './modules/public-transport/index';
 
 export const SmartCitiesRoutes: Routes = [
   {
@@ -24,8 +22,6 @@ export const SmartCitiesRoutes: Routes = [
     component: SmartCitiesComponent,
     canActivate: [ LoggedInGuard ],
     children: [
-      { path: 'transports', component: PublicTransportComponent, canActivate: [ LoggedInGuard, LoggedInAdminGuard ]},
-      { path: 'transport', component: PublicTransportDetailComponent, canActivate: [ LoggedInGuard, LoggedInAdminGuard ]},
       { path: '', component: HomeSmartCitiesComponent, canActivate: [ LoggedInGuard ]},
       ... UserAccountRoutes,
       ... NotificationRoutes,
@@ -33,7 +29,8 @@ export const SmartCitiesRoutes: Routes = [
       ... UserVehicleRoutes,
       ... GroupRoutes,
       ... VehicleTypesRoutes,
-      ... TransportScheduleRoutes
+      ... TransportScheduleRoutes,
+      ... PublicTransportRoutes
     ]
   }
 ];

@@ -18,14 +18,13 @@ import { UserAccountModule } from './modules/user-account/user-account.module';
 import { NotificationModule } from './modules/notification/notification.module';
 
 import { ModalPopupModule  } from '../../usable-component/modal-popup/modalpopup.module';
-import { PublicTransportComponent } from './components/public-transport/public-transport.component';
-import { PublicTransportDetailComponent } from './components/public-transport/public-transport-detail.component';
 
 import { UserManagerModule } from './modules/user-manager/user-manager.module';
 import { UserVehicleModule } from './modules/user-vehicle/user-vehicle.module';
 import { GroupModule } from './modules/group/group.module';
 import { VehicleTypeModule } from './modules/vehicle-type/vehicle-type.module';
 import { TransportScheduleModule } from './modules/transport-schedule/transport-schedule.module';
+import { PublicTransportModule } from './modules/public-transport/public-transport.module';
 
 
 
@@ -45,13 +44,12 @@ import { TransportScheduleModule } from './modules/transport-schedule/transport-
     GroupModule,
     VehicleTypeModule,
     ModalPopupModule,
-    TransportScheduleModule
+    TransportScheduleModule,
+    PublicTransportModule
   ],
   declarations: [
     SmartCitiesComponent,
-    HomeSmartCitiesComponent,
-    PublicTransportComponent,
-    PublicTransportDetailComponent,
+    HomeSmartCitiesComponent
   ],
   exports: [
     SmartCitiesComponent
