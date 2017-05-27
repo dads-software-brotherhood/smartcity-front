@@ -8,7 +8,7 @@ export class PublicTransport {
   brandName: string;
   modelName: string;
   passengersTotal?: number;
-  publicTransportFuelType: PublicTransportFuelType;
+  fuelType: PublicTransportFuelType;
   fuelConsumption?: string;
   height?: number;
   width?: number;

@@ -13,6 +13,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
+import { PublicTransportService } from '../../../../../../core/services/public-transport/public-transport.service';
 import { PublicTransportFuelTypeService } from '../../../../../../core/services/public-transport/public-transport-fuel-type.service';
 import { TransportScheduleService } from '../../../../../../core/services/public-transport/transport-schedule.service';
 import { LoginService } from '../../../../../../core/services/login/login.service';
@@ -36,9 +37,14 @@ export class PublicTransportDetailComponent implements OnInit {
   searchFailed = false;
   selected = false;
 
+  edit: boolean;
+  unSaved = false;
+
   publicTransport: PublicTransport;
 
-  constructor(private publicTransportFuelTypeService: PublicTransportFuelTypeService,
+  constructor(private loginService: LoginService,
+      private publicTransportFuelTypeService: PublicTransportFuelTypeService,
+      private publicTransportService: PublicTransportService,
       private transportScheduleService: TransportScheduleService,
       private router: Router,
       private route: ActivatedRoute, fb: FormBuilder) {
@@ -67,11 +73,53 @@ export class PublicTransportDetailComponent implements OnInit {
   ngOnInit() {
     try {
       this.publicTransportFuelTypeService.getAll().subscribe(
-        fuelTypes => this.fuelTypes = fuelTypes
+        fuelTypes => {
+          this.fuelTypes = fuelTypes;
+
+          this.route.params.subscribe((params: Params) => {
+            const id  = params['id'];
+
+            if (id) {
+              this.edit = true;
+
+              this.publicTransportService.findById(id).subscribe(
+                publicTransport => {
+                  this.publicTransport = publicTransport;
+
+                  this.complexForm.controls['name'].setValue(publicTransport.name);
+                  this.complexForm.controls['description'].setValue(publicTransport.description);
+                  this.complexForm.controls['brandName'].setValue(publicTransport.brandName);
+                  this.complexForm.controls['modelName'].setValue(publicTransport.modelName);
+                  this.complexForm.controls['passengersTotal'].setValue(publicTransport.passengersTotal);
+
+                  if (publicTransport.fuelType) {
+                    this.complexForm.controls['idFuelType'].setValue(publicTransport.fuelType.id);
+                  }
+
+                  this.complexForm.controls['fuelConsumption'].setValue(publicTransport.fuelConsumption);
+                  this.complexForm.controls['height'].setValue(publicTransport.height);
+                  this.complexForm.controls['width'].setValue(publicTransport.width);
+                  this.complexForm.controls['depth'].setValue(publicTransport.depth);
+                  this.complexForm.controls['weight'].setValue(publicTransport.weight);
+
+                  if (!this.loginService.isSA() && this.loginService.getLoggedUser().id !== this.publicTransport.creatorId) {
+                    this.unSaved = true;
+
+                    alert('No puedes');
+                  }
+
+                }
+              );
+            } else {
+              this.edit = false;
+            }
+
+          });
+        }
       );
     } catch (e) {
       this.fuelTypes = [];
-      console.error('Error at retrieve fuel types');
+      console.error('Error at load data');
       console.error(e);
     }
   }
@@ -166,6 +214,56 @@ export class PublicTransportDetailComponent implements OnInit {
   }
 
   submitForm(form: any) {
+    this.publicTransport.name = form.name;
+    this.publicTransport.description = form.description;
+    this.publicTransport.brandName = form.brandName;
+    this.publicTransport.modelName = form.modelName;
+    this.publicTransport.passengersTotal = form.passengersTotal;
+    this.publicTransport.fuelConsumption = form.fuelConsumption;
+    this.publicTransport.height = form.height;
+    this.publicTransport.width = form.width;
+    this.publicTransport.depth = form.depth;
+    this.publicTransport.weight = form.weight;
 
+    const idFuelType = form.idFuelType;
+
+    for (let i = 0; i < this.fuelTypes.length; i++) {
+      if (this.fuelTypes[i].id + '' === idFuelType) {
+        this.publicTransport.fuelType = this.fuelTypes[i];
+        break;
+      }
+    }
+
+    if (!this.publicTransport.fuelType) {
+      alert('Can\'t find fuel type ');
+      return;
+    }
+
+    try {
+      if (this.publicTransport.id) {
+        this.publicTransportService.update(this.publicTransport).subscribe(
+          (res) => {
+            alert('All OK');
+          }
+        );
+      } else {
+        this.publicTransportService.insert(this.publicTransport).subscribe(
+          (res) => {
+            alert('All OK');
+          }
+        );
+      }
+    } catch (e) {
+      console.error('Error at save');
+      console.error(e);
+    }
+  }
+
+  onBack() {
+    if (this.edit) {
+      this.router.navigate(['/smart-cities']);
+    } else {
+      this.router.navigate(['/smart-cities/public-transport/manager']);
+    }
   }
 }

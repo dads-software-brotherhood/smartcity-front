@@ -35,6 +35,7 @@ import { GroupProfileService } from './core/services/user-profile/group-profile.
 import { AgencyService } from './core/services/public-transport/agency.service';
 import { TransportScheduleService } from './core/services/public-transport/transport-schedule.service';
 import { PublicTransportFuelTypeService } from './core/services/public-transport/public-transport-fuel-type.service';
+import { PublicTransportService } from './core/services/public-transport/public-transport.service';
 
 // Guards para los routes
 import { LoggedInGuard } from './core/services/login/logged-in.guard';
@@ -89,7 +90,8 @@ import { appRoutes } from './app.routes';
     GroupProfileService,
     AgencyService,
     TransportScheduleService,
-    PublicTransportFuelTypeService
+    PublicTransportFuelTypeService,
+    PublicTransportService
   ],
   bootstrap: [AppComponent]
 })
