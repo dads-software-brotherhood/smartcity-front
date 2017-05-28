@@ -124,7 +124,7 @@
         <div class="col-md-6">
           <div class="form-group" [class.has-danger]="searchFailed">
             <label for="transportSchedule">Transport schedule</label>
-            <input id="typeahead-http" type="text" class="form-control" [formControl]="complexForm.controls['model']" [ngbTypeahead]="search" placeholder="Transport schedule search" [editable]="false" (change)="onChange()" />
+            <input id="typeahead-http" type="text" class="form-control" [formControl]="complexForm.controls['model']" [ngbTypeahead]="search" placeholder="Transport schedule search" [editable]="false" />
             <span *ngIf="searching">searching...</span>
             <div class="form-control-feedback" *ngIf="searchFailed">Sorry, transport schedule don't found</div>
           </div>
@@ -134,7 +134,7 @@
       <div class="row">
         <div class="col-md-6 offset-md-6">
           <div class="form-group">
-            <button type="button" class="btn btn-smart btn-block" (click)="onAddButton()" [disabled]="!selected" >Add schedule</button>
+            <button type="button" class="btn btn-smart btn-block" (click)="onAddButton()" >Add schedule</button>
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let schedule of publicTransport.transportSchedules; let i = index">
+                <tr *ngFor="let schedule of publicTransport.transportSchedules | paginate: { itemsPerPage: 5, currentPage: p }">
                   <td>{{ schedule.routeName }}</td>
                   <td>
                     <span *ngFor="let weekday of schedule.weekDays; let l = last">
@@ -167,12 +167,19 @@
                   </td>
                   <td>{{ schedule.agency.name }}</td>
                   <td>
-                    <a class="btn btn-danger" ngbTooltip="Delete" placement="top" (click)="onDeleteButton(i)">
+                    <a class="btn btn-danger" ngbTooltip="Delete" placement="top" (click)="onDeleteButton(schedule.index)">
                       <i aria-hidden="true" class="fa fa-trash"></i>
                     </a>
                   </td>
                 </tr>
               </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="5"align="center">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </td>
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>

@@ -9,4 +9,5 @@ export class TransportSchedule {
   frequency: Time;
   agency: Agency;
   creatorId: string;
+  index?: number;
 }

@@ -35,7 +35,6 @@ export class PublicTransportDetailComponent implements OnInit {
 
   searching = false;
   searchFailed = false;
-  selected = false;
 
   edit: boolean;
   unSaved = false;
@@ -109,6 +108,8 @@ export class PublicTransportDetailComponent implements OnInit {
                   this.complexForm.controls['depth'].setValue(publicTransport.depth);
                   this.complexForm.controls['weight'].setValue(publicTransport.weight);
 
+                  this.fixIndex();
+
                   if (!this.loginService.isSA() && this.loginService.getLoggedUser().id !== this.publicTransport.creatorId) {
                     this.unSaved = true;
 
@@ -128,6 +129,14 @@ export class PublicTransportDetailComponent implements OnInit {
       this.fuelTypes = [];
       console.error('Error at load data');
       console.error(e);
+    }
+  }
+
+  private fixIndex() {
+    if (this.publicTransport.transportSchedules) {
+      for (let i = 0; i < this.publicTransport.transportSchedules.length; i++) {
+        this.publicTransport.transportSchedules[i].index = i;
+      }
     }
   }
 
@@ -153,8 +162,6 @@ export class PublicTransportDetailComponent implements OnInit {
   }
 
   private searchSchedule(term: string) {
-    this.selected = false;
-
     return this.transportScheduleService.findByRouteName(term)
       .map(res => {
         this.schedules = res;
@@ -171,13 +178,7 @@ export class PublicTransportDetailComponent implements OnInit {
       });
   }
 
-  onChange() {
-    this.selected = true;
-  }
-
   onAddButton() {
-    this.selected = false;
-
     const model = this.complexForm.controls['model'].value;
 
     if (model) {
@@ -212,6 +213,7 @@ export class PublicTransportDetailComponent implements OnInit {
       console.log('Model not found');
     }
 
+    this.fixIndex();
   }
 
   onDeleteButton(index: number) {
@@ -223,6 +225,7 @@ export class PublicTransportDetailComponent implements OnInit {
     if (this.indexDelete >= 0 && this.indexDelete < this.publicTransport.transportSchedules.length) {
       this.publicTransport.transportSchedules.splice(this.indexDelete, 1);
     }
+    this.fixIndex();
     this.showConfirmDialog = false;
   }
 
