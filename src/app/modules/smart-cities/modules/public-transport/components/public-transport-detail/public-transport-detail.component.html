@@ -194,3 +194,28 @@
 
   </div>
 </div>
+
+<modal-popup [(visible)]="showDialog" title="System Message">
+  {{messageModal}}
+  <hr/>
+  <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="onBack()">Accept</button>
+</modal-popup>
+
+<modal-popup [(visible)]="showConfirmDialog" title="System Message">
+  {{messageModal}}
+  <hr/>
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showConfirmDialog = false">Cancel</button>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="onDelete()">Accept</button>
+    </div>
+  </div>
+</modal-popup>
+
+<modal-popup [(visible)]="showErrorDialog" title="Error Message">
+  {{messageModal}}
+  <hr/>
+  <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="showErrorDialog = false">Accept</button>
+</modal-popup>

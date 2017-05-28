@@ -42,6 +42,13 @@ export class PublicTransportDetailComponent implements OnInit {
 
   publicTransport: PublicTransport;
 
+  showDialog = false;
+  showConfirmDialog = false;
+  showErrorDialog = false;
+  messageModal: string;
+
+  indexDelete: number;
+
   constructor(private loginService: LoginService,
       private publicTransportFuelTypeService: PublicTransportFuelTypeService,
       private publicTransportService: PublicTransportService,
@@ -105,7 +112,7 @@ export class PublicTransportDetailComponent implements OnInit {
                   if (!this.loginService.isSA() && this.loginService.getLoggedUser().id !== this.publicTransport.creatorId) {
                     this.unSaved = true;
 
-                    alert('No puedes');
+                    this.showErrorMessage('You can\'t edit this record');
                   }
 
                 }
@@ -208,9 +215,15 @@ export class PublicTransportDetailComponent implements OnInit {
   }
 
   onDeleteButton(index: number) {
-    if (index >= 0 && index < this.publicTransport.transportSchedules.length) {
-      this.publicTransport.transportSchedules.splice(index, 1);
+    this.indexDelete = index;
+    this.showConfirmMessage('Are your sure delete this transport schedule from the list');
+  }
+
+  onDelete() {
+    if (this.indexDelete >= 0 && this.indexDelete < this.publicTransport.transportSchedules.length) {
+      this.publicTransport.transportSchedules.splice(this.indexDelete, 1);
     }
+    this.showConfirmDialog = false;
   }
 
   submitForm(form: any) {
@@ -235,7 +248,7 @@ export class PublicTransportDetailComponent implements OnInit {
     }
 
     if (!this.publicTransport.fuelType) {
-      alert('Can\'t find fuel type ');
+      this.showErrorMessage('Can\'t find fuel type');
       return;
     }
 
@@ -243,27 +256,43 @@ export class PublicTransportDetailComponent implements OnInit {
       if (this.publicTransport.id) {
         this.publicTransportService.update(this.publicTransport).subscribe(
           (res) => {
-            alert('All OK');
+            this.showMessage('The information was successfully saved');
           }
         );
       } else {
         this.publicTransportService.insert(this.publicTransport).subscribe(
           (res) => {
-            alert('All OK');
+            this.showMessage('The information was successfully saved');
           }
         );
       }
     } catch (e) {
       console.error('Error at save');
       console.error(e);
+      this.showErrorMessage('There was a communication error, please try later.');
     }
   }
 
   onBack() {
     if (this.edit) {
-      this.router.navigate(['/smart-cities']);
-    } else {
       this.router.navigate(['/smart-cities/public-transport/manager']);
+    } else {
+      this.router.navigate(['/smart-cities']);
     }
+  }
+
+  private showMessage(message: string) {
+    this.messageModal = message;
+    this.showDialog = true;
+  }
+
+  private showConfirmMessage(message: string) {
+    this.messageModal = message;
+    this.showConfirmDialog = true;
+  }
+
+  private showErrorMessage(message: string) {
+    this.messageModal = message;
+    this.showErrorDialog = true;
   }
 }
