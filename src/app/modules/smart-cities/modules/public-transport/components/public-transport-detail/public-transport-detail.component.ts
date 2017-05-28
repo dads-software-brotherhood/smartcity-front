@@ -46,7 +46,7 @@ export class PublicTransportDetailComponent implements OnInit {
   showErrorDialog = false;
   messageModal: string;
 
-  indexDelete: number;
+  indexDelete: number = -1;
 
   constructor(private loginService: LoginService,
       private publicTransportFuelTypeService: PublicTransportFuelTypeService,
@@ -226,6 +226,7 @@ export class PublicTransportDetailComponent implements OnInit {
       this.publicTransport.transportSchedules.splice(this.indexDelete, 1);
     }
     this.fixIndex();
+    this.indexDelete = -1;
     this.showConfirmDialog = false;
   }
 
