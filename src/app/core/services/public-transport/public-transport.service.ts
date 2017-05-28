@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
+import { Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -42,9 +42,12 @@ export class PublicTransportService {
     return this.remoteConnectionService.putAsObservable(url, JSON.stringify(publicTransport), constants.contentTypeJson);
   }
 
-  public delete(id: string): Observable<any> {
+  public delete(id: string, removeReason: string): Observable<any> {
     const url = baseGetUserUrl + '/' + id;
 
-    return this.remoteConnectionService.deleteAsObservable(url);
+    const urlSearchParams: URLSearchParams = new URLSearchParams();
+    urlSearchParams.append('removeReason', removeReason);
+
+    return this.remoteConnectionService.deleteAsObservable(url, null, null, urlSearchParams);
   }
 }

@@ -218,7 +218,7 @@ export class PublicTransportDetailComponent implements OnInit {
 
   onDeleteButton(index: number) {
     this.indexDelete = index;
-    this.showConfirmMessage('Are your sure delete this transport schedule from the list');
+    this.showConfirmMessage('Are you sure you want to delete this schedule');
   }
 
   onDelete() {

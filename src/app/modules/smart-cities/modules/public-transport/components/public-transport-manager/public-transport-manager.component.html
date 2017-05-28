@@ -1,112 +1,142 @@
- <div class="row">
-    <div class="col-md-12">
-      <h2>Search public transport</h2>
-      <hr class="title-hr">
-      
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Name</label>
-            <input type="text"  class="form-control" placeholder="Name"/>
-          </div>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Search public transport</h2>
+    <hr class="title-hr">
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">Name</label>
+          <input type="text"  class="form-control" placeholder="Name"/>
         </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Route name</label>
-            <input type="text"  class="form-control" placeholder="Route name"/>
-          </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">Route name</label>
+          <input type="text"  class="form-control" placeholder="Route name"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">Weekdays</label>
+          <input type="text"  class="form-control" placeholder="Weekdays"/>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">Departure time</label>
+          <input type="text"  class="form-control" placeholder="Departure time"/>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">Arrival time</label>
+          <input type="text"  class="form-control" placeholder="Arrival time"/>
+        </div>
+      </div>
+      <div class="col-md-3 ">
+        <div class="form-group">
+          <span class="labelHidden"></span>
+          <button type="submit" class="btn btn-smart btn-block" > Clear </button>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Weekdays</label>
-            <input type="text"  class="form-control" placeholder="Weekdays"/>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Departure time</label>
-            <input type="text"  class="form-control" placeholder="Departure time"/>
-          </div>
+      <div class="col-md-3 ">
+        <div class="form-group">
+          <span class="labelHidden"></span>
+          <button [routerLink]="['/smart-cities/transport', '']" type="submit" class="btn btn-smart btn-block" > Search </button>
         </div>
       </div>
 
-      
-      <div class="row">
-        
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="">Arrival time</label>
-            <input type="text"  class="form-control" placeholder="Arrival time"/>
-          </div>
-        </div>
-        <div class="col-md-3 ">
-          <div class="form-group">
-            <span class="labelHidden"></span>
-            <button type="submit" class="btn btn-smart btn-block" > Clear </button>
-          </div>
-        </div>
-
-        <div class="col-md-3 ">
-          <div class="form-group">
-            <span class="labelHidden"></span>
-            <button [routerLink]="['/smart-cities/transport', '']" type="submit" class="btn btn-smart btn-block" > Search </button>
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="form-group">
-            <hr class="subTitle-hr">
-          </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <hr class="subTitle-hr">
         </div>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <table class="table ">
-              <thead class="thead-default">
-                  <tr>
-                      <th>Name</th>
-                      <th>Route name</th>
-                      <th>Weekdays</th>
-                      <th>Departure time</th>
-                      <th>Arrival time</th>
-                      <th></th>
-                      <th></th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr >
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <a class="btn btn-smart" ngbTooltip="Edit" placement="top">
-                          <i aria-hidden="true" class="fa fa-pencil"></i>
-                        </a>
-                      </td>
-                      <td>
-                        <a class="btn btn-danger" ngbTooltip="Delete" placement="top">
-                          <i aria-hidden="true" class="fa fa-trash"></i>
-                        </a>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table ">
+          <thead class="thead-default">
+            <tr>
+              <th>Name</th>
+              <th>Route name</th>
+              <th>Weekdays</th>
+              <th>Frequency</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let publicTransport of publicTransports | paginate: { itemsPerPage: 5, currentPage: p }">
+              <td>{{ publicTransport.name }}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <a class="btn btn-smart" ngbTooltip="Edit" placement="top" [class.disabled]="disableLink(publicTransport.creatorId)" routerLink="/smart-cities/public-transport/detail/{{ publicTransport.id }}" routerLinkActive="active">
+                  <i aria-hidden="true" class="fa fa-pencil"></i>
+                </a>
+              </td>
+              <td>
+                <a class="btn btn-danger" ngbTooltip="Delete" placement="top" [class.disabled]="disableLink(publicTransport.creatorId)" (click)="onPreDelete(publicTransport.id)">
+                  <i aria-hidden="true" class="fa fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="6" align="center">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 offset-md-6">
+        <div class="form-group">
+          <button type="submit" class="btn btn-danger btn-block" routerLink="/smart-cities" routerLinkActive="active"> Cancel </button>
         </div>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col-md-6 offset-md-6">
-          <div class="form-group">
-            <button type="submit" class="btn btn-danger btn-block" > Cancel </button>
-          </div>
-        </div>
-      </div>
+  </div>
+</div>
 
+<modal-popup [(visible)]="showDialog" title="System Message">
+  {{messageModal}}
+  <hr/>
+  <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="showDialog = false">Accept</button>
+</modal-popup>
+
+<modal-popup [(visible)]="showConfirmDialog" title="System Message">
+  {{messageModal}}
+  <hr/>
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showConfirmDialog = false">Cancel</button>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="onDelete()">Accept</button>
     </div>
   </div>
+</modal-popup>
+
+<modal-popup [(visible)]="showErrorDialog" title="Error Message">
+  {{messageModal}}
+  <hr/>
+  <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="showErrorDialog = false">Accept</button>
+</modal-popup>
