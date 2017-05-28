@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { LoginService } from '../../../../../../core/services/login/login.service';
 import { PublicTransportService } from '../../../../../../core/services/public-transport/public-transport.service';
@@ -12,20 +14,27 @@ import { PublicTransport } from '../../../../../../core/models/public-transport'
 })
 export class PublicTransportManagerComponent implements OnInit {
 
+  complexForm: FormGroup;
+
   publicTransports: Array<PublicTransport>;
 
   userId: string;
   userSA: boolean;
 
   idDelete: string;
-  removeReason: string;
 
   showDialog = false;
   showConfirmDialog = false;
   showErrorDialog = false;
   messageModal: string;
 
-  constructor(private loginService: LoginService, private publicTransportService: PublicTransportService) { }
+  constructor(private loginService: LoginService,
+      private publicTransportService: PublicTransportService,
+      fb: FormBuilder) {
+    this.complexForm = fb.group({
+      'removeReason' : [null, [Validators.required, Validators.minLength(2), Validators.maxLength(200)]]
+    });
+  }
 
   ngOnInit() {
     try {
@@ -46,11 +55,11 @@ export class PublicTransportManagerComponent implements OnInit {
     this.showConfirmMessage('Are you sure you want to delete this transport?');
   }
 
-  onDelete() {
+  submitFormDelete(form: any) {
     this.showConfirmDialog = false;
 
     try {
-      this.publicTransportService.delete(this.idDelete, this.removeReason).subscribe(
+      this.publicTransportService.delete(this.idDelete, form.removeReason).subscribe(
         res => {
           this.deleteFromList(this.idDelete);
           this.showMessage('The information was successfully deleted');
