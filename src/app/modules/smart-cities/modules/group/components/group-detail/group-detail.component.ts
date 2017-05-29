@@ -183,9 +183,16 @@ export class GroupDetailComponent implements OnInit {
     this.router.navigate(["/smart-cities/group/groups"]);
   }
 
-  private beforeChange(event) {
-    console.log(event);
-    event.stopPropagation();
+  private beforeChange(target) {
+
+    if($(target).hasClass('show'))
+    {
+      $(target).removeClass('show');
+    }
+    else
+    {
+      $(target).addClass('show');
+    }
   };
 
   private afterChange(event) {

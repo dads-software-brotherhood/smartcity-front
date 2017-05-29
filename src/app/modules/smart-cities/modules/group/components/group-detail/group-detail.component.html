@@ -10,7 +10,8 @@
     <hr class="title-hr">
     <div class="row">
       <div class="col-md-12">
-        <p>Now, you can create a new group of alerts for users. You must add a name and from the list of types of alerts, you must select the types of alerts that the new group will receive</p>
+        <p>Now, you can create a new group of alerts for users. You must add a name and from the list of types of alerts, you
+          must select the types of alerts that the new group will receive</p>
       </div>
       <div class="col-md-12">
         <div class="form-group">
@@ -23,42 +24,49 @@
   </div>
   <div class="col-md-12">
     <div class="row">
-    <div class="card-block">
-      <ngb-accordion #acc="ngbAccordion">
-        <ngb-panel *ngFor="let notification of allNotificationTypes">
-          <template ngbPanelTitle>
-            <label class="form-check-label">
-                <input (click)="beforeChange($event)" (change)="afterChange($event)" class="form-check-input notification" name="notification" type="checkbox" [checked]="group.notificationIds != null && group.notificationIds?.indexOf(notification.id) !== -1"  value="{{notification.id}}">
-                {{notification.name}}
-              </label>
-
-          </template>
-          <template ngbPanelContent>
-            <div class="row">
-              <div class="col-md-4" *ngFor="let subnotification of notification.subnotifications">
-                <label>
-                        • {{subnotification}}
-                </label>
+      <div class="card-block">
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="card" *ngFor="let notification of allNotificationTypes">
+            <div class="card-header" style="padding:8px 40px" role="tab" id="headingOne">
+              <div class="row">
+              <h6 class="mb-0">
+                <input (change)="afterChange($event)" class="form-check-input notification" name="notification" type="checkbox" [checked]="group.notificationIds != null && group.notificationIds?.indexOf(notification.id) !== -1"  value="{{notification.id}}">
+                <a (click)="beforeChange('#card' + notification.id)" data-toggle="collapse" data-parent="#accordion" [routerLink]="['./']" aria-expanded="true"
+                  aria-controls="collapseOne">
+              {{notification.name}}
+              </a>
+              </h6>
               </div>
             </div>
-          </template>
-        </ngb-panel>
-      </ngb-accordion>
-</div>
+
+            <div [attr.id]="'card' + notification.id"  class="collapse" role="tabpanel" aria-labelledby="headingOne">
+              <div class="card-block">
+                <div class="row">
+                <div class="col-md-4" *ngFor="let subnotification of notification.subnotifications">
+                  <label>
+                        • {{subnotification}}
+                </label>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="col-md-12">
-  <div class="row">
-    <div class="col-md-3 offset-md-6">
-      <div class="form-group">
-        <a [routerLink]="['/smart-cities/group/groups']" class="btn btn-danger btn-block" > Cancel </a>
+    <div class="row">
+      <div class="col-md-3 offset-md-6">
+        <div class="form-group">
+          <a [routerLink]="['/smart-cities/group/groups']" class="btn btn-danger btn-block"> Cancel </a>
+        </div>
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <button id="btnSave" [disabled]="enableSave()" class="btn btn-smart btn-block" (click)="save()"> Save </button>
+      <div class="col-md-3">
+        <div class="form-group">
+          <button id="btnSave" [disabled]="enableSave()" class="btn btn-smart btn-block" (click)="save()"> Save </button>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </div>
