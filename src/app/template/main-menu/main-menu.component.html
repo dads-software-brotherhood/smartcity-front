@@ -72,7 +72,7 @@
             </li>
 
             <a *ngIf="isSA || isTransportAdmin " class="list-group-item" (click)="addExpandshowPublicTransport('PublicTransport')" [ngClass]="{'expandMenu' : showMenuPublicTransport === 'PublicTransport' }">
-                <span class="iBlock"><i class="fa fa-train" aria-hidden="true"></i></span> Public Transport Manager <span class="fa fa-chevron-down right-chevron"></span>
+                <span class="iBlock"><i class="fa fa-train" aria-hidden="true"></i></span> Public Transport <span class="fa fa-chevron-down right-chevron"></span>
             </a>
 
             <li *ngIf="isSA || isTransportAdmin" class="nested" [ngClass]="{'expand' : showMenuPublicTransport === 'PublicTransport' }">
