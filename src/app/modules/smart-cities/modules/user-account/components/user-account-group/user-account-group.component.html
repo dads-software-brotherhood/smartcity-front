@@ -44,7 +44,12 @@
 </div>
 
 <div *ngIf="isLoaded" class="row">
-  <div class="col-lg-3 offset-lg-9 col-md-6 offset-md-6">
+  <div class="col-md-3 offset-md-6">
+    <div class="form-group">
+      <button routerLink="/smart-cities" type="submit" class="btn btn-danger btn-block" > Cancel </button>
+    </div>
+  </div>
+  <div class="col-md-3">
     <div class="form-group">
       <button class="btn btn-smart btn-block" (click)="save()"> Save </button>
     </div>
