@@ -128,9 +128,9 @@
 
   <form [formGroup]="complexForm" (ngSubmit)="submitFormDelete(complexForm.value)">
     <div class="row">
-      <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['removeReason'].valid && complexForm.controls['removeReason'].touched}">
-        <label for="">Remove reason *</label>
-        <div class="col">
+      <div class="col">
+        <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['removeReason'].valid && complexForm.controls['removeReason'].touched}">
+          <label for="">Remove reason *</label>
           <textarea class="form-control" [formControl]="complexForm.controls['removeReason']">
           </textarea>
         </div>
