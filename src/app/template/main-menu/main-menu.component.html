@@ -41,19 +41,22 @@
         <a routerLink="/smart-cities" routerLinkActive="active" class="list-group-item">
             <span class="iBlock"><i class="fa fa-home" aria-hidden="true"></i></span> Home
         </a>
-        <a routerLinkActive="active" (click)="onChangeLocation(0)" class="list-group-item" *ngIf="isUser">
+
+        <a *ngIf="isUser" routerLinkActive="active" (click)="onChangeLocation(0)" class="list-group-item" >
             <span class="iBlock"><i class="fa fa-bell" aria-hidden="true"></i></span> Alerts
         </a>
-        <a routerLink="/smart-cities/notification/notification-tray/0" routerLinkActive="active" class="list-group-item" *ngIf="isAdmin">
+
+        <a *ngIf="isAdmin" routerLink="/smart-cities/notification/notification-tray/0" routerLinkActive="active" class="list-group-item" >
             <span class="iBlock"><i class="fa fa-bell" aria-hidden="true"></i></span> Alerts
         </a>
-        <div class="nested-menu" *ngIf="isSA || isAdmin">
-            <a class="list-group-item" (click)="addExpandshowMenuManageSite('ManageSite')" [ngClass]="{'expandMenu' : showMenuManageSite === 'ManageSite' }">
+
+        <div *ngIf="isSA || isAdmin || isTransportAdmin" class="nested-menu">
+            <a *ngIf="isSA || isAdmin" class="list-group-item" (click)="addExpandshowMenuManageSite('ManageSite')" [ngClass]="{'expandMenu' : showMenuManageSite === 'ManageSite' }">
                 <span class="iBlock"><i class="fa fa-user" aria-hidden="true"></i></span> Manage site <span class="fa fa-chevron-down right-chevron"></span>
             </a>
-            <li class="nested" [ngClass]="{'expand' : showMenuManageSite === 'ManageSite' }">
+            <li *ngIf="isSA || isAdmin" class="nested" [ngClass]="{'expand' : showMenuManageSite === 'ManageSite' }">
                 <ul class="submenu">
-                    <a routerLink="/smart-cities/group/groups" routerLinkActive="active" *ngIf="isSA || isAdmin" class="list-group-item">
+                    <a routerLink="/smart-cities/group/groups" routerLinkActive="active" class="list-group-item">
                         <span class="iBlock"><i class="fa fa-users" aria-hidden="true"></i></span> Groups
                     </a>
 
@@ -61,44 +64,44 @@
                         <span class="iBlock"><i class="fa fa-check-square-o" aria-hidden="true"></i></span> Rules
                     </a>
 
-                    <a *ngIf="isSA || isAdmin" routerLink="/smart-cities/user-manager/user-manager-tray" routerLinkActive="active" class="list-group-item">
+                    <a routerLink="/smart-cities/user-manager/user-manager-tray" routerLinkActive="active" class="list-group-item">
                         <span class="iBlock"><i class="fa fa-user" aria-hidden="true"></i></span> User
                     </a>
 
                 </ul>
             </li>
 
-            <a *ngIf="isSA" class="list-group-item" (click)="addExpandshowPublicTransport('PublicTransport')" [ngClass]="{'expandMenu' : showMenuPublicTransport === 'PublicTransport' }">
+            <a *ngIf="isSA || isTransportAdmin " class="list-group-item" (click)="addExpandshowPublicTransport('PublicTransport')" [ngClass]="{'expandMenu' : showMenuPublicTransport === 'PublicTransport' }">
                 <span class="iBlock"><i class="fa fa-train" aria-hidden="true"></i></span> Public Transport Manager <span class="fa fa-chevron-down right-chevron"></span>
             </a>
 
-            <li class="nested" [ngClass]="{'expand' : showMenuPublicTransport === 'PublicTransport' }">
+            <li *ngIf="isSA || isTransportAdmin" class="nested" [ngClass]="{'expand' : showMenuPublicTransport === 'PublicTransport' }">
                 <ul class="submenu">
-                    <a routerLink="/smart-cities/public-transport/detail" routerLinkActive="active" *ngIf="isSA" class="list-group-item">
+                    <a routerLink="/smart-cities/public-transport/detail" routerLinkActive="active" class="list-group-item">
                         <span class="iBlock"><i class="fa fa-plus" aria-hidden="true"></i></span> Add Public Transport
                     </a>
-                    <a routerLink="/smart-cities/public-transport/manager" routerLinkActive="active" *ngIf="isSA" class="list-group-item">
+                    <a routerLink="/smart-cities/public-transport/manager" routerLinkActive="active"class="list-group-item">
                         <span class="iBlock"><i class="fa fa-search" aria-hidden="true"></i></span>Search Public Transport
                     </a>
                 </ul>
             </li>
 
 
-            <a routerLink="/smart-cities/devices" routerLinkActive="active" *ngIf="isSA || isAdmin" class="list-group-item">
+            <a *ngIf="isSA || isAdmin" routerLink="/smart-cities/devices" routerLinkActive="active" class="list-group-item">
                 <span class="iBlock"><i class="fa fa-wifi" aria-hidden="true"></i></span> Devices
             </a>
 
-            <a *ngIf="isSA" class="list-group-item" (click)="addExpandshowTransportSchedule('TransportSchedule')" [ngClass]="{'expandMenu' : showMenuTransportSchedule === 'TransportSchedule' }">
+            <a *ngIf="isSA || isTransportAdmin" class="list-group-item" (click)="addExpandshowTransportSchedule('TransportSchedule')" [ngClass]="{'expandMenu' : showMenuTransportSchedule === 'TransportSchedule' }">
                 <span class="iBlock"><i class="fa fa-clock-o" aria-hidden="true"></i></span>Transport Schedule <span class="fa fa-chevron-down right-chevron"></span>
             </a>
 
-            <li class="nested" [ngClass]="{'expand' : showMenuTransportSchedule === 'TransportSchedule' }">
+            <li *ngIf="isSA || isTransportAdmin" class="nested" [ngClass]="{'expand' : showMenuTransportSchedule === 'TransportSchedule' }">
                 <ul class="submenu">
-                    <a routerLink="/smart-cities/transport-schedule/add-schedule" routerLinkActive="active" *ngIf="isSA" class="list-group-item">
+                    <a routerLink="/smart-cities/transport-schedule/add-schedule" routerLinkActive="active" class="list-group-item">
                         <span class="iBlock"><i class="fa fa-plus" aria-hidden="true"></i></span> Add Transport Schedule
                     </a>
 
-                    <a routerLink="/smart-cities/transport-schedule/search-schedule" routerLinkActive="active" *ngIf="isSA" class="list-group-item">
+                    <a routerLink="/smart-cities/transport-schedule/search-schedule" routerLinkActive="active" class="list-group-item">
                         <span class="iBlock"><i class="fa fa-search" aria-hidden="true"></i></span> Search Transport Schedule
                     </a>
                 </ul>
@@ -109,57 +112,19 @@
 
 
 
-        <a routerLink="/smart-cities/notification/notification-user-tray/0" routerLinkActive="active" class="list-group-item" *ngIf="isUser">
+        <a *ngIf="isUser" routerLink="/smart-cities/notification/notification-user-tray/0" routerLinkActive="active" class="list-group-item" >
             <span class="iBlock"><i class="fa fa-flag" aria-hidden="true"></i></span> My Events
         </a>
-        <a routerLink="/smart-cities/user-account/user-group" routerLinkActive="active" class="list-group-item" *ngIf="isUser">
+        <a *ngIf="isUser" routerLink="/smart-cities/user-account/user-group" routerLinkActive="active" class="list-group-item" >
             <span class="iBlock"><i class="fa fa-users" aria-hidden="true"></i></span> Groups
         </a>
 
-        <a href="http://smartsdk-demo.citibrain.com/" target="_blank" class="list-group-item" *ngIf="isUser">
+        <a *ngIf="isUser" href="http://smartsdk-demo.citibrain.com/" target="_blank" class="list-group-item" >
             <span class="iBlock"><i class="fa fa-map" aria-hidden="true"></i></span> Maps
         </a>
-        <a href="http://routing.smartsdk.ubiwhere.com/" target="_new" class="list-group-item" *ngIf="isUser">
+        <a *ngIf="isUser" href="http://routing.smartsdk.ubiwhere.com/" target="_new" class="list-group-item" >
             <span class="iBlock"><i class="fa fa-map-marker" aria-hidden="true"></i></span> Generate Routes
         </a>
-
-
-        <div class="nested-menu2" *ngIf="isTransportAdmin">
-            <a class="list-group-item">
-                <span class="iBlock"><i class="fa fa-bus" aria-hidden="true"></i></span> Transport
-            </a>
-            <li class="nested">
-                <ul class="submenu">
-                    <li>
-                        <a routerLinkActive="active" *ngIf="false">
-                            <span class="iBlock"><i class="fa fa-car" aria-hidden="true"></i></span> Private transport
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="/smart-cities/transport-schedule/add-schedule" routerLinkActive="active">
-                            <span class="iBlock"><i class="fa fa-plus" aria-hidden="true"></i></span> Add Transport Schedule
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="/smart-cities/transport-schedule/search-schedule" routerLinkActive="active">
-                            <span class="iBlock"><i class="fa fa-search" aria-hidden="true"></i></span> Search Transport Schedule
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="/smart-cities/public-transport/manager" routerLinkActive="active">
-                            <span class="iBlock"><i class="fa fa-train" aria-hidden="true"></i></span> Public Transport Manager
-                        </a>
-                        <a routerLink="/smart-cities/public-transport/detail" routerLinkActive="active">
-                            <span class="iBlock"><i class="fa fa-train" aria-hidden="true"></i></span> Add Public Transport
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-
-        </div>
-
-
 
     </ul>
 </nav>
