@@ -126,7 +126,7 @@
                       <td>{{user.email}}</td>
                       <td>{{user.role}}</td>
                       <td>
-                        <a *ngIf="user.canDel==true" class="btn btn-danger"  ngbTooltip="Edit" placement="top">
+                        <a *ngIf="user.canDel==true" class="btn btn-danger"  ngbTooltip="Delete" placement="top">
                           <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;_user=user"></i>
                         </a>
                       </td>
