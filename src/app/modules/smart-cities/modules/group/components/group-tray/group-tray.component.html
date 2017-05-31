@@ -68,12 +68,12 @@
             <tbody>
               <tr *ngFor="let group of groups | paginate: { itemsPerPage: 4, currentPage: p }">
                 <td>{{group.group}}</td>
-                <td>
+                <td class="text-center btnSmall">
                   <a [routerLink]="['/smart-cities/group/group', group.id]" class="btn btn-smart" ngbtooltip="Edit" placement="top">
                     <i aria-hidden="true" class="fa fa-pencil"></i>
                   </a>
                 </td>
-                <td>
+                <td class="text-center btnSmall">
                   <!--<a class="btn btn-danger" ngbtooltip="Edit" placement="top">
                   <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objgroup=group"> </i>
                 </a>-->
@@ -90,6 +90,13 @@
       <div class="col-md-12">
         <div class="form-group">
           <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 offset-md-6">
+        <div class="form-group">
+          <button routerLink="/smart-cities" type="submit" class="btn btn-danger btn-block" > Cancel </button>
         </div>
       </div>
     </div>

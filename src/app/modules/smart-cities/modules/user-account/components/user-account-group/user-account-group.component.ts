@@ -85,7 +85,7 @@ export class UserAccountGroupComponent implements OnInit {
         if(JSON.stringify(groups) === JSON.stringify(this.groups)){
          // this.groupsCheck = groups;
          this.showDialog = true;
-          this.messageModal = 'The information was successfuly saved';
+          this.messageModal = 'The information was successfully saved';
          
         }
         else

@@ -1,3 +1,4 @@
+import { forEach } from '@angular/router/src/utils/collection';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -6,6 +7,8 @@ import { LoginService } from '../../../../../../core/services/login/login.servic
 import { PublicTransportService } from '../../../../../../core/services/public-transport/public-transport.service';
 
 import { PublicTransport } from '../../../../../../core/models/public-transport';
+import { DayName } from '../../../../../../core/models/day-name';
+import { EnumEx } from '../../../../../../core/models/EnumEx';
 
 @Component({
   selector: 'app-public-transport-manager',
@@ -17,7 +20,10 @@ export class PublicTransportManagerComponent implements OnInit {
   complexForm: FormGroup;
 
   publicTransports: Array<PublicTransport>;
-
+  
+  
+  dayNames: any[];
+  dayNameSelectedVal:any[];
   userId: string;
   userSA: boolean;
 
@@ -37,6 +43,8 @@ export class PublicTransportManagerComponent implements OnInit {
   }
 
   ngOnInit() {
+   this.dayNames = this.getDayNames();
+    var options = Object.keys(DayName);
     try {
       this.publicTransportService.getAll().subscribe(
         publicTransports => this.publicTransports = publicTransports
@@ -112,4 +120,26 @@ export class PublicTransportManagerComponent implements OnInit {
     this.messageModal = message;
     this.showErrorDialog = true;
   }
+
+  search(){
+     this.showDialog = true;
+     this.dayNameSelectedVal;
+     this.messageModal = JSON.stringify(this.dayNameSelectedVal);
+
+  }
+  // Metodo que se utiliza para llenar el combo de FuelType, este combo se llena
+    // tomando los datos de un enumerador
+    getDayNames() {
+        try {
+            const objs: any[] = [];
+            // Obtener pares nombre-valor de VehicleTypeEnum
+            const objEnum = EnumEx.getNamesAndValues(DayName);
+            // Convertir los nombres-valores a VehicleType[]
+            objEnum.forEach(pair => {
+                const fuelType = { 'id': pair.value.toString(), 'name': pair.name };
+                objs.push(fuelType);
+            });
+            return objs;
+        } catch (e) { throw e; }
+    }
 }
