@@ -25,9 +25,11 @@ export class GroupDetailComponent implements OnInit {
   private group = new Group();
   errorMessage: string;
   showDialog: boolean;
+  redirectToGropTray: boolean;
   messageModal: string;
   includeText: boolean;
   hasChecked: boolean = false;
+
 
   constructor(private fb: FormBuilder,
     private router: Router,
@@ -132,6 +134,7 @@ export class GroupDetailComponent implements OnInit {
               this.group = form;
               this.groupId = this.group.id;
               this.messageModal = "The information was successfully saved";
+              this.redirectToGropTray = true;
             }
             else
             {
@@ -152,6 +155,7 @@ export class GroupDetailComponent implements OnInit {
 
             if (form.notificationIds != undefined) {
               this.messageModal = "The information was successfully saved";
+              this.redirectToGropTray = true;
             }
             else
             {
@@ -198,6 +202,15 @@ export class GroupDetailComponent implements OnInit {
   private afterChange(event) {
     this.hasChecked = $('input:checkbox:checked.notification').length > 0;
   };
+
+  private closeModal()
+  {
+    this.showDialog = false;
+    if (this.redirectToGropTray)
+    {
+      this.router.navigate(['/smart-cities/group/groups']);
+    }
+  }
 
   
 
