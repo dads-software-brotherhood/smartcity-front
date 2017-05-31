@@ -85,12 +85,9 @@ export class UserManagerTrayComponent implements OnInit {
     this._user.familyName = $('#familyname').val();
     this._user.email = $('#email').val();
     this._user.role = form.role;
-    console.log(this._user);
     this._service.getBy(this._user)
       .then(res => {
         this.users = res;
-        console.log(this.users);
-
         this.userCanDel(this.rol, this.users);
 
       }).catch(err => {
@@ -126,7 +123,7 @@ export class UserManagerTrayComponent implements OnInit {
       this.users = users;
         this.userCanDel(this.rol, users);
         console.log(users);
-
+        this.includeText = true;
 
 
       },
@@ -162,6 +159,7 @@ export class UserManagerTrayComponent implements OnInit {
       .then(form => {
         this.modMessageModal = 'User deleted successfully!!';
         this.includeText = false;
+        this.Modal.reset();
         this.getAll();
       }).catch(res => {
         this.modMessageModal = 'Error deleting user. Please try later.';
