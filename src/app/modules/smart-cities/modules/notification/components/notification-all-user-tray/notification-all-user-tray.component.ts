@@ -70,14 +70,15 @@ export class NotificationAllUserTrayComponent implements OnInit {
 
     ngOnInit() {
         try {
-            this.route.params.subscribe(params => { this.param = params['id'];
+            this.route.params.subscribe(params => {
+                this.param = params['id'];
                 this.element = document.getElementById('subNotification');
                 this.element = (<HTMLSelectElement>this.element);
-                this.setPage(this.param);
                 // this.getNotification();
                 this.isConfirm = true;
                 this.messageModal = '';
                 this.includeText = false;
+                this.setPage(this.param);
             });
         } catch (e) {
             this.setValuesModal(this.messageModal, true, false);
@@ -88,29 +89,33 @@ export class NotificationAllUserTrayComponent implements OnInit {
         // this.bindTableAux(this.initPage, this.initSize);
         this.getNotification();
         if (id !== '0') {
-            this.getAlertsByAlertType(id, this.initPage, this.initSize);
-            this.notificationId = id;
-            // this.objNotification = new NotificationType();
-            // for (let i = 0; i < this.notifications.length; i++) {
-            //   if (this.notifications[i].id === id) {
-            //     this.objNotification = this.notifications[i];
-            //     break;
-            //   }
+            this.getAlertsByAlertType(id, this.initPage, this.initSize, true);
+            //     this.notificationId = id;
+            //     this.objNotification = new NotificationType();
+            //     for (let i = 0; i < this.notifications.length; i++) {
+            //       if (this.notifications[i].id === id) {
+            //         this.objNotification = this.notifications[i];
+            //         break;
+            //       }
+            //     }
+            //     this.subNotifications = this.objNotification.subnotifications;
+            //     this.isAll = false;
+            //     this.isSearch = true;
+            //     if (this.element != null) {
+            //     this.element.disabled = false;
             // }
-            // this.subNotifications = this.objNotification.subnotifications;
-            this.isAll = false;
-            this.isSearch = true;
         } else {
             this.bindTable(this.initPage, this.initSize);
             this.notificationId = this.initValue;
             this.isAll = true;
             this.isSearch = false;
-        }
-        this.subNotificationId = this.initValue;
-        if (this.element != null) {
-            this.element.disabled = true;
+            this.subNotificationId = this.initValue;
+            if (this.element != null) {
+                this.element.disabled = true;
+            }
         }
         this.prepareForm();
+
     }
 
     // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
@@ -167,7 +172,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
 
     // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
     // registradas por tipo de alerta
-    getAlertsByAlertType(type: string, page: string, size: string) {
+    getAlertsByAlertType(type: string, page: string, size: string, isLoad: boolean) {
         try {
             let date: string;
             date = this.getDateNow();
@@ -176,6 +181,11 @@ export class NotificationAllUserTrayComponent implements OnInit {
                     this.instance = new Paginable().deserialize(res);
                     this.alerts = this.instance.content;
                     this.total = this.instance.totalElements;
+                    if (isLoad) {
+                        setTimeout(() => {
+                            this.onNotificationTypeChange(type);
+                        }, 100);
+                    }
                 },
                 (error) => {
                     this.messageModal = error;
@@ -209,7 +219,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
     getNotification() {
         try {
             // let intervalo;
-            if  (this.notifications.length > 0) {
+            if (this.notifications.length > 0) {
                 this.notifications = [];
             }
             const identityUser = this._loginService.getLoggedUser();
@@ -250,7 +260,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
             this.bindTable(pagina, this.initSize);
         } else if (this.isSearch && this.notificationId !== this.initValue
             && this.subNotificationId === this.initValue) {
-            this.getAlertsByAlertType(this.notificationId, pagina, this.initSize);
+            this.getAlertsByAlertType(this.notificationId, pagina, this.initSize, false);
         } else if (this.isSearch && this.notificationId !== this.initValue
             && this.subNotificationId !== this.initValue) {
             this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, pagina, this.initSize);
@@ -330,7 +340,7 @@ export class NotificationAllUserTrayComponent implements OnInit {
             }
 
             if (this.notificationId !== this.initValue && this.subNotificationId === this.initValue) {
-                this.getAlertsByAlertType(this.notificationId, this.initPage, this.initSize);
+                this.getAlertsByAlertType(this.notificationId, this.initPage, this.initSize, false);
             } else if (this.notificationId !== this.initValue && this.subNotificationId !== this.initValue) {
                 this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, this.initPage, this.initSize);
             } else if (this.isAll) {

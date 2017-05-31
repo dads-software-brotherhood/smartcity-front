@@ -1,10 +1,12 @@
 <div class="row">
   <div class="col-md-12">
     <h2>
-      <span *ngIf="!publicTransport.id">New Transport</span>
+      <span *ngIf="!publicTransport.id">New Public Transport</span>
       <span *ngIf="publicTransport.id">Edit Transport</span>
     </h2>
     <hr class="title-hr">
+
+    <p *ngIf="!publicTransport.id">As a super admin, you can create, edit, update and delete public transport. Remember, the public transport created will be visualized for all the final users.</p>
 
     <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
       <div class="row">
@@ -142,45 +144,62 @@
       <div class="row" *ngIf="publicTransport || publicTransport.transportSchedules">
         <div class="col">
           <div class="table-responsive">
-            <table class="table">
-              <thead class="thead-default">
-                <tr>
-                  <th>Route name</th>
-                  <th>Weekdays</th>
-                  <th>Frequency</th>
-                  <th>Agency</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let schedule of publicTransport.transportSchedules | paginate: { itemsPerPage: 5, currentPage: p }">
-                  <td>{{ schedule.routeName }}</td>
-                  <td>
-                    <span *ngFor="let weekday of schedule.weekDays; let l = last">
-                      {{ weekday.dayName }}<span *ngIf="!l">, </span>
-                    </span>
-                  </td>
-                  <td>
-                    <span *ngIf="schedule.frequency.hour != 0" >{{ schedule.frequency.hour | number: '2.0' }}:</span><span>{{ schedule.frequency.minute | number: '2.0' }}</span>
-                    <span *ngIf="schedule.frequency.hour != 0" >hrs</span>
-                    <span *ngIf="schedule.frequency.hour == 0" >min</span>
-                  </td>
-                  <td>{{ schedule.agency.name }}</td>
-                  <td>
-                    <a class="btn btn-danger" ngbTooltip="Delete" placement="top" (click)="onDeleteButton(schedule.index)">
-                      <i aria-hidden="true" class="fa fa-trash"></i>
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="5" align="center">
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
+            <div class="no-more-tables">
+              <table class="table">
+                <thead class="thead-default">
+                  <tr>
+                    <th>Name</th>
+                    <th>Route name</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                    <th>Frequency</th>
+                    <th>Agency</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let schedule of publicTransport.transportSchedules | paginate: { itemsPerPage: 5, currentPage: p }">
+                    <td data-title="Name"></td>
+                    <td data-title="Route name">{{ schedule.routeName }}</td>
+                    <td data-title="Monday"></td>
+                    <td data-title="Tuesday"></td>
+                    <td data-title="Wednesday"></td>
+                    <td data-title="Thursday"></td>
+                    <td data-title="Friday"></td>
+                    <td data-title="Saturday"></td>
+                    <td data-title="Sunday"></td>
+                    <!--<td>
+                      <span *ngFor="let weekday of schedule.weekDays; let l = last">
+                        {{ weekday.dayName }}<span *ngIf="!l">, </span>
+                      </span>
+                    </td> -->
+                    <td data-title="Frequency">
+                      <span *ngIf="schedule.frequency.hour != 0" >{{ schedule.frequency.hour | number: '2.0' }}:</span><span>{{ schedule.frequency.minute | number: '2.0' }}</span>
+                      <span *ngIf="schedule.frequency.hour != 0" >hrs</span>
+                      <span *ngIf="schedule.frequency.hour == 0" >min</span>
+                    </td>
+                    <td data-title="Agency">{{ schedule.agency.name }}</td>
+                    <td data-title="Delete">
+                      <a class="btn btn-danger" ngbTooltip="Delete" placement="top" (click)="onDeleteButton(schedule.index)">
+                        <i aria-hidden="true" class="fa fa-trash"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="5" align="center">
+                      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </div>
         </div>
       </div>

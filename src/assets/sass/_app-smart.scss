@@ -74,9 +74,9 @@ a:hover{
   position: fixed;
     z-index: 3;
     top: 50px;
-    left: 225px;
-    width: 225px;
-    margin-left: -225px;
+    left: 275px;
+    width: 275px;
+    margin-left: -275px;
     border: none;
     border-radius: 0;
     overflow-y: auto;
@@ -166,7 +166,7 @@ a:hover{
     background: #fff;
 }
 .main-container{
-  margin: 50px 0 0 225px;
+  margin: 50px 0 0 275px;
     padding: 10px;
     -ms-overflow-x: hidden;
         overflow-x: hidden;
@@ -207,7 +207,7 @@ a:hover{
 }
 /* RTL ashboard */
 .sidebarPushRight{
-    left: 225px !important;
+    left: 275px !important;
     z-index:10;
 }
 .mainContainerPushLeft{
@@ -445,6 +445,12 @@ a:hover{
             margin-left: -35px;
             border-right: 3px solid #00d3de;
             font-size: 13px;
+            -webkit-transition: all 200ms ease;
+            -moz-transition: all 200ms ease;
+            -ms-transition: all 200ms ease;
+            -o-transition: all 200ms ease;
+            transition: all 200ms ease;
+            overflow: hidden;
             li {
                 a {
                     color: #FFF;
@@ -833,8 +839,21 @@ footer{
     width:100%; 
     display:block !important;
 }
+
 .right-chevron{
     position: absolute;
     right: 10px;
     top: 15px;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+.expandMenu .right-chevron{
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
 }

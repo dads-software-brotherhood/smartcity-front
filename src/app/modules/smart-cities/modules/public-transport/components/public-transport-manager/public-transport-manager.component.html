@@ -18,11 +18,17 @@
       </div>
     </div>
 
+      
+              
+        
+
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label for="">Weekdays</label>
-          <input type="text"  class="form-control" placeholder="Weekdays"/>
+            <select id="Weekdays" multiple class="form-control" [(ngModel)]="dayNameSelectedVal">
+                <option *ngFor="let dayName of dayNames" [ngValue]="dayName.name">{{dayName.name}}</option>
+            </select>
         </div>
       </div>
       <div class="col-md-6">
@@ -52,7 +58,7 @@
       <div class="col-md-3 ">
         <div class="form-group">
           <span class="labelHidden"></span>
-          <button [routerLink]="['/smart-cities/transport', '']" type="submit" class="btn btn-smart btn-block" > Search </button>
+          <button (click)="search()" type="submit" class="btn btn-smart btn-block" > Search </button>
         </div>
       </div>
 
@@ -128,9 +134,9 @@
 
   <form [formGroup]="complexForm" (ngSubmit)="submitFormDelete(complexForm.value)">
     <div class="row">
-      <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['removeReason'].valid && complexForm.controls['removeReason'].touched}">
-        <label for="">Remove reason *</label>
-        <div class="col">
+      <div class="col">
+        <div class="form-group" [ngClass]="{'has-danger':!complexForm.controls['removeReason'].valid && complexForm.controls['removeReason'].touched}">
+          <label for="">Remove reason *</label>
           <textarea class="form-control" [formControl]="complexForm.controls['removeReason']">
           </textarea>
         </div>

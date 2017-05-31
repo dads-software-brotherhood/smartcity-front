@@ -17,6 +17,7 @@ export class MainMenuComponent implements OnInit {
   showMenu = '';
   showSetting = '';
   showMenuManageSite = '';
+  showMenuPublicTransport = '';
   showMenuTransportSchedule ='';
 
   identityUser: IdentityUser;
@@ -53,6 +54,14 @@ export class MainMenuComponent implements OnInit {
       this.showMenuManageSite = '0';
     } else {
       this.showMenuManageSite = element;
+    }
+  }
+
+  addExpandshowPublicTransport(element: any) {
+    if (element === this.showMenuPublicTransport) {
+      this.showMenuPublicTransport = '0';
+    } else {
+      this.showMenuPublicTransport = element;
     }
   }
 

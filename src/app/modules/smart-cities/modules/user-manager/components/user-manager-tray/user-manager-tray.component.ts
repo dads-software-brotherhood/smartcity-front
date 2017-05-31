@@ -96,6 +96,7 @@ export class UserManagerTrayComponent implements OnInit {
       }).catch(err => {
         this.modShowDialog = true;
         this.modMessageModal = 'Information not found';
+        this.includeText = false;
       });
 
 
@@ -160,9 +161,11 @@ export class UserManagerTrayComponent implements OnInit {
     this._service.delete(this._user)
       .then(form => {
         this.modMessageModal = 'User deleted successfully!!';
+        this.includeText = false;
         this.getAll();
       }).catch(res => {
         this.modMessageModal = 'Error deleting user. Please try later.';
+        this.includeText = false;
       });
   }
 
