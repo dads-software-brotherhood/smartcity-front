@@ -60,7 +60,7 @@ export class PublicTransportManagerComponent implements OnInit {
 
   onPreDelete(id: string) {
     this.idDelete = id;
-    this.showConfirmMessage('Are you sure you want to delete this transport?');
+    this.showConfirmMessage('Describes the motives to eliminate this public transport');
   }
 
   submitFormDelete(form: any) {

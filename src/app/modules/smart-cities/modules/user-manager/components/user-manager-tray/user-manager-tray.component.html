@@ -17,7 +17,10 @@
         <modal-popup [(visible)]="showDialog" title="Smart Cities Message">
           {{messageModal}}
         <hr>
-        <textarea *ngIf="includeText" [formControl]="Modal.controls['message']" id="_message" type="text"  class="form-control"> </textarea>
+        <div *ngIf="includeText">
+            <textarea  [formControl]="Modal.controls['message']" id="_message" type="text"  class="form-control"> </textarea>
+        </div>
+        
         <div *ngIf="Modal.controls['message'].hasError('required') && Modal.controls['message'].touched" class="alert alert-danger">Comment Required *</div>
         <hr *ngIf="includeText">
         <div class="row">
@@ -35,8 +38,10 @@
         <modal-popup [(visible)]="modShowDialog" title="Smart Cities Message">
           {{modMessageModal}}
         <hr>
-        <textarea *ngIf="includeText"   type="text"  class="form-control"> </textarea>
-        <hr *ngIf="includeText">
+        <div *ngIf="modIncludeText"  >
+          <textarea type="text"  class="form-control"> </textarea>
+        </div>
+        <hr *ngIf="modIncludeText">
         <button type="button"  class="btn btn-smart btn-block" data-dismiss="modal" (click)="modShowDialog = false">Accept</button>
 
         

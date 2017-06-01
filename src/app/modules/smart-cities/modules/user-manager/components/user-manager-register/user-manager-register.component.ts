@@ -87,8 +87,6 @@ export class UserManagerRegisterComponent implements OnInit {
   }
 
   save(form, isValid: boolean) {
-          // console.log(form);
-          // console.log('Hola');
             this.modShowDialog = true;
          this.registerSubs = this._service.register(form).subscribe(
       (res) => {
