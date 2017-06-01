@@ -140,9 +140,9 @@
           <textarea class="form-control" [formControl]="complexForm.controls['removeReason']">
           </textarea>
         </div>
-        <div *ngIf="complexForm.controls['removeReason'].hasError('required') && complexForm.controls['removeReason'].touched" class="alert alert-danger" i18n>The remove reason is required</div>
-        <div *ngIf="complexForm.controls['removeReason'].hasError('minlength') && complexForm.controls['removeReason'].touched" class="alert alert-danger" i18n>The remove reason field will have a minimun length of 2 alphanumerical characters</div>
-        <div *ngIf="complexForm.controls['removeReason'].hasError('maxlength') && complexForm.controls['removeReason'].touched" class="alert alert-danger" i18n>The remove reason field will have a maximun length of 200 alphanumerical characters</div>
+        <div *ngIf="complexForm.controls['removeReason'].hasError('required') && complexForm.controls['removeReason'].touched" class="alert alert-danger" i18n>The motivation is required</div>
+        <div *ngIf="complexForm.controls['removeReason'].hasError('minlength') && complexForm.controls['removeReason'].touched" class="alert alert-danger" i18n>The remove motivation field will have a minimun length of 2 alphanumerical characters</div>
+        <div *ngIf="complexForm.controls['removeReason'].hasError('maxlength') && complexForm.controls['removeReason'].touched" class="alert alert-danger" i18n>The remove motivation field will have a maximun length of 200 alphanumerical characters</div>
       </div>
     </div>
 
