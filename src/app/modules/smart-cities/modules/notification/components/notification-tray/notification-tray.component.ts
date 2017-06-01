@@ -34,8 +34,8 @@ export class NotificationTrayComponent implements OnInit {
   private page: number;
   private total: number;
   private element: any;
-  private isAll: boolean;
-  private isSearch: boolean;
+  // private isAll: boolean;
+  // private isSearch: boolean;
   private param: string;
   private instance: Paginable;
 
@@ -100,8 +100,8 @@ export class NotificationTrayComponent implements OnInit {
     // } else {
       this.bindTable(this.initPage, this.initSize);
       this.notificationId = this.initValue;
-      this.isAll = true;
-      this.isSearch = false;
+      // this.isAll = true;
+      // this.isSearch = false;
     // }
     this.subNotificationId = this.initValue;
     this.dateId = '';
@@ -201,6 +201,24 @@ export class NotificationTrayComponent implements OnInit {
     }
   }
 
+  // Metodo que se utiliza para el llenado de la tabla con los datos de todas las alertas
+  // registradas por fecha
+  getAlertsByDate(date: string, page: string, size: string) {
+    try {
+      this._service.getAllByDateAlert(date, page, size).subscribe(
+        (res) => {
+          this.instance = new Paginable().deserialize(res);
+          this.alerts = this.instance.content;
+          this.total = this.instance.totalElements;
+        },
+        (error) => {
+          this.messageModal = error;
+        });
+    }catch (e) {
+      throw e;
+    }
+  }
+
 
   // Metodo que se utiliza para llenar el combo de Tipos de Alerta
   getNotification() {
@@ -221,22 +239,22 @@ export class NotificationTrayComponent implements OnInit {
 
     pagina = (page - 1).toString();
     this.page = page;
-    if (this.isAll) {
+    // if (this.isAll) {
       this.bindTable(pagina, this.initSize);
-    } else if (this.isSearch && this.notificationId !== this.initValue
-               && this.subNotificationId === this.initValue && this.dateId === '') {
-      this.getAlertsByAlertType(this.notificationId, pagina, this.initSize);
-    } else if (this.isSearch && this.notificationId !== this.initValue
-               && this.subNotificationId !== this.initValue && this.dateId === '') {
-      this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, pagina, this.initSize);
-    } else if (this.isSearch && this.notificationId !== this.initValue
-                && this.subNotificationId !== this.initValue && this.dateId !== '') {
-        this.getAlertsByAlertSubAlertDate(this.notificationId, this.subNotificationId,
-                                          this.dateId, pagina, this.initSize);
-    } else if (this.isSearch && this.notificationId !== this.initValue
-                && this.subNotificationId === this.initValue && this.dateId !== '') {
-        this.getAlertsByAlertDate(this.notificationId, this.dateId, pagina, this.initSize);
-    }
+    // } else if (this.isSearch && this.notificationId !== this.initValue
+    //            && this.subNotificationId === this.initValue && this.dateId === '') {
+    //   this.getAlertsByAlertType(this.notificationId, pagina, this.initSize);
+    // } else if (this.isSearch && this.notificationId !== this.initValue
+    //            && this.subNotificationId !== this.initValue && this.dateId === '') {
+    //   this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, pagina, this.initSize);
+    // } else if (this.isSearch && this.notificationId !== this.initValue
+    //             && this.subNotificationId !== this.initValue && this.dateId !== '') {
+    //     this.getAlertsByAlertSubAlertDate(this.notificationId, this.subNotificationId,
+    //                                       this.dateId, pagina, this.initSize);
+    // } else if (this.isSearch && this.notificationId !== this.initValue
+    //             && this.subNotificationId === this.initValue && this.dateId !== '') {
+    //     this.getAlertsByAlertDate(this.notificationId, this.dateId, pagina, this.initSize);
+    // }
   }
 
   // Evento que se lanza cuando se cambia de elemento en el combo de Tipo de Alerta
@@ -257,9 +275,9 @@ export class NotificationTrayComponent implements OnInit {
           this.element.disabled = false;
         } else {
           this.element.disabled = true;
-          this.isAll = true;
+          // this.isAll = true;
           this.dateId = '';
-          this.isSearch = false;
+          // this.isSearch = false;
         }
       }
       this.prepareForm();
@@ -306,8 +324,8 @@ export class NotificationTrayComponent implements OnInit {
       this.dateId = '';
       this.prepareForm();
       this.element.disabled = true;
-      this.isAll = true;
-      this.isSearch = false;
+      // this.isAll = true;
+      // this.isSearch = false;
       this.bindTable(this.initPage, this.initSize);
     } catch (e) {
       this.setValuesModal('An error occurred while clearing the search controls', true, false);
@@ -316,13 +334,13 @@ export class NotificationTrayComponent implements OnInit {
   // Evento que se lanza cuando se realiza una busqueda con el botón search
   onSearch() {
     try {
-      if (this.notificationId !== this.initValue) {
-        this.isAll = false;
-        this.isSearch = true;
-      } else {
-        this.isAll = true;
-        this.isSearch = false;
-      }
+      // if (this.notificationId !== this.initValue) {
+      //   this.isAll = false;
+      //   this.isSearch = true;
+      // } else {
+      //   this.isAll = true;
+      //   this.isSearch = false;
+      // }
 
       if (this.notificationId !== this.initValue && this.subNotificationId === this.initValue
           && this.dateId === '') {
@@ -337,7 +355,10 @@ export class NotificationTrayComponent implements OnInit {
       } else if (this.notificationId !== this.initValue
                 && this.subNotificationId === this.initValue && this.dateId !== '') {
           this.getAlertsByAlertDate(this.notificationId, this.dateId, this.initPage, this.initSize);
-      } else if (this.isAll) {
+      } else if (this.notificationId === this.initValue
+                && this.subNotificationId === this.initValue && this.dateId !== '') {
+          this.getAlertsByDate(this.dateId, this.initPage, this.initSize);
+      } else {
           this.bindTable(this.initPage, this.initSize);
       }
 
