@@ -102,7 +102,10 @@ export class UserAccountGroupComponent implements OnInit {
 
   }
 
-  reloadPage(){
-    location.reload();
+  closeModal(accordion){
+    this.showDialog = false;
+    accordion.activeIds.forEach(element => {
+      accordion.toggle(element);
+    });
   }
 }

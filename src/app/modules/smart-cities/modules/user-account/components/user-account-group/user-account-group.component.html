@@ -40,6 +40,15 @@
         </template>
       </ngb-panel>
     </ngb-accordion>
+    <!-- Implementación de ventana modal -->
+    <modal-popup [(visible)]="showDialog" title="System Message">
+      {{messageModal}}
+      <hr>
+      <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
+      <hr *ngIf="includeText">
+      <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="closeModal(acc)">Accept</button>
+    </modal-popup>
+    <!-- ************************************************* -->
   </div>
 </div>
 
@@ -57,12 +66,3 @@
 </div>
 
 
-<!-- Implementación de ventana modal -->
-<modal-popup [(visible)]="showDialog" title="System Message">
-  {{messageModal}}
-  <hr>
-  <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
-  <hr *ngIf="includeText">
-  <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="reloadPage()">Accept</button>
-</modal-popup>
-<!-- ************************************************* -->

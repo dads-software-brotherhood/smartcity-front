@@ -138,7 +138,7 @@ export class GroupDetailComponent implements OnInit {
             }
             else
             {
-              this.messageModal = "Not saved. " + form.error;
+              this.messageModal = form.error;
             }
             this.showDialog = true;
 
@@ -159,7 +159,7 @@ export class GroupDetailComponent implements OnInit {
             }
             else
             {
-              this.messageModal = "Not saved. " + form.error;
+              this.messageModal = form.error;
             }
             this.showDialog = true;
           },
