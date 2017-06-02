@@ -11,7 +11,7 @@ import { environment } from '../../../../environments/environment';
 import { constants } from '../../common/constants';
 
 import { PublicTransport } from '../../models/public-transport';
-import { Time } from '../../models/Time';
+import { Time } from '../../models/time';
 
 const baseRestPath = '/public-transport';
 const baseGetUserUrl = environment.backend_sdk + baseRestPath;
