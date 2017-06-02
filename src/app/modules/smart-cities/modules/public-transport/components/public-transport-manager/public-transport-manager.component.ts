@@ -51,7 +51,7 @@ export class PublicTransportManagerComponent implements OnInit {
    this.dayNames = this.getDayNames();
     var options = Object.keys(DayName);
     try {
-          this.publicTransportService.search( this.name, this.route, this.departureTime, this.arrivalTime, this.dayNameSelectedVal).subscribe(
+          this.publicTransportService.getAll().subscribe(
         publicTransports => this.publicTransports = publicTransports
       );
     } catch (e) {

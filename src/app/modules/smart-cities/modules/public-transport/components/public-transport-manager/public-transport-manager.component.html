@@ -92,15 +92,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let publicTransport of publicTransports | paginate: { itemsPerPage: 5, currentPage: p }">
+                <template ngFor let-publicTransport [ngForOf]="publicTransports| paginate: { itemsPerPage: 5, currentPage: p }">
+               <!-- <tr *ngFor="let publicTransport of publicTransports | paginate: { itemsPerPage: 5, currentPage: p }">-->
+                 <tr *ngFor="let transporSchedule of publicTransport.transportSchedules" > 
                   <td data-title="Name">{{ publicTransport.name }}</td>
 
                   <td data-title="Route name">
-                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">{{ publicTransport.transportSchedules[0].routeName }}</span>
+                   <!-- <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">{{ publicTransport.transportSchedules[0].routeName }}</span>-->
+                    <span *ngIf="transporSchedule">{{ transporSchedule.routeName }}</span>
                   </td>
 
                   <td data-title="Monday">
-                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                   <!-- <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
                     <span *ngIf="publicTransport.transportSchedules[0].weekDays[0].active">
                       <span *ngIf="publicTransport.transportSchedules[0].weekDays[0].departureTime != null">
                         {{ publicTransport.transportSchedules[0].weekDays[0].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[0].departureTime.minute | number: '2.0' }}
@@ -110,10 +113,21 @@
                         {{ publicTransport.transportSchedules[0].weekDays[0].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[0].arrivalTime.minute | number: '2.0' }}
                       </span>
                     </span>
+                    </span>-->
+                    <span *ngIf="transporSchedule ">
+                    <span *ngIf="transporSchedule.weekDays[0].active">
+                      <span *ngIf="transporSchedule.weekDays[0].departureTime != null">
+                        {{ transporSchedule.weekDays[0].departureTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[0].departureTime.minute | number: '2.0' }}
+                      </span>
+                      -
+                      <span *ngIf="transporSchedule.weekDays[0].arrivalTime != null">
+                        {{ transporSchedule.weekDays[0].arrivalTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[0].arrivalTime.minute | number: '2.0' }}
+                      </span>
+                    </span>
                     </span>
                   </td>
                   <td data-title="Tuesday">
-                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                   <!-- <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
                       <span *ngIf="publicTransport.transportSchedules[0].weekDays[1].active">
                         <span *ngIf="publicTransport.transportSchedules[0].weekDays[1].departureTime != null">
                           {{ publicTransport.transportSchedules[0].weekDays[1].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[1].departureTime.minute | number: '2.0' }}
@@ -123,10 +137,21 @@
                           {{ publicTransport.transportSchedules[0].weekDays[1].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[1].arrivalTime.minute | number: '2.0' }}
                         </span>
                       </span>
+                    </span>-->
+                     <span *ngIf="transporSchedule ">
+                    <span *ngIf="transporSchedule.weekDays[1].active">
+                      <span *ngIf="transporSchedule.weekDays[1].departureTime != null">
+                        {{ transporSchedule.weekDays[1].departureTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[1].departureTime.minute | number: '2.0' }}
+                      </span>
+                      -
+                      <span *ngIf="transporSchedule.weekDays[0].arrivalTime != null">
+                        {{ transporSchedule.weekDays[1].arrivalTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[1].arrivalTime.minute | number: '2.0' }}
+                      </span>
+                    </span>
                     </span>
                   </td>
                   <td data-title="Wednesday">
-                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                    <!--<span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
                       <span *ngIf="publicTransport.transportSchedules[0].weekDays[2].active">
                         <span *ngIf="publicTransport.transportSchedules[0].weekDays[2].departureTime">
                           {{ publicTransport.transportSchedules[0].weekDays[2].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[2].departureTime.minute | number: '2.0' }}
@@ -136,10 +161,21 @@
                           {{ publicTransport.transportSchedules[0].weekDays[2].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[2].arrivalTime.minute | number: '2.0' }}
                         </span>
                       </span>
+                    </span>-->
+                     <span *ngIf="transporSchedule ">
+                    <span *ngIf="transporSchedule.weekDays[2].active">
+                      <span *ngIf="transporSchedule.weekDays[2].departureTime != null">
+                        {{ transporSchedule.weekDays[2].departureTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[2].departureTime.minute | number: '2.0' }}
+                      </span>
+                      -
+                      <span *ngIf="transporSchedule.weekDays[0].arrivalTime != null">
+                        {{ transporSchedule.weekDays[2].arrivalTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[2].arrivalTime.minute | number: '2.0' }}
+                      </span>
+                    </span>
                     </span>
                   </td>
                   <td data-title="Thursday">
-                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                   <!-- <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
                       <span *ngIf="publicTransport.transportSchedules[0].weekDays[3].active">
                         <span *ngIf="publicTransport.transportSchedules[0].weekDays[3].departureTime">
                           {{ publicTransport.transportSchedules[0].weekDays[3].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[3].departureTime.minute | number: '2.0' }}
@@ -149,10 +185,21 @@
                           {{ publicTransport.transportSchedules[0].weekDays[3].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[3].arrivalTime.minute | number: '2.0' }}
                         </span>
                       </span>
+                    </span>-->
+                     <span *ngIf="transporSchedule ">
+                    <span *ngIf="transporSchedule.weekDays[3].active">
+                      <span *ngIf="transporSchedule.weekDays[3].departureTime != null">
+                        {{ transporSchedule.weekDays[3].departureTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[3].departureTime.minute | number: '2.0' }}
+                      </span>
+                      -
+                      <span *ngIf="transporSchedule.weekDays[0].arrivalTime != null">
+                        {{ transporSchedule.weekDays[3].arrivalTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[3].arrivalTime.minute | number: '2.0' }}
+                      </span>
+                    </span>
                     </span>
                   </td>
                   <td data-title="Friday">
-                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                   <!-- <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
                       <span *ngIf="publicTransport.transportSchedules[0].weekDays[4].active">
                         <span *ngIf="publicTransport.transportSchedules[0].weekDays[4].departureTime">
                           {{ publicTransport.transportSchedules[0].weekDays[4].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[4].departureTime.minute | number: '2.0' }}
@@ -162,10 +209,21 @@
                           {{ publicTransport.transportSchedules[0].weekDays[4].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[4].arrivalTime.minute | number: '2.0' }}
                         </span>
                       </span>
+                    </span>-->
+                     <span *ngIf="transporSchedule ">
+                    <span *ngIf="transporSchedule.weekDays[4].active">
+                      <span *ngIf="transporSchedule.weekDays[4].departureTime != null">
+                        {{ transporSchedule.weekDays[4].departureTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[4].departureTime.minute | number: '2.0' }}
+                      </span>
+                      -
+                      <span *ngIf="transporSchedule.weekDays[4].arrivalTime != null">
+                        {{ transporSchedule.weekDays[4].arrivalTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[4].arrivalTime.minute | number: '2.0' }}
+                      </span>
+                    </span>
                     </span>
                   </td>
                   <td data-title="Saturday">
-                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                   <!-- <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
                       <span *ngIf="publicTransport.transportSchedules[0].weekDays[5].active">
                         <span *ngIf="publicTransport.transportSchedules[0].weekDays[5].departureTime">
                           {{ publicTransport.transportSchedules[0].weekDays[5].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[5].departureTime.minute | number: '2.0' }}
@@ -175,10 +233,21 @@
                           {{ publicTransport.transportSchedules[0].weekDays[5].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[5].arrivalTime.minute | number: '2.0' }}
                         </span>
                       </span>
+                    </span>-->
+                     <span *ngIf="transporSchedule ">
+                    <span *ngIf="transporSchedule.weekDays[5].active">
+                      <span *ngIf="transporSchedule.weekDays[5].departureTime != null">
+                        {{ transporSchedule.weekDays[5].departureTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[5].departureTime.minute | number: '2.0' }}
+                      </span>
+                      -
+                      <span *ngIf="transporSchedule.weekDays[0].arrivalTime != null">
+                        {{ transporSchedule.weekDays[5].arrivalTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[5].arrivalTime.minute | number: '2.0' }}
+                      </span>
+                    </span>
                     </span>
                   </td>
                   <td data-title="Sunday">
-                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                    <!--<span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
                       <span *ngIf="publicTransport.transportSchedules[0].weekDays[6].active">
                         <span *ngIf="publicTransport.transportSchedules[0].weekDays[6].departureTime">
                           {{ publicTransport.transportSchedules[0].weekDays[6].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[6].departureTime.minute | number: '2.0' }}
@@ -188,21 +257,41 @@
                           {{ publicTransport.transportSchedules[0].weekDays[6].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[6].arrivalTime.minute | number: '2.0' }}
                         </span>
                       </span>
+                    </span>-->
+                     <span *ngIf="transporSchedule ">
+                    <span *ngIf="transporSchedule.weekDays[6].active">
+                      <span *ngIf="transporSchedule.weekDays[6].departureTime != null">
+                        {{ transporSchedule.weekDays[6].departureTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[6].departureTime.minute | number: '2.0' }}
+                      </span>
+                      -
+                      <span *ngIf="transporSchedule.weekDays[6].arrivalTime != null">
+                        {{ transporSchedule.weekDays[6].arrivalTime.hour | number: '2.0' }}:{{ transporSchedule.weekDays[6].arrivalTime.minute | number: '2.0' }}
+                      </span>
+                    </span>
                     </span>
                   </td>
 
 
 
                   <td data-title="Frequency">
+                    <!--
                     <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
                       <span *ngIf="publicTransport.transportSchedules[0].frequency.hour != 0" >{{ publicTransport.transportSchedules[0].frequency.hour | number: '2.0' }}:</span><span>{{ publicTransport.transportSchedules[0].frequency.minute | number: '2.0' }}</span>
                       <span *ngIf="publicTransport.transportSchedules[0].frequency.hour != 0" >hrs</span>
                       <span *ngIf="publicTransport.transportSchedules[0].frequency.hour == 0" >min</span>
+                    </span>-->
+                    <span *ngIf="transporSchedule">
+                      <span *ngIf="transporSchedule.frequency.hour != 0" >{{ transporSchedule.frequency.hour | number: '2.0' }}:</span><span>{{ transporSchedule.frequency.minute | number: '2.0' }}</span>
+                      <span *ngIf="transporSchedule.frequency.hour != 0" >hrs</span>
+                      <span *ngIf="transporSchedule.frequency.hour == 0" >min</span>
                     </span>
                   </td>
 
                   <td data-title="Agency">
+                    <!--
                     <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">{{ publicTransport.transportSchedules[0].agency.name }}</span>
+                    -->
+                    <span *ngIf="transporSchedule">{{ transporSchedule.agency.name }}</span>
                   </td>
 
                   <td>
@@ -216,6 +305,7 @@
                     </a>
                   </td>
                 </tr>
+                </template>
               </tbody>
               <tfoot>
                 <tr>
