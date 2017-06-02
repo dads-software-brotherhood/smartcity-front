@@ -109,7 +109,7 @@ export class UserVehicleDetailComponent implements OnInit {
         indice = 0;
         const obj = <HTMLSelectElement>document.getElementById('vehicleType');
         indice = obj.selectedIndex;
-        this.type = obj.options[indice].innerText;
+//        this.type = obj.options[indice].innerText;
     }
 
     // Metodo que se utiliza para llenar los datos del vehiculo cuando se esta en modo de
