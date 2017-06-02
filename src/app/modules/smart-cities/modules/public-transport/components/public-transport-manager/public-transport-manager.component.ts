@@ -154,4 +154,20 @@ export class PublicTransportManagerComponent implements OnInit {
             return objs;
         } catch (e) { throw e; }
     }
+
+    resetForm(){
+       this.arrivalTime = null;
+       this.departureTime = null;
+       this.dayNameSelectedVal = null;
+       this.name = '';
+       this.route = '';
+         try {
+          this.publicTransportService.search( this.name, this.route, this.departureTime, this.arrivalTime, this.dayNameSelectedVal).subscribe(
+        publicTransports => this.publicTransports = publicTransports
+      );
+    } catch (e) {
+      console.error('Error at retrieve data');
+      console.error(e);
+    }
+    }
 }
