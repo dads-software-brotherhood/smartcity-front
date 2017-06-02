@@ -9,6 +9,7 @@ import { PublicTransportService } from '../../../../../../core/services/public-t
 import { PublicTransport } from '../../../../../../core/models/public-transport';
 import { DayName } from '../../../../../../core/models/day-name';
 import { EnumEx } from '../../../../../../core/models/EnumEx';
+import { Time } from '../../../../../../core/models/time';
 
 @Component({
   selector: 'app-public-transport-manager',
@@ -20,10 +21,12 @@ export class PublicTransportManagerComponent implements OnInit {
   complexForm: FormGroup;
 
   publicTransports: Array<PublicTransport>;
-  
-  
+
+  departureTime: Time;
+  arrivalTime: Time;
+
   dayNames: any[];
-  dayNameSelectedVal:any[];
+  dayNameSelectedVal: any[];
   userId: string;
   userSA: boolean;
 
@@ -124,7 +127,9 @@ export class PublicTransportManagerComponent implements OnInit {
   search(){
      this.showDialog = true;
      this.dayNameSelectedVal;
-     this.messageModal = JSON.stringify(this.dayNameSelectedVal);
+     this.messageModal = JSON.stringify(this.dayNameSelectedVal) +
+      '\n' + JSON.stringify(this.departureTime) +
+      '\n' + JSON.stringify(this.arrivalTime);
 
   }
   // Metodo que se utiliza para llenar el combo de FuelType, este combo se llena

@@ -18,9 +18,9 @@
       </div>
     </div>
 
-      
-              
-        
+
+
+
 
     <div class="row">
       <div class="col-md-6">
@@ -33,8 +33,8 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="">Departure time</label>
-          <input type="text"  class="form-control" placeholder="Departure time"/>
+          <label for="departureTime">Departure time</label>
+          <ngb-timepicker id="departureTime" [(ngModel)]="departureTime" class="time-picker"></ngb-timepicker>
         </div>
       </div>
     </div>
@@ -44,8 +44,8 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="">Arrival time</label>
-          <input type="text"  class="form-control" placeholder="Arrival time"/>
+          <label for="arrivalTime">Arrival time</label>
+          <ngb-timepicker id="arrivalTime" [(ngModel)]="arrivalTime" class="time-picker"></ngb-timepicker>
         </div>
       </div>
       <div class="col-md-3 ">
@@ -70,44 +70,163 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12">
-        <table class="table ">
-          <thead class="thead-default">
-            <tr>
-              <th>Name</th>
-              <th>Route name</th>
-              <th>Weekdays</th>
-              <th>Frequency</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let publicTransport of publicTransports | paginate: { itemsPerPage: 5, currentPage: p }">
-              <td>{{ publicTransport.name }}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <a class="btn btn-smart" ngbTooltip="Edit" placement="top" [class.disabled]="disableLink(publicTransport.creatorId)" routerLink="/smart-cities/public-transport/detail/{{ publicTransport.id }}" routerLinkActive="active">
-                  <i aria-hidden="true" class="fa fa-pencil"></i>
-                </a>
-              </td>
-              <td>
-                <a class="btn btn-danger" ngbTooltip="Delete" placement="top" [class.disabled]="disableLink(publicTransport.creatorId)" (click)="onPreDelete(publicTransport.id)">
-                  <i aria-hidden="true" class="fa fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="6" align="center">
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+      <div class="col">
+        <div class="table-responsive">
+          <div class="no-more-tables">
+            <table class="table ">
+              <thead class="thead-default">
+                <tr>
+                  <th>Name</th>
+                  <th>Route name</th>
+                  <th>Monday</th>
+                  <th>Tuesday</th>
+                  <th>Wednesday</th>
+                  <th>Thursday</th>
+                  <th>Friday</th>
+                  <th>Saturday</th>
+                  <th>Sunday</th>
+                  <th>Frequency</th>
+                  <th>Agency</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let publicTransport of publicTransports | paginate: { itemsPerPage: 5, currentPage: p }">
+                  <td data-title="Name">{{ publicTransport.name }}</td>
+
+                  <td data-title="Route name">
+                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">{{ publicTransport.transportSchedules[0].routeName }}</span>
+                  </td>
+
+                  <td data-title="Monday">
+                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                    <span *ngIf="publicTransport.transportSchedules[0].weekDays[0].active">
+                      <span *ngIf="publicTransport.transportSchedules[0].weekDays[0].departureTime != null">
+                        {{ publicTransport.transportSchedules[0].weekDays[0].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[0].departureTime.minute | number: '2.0' }}
+                      </span>
+                      -
+                      <span *ngIf="publicTransport.transportSchedules[0].weekDays[0].arrivalTime != null">
+                        {{ publicTransport.transportSchedules[0].weekDays[0].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[0].arrivalTime.minute | number: '2.0' }}
+                      </span>
+                    </span>
+                    </span>
+                  </td>
+                  <td data-title="Tuesday">
+                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                      <span *ngIf="publicTransport.transportSchedules[0].weekDays[1].active">
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[1].departureTime != null">
+                          {{ publicTransport.transportSchedules[0].weekDays[1].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[1].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[1].arrivalTime != null">
+                          {{ publicTransport.transportSchedules[0].weekDays[1].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[1].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </span>
+                  </td>
+                  <td data-title="Wednesday">
+                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                      <span *ngIf="publicTransport.transportSchedules[0].weekDays[2].active">
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[2].departureTime">
+                          {{ publicTransport.transportSchedules[0].weekDays[2].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[2].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[2].arrivalTime">
+                          {{ publicTransport.transportSchedules[0].weekDays[2].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[2].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </span>
+                  </td>
+                  <td data-title="Thursday">
+                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                      <span *ngIf="publicTransport.transportSchedules[0].weekDays[3].active">
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[3].departureTime">
+                          {{ publicTransport.transportSchedules[0].weekDays[3].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[3].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[3].arrivalTime">
+                          {{ publicTransport.transportSchedules[0].weekDays[3].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[3].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </span>
+                  </td>
+                  <td data-title="Friday">
+                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                      <span *ngIf="publicTransport.transportSchedules[0].weekDays[4].active">
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[4].departureTime">
+                          {{ publicTransport.transportSchedules[0].weekDays[4].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[4].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[4].arrivalTime">
+                          {{ publicTransport.transportSchedules[0].weekDays[4].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[4].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </span>
+                  </td>
+                  <td data-title="Saturday">
+                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                      <span *ngIf="publicTransport.transportSchedules[0].weekDays[5].active">
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[5].departureTime">
+                          {{ publicTransport.transportSchedules[0].weekDays[5].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[5].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[5].arrivalTime">
+                          {{ publicTransport.transportSchedules[0].weekDays[5].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[5].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </span>
+                  </td>
+                  <td data-title="Sunday">
+                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                      <span *ngIf="publicTransport.transportSchedules[0].weekDays[6].active">
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[6].departureTime">
+                          {{ publicTransport.transportSchedules[0].weekDays[6].departureTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[6].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="publicTransport.transportSchedules[0].weekDays[6].arrivalTime">
+                          {{ publicTransport.transportSchedules[0].weekDays[6].arrivalTime.hour | number: '2.0' }}:{{ publicTransport.transportSchedules[0].weekDays[6].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </span>
+                  </td>
+
+
+
+                  <td data-title="Frequency">
+                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">
+                      <span *ngIf="publicTransport.transportSchedules[0].frequency.hour != 0" >{{ publicTransport.transportSchedules[0].frequency.hour | number: '2.0' }}:</span><span>{{ publicTransport.transportSchedules[0].frequency.minute | number: '2.0' }}</span>
+                      <span *ngIf="publicTransport.transportSchedules[0].frequency.hour != 0" >hrs</span>
+                      <span *ngIf="publicTransport.transportSchedules[0].frequency.hour == 0" >min</span>
+                    </span>
+                  </td>
+
+                  <td data-title="Agency">
+                    <span *ngIf="publicTransport.transportSchedules && publicTransport.transportSchedules[0]">{{ publicTransport.transportSchedules[0].agency.name }}</span>
+                  </td>
+
+                  <td>
+                    <a class="btn btn-smart" ngbTooltip="Edit" placement="top" [class.disabled]="disableLink(publicTransport.creatorId)" routerLink="/smart-cities/public-transport/detail/{{ publicTransport.id }}" routerLinkActive="active">
+                      <i aria-hidden="true" class="fa fa-pencil"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a class="btn btn-danger" ngbTooltip="Delete" placement="top" [class.disabled]="disableLink(publicTransport.creatorId)" (click)="onPreDelete(publicTransport.id)">
+                      <i aria-hidden="true" class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="13" align="center">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
 

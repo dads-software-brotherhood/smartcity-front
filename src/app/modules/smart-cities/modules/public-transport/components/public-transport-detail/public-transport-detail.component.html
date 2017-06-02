@@ -165,7 +165,7 @@
                   <tr *ngFor="let schedule of publicTransport.transportSchedules | paginate: { itemsPerPage: 5, currentPage: p }">
                     <td data-title="Route name">{{ schedule.routeName }}</td>
 
-                    <td>
+                    <td data-title="Monday">
                       <span *ngIf="schedule.weekDays[0].active">
                         <span *ngIf="schedule.weekDays[0].departureTime != null">
                           {{ schedule.weekDays[0].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[0].departureTime.minute | number: '2.0' }}
@@ -176,7 +176,7 @@
                         </span>
                       </span>
                     </td>
-                    <td>
+                    <td data-title="Tuesday">
                       <span *ngIf="schedule.weekDays[1].active">
                         <span *ngIf="schedule.weekDays[1].departureTime != null">
                           {{ schedule.weekDays[1].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[1].departureTime.minute | number: '2.0' }}
@@ -187,7 +187,7 @@
                         </span>
                       </span>
                     </td>
-                    <td>
+                    <td data-title="Wednesday">
                       <span *ngIf="schedule.weekDays[2].active">
                         <span *ngIf="schedule.weekDays[2].departureTime">
                           {{ schedule.weekDays[2].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[2].departureTime.minute | number: '2.0' }}
@@ -198,7 +198,7 @@
                         </span>
                       </span>
                     </td>
-                    <td>
+                    <td data-title="Thursday">
                       <span *ngIf="schedule.weekDays[3].active">
                         <span *ngIf="schedule.weekDays[3].departureTime">
                           {{ schedule.weekDays[3].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[3].departureTime.minute | number: '2.0' }}
@@ -209,7 +209,7 @@
                         </span>
                       </span>
                     </td>
-                    <td>
+                    <td data-title="Friday">
                       <span *ngIf="schedule.weekDays[4].active">
                         <span *ngIf="schedule.weekDays[4].departureTime">
                           {{ schedule.weekDays[4].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[4].departureTime.minute | number: '2.0' }}
@@ -220,7 +220,7 @@
                         </span>
                       </span>
                     </td>
-                    <td>
+                    <td data-title="Saturday">
                       <span *ngIf="schedule.weekDays[5].active">
                         <span *ngIf="schedule.weekDays[5].departureTime">
                           {{ schedule.weekDays[5].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[5].departureTime.minute | number: '2.0' }}
@@ -231,7 +231,7 @@
                         </span>
                       </span>
                     </td>
-                    <td>
+                    <td data-title="Sunday">
                       <span *ngIf="schedule.weekDays[6].active">
                         <span *ngIf="schedule.weekDays[6].departureTime">
                           {{ schedule.weekDays[6].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[6].departureTime.minute | number: '2.0' }}
@@ -248,7 +248,9 @@
                       <span *ngIf="schedule.frequency.hour != 0" >hrs</span>
                       <span *ngIf="schedule.frequency.hour == 0" >min</span>
                     </td>
+
                     <td data-title="Agency">{{ schedule.agency.name }}</td>
+
                     <td data-title="Delete">
                       <a class="btn btn-danger" ngbTooltip="Delete" placement="top" (click)="onDeleteButton(schedule.index)">
                         <i aria-hidden="true" class="fa fa-trash"></i>
