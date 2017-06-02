@@ -7,13 +7,13 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="">Name</label>
-          <input type="text"  class="form-control" placeholder="Name"/>
+          <input type="text"  [(ngModel)]="name" class="form-control" placeholder="Name"/>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="">Route name</label>
-          <input type="text"  class="form-control" placeholder="Route name"/>
+          <input type="text"  [(ngModel)]="route" class="form-control" placeholder="Route name"/>
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@
       <div class="col-md-3 ">
         <div class="form-group">
           <span class="labelHidden"></span>
-          <button type="submit" class="btn btn-smart btn-block" > Clear </button>
+          <button type="submit" class="btn btn-smart btn-block" (click)="resetForm()"> Clear </button>
         </div>
       </div>
 
