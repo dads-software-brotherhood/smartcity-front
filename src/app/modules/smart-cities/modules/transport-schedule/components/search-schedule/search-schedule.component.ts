@@ -44,7 +44,7 @@ export class SearchScheduleComponent implements OnInit {
     this.paginable.content = [];
     this.paginable.number = 0;
     this.paginable.totalElements = 0;
-    this.paginable.size = 10;
+    this.paginable.size = 5;
   }
 
   ngOnInit() {
