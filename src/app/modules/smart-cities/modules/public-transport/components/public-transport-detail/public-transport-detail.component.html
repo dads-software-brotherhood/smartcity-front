@@ -148,7 +148,6 @@
               <table class="table">
                 <thead class="thead-default">
                   <tr>
-                    <th>Name</th>
                     <th>Route name</th>
                     <th>Monday</th>
                     <th>Tuesday</th>
@@ -164,20 +163,86 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let schedule of publicTransport.transportSchedules | paginate: { itemsPerPage: 5, currentPage: p }">
-                    <td data-title="Name"></td>
                     <td data-title="Route name">{{ schedule.routeName }}</td>
-                    <td data-title="Monday"></td>
-                    <td data-title="Tuesday"></td>
-                    <td data-title="Wednesday"></td>
-                    <td data-title="Thursday"></td>
-                    <td data-title="Friday"></td>
-                    <td data-title="Saturday"></td>
-                    <td data-title="Sunday"></td>
-                    <!--<td>
-                      <span *ngFor="let weekday of schedule.weekDays; let l = last">
-                        {{ weekday.dayName }}<span *ngIf="!l">, </span>
+
+                    <td>
+                      <span *ngIf="schedule.weekDays[0].active">
+                        <span *ngIf="schedule.weekDays[0].departureTime != null">
+                          {{ schedule.weekDays[0].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[0].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="schedule.weekDays[0].arrivalTime != null">
+                          {{ schedule.weekDays[0].arrivalTime.hour | number: '2.0' }}:{{ schedule.weekDays[0].arrivalTime.minute | number: '2.0' }}
+                        </span>
                       </span>
-                    </td> -->
+                    </td>
+                    <td>
+                      <span *ngIf="schedule.weekDays[1].active">
+                        <span *ngIf="schedule.weekDays[1].departureTime != null">
+                          {{ schedule.weekDays[1].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[1].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="schedule.weekDays[1].arrivalTime != null">
+                          {{ schedule.weekDays[1].arrivalTime.hour | number: '2.0' }}:{{ schedule.weekDays[1].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </td>
+                    <td>
+                      <span *ngIf="schedule.weekDays[2].active">
+                        <span *ngIf="schedule.weekDays[2].departureTime">
+                          {{ schedule.weekDays[2].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[2].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="schedule.weekDays[2].arrivalTime">
+                          {{ schedule.weekDays[2].arrivalTime.hour | number: '2.0' }}:{{ schedule.weekDays[2].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </td>
+                    <td>
+                      <span *ngIf="schedule.weekDays[3].active">
+                        <span *ngIf="schedule.weekDays[3].departureTime">
+                          {{ schedule.weekDays[3].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[3].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="schedule.weekDays[3].arrivalTime">
+                          {{ schedule.weekDays[3].arrivalTime.hour | number: '2.0' }}:{{ schedule.weekDays[3].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </td>
+                    <td>
+                      <span *ngIf="schedule.weekDays[4].active">
+                        <span *ngIf="schedule.weekDays[4].departureTime">
+                          {{ schedule.weekDays[4].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[4].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="schedule.weekDays[4].arrivalTime">
+                          {{ schedule.weekDays[4].arrivalTime.hour | number: '2.0' }}:{{ schedule.weekDays[4].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </td>
+                    <td>
+                      <span *ngIf="schedule.weekDays[5].active">
+                        <span *ngIf="schedule.weekDays[5].departureTime">
+                          {{ schedule.weekDays[5].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[5].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="schedule.weekDays[5].arrivalTime">
+                          {{ schedule.weekDays[5].arrivalTime.hour | number: '2.0' }}:{{ schedule.weekDays[5].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </td>
+                    <td>
+                      <span *ngIf="schedule.weekDays[6].active">
+                        <span *ngIf="schedule.weekDays[6].departureTime">
+                          {{ schedule.weekDays[6].departureTime.hour | number: '2.0' }}:{{ schedule.weekDays[6].departureTime.minute | number: '2.0' }}
+                        </span>
+                        -
+                        <span *ngIf="schedule.weekDays[6].arrivalTime">
+                          {{ schedule.weekDays[6].arrivalTime.hour | number: '2.0' }}:{{ schedule.weekDays[6].arrivalTime.minute | number: '2.0' }}
+                        </span>
+                      </span>
+                    </td>
+
                     <td data-title="Frequency">
                       <span *ngIf="schedule.frequency.hour != 0" >{{ schedule.frequency.hour | number: '2.0' }}:</span><span>{{ schedule.frequency.minute | number: '2.0' }}</span>
                       <span *ngIf="schedule.frequency.hour != 0" >hrs</span>
@@ -193,7 +258,7 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="5" align="center">
+                    <td colspan="11" align="center">
                       <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     </td>
                   </tr>
