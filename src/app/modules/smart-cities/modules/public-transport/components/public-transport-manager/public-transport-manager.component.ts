@@ -25,8 +25,10 @@ export class PublicTransportManagerComponent implements OnInit {
   departureTime: Time;
   arrivalTime: Time;
 
-  dayNames: any[];
-  dayNameSelectedVal: any[];
+  dayNames: string[];
+  dayNameSelectedVal: string[];
+  name: string;
+  route: string;
   userId: string;
   userSA: boolean;
 
@@ -49,7 +51,7 @@ export class PublicTransportManagerComponent implements OnInit {
    this.dayNames = this.getDayNames();
     var options = Object.keys(DayName);
     try {
-      this.publicTransportService.getAll().subscribe(
+          this.publicTransportService.search( this.name, this.route, this.departureTime, this.arrivalTime, this.dayNameSelectedVal).subscribe(
         publicTransports => this.publicTransports = publicTransports
       );
     } catch (e) {
@@ -125,11 +127,16 @@ export class PublicTransportManagerComponent implements OnInit {
   }
 
   search(){
-     this.showDialog = true;
-     this.dayNameSelectedVal;
-     this.messageModal = JSON.stringify(this.dayNameSelectedVal) +
-      '\n' + JSON.stringify(this.departureTime) +
-      '\n' + JSON.stringify(this.arrivalTime);
+    
+     try {
+          this.publicTransportService.search( this.name, this.route, this.departureTime, this.arrivalTime, this.dayNameSelectedVal).subscribe(
+        publicTransports => this.publicTransports = publicTransports
+      );
+    } catch (e) {
+      console.error('Error at retrieve data');
+      console.error(e);
+    }
+     
 
   }
   // Metodo que se utiliza para llenar el combo de FuelType, este combo se llena
