@@ -1,4 +1,7 @@
-<h2>Add transport schedule</h2>
+<h2>
+  <span *ngIf="!transportSchedule.id">Add transport schedule</span>
+  <span *ngIf="transportSchedule.id">Edit transport schedule</span>
+</h2>
 <hr class="title-hr">
 
 <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
