@@ -15,8 +15,8 @@
         <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
         <hr *ngIf="includeText">
         <div class="row">
-          <div class="col">
-            <button *ngIf="isConfirm" type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
+          <div *ngIf="isConfirm" class="col">
+            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
           </div>
           <div class="col">
             <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="confirmDelete()">Accept</button>
