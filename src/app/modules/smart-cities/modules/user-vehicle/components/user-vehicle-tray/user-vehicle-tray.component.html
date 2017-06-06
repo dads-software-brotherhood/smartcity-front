@@ -54,43 +54,46 @@
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
-            <table id="myTable" class="table ">
-      <thead class="thead-default">
-          <tr>
-              <th>Name</th>
-              <th>Vehicle type</th>
-              <th>Plate identifier</th>
-              <th>Brand name</th>
-              <th>Model name</th>
-              <th>Favorite</th>
-              <th></th>
-              <th></th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let vehicle of vehicles | paginate: { itemsPerPage: 4, currentPage: p }">
-              <td>{{vehicle.name}}</td>
-              <td>{{vehicle.vehicleType.name}}</td>
-              <td>{{vehicle.vehiclPlateIdentifier}}</td>
-              <td>{{vehicle.brandName}}</td>
-              <td>{{vehicle.modelName}}</td>
-              <td><span class="fa fa-star" *ngIf="vehicle.favorite"></span></td>
-              <td>
-                <a [routerLink]="['/smart-cities/user-vehicle/vehicle', vehicle.index]" 
-                  class="btn btn-smart" ngbtooltip="Edit" placement="top">
-                  <i aria-hidden="true" class="fa fa-pencil"></i>
-                </a>
-              </td>
-              <td>
-                <!--<a class="btn btn-danger" ngbtooltip="Edit" placement="top">
-                  <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objvehicle=vehicle"> </i>
-                </a>-->
-                <button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top" (click)="showDialog=true;Objvehicle=vehicle"></button>
-              </td>
-          </tr>
-      </tbody>
-  </table>
-            
+            <div class="no-more-tables">
+              <table id="myTable" class="table ">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Name</th>
+                        <th>Vehicle type</th>
+                        <th>Plate identifier</th>
+                        <th>Brand name</th>
+                        <th>Model name</th>
+                        <th class="text-center">Favorite</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vehicle of vehicles | paginate: { itemsPerPage: 4, currentPage: p }">
+                        <td data-title="Name">{{vehicle.name}}</td>
+                        <td data-title="Vehicle type">{{vehicle.vehicleType.name}}</td>
+                        <td data-title="Plate identifier">{{vehicle.vehiclPlateIdentifier}}</td>
+                        <td data-title="Brand name">{{vehicle.brandName}}</td>
+                        <td data-title="Model name">{{vehicle.modelName}}</td>
+                        <td data-title="Favorite" class="text-center"><span class="fa fa-star" *ngIf="vehicle.favorite"></span></td>
+                        <td data-title="Edit">
+                          <a [routerLink]="['/smart-cities/user-vehicle/vehicle', vehicle.index]" 
+                            class="btn btn-smart" ngbtooltip="Edit" placement="top">
+                            <i aria-hidden="true" class="fa fa-pencil"></i>
+                          </a>
+                        </td>
+                        <td data-title="Delete">
+                          <!--<a class="btn btn-danger" ngbtooltip="Edit" placement="top">
+                            <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objvehicle=vehicle"> </i>
+                          </a>-->
+                          <button aria-hidden="true" class="btn btn-danger" ngbtooltip="Delete" placement="top" (click)="showDialog=true;Objvehicle=vehicle">
+                            <i aria-hidden="true" class="fa fa-trash"> </i>
+                          </button>
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
 

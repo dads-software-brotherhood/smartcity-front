@@ -44,37 +44,39 @@
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
-            <table id="myTable" class="table ">
-      <thead class="thead-default">
-          <tr>
-              <th>Name</th>
-              <th></th>
-              <th></th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let vehicleType of vehicleTypes | paginate: { itemsPerPage: 4, currentPage: p }">
-              <td>{{vehicleType.name}}</td>
-              <td>
-                <a [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', vehicleType.id]" 
-                  class="btn btn-smart" ngbtooltip="Edit" placement="top">
-                  <i aria-hidden="true" class="fa fa-pencil"></i>
-                </a>
-              </td>
-              <td>
-                <!--<a class="btn btn-danger" ngbtooltip="Edit" placement="top">
-                  <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objvehicle=vehicle"> </i>
-                </a>-->
-                <button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top" (click)="showDialog=true;ObjvehicleType=vehicleType"></button>
-              </td>
-          </tr>
-      </tbody>
-  </table>
-            
+            <div class="no-more-tables">
+              <table id="myTable" class="table ">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vehicleType of vehicleTypes | paginate: { itemsPerPage: 4, currentPage: p }">
+                        <td data-title="Name">{{vehicleType.name}}</td>
+                        <td data-title="Edit">
+                          <a [routerLink]="['/smart-cities/vehicle-type/vehicleTypeDetail', vehicleType.id]" 
+                            class="btn btn-smart" ngbtooltip="Edit" placement="top">
+                            <i aria-hidden="true" class="fa fa-pencil"></i>
+                          </a>
+                        </td>
+                        <td data-title="Delete">
+                          <!--<a class="btn btn-danger" ngbtooltip="Edit" placement="top">
+                            <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objvehicle=vehicle"> </i>
+                          </a>-->
+                          <button aria-hidden="true" class="btn btn-danger" ngbtooltip="Delete" placement="top" (click)="showDialog=true;ObjvehicleType=vehicleType">
+                            <i aria-hidden="true" class="fa fa-trash"> </i>
+                          </button>
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>  
           </div>
-
-
         </div>
+
         <div class="col-md-12">
           <div class="form-group">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
