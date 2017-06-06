@@ -27,12 +27,12 @@ export class UserAccountGroupComponent implements OnInit {
   count: number;
 
 
-  sum: number = 0; //variable que se utiliza para contabilizar el total de columnas que tiene la tabla
-  //para utilizar en las busquedas.
+  sum: number = 0; // variable que se utiliza para contabilizar el total de columnas que tiene la tabla
+  // para utilizar en las busquedas.
 
-  //Variables utilizadas para mostrar la ventana modal, isConfirm=true (Muestra 2 botones Aceptar, Cancelar),
-  //isConfirm=false (Muestra solo un botón Aceptar), messageModal (Mensaje que muestra la ventana Modal),
-  //includeText (Se utiliza para mostrar un textArea o no)
+  // Variables utilizadas para mostrar la ventana modal, isConfirm=true (Muestra 2 botones Aceptar, Cancelar),
+  // isConfirm=false (Muestra solo un botón Aceptar), messageModal (Mensaje que muestra la ventana Modal),
+  // includeText (Se utiliza para mostrar un textArea o no)
   isConfirm: boolean;
   includeText: boolean;
 
@@ -62,16 +62,15 @@ export class UserAccountGroupComponent implements OnInit {
 
   getTotalCols() {
     try {
-      var table = document.getElementById("myTable");
-      var trs = document.getElementsByTagName("tr");
-      var trFirst = trs[0];
-      var tds = trFirst.getElementsByTagName('th');
-      for (var i = 0; i < tds.length; i++) {
+      const table = document.getElementById('myTable');
+      const trs = document.getElementsByTagName('tr');
+      const trFirst = trs[0];
+      const tds = trFirst.getElementsByTagName('th');
+      for (let i = 0; i < tds.length; i++) {
         this.sum = this.sum + 1;
       }
-      return this.sum - 2; //se resta 2 para no tomar en cuenta las ultimas 2 columnas de la tabla (botón editar y eliminar)
-    }
-    catch (e) { throw e; }
+      return this.sum - 2; // se resta 2 para no tomar en cuenta las ultimas 2 columnas de la tabla (botón editar y eliminar)
+    } catch (e) { throw e; }
   }
 
   save() {
@@ -86,14 +85,11 @@ export class UserAccountGroupComponent implements OnInit {
          // this.groupsCheck = groups;
          this.showDialog = true;
           this.messageModal = 'The information was successfully saved';
-         
-        }
-        else
-        {
+        } else {
           this.showDialog = true;
           this.messageModal = 'Your group/groups weren\'t saved!!';
         }
-        //this.showDialog = true;
+        // this.showDialog = true;
         /* } else {
             this.messageModal = 'Your group/groups are not successfully saved!!';
             this.showDialog = true;

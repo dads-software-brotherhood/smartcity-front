@@ -9,6 +9,7 @@ import { PublicTransportService } from '../../../../../../core/services/public-t
 import { PublicTransport } from '../../../../../../core/models/public-transport';
 import { DayName } from '../../../../../../core/models/day-name';
 import { EnumEx } from '../../../../../../core/models/EnumEx';
+import { Time } from '../../../../../../core/models/time';
 
 @Component({
   selector: 'app-public-transport-manager',
@@ -20,10 +21,14 @@ export class PublicTransportManagerComponent implements OnInit {
   complexForm: FormGroup;
 
   publicTransports: Array<PublicTransport>;
-  
-  
-  dayNames: any[];
-  dayNameSelectedVal:any[];
+
+  departureTime: Time;
+  arrivalTime: Time;
+
+  dayNames: string[];
+  dayNameSelectedVal: string[];
+  name: string;
+  route: string;
   userId: string;
   userSA: boolean;
 
@@ -46,7 +51,7 @@ export class PublicTransportManagerComponent implements OnInit {
    this.dayNames = this.getDayNames();
     var options = Object.keys(DayName);
     try {
-      this.publicTransportService.getAll().subscribe(
+          this.publicTransportService.getAll().subscribe(
         publicTransports => this.publicTransports = publicTransports
       );
     } catch (e) {
@@ -122,9 +127,16 @@ export class PublicTransportManagerComponent implements OnInit {
   }
 
   search(){
-     this.showDialog = true;
-     this.dayNameSelectedVal;
-     this.messageModal = JSON.stringify(this.dayNameSelectedVal);
+    
+     try {
+          this.publicTransportService.search( this.name, this.route, this.departureTime, this.arrivalTime, this.dayNameSelectedVal).subscribe(
+        publicTransports => this.publicTransports = publicTransports
+      );
+    } catch (e) {
+      console.error('Error at retrieve data');
+      console.error(e);
+    }
+     
 
   }
   // Metodo que se utiliza para llenar el combo de FuelType, este combo se llena
@@ -141,5 +153,21 @@ export class PublicTransportManagerComponent implements OnInit {
             });
             return objs;
         } catch (e) { throw e; }
+    }
+
+    resetForm(){
+       this.arrivalTime = null;
+       this.departureTime = null;
+       this.dayNameSelectedVal = null;
+       this.name = '';
+       this.route = '';
+         try {
+          this.publicTransportService.search( this.name, this.route, this.departureTime, this.arrivalTime, this.dayNameSelectedVal).subscribe(
+        publicTransports => this.publicTransports = publicTransports
+      );
+    } catch (e) {
+      console.error('Error at retrieve data');
+      console.error(e);
+    }
     }
 }

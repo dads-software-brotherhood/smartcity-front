@@ -107,6 +107,18 @@ export class AlertService {
       });
   }
 
+  getAllByDateAlert(date: string, page: string, size: string): Observable<Array<Alert>> {
+    this.url = this.buildAlertUrl() + '/date/' + date + '/page/' + page + '/items/' + size;
+    return this.remoteConnectionService.getAsObservable(this.url, null, null, null)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error) => {
+        console.log(error);
+        return [];
+      });
+  }
+
   getAllEventsByUserAlert(page: string, size: string): Observable<Array<Alert>> {
     this.url = this.buildAlertEventsUrl() + '/page/' + page + '/items/' + size;
     return this.remoteConnectionService.getAsObservable(this.url, null, null, null)

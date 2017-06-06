@@ -12,13 +12,12 @@
         <textarea *ngIf="includeText"   type="text"  class="form-control"> </textarea>
         <hr *ngIf="includeText">
         <div class="row">
-          <div class="col">
-            <button *ngIf="!modIsConfirm" type="button"  class="btn btn-smart btn-block" data-dismiss="modal" (click)="modShowDialog = false">Accept</button>
+          <div *ngIf="!modIsConfirm" class="col">
+            <button type="button"  class="btn btn-smart btn-block" data-dismiss="modal" (click)="modShowDialog = false">Accept</button>
           </div>
-          <div class="col">
-
+          <div *ngIf="modIsConfirm" class="col">
+           <button  type="button"  class="btn btn-smart btn-block" data-dismiss="modal" (click)="redirect()">Accept</button>        
           </div>
-           <button *ngIf="modIsConfirm" type="button"  class="btn btn-smart btn-block" data-dismiss="modal" (click)="redirect()">Accept</button>        
         </div>   
         </modal-popup>
         <!-- ************************************************* -->

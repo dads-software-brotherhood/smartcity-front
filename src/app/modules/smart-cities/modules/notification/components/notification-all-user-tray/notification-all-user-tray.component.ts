@@ -35,8 +35,8 @@ export class NotificationAllUserTrayComponent implements OnInit {
     private page: number;
     private total: number;
     private element: any;
-    private isAll: boolean;
-    private isSearch: boolean;
+    // private isAll: boolean;
+    // private isSearch: boolean;
     private param: string;
     private instance: Paginable;
     private endInterval: number = -1;
@@ -107,8 +107,8 @@ export class NotificationAllUserTrayComponent implements OnInit {
         } else {
             this.bindTable(this.initPage, this.initSize);
             this.notificationId = this.initValue;
-            this.isAll = true;
-            this.isSearch = false;
+            // this.isAll = true;
+            // this.isSearch = false;
             this.subNotificationId = this.initValue;
             if (this.element != null) {
                 this.element.disabled = true;
@@ -256,15 +256,15 @@ export class NotificationAllUserTrayComponent implements OnInit {
 
         pagina = (page - 1).toString();
         this.page = page;
-        if (this.isAll) {
+        // if (this.isAll) {
             this.bindTable(pagina, this.initSize);
-        } else if (this.isSearch && this.notificationId !== this.initValue
-            && this.subNotificationId === this.initValue) {
-            this.getAlertsByAlertType(this.notificationId, pagina, this.initSize, false);
-        } else if (this.isSearch && this.notificationId !== this.initValue
-            && this.subNotificationId !== this.initValue) {
-            this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, pagina, this.initSize);
-        }
+        // } else if (this.isSearch && this.notificationId !== this.initValue
+        //     && this.subNotificationId === this.initValue) {
+        //     this.getAlertsByAlertType(this.notificationId, pagina, this.initSize, false);
+        // } else if (this.isSearch && this.notificationId !== this.initValue
+        //     && this.subNotificationId !== this.initValue) {
+        //     this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, pagina, this.initSize);
+        // }
     }
 
     // Evento que se lanza cuando se cambia de elemento en el combo de Tipo de Alerta
@@ -285,8 +285,8 @@ export class NotificationAllUserTrayComponent implements OnInit {
                     this.element.disabled = false;
                 } else {
                     this.element.disabled = true;
-                    this.isAll = true;
-                    this.isSearch = false;
+                    // this.isAll = true;
+                    // this.isSearch = false;
                 }
             }
             this.prepareForm();
@@ -321,8 +321,8 @@ export class NotificationAllUserTrayComponent implements OnInit {
             this.subNotificationId = this.initValue;
             this.prepareForm();
             this.element.disabled = true;
-            this.isAll = true;
-            this.isSearch = false;
+            // this.isAll = true;
+            // this.isSearch = false;
             this.bindTable(this.initPage, this.initSize);
         } catch (e) {
             this.setValuesModal('An error occurred while clearing the search controls', true, false);
@@ -331,19 +331,19 @@ export class NotificationAllUserTrayComponent implements OnInit {
     // Evento que se lanza cuando se realiza una busqueda con el botón search
     onSearch() {
         try {
-            if (this.notificationId !== this.initValue) {
-                this.isAll = false;
-                this.isSearch = true;
-            } else {
-                this.isAll = true;
-                this.isSearch = false;
-            }
+            // if (this.notificationId !== this.initValue) {
+            //     this.isAll = false;
+            //     this.isSearch = true;
+            // } else {
+            //     this.isAll = true;
+            //     this.isSearch = false;
+            // }
 
             if (this.notificationId !== this.initValue && this.subNotificationId === this.initValue) {
                 this.getAlertsByAlertType(this.notificationId, this.initPage, this.initSize, false);
             } else if (this.notificationId !== this.initValue && this.subNotificationId !== this.initValue) {
                 this.getAlertsByAlertAndEvent(this.notificationId, this.subNotificationId, this.initPage, this.initSize);
-            } else if (this.isAll) {
+            } else {
                 this.bindTable(this.initPage, this.initSize);
             }
 

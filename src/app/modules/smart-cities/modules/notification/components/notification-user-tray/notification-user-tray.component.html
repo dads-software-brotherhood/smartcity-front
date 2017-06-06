@@ -15,8 +15,8 @@
         <textarea *ngIf="includeText" type="text" class="form-control"> </textarea>
         <hr *ngIf="includeText">
         <div class="row">
-          <div class="col">
-            <button *ngIf="isConfirm" type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
+          <div *ngIf="isConfirm" class="col">
+            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" (click)="showDialog = false">Cancel</button>
           </div>
           <div class="col">
             <button type="button" class="btn btn-smart btn-block" data-dismiss="modal" (click)="confirmDelete()">Accept</button>
@@ -70,31 +70,32 @@
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
-            <table id="myTable" class="table ">
-      <thead class="thead-default">
-          <tr>
-              <th>Location</th>
-              <th>Type alert</th>
-              <th>Subtype alert</th>
-              <th>Date</th>
-              <th>Description</th>
-              <th></th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let alert of alerts | paginate: { itemsPerPage: 10, currentPage: page, totalItems: total }">
-              <td>{{alert.locationDescription}}</td>
-              <td>{{alert.alertType}}</td>
-              <td>{{alert.eventObserved}}</td>
-              <td>{{alert.dateTime}}</td>
-              <td>{{alert.description}}</td>
-              <td>
-                <!--<button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top"></button>-->
-              </td>
-          </tr>
-      </tbody>
-  </table>
-            
+            <div class="no-more-tables">
+              <table id="myTable" class="table ">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Location</th>
+                        <th>Type alert</th>
+                        <th>Subtype alert</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let alert of alerts | paginate: { itemsPerPage: 10, currentPage: page, totalItems: total }">
+                        <td data-title="Location">{{alert.locationDescription}}</td>
+                        <td data-title="Type alert">{{alert.alertType}}</td>
+                        <td data-title="Subtype alert">{{alert.eventObserved}}</td>
+                        <td data-title="Date">{{alert.dateTime}}</td>
+                        <td data-title="Description">{{alert.description}}</td>
+                        <td>
+                          <!--<button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top"></button>-->
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
 

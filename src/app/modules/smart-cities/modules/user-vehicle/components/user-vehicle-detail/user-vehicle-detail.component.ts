@@ -22,6 +22,7 @@ export class UserVehicleDetailComponent implements OnInit {
     public title: string;
     public subTitle: string;
     private vehicleTypes: VehicleType[];
+    private vehiclesTypes: VehicleType[];
     private fuelTypes: any[];
     private vehicles: Vehicle[] = [];
     private vehiclesCharge: Vehicle[] = [];
@@ -108,8 +109,16 @@ export class UserVehicleDetailComponent implements OnInit {
         let indice: number;
         indice = 0;
         const obj = <HTMLSelectElement>document.getElementById('vehicleType');
-        indice = obj.selectedIndex;
-        this.type = obj.options[indice].innerText;
+        indice = Number(obj.value.substring(3,obj.value.length));
+//        this.type = obj.options[indice].innerText;
+        this._serviceVehicleType.getAll().subscribe(
+                vehiclesTypes => {
+                    this.vehiclesTypes = vehiclesTypes;
+                    this.type = this.vehicleTypes.find(val => val.id === indice).name;
+                    this.vehiclesTypes = [];
+                },
+                error => this.messageModal = <any>error
+            );
     }
 
     // Metodo que se utiliza para llenar los datos del vehiculo cuando se esta en modo de

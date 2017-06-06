@@ -57,31 +57,35 @@
     <div class="row">
       <div class="col-md-12">
         <div class="table-responsive">
-          <table id="myTable" class="table ">
-            <thead class="thead-default">
-              <tr>
-                <th>Current groups list</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let group of groups | paginate: { itemsPerPage: 4, currentPage: p }">
-                <td>{{group.group}}</td>
-                <td class="text-center btnSmall">
-                  <a [routerLink]="['/smart-cities/group/group', group.id]" class="btn btn-smart" ngbtooltip="Edit" placement="top">
-                    <i aria-hidden="true" class="fa fa-pencil"></i>
-                  </a>
-                </td>
-                <td class="text-center btnSmall">
-                  <!--<a class="btn btn-danger" ngbtooltip="Edit" placement="top">
-                  <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objgroup=group"> </i>
-                </a>-->
-                  <button aria-hidden="true" class="btn btn-danger fa fa-trash" ngbtooltip="Delete" placement="top" (click)="messageModal = 'Are you sure to delete this register of his group?';isConfirm=true;showDialog=true;Objgroup=group;"></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="no-more-tables">
+            <table id="myTable" class="table ">
+              <thead class="thead-default">
+                <tr>
+                  <th>Current groups list</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let group of groups | paginate: { itemsPerPage: 4, currentPage: p }">
+                  <td data-title="Current groups list">{{group.group}}</td>
+                  <td data-title="Edit" class="text-center btnSmall">
+                    <a [routerLink]="['/smart-cities/group/group', group.id]" class="btn btn-smart" ngbtooltip="Edit" placement="top">
+                      <i aria-hidden="true" class="fa fa-pencil"></i>
+                    </a>
+                  </td>
+                  <td data-title="Delete" class="text-center btnSmall">
+                    <!--<a class="btn btn-danger" ngbtooltip="Edit" placement="top">
+                    <i aria-hidden="true" class="fa fa-trash" (click)="showDialog=true;Objgroup=group"> </i>
+                  </a>-->
+                    <button aria-hidden="true" class="btn btn-danger" ngbtooltip="Delete" placement="top" (click)="messageModal = 'Are you sure to delete this register of his group?';isConfirm=true;showDialog=true;Objgroup=group;">
+                      <i aria-hidden="true" class="fa fa-trash"> </i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
         </div>
 

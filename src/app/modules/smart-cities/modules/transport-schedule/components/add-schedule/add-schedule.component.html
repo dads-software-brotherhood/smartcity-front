@@ -1,4 +1,7 @@
-<h2>Add transport schedule</h2>
+<h2>
+  <span *ngIf="!transportSchedule.id">Add transport schedule</span>
+  <span *ngIf="transportSchedule.id">Edit transport schedule</span>
+</h2>
 <hr class="title-hr">
 
 <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
@@ -17,34 +20,36 @@
 
   <div class="row">
     <div class="col">
-      <div class="no-more-tables">
-        <table class="table table-schedule table-hover">
-          <thead>
-            <tr>
-              <th>Weekdays</th>
-              <th>Active / inactive</th>
-              <th>Departure time *</th>
-              <th>Arrival time *</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let weekDay of transportSchedule.weekDays">
-              <td data-title="Weekdays">{{ weekDay.nameAsString }} *</td>
-              <td data-title="Active / inactive">
-                <label class="custom-control custom-checkbox">
-                  <input id="{{ weekDay.nameAsString }}-active" type="checkbox" class="custom-control-input" [formControl]="complexForm.controls[ weekDay.nameAsString + '-active']" (change)="changeActive($event)" >
-                  <span class="custom-control-indicator"></span>
-                </label>
-              </td>
-              <td data-title="Departure time">
-                <ngb-timepicker [formControl]="complexForm.controls[ weekDay.nameAsString + '-departure']" class="time-picker" [ngClass]="{'has-danger':!complexForm.controls[weekDay.nameAsString + '-departure'].valid && !complexForm.controls[weekDay.nameAsString + '-departure'].disabled}" ></ngb-timepicker>
-              </td>
-              <td data-title="Arrival time">
-                <ngb-timepicker [formControl]="complexForm.controls[ weekDay.nameAsString + '-arrival']" class="time-picker"  [ngClass]="{'has-danger':!complexForm.controls[weekDay.nameAsString + '-arrival'].valid && !complexForm.controls[weekDay.nameAsString + '-arrival'].disabled}" ></ngb-timepicker>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="table-resposive">
+        <div class="no-more-tables">
+          <table class="table table-schedule table-hover">
+            <thead>
+              <tr>
+                <th>Weekdays</th>
+                <th>Active / inactive</th>
+                <th>Departure time *</th>
+                <th>Arrival time *</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let weekDay of transportSchedule.weekDays">
+                <td data-title="Weekdays">{{ weekDay.nameAsString }} *</td>
+                <td data-title="Active / inactive">
+                  <label class="custom-control custom-checkbox">
+                    <input id="{{ weekDay.nameAsString }}-active" type="checkbox" class="custom-control-input" [formControl]="complexForm.controls[ weekDay.nameAsString + '-active']" (change)="changeActive($event)" >
+                    <span class="custom-control-indicator"></span>
+                  </label>
+                </td>
+                <td data-title="Departure time">
+                  <ngb-timepicker [formControl]="complexForm.controls[ weekDay.nameAsString + '-departure']" class="time-picker" [ngClass]="{'has-danger':!complexForm.controls[weekDay.nameAsString + '-departure'].valid && !complexForm.controls[weekDay.nameAsString + '-departure'].disabled}" ></ngb-timepicker>
+                </td>
+                <td data-title="Arrival time">
+                  <ngb-timepicker [formControl]="complexForm.controls[ weekDay.nameAsString + '-arrival']" class="time-picker"  [ngClass]="{'has-danger':!complexForm.controls[weekDay.nameAsString + '-arrival'].valid && !complexForm.controls[weekDay.nameAsString + '-arrival'].disabled}" ></ngb-timepicker>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
