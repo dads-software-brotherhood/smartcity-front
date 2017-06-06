@@ -62,12 +62,12 @@ export class GroupService {
     .catch(this.handleError);
   }
 
-  delete(id: number): Promise<boolean> {
+  delete(id: number): Promise<any> {
     const requestOptions: RequestOptions = this.buildRequestOptions();
 
     return this.http.delete(groupUrl + '/' + id, requestOptions).toPromise()
     .then((res: Response) => {
-      return res.status == 202;
+      return res;
     })
     .catch(this.handleError);
   }

@@ -57,7 +57,7 @@ export class GroupTrayComponent implements OnInit {
            this.showDialog = false; /// Close dialog
            this._service.delete(this.Objgroup.id)
              .then(res => {
-               if(res === true)
+               if(res.status == 202)
                {
                   this.isConfirm = false;
                   this.messageModal = "Your record was successfully deleted!"
@@ -68,7 +68,14 @@ export class GroupTrayComponent implements OnInit {
                else
                {
                   this.isConfirm = false;
-                  this.messageModal = "An error occurred while deleting the registry"
+                  console.log(res);
+                  if (res.error){
+                    this.messageModal = res.error;
+                  }
+                  else
+                  {
+                    this.messageModal = "An error occurred while deleting the registry"
+                  }
                   this.showDialog = true;
                }
              },
