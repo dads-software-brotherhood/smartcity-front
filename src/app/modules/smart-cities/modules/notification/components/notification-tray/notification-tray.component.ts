@@ -52,7 +52,7 @@ export class NotificationTrayComponent implements OnInit {
     private _router: Router, private _notificationService: NotificationTypeService,
     private fb: FormBuilder, private route: ActivatedRoute) {
       this.initPage = '0';
-      this.initSize = '2';
+      this.initSize = '10';
       this.initValue = '-1';
   }
 
