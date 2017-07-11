@@ -83,7 +83,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let alert of alerts | paginate: { itemsPerPage: 10, currentPage: page, totalItems: total }">
+                    <tr *ngFor="let alert of alerts | paginate: { itemsPerPage: 2, currentPage: page, totalItems: total }">
                         <td data-title="Location">{{alert.locationDescription}}</td>
                         <td data-title="Type alert">{{alert.alertType}}</td>
                         <td data-title="Subtype alert">{{alert.eventObserved}}</td>

@@ -35,8 +35,8 @@ export class NotificationUserTrayComponent implements OnInit {
   private page: number;
   private total: number;
   private element: any;
-  // private isAll: boolean;
-  // private isSearch: boolean;
+  private isAll: boolean;
+  private isSearch: boolean;
   private param: string;
   private instance: Paginable;
 
@@ -53,7 +53,7 @@ export class NotificationUserTrayComponent implements OnInit {
     private _router: Router, private _notificationService: NotificationTypeService,
     private fb: FormBuilder, private route: ActivatedRoute) {
     this.initPage = '0';
-    this.initSize = '10';
+    this.initSize = '2';
     this.initValue = '-1';
   }
 
@@ -103,7 +103,7 @@ export class NotificationUserTrayComponent implements OnInit {
   // }
 
   setPage(id: string) {
-    // if (id !== '0') {
+    if (id !== '0') {
     //   this.getAlertsByUserAlertType(id, this.initPage, this.initSize);
     //   this.notificationId = id;
     //   // this.objNotification = new NotificationType();
@@ -114,14 +114,14 @@ export class NotificationUserTrayComponent implements OnInit {
     //   //   }
     //   // }
     //   // this.subNotifications = this.objNotification.subnotifications;
-    //   this.isAll = false;
-    //   this.isSearch = true;
-    // } else {
+        this.isAll = false;
+        this.isSearch = true;
+    } else {
+          this.isAll = true;
+          this.isSearch = false;
+    }
     this.bindTable(this.initPage, this.initSize);
     this.notificationId = this.initValue;
-    // this.isAll = true;
-    // this.isSearch = false;
-    // }
     this.subNotificationId = this.initValue;
     this.dateId = '';
     if (this.element != null) {
@@ -274,25 +274,25 @@ export class NotificationUserTrayComponent implements OnInit {
 
     pagina = (page - 1).toString();
     this.page = page;
-    // if (this.notificationId !== this.initValue
-    //   && this.subNotificationId === this.initValue && this.dateId === '') {
-    //   this.getAlertsByUserAlertType(this.notificationId, pagina, this.initSize);
-    // } else if (this.notificationId !== this.initValue
-    //   && this.subNotificationId !== this.initValue && this.dateId === '') {
-    //   this.getAlertsByUserAlertAndEvent(this.notificationId, this.subNotificationId, pagina, this.initSize);
-    // } else if (this.notificationId !== this.initValue
-    //   && this.subNotificationId !== this.initValue && this.dateId !== '') {
-    //   this.getAlertsByuserAlertSubAlertDate(this.notificationId, this.subNotificationId,
-    //     this.dateId, pagina, this.initSize);
-    // } else if (this.notificationId !== this.initValue
-    //   && this.subNotificationId === this.initValue && this.dateId !== '') {
-    //   this.getAlertsByUserAlertDate(this.notificationId, this.dateId, pagina, this.initSize);
-    // } else if (this.notificationId === this.initValue
-    //   && this.subNotificationId === this.initValue && this.dateId !== '') {
-    //   this.getAlertsByDate(this.dateId, pagina, this.initSize);
-    // } else {
+    if (this.notificationId !== this.initValue
+      && this.subNotificationId === this.initValue && this.dateId === '') {
+      this.getAlertsByUserAlertType(this.notificationId, pagina, this.initSize);
+    } else if (this.notificationId !== this.initValue
+      && this.subNotificationId !== this.initValue && this.dateId === '') {
+      this.getAlertsByUserAlertAndEvent(this.notificationId, this.subNotificationId, pagina, this.initSize);
+    } else if (this.notificationId !== this.initValue
+      && this.subNotificationId !== this.initValue && this.dateId !== '') {
+      this.getAlertsByuserAlertSubAlertDate(this.notificationId, this.subNotificationId,
+        this.dateId, pagina, this.initSize);
+    } else if (this.notificationId !== this.initValue
+      && this.subNotificationId === this.initValue && this.dateId !== '') {
+      this.getAlertsByUserAlertDate(this.notificationId, this.dateId, pagina, this.initSize);
+    } else if (this.notificationId === this.initValue
+      && this.subNotificationId === this.initValue && this.dateId !== '') {
+      this.getAlertsByDate(this.dateId, pagina, this.initSize);
+    } else {
       this.bindTable(pagina, this.initSize);
-    // }
+    }
   }
 
   // Evento que se lanza cuando se cambia de elemento en el combo de Tipo de Alerta
@@ -313,9 +313,9 @@ export class NotificationUserTrayComponent implements OnInit {
           this.element.disabled = false;
         } else {
           this.element.disabled = true;
-          // this.isAll = true;
+          this.isAll = true;
           this.dateId = '';
-          // this.isSearch = false;
+          this.isSearch = false;
         }
       }
       this.prepareForm();
@@ -363,8 +363,8 @@ export class NotificationUserTrayComponent implements OnInit {
       this.dateId = '';
       this.prepareForm();
       this.element.disabled = true;
-      // this.isAll = true;
-      // this.isSearch = false;
+      this.isAll = true;
+      this.isSearch = false;
       this.bindTable(this.initPage, this.initSize);
     } catch (e) {
       this.setValuesModal('An error occurred while clearing the search controls', true, false);
@@ -374,13 +374,13 @@ export class NotificationUserTrayComponent implements OnInit {
   // Evento que se lanza cuando se realiza una busqueda con el botón search
   onSearch() {
     try {
-      // if (this.notificationId !== this.initValue || this.dateId !== '') {
-      //   this.isAll = false;
-      //   this.isSearch = true;
-      // } else {
-      //   this.isAll = true;
-      //   this.isSearch = false;
-      // }
+      if (this.notificationId !== this.initValue || this.dateId !== '') {
+         this.isAll = false;
+         this.isSearch = true;
+      } else {
+         this.isAll = true;
+         this.isSearch = false;
+      }
 
       if (this.notificationId !== this.initValue && this.subNotificationId === this.initValue
         && this.dateId === '') {
